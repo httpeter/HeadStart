@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+
+    <p:dashboard id="dashboard" model="#{homeController.dashboardModel}">
+
+
+
+
+
+
+        <p:panel id="dashboardInfoPanel" header="#{labels.welcomePanelHeader} 
+                 #{labels.organizationName}" styleClass="myDashboardPanel">
+
+            <h:outputText value="#{labels.welcomeMSG}" escape="false"/>
+
+            <!--Dit moet weg-->
+            <h:outputText value="#{labels.devToDo}" escape="false"/>
+            <!--einde-->
+
+        </p:panel>
+
+
+
+
+
+
+
+        <p:panel id="dashboardSubscriptionPanel" 
+                 styleClass="myDashboardPanel" 
+                 header="#{labels.projectSubscriptionNewPanelHeader}"
+                 collapsed="true" toggleable="true">
+
+            <h:outputText value="#{labels.projectSubscriptionNewMSG}" escape="false"/>
+
+            <p:separator/>
+
+            <h:panelGrid columns="2">
+
+                <p:inputText id="inputName" >
+                    <p:watermark value="testing" for="inputName"/>
+                </p:inputText>
+
+            </h:panelGrid>
+
+        </p:panel>
+
+
+
+
+
+
+
+
+    </p:dashboard>
+
+
+</ui:composition>
