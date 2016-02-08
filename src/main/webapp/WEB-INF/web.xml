@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    
+    
+    
+    <!--Change to 'Production' when going live-->
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    
+    
+     
+    <!--Uncomment for production
+    <context-param>
+        <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
+        <param-value>-1</param-value>
+    </context-param>
+    -->
+    
+    
+    <!--You have to change this to a non-commercial version-->
+    <!--Or uncomment the bootstrap theme below-->
+<!--    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>metroui</param-value>
+    </context-param>-->
+    
+    
+    <!--
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>bootstrap</param-value>
+    </context-param>
+    -->
+    
+    
+    
+    <context-param>
+        <param-name>labelFile</param-name>
+        <param-value>com.furore.util.properties.labelsNL</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>sixteenBitEncryptionKey</param-name>
+        <param-value>secret0000000000</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>sixteenBitEncryptionSalt</param-name>
+        <param-value>confusing0000000</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>compositionsDir</param-name>
+        <param-value>composition/</param-value>
+    </context-param>
+            
+    <context-param>
+        <param-name>primefaces.FONT_AWESOME</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>client</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>cachingAllowed</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>compression</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <!--PF Push            
+    <servlet>
+        <servlet-name>Push Servlet</servlet-name>
+        <servlet-class>org.primefaces.push.PushServlet</servlet-class>
+        <async-supported>true</async-supported>
+    </servlet>
+    
+    
+    <servlet-mapping>
+        <servlet-name>Push Servlet</servlet-name>
+        <url-pattern>/primepush/*</url-pattern>
+    </servlet-mapping>
+    -->                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    		
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            20
+        </session-timeout>
+        <tracking-mode>
+            COOKIE
+        </tracking-mode>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+    </welcome-file-list>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/resources/errorpages/404.xhtml</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/resources/errorpages/500.xhtml</location>
+    </error-page>
+    
+</web-app>
+
+
+

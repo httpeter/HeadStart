@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpa:entity-mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" pkg="org.op.data.model" persistenceUnitName="OpenProvaPU" xs="false" id="_144967529139275" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd">
+    <jpa:diagram id="_144967529139276">
+        <plane elementRef="_144967529139275" id="_144967529139277_p"/>
+    </jpa:diagram>
+</jpa:entity-mappings>

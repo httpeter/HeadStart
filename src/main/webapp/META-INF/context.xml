@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" path="/web">
+  <!--<Resource auth="Container" driverClassName="org.sqlite.JDBC" maxActive="20" maxIdle="10" maxWait="-1" name="orkestdb" password="" type="javax.sql.DataSource" url="jdbc:sqlite:c:\Temp\orkest.db" username=""/>-->
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="opds" password="keuris" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/db_openprova?zeroDateTimeBehavior=convertToNull" username="vuko"/>
+</Context>
