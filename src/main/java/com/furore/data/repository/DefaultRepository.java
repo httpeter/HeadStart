@@ -1,7 +1,7 @@
 // This code covered by the Apache2 License: http://www.apache.org/licenses/LICENSE-2.0
 // You are free to use it for your own good as long as it doesn't hurt anybody.
 // For questions or suggestions please contact me at httpeter@gmail.com
-package com.furore.data.repository;
+package org.op.data.repository;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,26 +12,41 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+/**
+ * Simple extendable repository for use with JPA2 offering basic list retrieval
+ * en persistence functionalities. Requires the name of the used Persistence
+ * Unit.
+ *
+ */
 public class DefaultRepository implements Serializable
 {
 
+    private static DefaultRepository instance = null;
+
     private static final Logger logger = Logger.getLogger(DefaultRepository.class
             .getName());
+    private static final long serialVersionUID = 7086626098229281352L;
 
-    private EntityManagerFactory emf;
+    private static EntityManagerFactory emf;
 
     private EntityManager em;
 
 
 
-    //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
-    public EntityManagerFactory getEmf()
+    public static DefaultRepository getInstance(String puName)
     {
-        return emf;
+        if (instance == null)
+        {
+            instance = new DefaultRepository();
+            instance.setEmf(Persistence.createEntityManagerFactory(puName));
+            instance.setEm(emf.createEntityManager());
+        }
+        return instance;
     }
 
 
 
+    //<editor-fold defaultstate="collapsed" desc="'stupid'Getters & Setters">
     public void setEmf(EntityManagerFactory emf)
     {
         this.emf = emf;
@@ -55,21 +70,6 @@ public class DefaultRepository implements Serializable
 
 
     /**
-     * Simple extendable repository for use with JPA2 offering basic list
-     * retrieval en persistence functionalities. Requires the name of the used
-     * Persistence Unit.
-     *
-     * @param persistenceUnitName
-     */
-    public DefaultRepository(String persistenceUnitName)
-    {
-        emf = Persistence.createEntityManagerFactory(persistenceUnitName);
-        em = emf.createEntityManager();
-    }
-
-
-
-    /**
      * Checking whether Entity Manager and Entity Manager Factory are open. made
      * public so that it can be used by classes that extend DefaultRepository.
      *
@@ -78,15 +78,15 @@ public class DefaultRepository implements Serializable
      */
     public boolean emIsOpen()
     {
-        if (!emf.isOpen())
+        if (!instance.emf.isOpen())
         {
             logger.warning("EMF is closed!");
         }
-        if (!em.isOpen())
+        if (!instance.em.isOpen())
         {
             logger.warning("EM is closed!");
         }
-        return emf.isOpen() && em.isOpen();
+        return instance.emf.isOpen() && instance.em.isOpen();
     }
 
 
@@ -101,21 +101,21 @@ public class DefaultRepository implements Serializable
      */
     public boolean persisted(Object object)
     {
-        if (emIsOpen())
+        if (instance.emIsOpen())
         {
             try
             {
-                em.getTransaction().begin();
-                em.persist(object);
-                em.getTransaction().commit();
-                em.clear();
+                instance.em.getTransaction().begin();
+                instance.em.persist(object);
+                instance.em.getTransaction().commit();
+                instance.em.clear();
                 return true;
             } catch (Exception e)
             {
                 logger.log(Level.WARNING, e.getCause().getMessage());
                 try
                 {
-                    em.getTransaction().rollback();
+                    instance.em.getTransaction().rollback();
                 } catch (Exception e1)
                 {
                     logger.log(Level.WARNING, e1.getCause().getMessage());
@@ -139,9 +139,9 @@ public class DefaultRepository implements Serializable
      */
     public List getResultList(Class c)
     {
-        if (emIsOpen())
+        if (instance.emIsOpen())
         {
-            TypedQuery q = em.createQuery("select o from "
+            TypedQuery q = instance.em.createQuery("select o from "
                     + c.getSimpleName()
                     + " o", c);
             return q.getResultList();
@@ -161,18 +161,18 @@ public class DefaultRepository implements Serializable
      */
     public boolean deleted(Object object)
     {
-        if (emIsOpen())
+        if (instance.emIsOpen())
         {
-            em.getTransaction().begin();
-            em.remove(object);
-            em.getTransaction()
+            instance.em.getTransaction().begin();
+            instance.em.remove(object);
+            instance.em.getTransaction()
                     .commit();
-            em.clear();
+            instance.em.clear();
             return true;
         } else
         {
             System.out.println("EntityManagerFactory or EntityManager are closed");
-            em.getTransaction()
+            instance.em.getTransaction()
                     .rollback();
             return false;
         }
@@ -187,11 +187,11 @@ public class DefaultRepository implements Serializable
      */
     public void close()
     {
-        if (emIsOpen())
+        if (instance.emIsOpen())
         {
-            em.clear();
-            em.close();
-            emf.close();
+            instance.em.clear();
+            instance.em.close();
+            instance.emf.close();
         }
     }
 
