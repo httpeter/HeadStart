@@ -1,8 +1,12 @@
-package com.furore.controller.compositon;
+package org.httpeter.controller.compositon;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.httpeter.data.repository.DefaultRepository;
+import org.httpeter.entities.Products;
 import org.primefaces.model.DashboardColumn;
 import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
@@ -17,8 +21,7 @@ import org.primefaces.model.DefaultDashboardModel;
 public class HomeController implements Serializable
 {
 
-    private DashboardModel dashboardModel;
-
+    private DashboardModel dashboardModel;    
 
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
@@ -50,6 +53,13 @@ public class HomeController implements Serializable
         dashboardModel.addColumn(column1);
         dashboardModel.addColumn(column2);
 
+    }
+    
+    public List getProducts()
+    {        
+        System.out.println(DefaultRepository.getInstance("PU").getResultList(Products.class));
+    
+        return new ArrayList<Products>();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.furore.controller;
+package org.httpeter.controller;
 
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;

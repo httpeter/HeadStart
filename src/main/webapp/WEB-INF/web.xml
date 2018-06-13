@@ -38,7 +38,7 @@
     
     <context-param>
         <param-name>labelFile</param-name>
-        <param-value>com.furore.util.properties.labelsNL</param-value>
+        <param-value>org.httpeter.util.properties.labelsNL</param-value>
     </context-param>
     
     <context-param>
