@@ -18,8 +18,7 @@ import javax.persistence.TypedQuery;
  * Unit.
  *
  */
-public class DefaultRepository implements Serializable
-{
+public class DefaultRepository implements Serializable {
 
     private static DefaultRepository instance = null;
 
@@ -31,43 +30,34 @@ public class DefaultRepository implements Serializable
 
     private EntityManager em;
 
+    public static DefaultRepository getInstance(String puName) {
+        if (instance == null) {
+            try {
 
-
-    public static DefaultRepository getInstance(String puName)
-    {
-        if (instance == null)
-        {
-            instance = new DefaultRepository();
-            instance.setEmf(Persistence.createEntityManagerFactory(puName));
-            instance.setEm(emf.createEntityManager());
+                instance = new DefaultRepository();
+                instance.setEmf(Persistence.createEntityManagerFactory(puName));
+                instance.setEm(emf.createEntityManager());
+                return instance;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        return instance;
+        return null;
     }
 
-
-
-    //<editor-fold defaultstate="collapsed" desc="'stupid'Getters & Setters">
-    public void setEmf(EntityManagerFactory emf)
-    {
+//<editor-fold defaultstate="collapsed" desc="'stupid'Getters & Setters">
+    public void setEmf(EntityManagerFactory emf) {
         this.emf = emf;
     }
 
-
-
-    public EntityManager getEm()
-    {
+    public EntityManager getEm() {
         return em;
     }
 
-
-
-    public void setEm(EntityManager em)
-    {
+    public void setEm(EntityManager em) {
         this.em = em;
     }
 //</editor-fold>
-
-
 
     /**
      * Checking whether Entity Manager and Entity Manager Factory are open. made
@@ -76,20 +66,15 @@ public class DefaultRepository implements Serializable
      * @return
      *
      */
-    public boolean emIsOpen()
-    {
-        if (!instance.emf.isOpen())
-        {
+    public boolean emIsOpen() {
+        if (!instance.emf.isOpen()) {
             logger.warning("EMF is closed!");
         }
-        if (!instance.em.isOpen())
-        {
+        if (!instance.em.isOpen()) {
             logger.warning("EM is closed!");
         }
         return instance.emf.isOpen() && instance.em.isOpen();
     }
-
-
 
     /**
      * Saving an object to the database. If EntityManager or
@@ -99,37 +84,28 @@ public class DefaultRepository implements Serializable
      * @param object
      * @return
      */
-    public boolean persisted(Object object)
-    {
-        if (instance.emIsOpen())
-        {
-            try
-            {
+    public boolean persisted(Object object) {
+        if (instance.emIsOpen()) {
+            try {
                 instance.em.getTransaction().begin();
                 instance.em.persist(object);
                 instance.em.getTransaction().commit();
                 instance.em.clear();
                 return true;
-            } catch (Exception e)
-            {
+            } catch (Exception e) {
                 logger.log(Level.WARNING, e.getCause().getMessage());
-                try
-                {
+                try {
                     instance.em.getTransaction().rollback();
-                } catch (Exception e1)
-                {
+                } catch (Exception e1) {
                     logger.log(Level.WARNING, e1.getCause().getMessage());
                 }
                 return false;
             }
-        } else
-        {
+        } else {
             System.out.println("EntityManagerFactor or EntityManager are closed");
             return false;
         }
     }
-
-
 
     /**
      * Retrieve a list of objects according to their type from the DB.
@@ -137,10 +113,8 @@ public class DefaultRepository implements Serializable
      * @param c
      * @return
      */
-    public List getResultList(Class c)
-    {
-        if (instance.emIsOpen())
-        {
+    public List getResultList(Class c) {
+        if (instance.emIsOpen()) {
             TypedQuery q = instance.em.createQuery("select o from "
                     + c.getSimpleName()
                     + " o", c);
@@ -148,8 +122,6 @@ public class DefaultRepository implements Serializable
         }
         return null;
     }
-
-
 
     /**
      * Delete a specific object from the DB. Does not work with objects
@@ -159,18 +131,15 @@ public class DefaultRepository implements Serializable
      * @param object
      * @return
      */
-    public boolean deleted(Object object)
-    {
-        if (instance.emIsOpen())
-        {
+    public boolean deleted(Object object) {
+        if (instance.emIsOpen()) {
             instance.em.getTransaction().begin();
             instance.em.remove(object);
             instance.em.getTransaction()
                     .commit();
             instance.em.clear();
             return true;
-        } else
-        {
+        } else {
             System.out.println("EntityManagerFactory or EntityManager are closed");
             instance.em.getTransaction()
                     .rollback();
@@ -179,16 +148,12 @@ public class DefaultRepository implements Serializable
 
     }
 
-
-
     /**
      * Method for closing the EntityManager and the EntityManagerFactory. If
      * closed, other methods persistence breaks.
      */
-    public void close()
-    {
-        if (instance.emIsOpen())
-        {
+    public void close() {
+        if (instance.emIsOpen()) {
             instance.em.clear();
             instance.em.close();
             instance.emf.close();

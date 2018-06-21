@@ -22,79 +22,38 @@
 
 
 
+
+        <p:panel id="testPanel">   
+         
+            <p:commandButton value="test" actionListener="#{homeController.test()}"/>
+            
+            <br/>
+
+            <p:dataTable value="#{homeController.persons}" var="item">
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="FirstName"/>
+                    </f:facet>
+                    <h:outputText value="#{item.firstName}"/>
+                </p:column>               
+            </p:dataTable>
+        </p:panel>
+
+
     </p:dashboard>
 
 
-    
-    
-    
-            
-        <p:dataTable value="#{homeController.products}" var="item">
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Productid"/>
-                    </f:facet>
-                    <h:outputText value="#{item.productid}"/>
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Productname"/>
-                    </f:facet>
-                    <h:outputText value="#{item.productname}"/>
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Supplierid"/>
-                    </f:facet>
-                    <h:outputText value="#{item.supplierid}"/>
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Categoryid"/>
-                    </f:facet>
-                    <h:outputText value="#{item.categoryid}"/>
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Quantityperunit"/>
-                    </f:facet>
-                    <h:outputText value="#{item.quantityperunit}"/>
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Unitprice"/>
-                    </f:facet>
-                    <h:outputText value="#{item.unitprice}"/>
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Unitsinstock"/>
-                    </f:facet>
-                    <h:outputText value="#{item.unitsinstock}"/>
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Unitsonorder"/>
-                    </f:facet>
-                    <h:outputText value="#{item.unitsonorder}"/>
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Reorderlevel"/>
-                    </f:facet>
-                    <h:outputText value="#{item.reorderlevel}"/>
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Discontinued"/>
-                    </f:facet>
-                    <h:outputText value="#{item.discontinued}"/>
-                </p:column>
-            </p:dataTable>
-  
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
 
 
 
