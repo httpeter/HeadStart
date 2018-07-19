@@ -6,7 +6,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.httpeter.data.repository.DefaultRepository;
-import org.httpeter.entities.Person;
+import org.httpeter.entities.Views;
 import org.primefaces.model.DashboardColumn;
 import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
@@ -20,7 +20,9 @@ import org.primefaces.model.DefaultDashboardModel;
 @ViewScoped
 public class HomeController implements Serializable {
 
-    private DashboardModel dashboardModel;    
+    private DashboardModel dashboardModel;
+
+    private DefaultRepository db = DefaultRepository.getInstance("PU");
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
     public DashboardModel getDashboardModel() {
@@ -44,14 +46,9 @@ public class HomeController implements Serializable {
 
     }
 
-    public List getPersons() {
-        List<Person> pl = new ArrayList();                              
-        return pl;
-    }
-    
-    public void test()
-    {
-        System.out.println(DefaultRepository.getInstance("PU").getResultList(Person.class));
+    public List<Views> getViews() {
+        List<Views> views = db.getResultList(Views.class);        
+        return views;
     }
 
 }

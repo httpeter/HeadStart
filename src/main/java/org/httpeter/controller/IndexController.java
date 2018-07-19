@@ -2,103 +2,38 @@ package org.httpeter.controller;
 
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
 @ManagedBean
 @ViewScoped
-public class IndexController implements Serializable
-{
+public class IndexController implements Serializable {
 
-    private final FacesContext facesContext;
+    @ManagedProperty(value = "#{sessionController}")
+    private SessionController sessionController;
 
-    private final String compositionsDir;
-
-    private final boolean developmentStage;
-
-    private String labelFile,
-            currentComposition;
-
-
-
-    //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
-    public boolean isDevelopmentStage()
-    {
-        return developmentStage;
+    //<editor-fold defaultstate="collapsed" desc="comment">
+    public SessionController getSessionController() {
+        return sessionController;
     }
 
-
-
-    public String getCompositionsDir()
-    {
-        return compositionsDir;
+    public void setSessionController(SessionController sessionController) {
+        this.sessionController = sessionController;
     }
-
-
-
-    public String getCurrentComposition()
-    {
-        return currentComposition;
-    }
-
-
-
-    public void setCurrentComposition(String currentComposition)
-    {
-        this.currentComposition = currentComposition;
-    }
-
-
-
-    public String getLabelFile()
-    {
-        return labelFile;
-    }
-
-
-
-    public void setLabelFile(String labelFile)
-    {
-        this.labelFile = labelFile;
-    }
-
 //</editor-fold>
 
+    public String getCurrentComposition() {
 
-    public IndexController()
-    {
-        facesContext = FacesContext.getCurrentInstance();
-
-        developmentStage = facesContext.getApplication()
-                .getProjectStage()
-                .toString()
-                .equalsIgnoreCase("development");
-
-        labelFile = facesContext.getExternalContext()
-                .getInitParameter("labelFile");
-
-        compositionsDir = facesContext.getExternalContext()
-                .getInitParameter("compositionsDir");
-
-        this.navigate();
-    }
-
-
-
-    private void navigate()
-    {
-        String p = facesContext.getExternalContext()
+        String p = sessionController.getFacesContext()
+                .getExternalContext()
                 .getRequestParameterMap()
                 .get("p");
 
-        if (p == null)
-        {
+        if (p == null) {
             p = "home";
         }
 
-        this.currentComposition = compositionsDir
-                + p
-                + ".xhtml";
+        return sessionController.getCompositionsDir() + p + ".xhtml";
     }
 
 }

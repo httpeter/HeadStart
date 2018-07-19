@@ -25,16 +25,14 @@
 
         <p:panel id="testPanel">   
          
-            <p:commandButton value="test" actionListener="#{homeController.test()}"/>
-            
-            <br/>
+           
 
-            <p:dataTable value="#{homeController.persons}" var="item">
+            <p:dataTable value="#{homeController.views}" var="item">
                 <p:column>
                     <f:facet name="header">
-                        <h:outputText value="FirstName"/>
+                        <h:outputText value="View Name"/>
                     </f:facet>
-                    <h:outputText value="#{item.firstName}"/>
+                    <h:outputText value="#{item.name}"/>
                 </p:column>               
             </p:dataTable>
         </p:panel>

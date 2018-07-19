@@ -33,7 +33,6 @@ public class DefaultRepository implements Serializable {
     public static DefaultRepository getInstance(String puName) {
         if (instance == null) {
             try {
-
                 instance = new DefaultRepository();
                 instance.setEmf(Persistence.createEntityManagerFactory(puName));
                 instance.setEm(emf.createEntityManager());
@@ -41,8 +40,8 @@ public class DefaultRepository implements Serializable {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        return null;
+        }        
+        return instance;
     }
 
 //<editor-fold defaultstate="collapsed" desc="'stupid'Getters & Setters">

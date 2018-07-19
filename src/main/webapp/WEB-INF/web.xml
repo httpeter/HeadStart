@@ -19,22 +19,10 @@
     -->
     
     
-    <!--You have to change this to a non-commercial version-->
-    <!--Or uncomment the bootstrap theme below-->
-<!--    <context-param>
-        <param-name>primefaces.THEME</param-name>
-        <param-value>metroui</param-value>
-    </context-param>-->
-    
-    
-    <!--
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>bootstrap</param-value>
-    </context-param>
-    -->
-    
-    
+        <param-value>omega</param-value>
+    </context-param> 
     
     <context-param>
         <param-name>labelFile</param-name>
