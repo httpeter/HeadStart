@@ -6,7 +6,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.httpeter.data.repository.DefaultRepository;
-import org.httpeter.entities.Views;
+import org.httpeter.entities.Person;
 import org.primefaces.model.DashboardColumn;
 import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
@@ -46,8 +46,9 @@ public class HomeController implements Serializable {
 
     }
 
-    public List<Views> getViews() {
-        List<Views> views = db.getResultList(Views.class);        
+    public List<Person> getPersons() {
+        List<Person> views = db.getResultList(Person.class);        
+//        List<Person> views = new ArrayList();
         return views;
     }
 

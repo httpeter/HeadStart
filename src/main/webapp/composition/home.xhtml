@@ -27,12 +27,18 @@
          
            
 
-            <p:dataTable value="#{homeController.views}" var="item">
+            <p:dataTable value="#{homeController.persons}" var="person">
                 <p:column>
                     <f:facet name="header">
-                        <h:outputText value="View Name"/>
+                        <h:outputText value="First Name"/>
                     </f:facet>
-                    <h:outputText value="#{item.name}"/>
+                    <h:outputText value="#{person.firstName}"/>
+                </p:column>               
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Last Name"/>
+                    </f:facet>
+                    <h:outputText value="#{person.lastName}"/>
                 </p:column>               
             </p:dataTable>
         </p:panel>
