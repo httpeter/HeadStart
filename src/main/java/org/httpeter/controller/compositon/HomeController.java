@@ -1,13 +1,13 @@
 package org.httpeter.controller.compositon;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import org.httpeter.controller.SessionController;
 import org.httpeter.entities.Person;
+import org.httpeter.util.FMessage;
 import org.primefaces.model.DashboardColumn;
 import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
@@ -22,19 +22,19 @@ import org.primefaces.model.DefaultDashboardModel;
 public class HomeController implements Serializable {
 
     @ManagedProperty(value = "#{sessionController}")
-    private SessionController sessionController;
+    private SessionController session;
 
     private DashboardModel dashboardModel;
 
     private List persons;
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
-    public SessionController getSessionController() {
-        return sessionController;
+    public SessionController getSession() {
+        return session;
     }
 
-    public void setSessionController(SessionController sessionController) {
-        this.sessionController = sessionController;
+    public void setSession(SessionController session) {
+        this.session = session;
     }
 
     public DashboardModel getDashboardModel() {
@@ -66,7 +66,11 @@ public class HomeController implements Serializable {
     }
 
     public void loadPersons() {
-        persons = sessionController.getDB().getResultList(Person.class);
+        persons = session.getDB().getResultList(Person.class);
+        if (persons != null) {
+            FMessage.info("DB connection established, persons loaded.");
+
+        }
     }
 
 }

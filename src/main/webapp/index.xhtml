@@ -43,8 +43,8 @@
 
         <title>#{labels.appTitle} - #{labels.organizationName}</title>
 
-       
-        
+
+
     </h:head>
 
 
@@ -55,38 +55,29 @@
     <h:body styleClass="myBody">
 
 
-        
-
-
 
         <h:form id="mainForm" styleClass="myForm">
 
-            <p:growl id="growl" autoUpdate="true"/>
+
+            <p:growl id="growl"/>
+
 
             <p:sticky target="menu"/>
-
-
-
-
-
 
             <p:menubar id="menu">
 
                 <p:menuitem value="#{labels.menuItemHome}" 
                             icon="fa fa-home"
                             url="?p=home"/>
+
+                <p:menuitem value="#{labels.menuItemNotify}" 
+                            icon="fa fa-star"
+                            url="?p=notify"/>
             </p:menubar>
 
 
 
-
-
-
-
             <p:spacer/>
-
-
-
 
 
 
@@ -125,15 +116,7 @@
 
 
 
-
-
-
-
-
         </h:form>
-
-
-
 
 
     </h:body>
