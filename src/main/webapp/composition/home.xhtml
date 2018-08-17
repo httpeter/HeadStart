@@ -17,6 +17,10 @@
                  #{labels.organizationName}" styleClass="myDashboardPanel">
 
             <h:outputText value="#{labels.welcomeMSG}" escape="false"/>
+            
+            <br/>
+            
+            <p:commandButton value="Personen Laden" action="#{homeController.loadPersons()}" update="testPanel"/>
 
         </p:panel>
 
@@ -27,19 +31,32 @@
          
            
 
-            <p:dataTable value="#{homeController.persons}" var="person">
-                <p:column>
+            <p:dataTable value="#{homeController.persons}" var="person" reflow="true">
+                <p:column sortBy="#{person.firstName}">
                     <f:facet name="header">
                         <h:outputText value="First Name"/>
                     </f:facet>
                     <h:outputText value="#{person.firstName}"/>
                 </p:column>               
-                <p:column>
+                <p:column sortBy="#{person.lastName}">
                     <f:facet name="header">
                         <h:outputText value="Last Name"/>
                     </f:facet>
                     <h:outputText value="#{person.lastName}"/>
-                </p:column>               
+                </p:column>
+                <p:column sortBy="#{person.age}">
+                    <f:facet name="header">
+                        <h:outputText value="Age"/>
+                    </f:facet>
+                    <h:outputText value="#{person.age}"/>
+                </p:column>
+                <p:column sortBy="#{person.gender}">
+                    <f:facet name="header">
+                        <h:outputText value="Gender"/>
+                    </f:facet>
+                    <h:outputText value="#{labels.m}" rendered="#{person.gender=='m'}"/>
+                    <h:outputText value="#{labels.f}" rendered="#{person.gender=='f'}"/>
+                </p:column>
             </p:dataTable>
         </p:panel>
 

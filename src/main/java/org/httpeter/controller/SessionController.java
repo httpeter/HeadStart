@@ -11,6 +11,7 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.httpeter.data.repository.DefaultRepository;
 
 /**
  *
@@ -25,6 +26,10 @@ public class SessionController implements Serializable {
     public FacesContext getFacesContext() {
 
         return FacesContext.getCurrentInstance();
+    }
+
+    public DefaultRepository getDB() {
+        return DefaultRepository.getInstance("PU");
     }
 
     public boolean isDevelopmentStage() {

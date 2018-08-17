@@ -4,8 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import org.httpeter.data.repository.DefaultRepository;
+import org.httpeter.controller.SessionController;
 import org.httpeter.entities.Person;
 import org.primefaces.model.DashboardColumn;
 import org.primefaces.model.DashboardModel;
@@ -20,11 +21,22 @@ import org.primefaces.model.DefaultDashboardModel;
 @ViewScoped
 public class HomeController implements Serializable {
 
+    @ManagedProperty(value = "#{sessionController}")
+    private SessionController sessionController;
+
     private DashboardModel dashboardModel;
 
-    private DefaultRepository db = DefaultRepository.getInstance("PU");
+    private List persons;
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    public SessionController getSessionController() {
+        return sessionController;
+    }
+
+    public void setSessionController(SessionController sessionController) {
+        this.sessionController = sessionController;
+    }
+
     public DashboardModel getDashboardModel() {
         return dashboardModel;
     }
@@ -32,8 +44,16 @@ public class HomeController implements Serializable {
     public void setDashboardModel(DashboardModel dashboardModel) {
         this.dashboardModel = dashboardModel;
     }
-//</editor-fold>
 
+    public List getPersons() {
+        return persons;
+    }
+
+    public void setPersons(List persons) {
+        this.persons = persons;
+    }
+
+//</editor-fold>
     public HomeController() {
         dashboardModel = new DefaultDashboardModel();
 
@@ -43,13 +63,10 @@ public class HomeController implements Serializable {
         column1.addWidget("testPanel");
 
         dashboardModel.addColumn(column1);
-
     }
 
-    public List<Person> getPersons() {
-        List<Person> views = db.getResultList(Person.class);        
-//        List<Person> views = new ArrayList();
-        return views;
+    public void loadPersons() {
+        persons = sessionController.getDB().getResultList(Person.class);
     }
 
 }
