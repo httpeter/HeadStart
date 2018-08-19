@@ -34,6 +34,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Person.findByGender", query = "SELECT p FROM Person p WHERE p.gender = :gender")})
 public class Person implements Serializable {
 
+    @Size(max = 45)
+    @Column(name = "age")
+    private String age;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,8 +50,6 @@ public class Person implements Serializable {
     @Size(max = 45)
     @Column(name = "lastName")
     private String lastName;
-    @Column(name = "age")
-    private Integer age;
     @Size(max = 45)
     @Column(name = "gender")
     private String gender;
@@ -83,13 +85,6 @@ public class Person implements Serializable {
         this.lastName = lastName;
     }
 
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
 
     public String getGender() {
         return gender;
@@ -122,6 +117,14 @@ public class Person implements Serializable {
     @Override
     public String toString() {
         return "org.httpeter.entities.Person[ id=" + id + " ]";
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
     }
     
 }

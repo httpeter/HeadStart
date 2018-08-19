@@ -28,7 +28,17 @@ public class HomeController implements Serializable {
 
     private List persons;
 
+    private Person selectedPerson;
+
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    public Person getSelectedPerson() {
+        return selectedPerson;
+    }
+
+    public void setSelectedPerson(Person selectedPerson) {
+        this.selectedPerson = selectedPerson;
+    }
+
     public SessionController getSession() {
         return session;
     }
@@ -54,7 +64,8 @@ public class HomeController implements Serializable {
     }
 
 //</editor-fold>
-    public HomeController() {
+    public HomeController() {               
+        
         dashboardModel = new DefaultDashboardModel();
 
         DashboardColumn column1 = new DefaultDashboardColumn();
@@ -65,12 +76,19 @@ public class HomeController implements Serializable {
         dashboardModel.addColumn(column1);
     }
 
-    public void loadPersons() {
+    public void loadPersons() {        
         persons = session.getDB().getResultList(Person.class);
-        if (persons != null) {
-            FMessage.info("DB connection established, persons loaded.");
-
-        }
+        selectedPerson = (Person)persons.get(0);
     }
+    
+    public void savePersons()
+    {
+       if(selectedPerson.getId()!= null &&session.getDB().persisted(selectedPerson))
+       {
+           FMessage.info(selectedPerson.getFirstName() +" "+selectedPerson.getLastName() +" Saved");
+       }       
+    }
+        
+    
 
 }
