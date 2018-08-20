@@ -5,27 +5,26 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 
-    <p:dashboard id="dashboard" model="#{homeController.dashboardModel}">
+    <p:dashboard model="#{homeController.dashboardModel}">
 
 
-
-
-
-        <p:panel id="dashboardInfoPanel" header="#{labels.welcomePanelHeader} 
+        <p:panel id="welcomePanel" header="#{labels.welcomePanelHeader} 
                  #{labels.organizationName}" styleClass="myDashboardPanel">
 
-            <h:outputText value="#{labels.welcomeMSG}" escape="false"/>
-
-            <br/>
-
-            <p:commandButton value="Personen Laden" action="#{homeController.loadPersons()}" update="@form"/>
+            <h:outputText value="#{labels.welcomeMSG}"/>                     
 
         </p:panel>
 
+        
+        <p:panel id="demoPanel" header="#{labels.demoPanelHeader}"
+                 styleClass="myDashboardPanel">   
 
+            <p:commandButton value="#{labels.btnLoadPersons}" 
+                             action="#{homeController.loadPersons()}" 
+                             update="@form"/>
 
-
-        <p:panel id="testPanel" rendered="#{homeController.persons!= null}">   
+            <br/>
+            
 
             <p:dataTable value="#{homeController.persons}" 
                          var="person" 
@@ -34,28 +33,33 @@
                          scrollHeight="300">                                                        
 
                 <p:column>
-                    <p:commandButton icon="fa fa-caret-right" update="mainForm:editPanel">
-                        <f:setPropertyActionListener value="#{person}" target="#{homeController.selectedPerson}"/>
+                    <p:commandButton icon="fa fa-caret-right" update="@form">
+                        <f:setPropertyActionListener value="#{person}" 
+                                                     target="#{homeController.selectedPerson}"/>
                     </p:commandButton>
                 </p:column>
+                
                 <p:column sortBy="#{person.firstName}">
                     <f:facet name="header">
                         <h:outputText value="First Name"/>
                     </f:facet>
                     <h:outputText value="#{person.firstName}"/>
                 </p:column>               
+                
                 <p:column sortBy="#{person.lastName}">
                     <f:facet name="header">
                         <h:outputText value="Last Name"/>
                     </f:facet>
                     <h:outputText value="#{person.lastName}"/>
                 </p:column>
+
                 <p:column sortBy="#{person.age}">
                     <f:facet name="header">
                         <h:outputText value="Age"/>
                     </f:facet>
                     <h:outputText value="#{person.age}"/>
                 </p:column>
+
                 <p:column sortBy="#{person.gender}">
                     <f:facet name="header">
                         <h:outputText value="Gender"/>
@@ -63,11 +67,12 @@
                     <h:outputText value="#{labels.m}" rendered="#{person.gender=='m'}"/>
                     <h:outputText value="#{labels.f}" rendered="#{person.gender=='f'}"/>
                 </p:column>                             
-            </p:dataTable>           
-            
-            <p:separator/>            
 
-            <p:panelGrid id="editPanel" columns="2">
+            </p:dataTable>           
+
+            <p:separator rendered="#{homeController.selectedPerson != null}"/>            
+
+            <p:panelGrid id="editPanel" columns="2" rendered="#{homeController.selectedPerson != null}">
                 <h:outputText value="First Name"/>
                 <p:inputText value="#{homeController.selectedPerson.firstName}"/>
                 <h:outputText value="Last Name"/>
@@ -80,7 +85,9 @@
                     <f:selectItem itemLabel="#{labels.f}" itemValue="f"/>
                 </p:selectOneButton>
                 <h:outputText/>
-                <p:commandButton value="Save" disabled="#{homeController.selectedPerson.id==null}" action="#{homeController.savePersons()}" update="@form"/>    
+                <p:commandButton value="Save" disabled="#{homeController.selectedPerson.id==null}" 
+                                 action="#{homeController.savePersons()}" 
+                                 update="@form"/>    
             </p:panelGrid>
 
 

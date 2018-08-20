@@ -64,15 +64,13 @@ public class HomeController implements Serializable {
     }
 
 //</editor-fold>
-    public HomeController() {               
-        
-        dashboardModel = new DefaultDashboardModel();
+    public HomeController() {                              
 
         DashboardColumn column1 = new DefaultDashboardColumn();
-
-        column1.addWidget("dashboardInfoPanel");
-        column1.addWidget("testPanel");
-
+        column1.addWidget("welcomePanel");
+        column1.addWidget("demoPanel");
+        
+        dashboardModel = new DefaultDashboardModel();
         dashboardModel.addColumn(column1);
     }
 
