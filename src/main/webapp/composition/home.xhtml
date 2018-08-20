@@ -21,7 +21,7 @@
 
             <p:commandButton value="#{labels.btnLoadPersons}" 
                              action="#{homeController.loadPersons()}" 
-                             update="@form"/>
+                             update="mainForm:demoPanel"/>
 
             <br/>
             
@@ -33,7 +33,7 @@
                          scrollHeight="300">                                                        
 
                 <p:column>
-                    <p:commandButton icon="fa fa-caret-right" update="@form">
+                    <p:commandButton icon="fa fa-caret-right" update="mainForm:editPanel">
                         <f:setPropertyActionListener value="#{person}" 
                                                      target="#{homeController.selectedPerson}"/>
                     </p:commandButton>
