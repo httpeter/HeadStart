@@ -70,8 +70,11 @@ public class HomeController implements Serializable {
         column1.addWidget("welcomePanel");
         column1.addWidget("demoPanel");
         
+        DashboardColumn column2 = new DefaultDashboardColumn();
+        
         dashboardModel = new DefaultDashboardModel();
         dashboardModel.addColumn(column1);
+        dashboardModel.addColumn(column2);
     }
 
     public void loadPersons() {        
