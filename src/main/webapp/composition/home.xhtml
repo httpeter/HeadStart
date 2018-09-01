@@ -15,7 +15,7 @@
 
         </p:panel>
 
-        
+
         <p:panel id="demoPanel" header="#{labels.demoPanelHeader}"
                  styleClass="myDashboardPanel">   
 
@@ -24,7 +24,7 @@
                              update="mainForm:demoPanel"/>
 
             <br/>
-            
+
 
             <p:dataTable value="#{homeController.persons}" 
                          var="person" 
@@ -40,14 +40,14 @@
                                                      target="#{homeController.selectedPerson}"/>
                     </p:commandButton>
                 </p:column>
-                
+
                 <p:column sortBy="#{person.firstName}">
                     <f:facet name="header">
                         <h:outputText value="First Name"/>
                     </f:facet>
                     <h:outputText value="#{person.firstName}"/>
                 </p:column>               
-                
+
                 <p:column sortBy="#{person.lastName}">
                     <f:facet name="header">
                         <h:outputText value="Last Name"/>
@@ -76,9 +76,11 @@
 
             <p:panelGrid id="editPanel" columns="2" rendered="#{homeController.selectedPerson != null}">
                 <h:outputText value="First Name"/>
-                <p:inputText value="#{homeController.selectedPerson.firstName}"/>
+                <p:inputText value="#{homeController.selectedPerson.firstName}">
+                    <p:ajax update="@parent:btnGrid" event="change"/>
+                </p:inputText>
                 <h:outputText value="Last Name"/>
-                <p:inputText value="#{homeController.selectedPerson.lastName}"/>                
+                <p:inputText value="#{homeController.selectedPerson.lastName}"/>                                    
                 <h:outputText value="Age"/>
                 <p:inputText value="#{homeController.selectedPerson.age}"/>
                 <h:outputText value="Gender"/>
@@ -87,9 +89,12 @@
                     <f:selectItem itemLabel="#{labels.f}" itemValue="f"/>
                 </p:selectOneButton>
                 <h:outputText/>
-                <p:commandButton value="Save" disabled="#{homeController.selectedPerson.id==null}" 
-                                 action="#{homeController.savePersons()}" 
-                                 update="@form"/>    
+                <h:panelGrid id="btnGrid" columns="2">
+                    <p:commandButton value="New" action="#{homeController.newPerson()}" update="editPanel"/>                   
+                    <p:commandButton value="Save" disabled="#{homeController.selectedPerson.firstName==null}" 
+                                     action="#{homeController.savePersons()}" 
+                                     update="@form"/>    
+                </h:panelGrid>                
             </p:panelGrid>
 
 

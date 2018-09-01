@@ -87,10 +87,14 @@ public class HomeController implements Serializable {
        if(selectedPerson.getId()!= null &&session.getDB().persisted(selectedPerson))
        {
            FMessage.info(selectedPerson.getFirstName() +" "+selectedPerson.getLastName() +" Saved");
-           loadPersons();
+           loadPersons();           
        }       
     }
-        
+     
+    public void newPerson()
+    {
+        selectedPerson = new Person();        
+    }
     
 
 }
