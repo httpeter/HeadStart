@@ -64,37 +64,52 @@ public class HomeController implements Serializable {
     }
 
 //</editor-fold>
-    public HomeController() {                              
+    public HomeController() {
 
         DashboardColumn column1 = new DefaultDashboardColumn();
         column1.addWidget("welcomePanel");
         column1.addWidget("demoPanel");
-        
+
         DashboardColumn column2 = new DefaultDashboardColumn();
-        
+
         dashboardModel = new DefaultDashboardModel();
         dashboardModel.addColumn(column1);
         dashboardModel.addColumn(column2);
     }
 
-    public void loadPersons() {        
+    public void loadPersons() {
         persons = session.getDB().getResultList(Person.class);
-        selectedPerson = (Person)persons.get(0);
+//        selectedPerson = (Person) persons.get(0);
+        newPerson();
     }
-    
-    public void savePersons()
-    {
-       if(selectedPerson.getId()!= null &&session.getDB().persisted(selectedPerson))
-       {
-           FMessage.info(selectedPerson.getFirstName() +" "+selectedPerson.getLastName() +" Saved");
-           loadPersons();           
-       }       
+
+    public void saveSelectedPerson() {
+        if (session.getDB().persisted(selectedPerson)) {
+            FMessage.info(selectedPerson.getFirstName()
+                    + " "
+                    + selectedPerson.getLastName()
+                    + " Saved");
+            loadPersons();
+        } else {
+            FMessage.error(session.getLabels().getProperty("msgPersonSaveError"));
+        }
     }
-     
-    public void newPerson()
-    {
-        selectedPerson = new Person();        
+
+    public void newPerson() {
+        selectedPerson = new Person();
     }
-    
+
+    public void deleteSelectedPerson() {
+        
+        if (session.getDB().deleted(selectedPerson)) {
+            FMessage.info(selectedPerson.getFirstName()
+                    + " "
+                    + selectedPerson.getLastName()
+                    + " Deleted");
+            loadPersons();
+        } else {
+            FMessage.error(session.getLabels().getProperty("msgPersonDeleteError"));
+        }
+    }
 
 }

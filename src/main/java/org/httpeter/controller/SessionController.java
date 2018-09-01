@@ -7,7 +7,12 @@ package org.httpeter.controller;
 
 ;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -42,6 +47,16 @@ public class SessionController implements Serializable {
     public String getLabelFile() {
         return getFacesContext().getExternalContext()
                 .getInitParameter("labelFile");
+    }
+
+    public Properties getLabels() {
+        Properties p = new Properties();                
+        try {
+            p.load(getClass().getClassLoader().getResourceAsStream(this.getLabelFile()+".properties"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return p;
     }
 
     public String getCompositionsDir() {

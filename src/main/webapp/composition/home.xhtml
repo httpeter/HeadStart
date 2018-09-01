@@ -19,9 +19,43 @@
         <p:panel id="demoPanel" header="#{labels.demoPanelHeader}"
                  styleClass="myDashboardPanel">   
 
-            <p:commandButton value="#{labels.btnLoadPersons}" 
-                             action="#{homeController.loadPersons()}" 
-                             update="mainForm:demoPanel"/>
+            <p:panelGrid columns="2">
+
+                <p:commandButton value="#{labels.btnLoadPersons}" 
+                                 action="#{homeController.loadPersons()}" 
+                                 update="mainForm:demoPanel"/>
+
+
+
+                <p:panelGrid id="editPanel" columns="2" rendered="#{homeController.selectedPerson != null}">
+                    <h:outputText value="First Name"/>
+                    <p:inputText value="#{homeController.selectedPerson.firstName}">
+                        <p:ajax update="@parent:btnGrid" event="change"/>
+                    </p:inputText>
+                    <h:outputText value="Last Name"/>
+                    <p:inputText value="#{homeController.selectedPerson.lastName}"/>                                    
+                    <h:outputText value="Age"/>
+                    <p:inputText value="#{homeController.selectedPerson.age}"/>
+                    <h:outputText value="Gender"/>
+                    <p:selectOneButton value="#{homeController.selectedPerson.gender}">
+                        <f:selectItem itemLabel="#{labels.m}" itemValue="m"/>
+                        <f:selectItem itemLabel="#{labels.f}" itemValue="f"/>
+                    </p:selectOneButton>
+                    <h:outputText/>
+                    <h:panelGrid id="btnGrid" columns="2">
+                        <p:commandButton value="New" 
+                                         disabled="#{homeController.selectedPerson.firstName==null}"
+                                         action="#{homeController.newPerson()}" 
+                                         update="editPanel"/>                   
+                        <p:commandButton value="Save" 
+                                         disabled="#{homeController.selectedPerson.firstName==null}" 
+                                         action="#{homeController.saveSelectedPerson()}" 
+                                         update="@form"/>    
+                    </h:panelGrid>                
+                </p:panelGrid>
+
+            </p:panelGrid>
+
 
             <br/>
 
@@ -34,8 +68,11 @@
                          scrollHeight="300"
                          liveScroll="true">                                                        
 
-                <p:column>
-                    <p:commandButton icon="fa fa-caret-right" update="mainForm:editPanel">
+                <p:column sortBy="#{person.id}">
+                    <f:facet name="header">
+                        <h:outputText value="Id"/>
+                    </f:facet>
+                    <p:commandButton value="#{person.id}" icon="fa fa-caret-right" update="mainForm:editPanel">
                         <f:setPropertyActionListener value="#{person}" 
                                                      target="#{homeController.selectedPerson}"/>
                     </p:commandButton>
@@ -68,34 +105,16 @@
                     </f:facet>
                     <h:outputText value="#{labels.m}" rendered="#{person.gender=='m'}"/>
                     <h:outputText value="#{labels.f}" rendered="#{person.gender=='f'}"/>
-                </p:column>                             
+                </p:column>     
+
+                <p:column>
+                    <p:commandButton icon="fa fa-remove" oncomplete="PF('dlgDelete').show()" update="@form">
+                        <f:setPropertyActionListener value="#{person}" 
+                                                     target="#{homeController.selectedPerson}"/>
+                    </p:commandButton>
+                </p:column>
 
             </p:dataTable>           
-
-            <p:separator rendered="#{homeController.selectedPerson != null}"/>            
-
-            <p:panelGrid id="editPanel" columns="2" rendered="#{homeController.selectedPerson != null}">
-                <h:outputText value="First Name"/>
-                <p:inputText value="#{homeController.selectedPerson.firstName}">
-                    <p:ajax update="@parent:btnGrid" event="change"/>
-                </p:inputText>
-                <h:outputText value="Last Name"/>
-                <p:inputText value="#{homeController.selectedPerson.lastName}"/>                                    
-                <h:outputText value="Age"/>
-                <p:inputText value="#{homeController.selectedPerson.age}"/>
-                <h:outputText value="Gender"/>
-                <p:selectOneButton value="#{homeController.selectedPerson.gender}">
-                    <f:selectItem itemLabel="#{labels.m}" itemValue="m"/>
-                    <f:selectItem itemLabel="#{labels.f}" itemValue="f"/>
-                </p:selectOneButton>
-                <h:outputText/>
-                <h:panelGrid id="btnGrid" columns="2">
-                    <p:commandButton value="New" action="#{homeController.newPerson()}" update="editPanel"/>                   
-                    <p:commandButton value="Save" disabled="#{homeController.selectedPerson.firstName==null}" 
-                                     action="#{homeController.savePersons()}" 
-                                     update="@form"/>    
-                </h:panelGrid>                
-            </p:panelGrid>
 
 
         </p:panel>
@@ -111,7 +130,14 @@
 
 
 
-
+    <p:dialog id="dlgDelete" header="Delete Person" widgetVar="dlgDelete" modal="true" closeOnEscape="true">
+        <br/>        
+        <h:outputText value="Delete #{homeController.selectedPerson.firstName} #{homeController.selectedPerson.lastName} ?" />        
+        <br/>
+        <br/>
+        <p:commandButton value="Yes" action="#{homeController.deleteSelectedPerson()}" oncomplete="hide()" ajax="false"/>
+        <p:commandButton value="No" onclick="hide()"/>
+    </p:dialog>
 
 
 </ui:composition>
