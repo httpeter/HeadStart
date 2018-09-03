@@ -2,6 +2,7 @@ package org.httpeter.controller.compositon;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -74,12 +75,15 @@ public class HomeController implements Serializable {
 
         dashboardModel = new DefaultDashboardModel();
         dashboardModel.addColumn(column1);
-        dashboardModel.addColumn(column2);
+        dashboardModel.addColumn(column2);                
     }
-
+    
+    
+    
+    
+    @PostConstruct
     public void loadPersons() {
         persons = session.getDB().getResultList(Person.class);
-//        selectedPerson = (Person) persons.get(0);
         newPerson();
     }
 
