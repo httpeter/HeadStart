@@ -18,7 +18,7 @@
     </context-param>
     -->
     
-    <filter>
+<!--    <filter>
         <filter-name>ExpiresFilter</filter-name>
         <filter-class>org.apache.catalina.filters.ExpiresFilter</filter-class>
         <init-param>
@@ -31,7 +31,7 @@
         <filter-name>ExpiresFilter</filter-name>
         <url-pattern>/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
-    </filter-mapping>
+    </filter-mapping>-->
     
     
     <context-param>
