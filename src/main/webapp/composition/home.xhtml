@@ -29,8 +29,7 @@
                          rowKey="#{person.id}">                                                        
 
                 <p:ajax event="rowSelect" 
-                        update="mainForm:editPanel" 
-                        onstart="PrimeFaces.scrollTo('mainForm:editPanel')"/>
+                        update="mainForm:editPanel"/>
 
                 <p:column sortBy="#{person.id}">
                     <f:facet name="header">
@@ -99,8 +98,7 @@
                     <p:commandButton value="Save" 
                                      disabled="#{homeController.selectedPerson.firstName==null}" 
                                      action="#{homeController.saveSelectedPerson()}" 
-                                     update="@form"
-                                     oncomplete="PrimeFaces.scrollTo('mainForm:demoPanel')"/>
+                                     update="@form"/>
                     <p:commandButton value="Delete" 
                                      disabled="#{homeController.selectedPerson.firstName==null}" 
                                      oncomplete="PF('dlgDelete').show()"
