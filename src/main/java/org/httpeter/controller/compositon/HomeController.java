@@ -1,6 +1,7 @@
 package org.httpeter.controller.compositon;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -18,8 +19,8 @@ import org.primefaces.model.DefaultDashboardModel;
  *
  * @author PeterH
  */
-@ManagedBean
 @ViewScoped
+@ManagedBean
 public class HomeController implements Serializable {
 
     @ManagedProperty(value = "#{sessionController}")
@@ -27,9 +28,9 @@ public class HomeController implements Serializable {
 
     private DashboardModel dashboardModel;
 
-    private List persons;
+    private List persons = new ArrayList<Person>();
 
-    private Person selectedPerson;
+    private Person selectedPerson = new Person();
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
     public Person getSelectedPerson() {
@@ -75,19 +76,23 @@ public class HomeController implements Serializable {
 
         dashboardModel = new DefaultDashboardModel();
         dashboardModel.addColumn(column1);
-        dashboardModel.addColumn(column2);                
-    }
-    
-    
-    
-    
-    @PostConstruct
-    public void loadPersons() {
-        persons = session.getDB().getResultList(Person.class);
-        newPerson();
+        dashboardModel.addColumn(column2);
+   
     }
 
-    public void saveSelectedPerson() {
+    @PostConstruct
+    public void loadPersons() {
+        try {
+            persons = session.getDB().getResultList(Person.class);
+            selectedPerson =(Person) persons.get(0);
+        } catch (Exception e) {
+            FMessage.error(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void savePerson() {
+        System.out.println("ID: " + selectedPerson.getId());
         if (session.getDB().persisted(selectedPerson)) {
             FMessage.info(selectedPerson.getFirstName()
                     + " "
@@ -101,10 +106,11 @@ public class HomeController implements Serializable {
 
     public void newPerson() {
         selectedPerson = new Person();
+//        selectedPerson.setFirstName("");
     }
 
-    public void deleteSelectedPerson() {
-        
+    public void deletePerson() {
+
         if (session.getDB().deleted(selectedPerson)) {
             FMessage.info(selectedPerson.getFirstName()
                     + " "
