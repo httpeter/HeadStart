@@ -32,7 +32,17 @@ public class HomeController implements Serializable {
 
     private Person selectedPerson = new Person();
 
+    private Person newPerson = new Person();
+
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    public Person getNewPerson() {
+        return newPerson;
+    }
+
+    public void setNewPerson(Person newPerson) {
+        this.newPerson = newPerson;
+    }
+
     public Person getSelectedPerson() {
         return selectedPerson;
     }
@@ -77,14 +87,14 @@ public class HomeController implements Serializable {
         dashboardModel = new DefaultDashboardModel();
         dashboardModel.addColumn(column1);
         dashboardModel.addColumn(column2);
-   
+
     }
 
     @PostConstruct
     public void loadPersons() {
         try {
             persons = session.getDB().getResultList(Person.class);
-            selectedPerson =(Person) persons.get(0);
+            selectedPerson = (Person) persons.get(0);
         } catch (Exception e) {
             FMessage.error(e.getMessage());
             e.printStackTrace();
@@ -92,7 +102,6 @@ public class HomeController implements Serializable {
     }
 
     public void savePerson() {
-        System.out.println("ID: " + selectedPerson.getId());
         if (session.getDB().persisted(selectedPerson)) {
             FMessage.info(selectedPerson.getFirstName()
                     + " "
@@ -104,9 +113,20 @@ public class HomeController implements Serializable {
         }
     }
 
+    public void saveNewPerson() {
+        if (session.getDB().persisted(newPerson)) {
+            FMessage.info(newPerson.getFirstName()
+                    + " "
+                    + newPerson.getLastName()
+                    + " Saved");
+            loadPersons();
+        } else {
+            FMessage.error(session.getLabels().getProperty("msgPersonSaveError"));
+        }
+    }
+
     public void newPerson() {
         selectedPerson = new Person();
-//        selectedPerson.setFirstName("");
     }
 
     public void deletePerson() {
