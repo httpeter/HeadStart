@@ -24,12 +24,23 @@
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
             <version>1.2</version>
-        </dependency>        
+        </dependency>       
+        
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>6.2</version>
         </dependency>
+        
+        <!--Release Candidate-->
+        <!--        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>6.3RC2</version>
+            <scope>system</scope>
+            <systemPath>/Users/peterhendriks/GIT/Primefaces/target/primefaces-6.3-SNAPSHOT.jar</systemPath>
+        </dependency>-->
+        
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.jpa</artifactId>

@@ -24,7 +24,7 @@
     <h:head>
 
         <ui:include src="composition/analytics.xhtml"/>
-        
+
         <link rel="shortcut icon" 
               href="resources/img/favicon.ico" 
               type="image/x-icon"/>
@@ -61,26 +61,36 @@
         <h:form id="mainForm" styleClass="myForm">            
 
             <p:sticky target="menu"/>
-            
+
             <p:growl id="growl"/>
 
-            <p:menubar id="menu">
-
+            <!--Normal Menu, must be filled dynamically-->
+            <p:megaMenu id="menu">
                 <p:menuitem value="#{labels.menuItemHome}" 
                             icon="fa fa-home"
                             url="?p=home"/>
-
                 <p:menuitem value="#{labels.menuItemNotify}" 
                             icon="fa fa-star"
                             url="?p=notify"/>
-                
                 <p:menuitem value="#{labels.menuItemComponents}" 
                             icon="fa fa-th"
                             url="?p=components"/>
-                                
-            </p:menubar>
+            </p:megaMenu>
 
-
+            <!--Mobile Menu, must be filled dynamically-->
+            <p:menuButton id="menuMobile" 
+                          icon="fa fa-bars"
+                          styleClass="myMobileMenuButton">
+                <p:menuitem value="#{labels.menuItemHome}" 
+                            icon="fa fa-home"
+                            url="?p=home"/>
+                <p:menuitem value="#{labels.menuItemNotify}" 
+                            icon="fa fa-star"
+                            url="?p=notify"/>
+                <p:menuitem value="#{labels.menuItemComponents}" 
+                            icon="fa fa-th"
+                            url="?p=components"/>
+            </p:menuButton>
 
             <p:spacer/>
 

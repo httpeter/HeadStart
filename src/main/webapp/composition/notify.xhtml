@@ -4,33 +4,23 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <p:growl widgetVar="growl" life="2000"/>
 
     <p:commandButton id="chatButton" value="Chat"/>
+
     <p:overlayPanel for="chatButton">
 
         <h:panelGrid columns="2">
             <p:outputLabel for="name" value="Name" /> 
-            <p:inputText id="name" value="#{notifyViewController.name}"/>
+            <p:inputText id="name"/>
 
             <p:outputLabel for="msg" value="Message" /> 
-            <p:inputTextarea id="msg" value="#{notifyViewController.detail}"/>
-            
-            <h:outputText/>
-            <p:commandButton value="Send" actionListener="#{notifyViewController.send}"/>
-        </h:panelGrid>
+            <p:inputTextarea id="msg" />
 
-        
+            <h:outputText/>
+            <p:commandButton value="Send" />
+        </h:panelGrid>        
 
     </p:overlayPanel>    
 
-    <p:socket onMessage="handleMessage" channel="/notify" />
-
-    <script type="text/javascript">
-        function handleMessage(facesmessage) {
-            facesmessage.severity = 'info';
-            PF('growl').show([facesmessage]);
-        }
-    </script>
 
 </ui:composition>

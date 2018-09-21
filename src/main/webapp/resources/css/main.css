@@ -20,7 +20,13 @@
 {
     max-width: 1280px;
     margin:0px auto;
-    text-align:left;
+    text-align:left;            
+}
+
+.myMobileMenuButton{
+    position:absolute;
+    bottom:2%;
+    right:2%;
 }
 
 .mySelectAllBox
