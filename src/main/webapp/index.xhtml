@@ -60,7 +60,7 @@
 
         <h:form id="mainForm" styleClass="myForm">            
 
-            <p:sticky target="menu"/>
+            <p:sticky target="menuMobile"/>
 
             <p:growl id="growl"/>
 
@@ -76,10 +76,11 @@
                             icon="fa fa-th"
                             url="?p=components"/>
             </p:megaMenu>
-
+            
+            <div align="right">
             <!--Mobile Menu, must be filled dynamically-->
             <p:menuButton id="menuMobile" 
-                          icon="fa fa-bars"
+                          icon="fa fa-bars" 
                           styleClass="myMobileMenuButton">
                 <p:menuitem value="#{labels.menuItemHome}" 
                             icon="fa fa-home"
@@ -91,6 +92,7 @@
                             icon="fa fa-th"
                             url="?p=components"/>
             </p:menuButton>
+            </div>
 
             <p:spacer/>
 
