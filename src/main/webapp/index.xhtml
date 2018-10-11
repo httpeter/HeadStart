@@ -38,13 +38,16 @@
         <link href="resources/css/main.css" 
               rel="stylesheet" 
               type="text/css"/>     
-        
-               
+
+
         <link href="https://fonts.googleapis.com/css?family=Roboto" 
               rel="stylesheet" 
               type="text/css"/>
 
+
+
         <title>#{labels.appTitle} - #{labels.organizationName}</title>
+
 
 
 
@@ -55,9 +58,7 @@
 
 
 
-    <h:body styleClass="myBody">
-
-
+    <h:body styleClass="myBody">     
 
         <h:form id="mainForm" styleClass="myForm">            
 
@@ -77,22 +78,22 @@
                             icon="fa fa-th"
                             url="?p=components"/>
             </p:megaMenu>
-            
+
             <div align="right">
-            <!--Mobile Menu, must be filled dynamically-->
-            <p:menuButton id="menuMobile" 
-                          icon="fa fa-bars" 
-                          styleClass="myMobileMenuButton">
-                <p:menuitem value="#{labels.menuItemHome}" 
-                            icon="fa fa-home"
-                            url="?p=home"/>
-                <p:menuitem value="#{labels.menuItemNotify}" 
-                            icon="fa fa-star"
-                            url="?p=notify"/>
-                <p:menuitem value="#{labels.menuItemComponents}" 
-                            icon="fa fa-th"
-                            url="?p=components"/>
-            </p:menuButton>
+                <!--Mobile Menu, must be filled dynamically-->
+                <p:menuButton id="menuMobile" 
+                              icon="fa fa-bars" 
+                              styleClass="myMobileMenuButton">
+                    <p:menuitem value="#{labels.menuItemHome}" 
+                                icon="fa fa-home"
+                                url="?p=home"/>
+                    <p:menuitem value="#{labels.menuItemNotify}" 
+                                icon="fa fa-star"
+                                url="?p=notify"/>
+                    <p:menuitem value="#{labels.menuItemComponents}" 
+                                icon="fa fa-th"
+                                url="?p=components"/>
+                </p:menuButton>
             </div>
 
             <p:spacer/>
@@ -130,9 +131,7 @@
                 <br/>
                 <br/>
                 <p:button value="Refresh" onclick="window.location.reload();"/>
-            </p:dialog>     
-
-
+            </p:dialog> 
 
         </h:form>
 
