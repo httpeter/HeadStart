@@ -128,7 +128,8 @@
     <!--New Person Dialog-->
     <p:dialog id="dlgNewPerson" header="Add new Person" widgetVar="dlgNewPerson" 
               modal="true" 
-              closeOnEscape="true">
+              closeOnEscape="true" 
+               width="400" height="600">
         <br/>        
         <p:panelGrid columns="2" layout="grid">
             <h:outputText value="First Name"/>
@@ -159,7 +160,7 @@
     <!--    Delete Person Dialog-->
     <p:dialog id="dlgDelete" header="Delete Person" widgetVar="dlgDelete" 
               modal="true" 
-              closeOnEscape="true" width="400" height="800">
+              closeOnEscape="true">
         <br/>        
         <h:outputText value="Delete #{homeController.selectedPerson.firstName} #{homeController.selectedPerson.lastName} ?"/>        
         <br/>
