@@ -1,6 +1,12 @@
-/*Specific*/
 
-.myDashboardPanel
+
+.myMobileMenuButton{
+    position:absolute;
+    bottom:10px;
+    right:5px;
+}
+
+/*.myDashboardPanel
 {
     margin: 10px;
     min-width: 200px;
@@ -23,11 +29,6 @@
     text-align:left;            
 }
 
-.myMobileMenuButton{
-    position:absolute;
-    bottom:10px;
-    right:5px;
-}
 
 .mySelectAllBox
 {
@@ -50,7 +51,7 @@
     color: yellowgreen;
 }
 
-/*PrimeFaces Overrides...*/
+PrimeFaces Overrides...
 .ui-inputfield
 {
     width: 95%;
@@ -63,7 +64,7 @@
     border-radius: 5px;
 }
 
-/*Style For Button ------------------------------------------------------------------------------------- */
+Style For Button ------------------------------------------------------------------------------------- 
 .ui-button {
     outline: none;
     border-radius: 2px !important;
@@ -123,4 +124,4 @@
     margin-top: -8px !important;
 }
 
-
+*/
