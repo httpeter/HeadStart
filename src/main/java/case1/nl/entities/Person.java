@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.httpeter.entities;
+package case1.nl.entities;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -116,7 +116,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "org.httpeter.entities.Person[ id=" + id + " ]";
+        return "case1.nl.entities.Person[ id=" + id + " ]";
     }
 
     public String getAge() {

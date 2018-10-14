@@ -1,4 +1,4 @@
-package org.httpeter.controller.compositon;
+package case1.nl.controller.compositon;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import org.httpeter.controller.SessionController;
+import case1.nl.controller.SessionController;
 //import org.primefaces.model.charts.ChartData;
 //import org.primefaces.model.charts.axes.cartesian.CartesianScales;
 //import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearAxes;

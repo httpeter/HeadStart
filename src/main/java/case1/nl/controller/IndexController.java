@@ -1,4 +1,4 @@
-package org.httpeter.controller;
+package case1.nl.controller;
 
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;

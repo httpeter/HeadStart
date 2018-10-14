@@ -1,4 +1,4 @@
-package org.httpeter.controller.compositon;
+package case1.nl.controller.compositon;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,9 +7,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import org.httpeter.controller.SessionController;
-import org.httpeter.entities.Person;
-import org.httpeter.util.FMessage;
+import case1.nl.controller.SessionController;
+import case1.nl.entities.Person;
+import case1.nl.util.FMessage;
 import org.primefaces.model.DashboardColumn;
 import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;

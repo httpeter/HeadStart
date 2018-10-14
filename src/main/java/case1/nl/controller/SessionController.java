@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.httpeter.controller;
+package case1.nl.controller;
 
 ;
 
@@ -12,7 +12,7 @@ import java.util.Properties;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import org.httpeter.data.repository.DefaultRepository;
+import case1.nl.data.repository.DefaultRepository;
 
 /**
  *
