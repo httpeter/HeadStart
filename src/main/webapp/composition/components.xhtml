@@ -2,6 +2,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:b="http://bootsfaces.net/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 
@@ -12,16 +13,16 @@
                 <p:messages />
                 <h:panelGrid columns="2" columnClasses="label, value">
                     <h:outputText value="Firstname: *" />
-                    <p:inputText value="#{userWizard.user.firstname}" required="true" label="Firstname"/>
+                    <p:inputText value=" required="true" label="Firstname"/>
  
                     <h:outputText value="Lastname: *" />
-                    <p:inputText value="#{userWizard.user.lastname}" required="true" label="Lastname"/>
+                    <p:inputText value="" required="true" label="Lastname"/>
  
                     <h:outputText value="Age: " />
-                    <p:inputText value="#{userWizard.user.age}" />
+                    <p:inputText value="" />
  
                     <h:outputText value="Skip to last: " />
-                    <p:selectBooleanCheckbox value="#{userWizard.skip}" />
+                    <p:selectBooleanCheckbox value="" />
                 </h:panelGrid>
             </p:panel>
         </p:tab>

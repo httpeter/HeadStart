@@ -5,7 +5,14 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 
+
+
+
+
     <p:dashboard model="#{homeController.dashboardModel}">
+
+
+
 
 
         <p:panel id="welcomePanel" header="#{labels.welcomePanelHeader} 
@@ -14,8 +21,9 @@
         </p:panel>
 
 
-        <p:panel id="demoPanel" header="#{labels.demoPanelHeader}"
-                 styleClass="myDashboardPanel">               
+
+
+        <p:panel id="demoPanel" header="#{labels.demoPanelHeader}">               
 
             <p:dataTable id="personsTable"
                          widgetVar="personsTable"
@@ -31,7 +39,8 @@
                          rowKey="#{person.id}">                                                        
 
                 <p:ajax event="rowSelect" 
-                        update="mainForm:editPanel"/>              
+                        update="mainForm:editPanel"
+                        oncomplete="PF('dlgEditPerson').show()"/>              
 
 
                 <p:column sortBy="#{person.id}" filterBy="#{person.id}" 
@@ -77,47 +86,6 @@
 
             </p:dataTable>           
 
-            <br/>
-
-            <p:panelGrid id="editPanel" columns="2" layout="grid">
-
-                <h:outputText value="First Name"/>
-                <p:inputText value="#{homeController.selectedPerson.firstName}">
-                    <p:ajax update="@parent:btnGrid" event="change"/>
-                </p:inputText>
-                <h:outputText value="Last Name"/>
-                <p:inputText value="#{homeController.selectedPerson.lastName}"/>                                    
-                <h:outputText value="Age"/>
-                <h:panelGrid>
-                    <p:inputText id="ageTxt" value="#{homeController.selectedPerson.age}"/>
-                    <p:slider for="ageTxt"
-                              minValue="1" 
-                              maxValue="120"/>
-                </h:panelGrid>
-                <h:outputText value="Gender"/>
-                <p:selectOneButton value="#{homeController.selectedPerson.gender}">
-                    <f:selectItem itemLabel="#{labels.m}" itemValue="m"/>
-                    <f:selectItem itemLabel="#{labels.f}" itemValue="f"/>
-                </p:selectOneButton>
-                <h:outputText/>
-                <h:panelGrid id="btnGrid" columns="3">
-
-                    <p:commandButton value="#{labels.btnNew}" 
-                                     oncomplete="PF('dlgNewPerson').show()"/>
-
-                    <p:commandButton value="#{labels.btnSave}" 
-                                     disabled="#{homeController.selectedPerson.firstName==null}" 
-                                     action="#{homeController.savePerson()}" 
-                                     update="@form"/>
-
-                    <p:commandButton value="#{labels.btnDelete}" 
-                                     disabled="#{homeController.selectedPerson.firstName==null}" 
-                                     oncomplete="PF('dlgDelete').show()"
-                                     update="@form"/>    
-                </h:panelGrid>                
-            </p:panelGrid>
-
-
         </p:panel>
 
     </p:dashboard>
@@ -125,11 +93,66 @@
 
 
 
-    <!--New Person Dialog-->
-    <p:dialog id="dlgNewPerson" header="Add new Person" widgetVar="dlgNewPerson" 
+
+    <!--Edit person dialog-->
+    <p:dialog id="dlgEditPerson" 
+              header="#{labels.dlgEditPerson}" 
+              widgetVar="dlgEditPerson" 
               modal="true" 
               closeOnEscape="true" 
-               width="400" height="600">
+              width="500">
+
+        <p:panelGrid id="editPanel" columns="2" layout="grid">
+
+            <h:outputText value="First Name"/>
+            <p:inputText value="#{homeController.selectedPerson.firstName}">
+                <p:ajax update="@parent:btnGrid" event="change"/>
+            </p:inputText>
+            <h:outputText value="Last Name"/>
+            <p:inputText value="#{homeController.selectedPerson.lastName}"/>                                    
+            <h:outputText value="Age"/>
+            <h:panelGrid>
+                <p:inputText id="ageTxt" value="#{homeController.selectedPerson.age}"/>
+                <p:slider for="ageTxt"
+                          minValue="1" 
+                          maxValue="120"/>
+            </h:panelGrid>
+            <h:outputText value="Gender"/>
+            <p:selectOneButton value="#{homeController.selectedPerson.gender}">
+                <f:selectItem itemLabel="#{labels.m}" itemValue="m"/>
+                <f:selectItem itemLabel="#{labels.f}" itemValue="f"/>
+            </p:selectOneButton>
+            <h:outputText/>
+            <h:panelGrid id="btnGrid" columns="3">
+
+                <p:commandButton value="#{labels.btnNew}" 
+                                 oncomplete="PF('dlgNewPerson').show()"/>
+
+                <p:commandButton value="#{labels.btnSave}" 
+                                 disabled="#{homeController.selectedPerson.firstName==null}" 
+                                 action="#{homeController.savePerson()}" 
+                                 update="@form" oncomplete="PF('dlgEditPerson').hide()"/>
+
+                <p:commandButton value="#{labels.btnDelete}" 
+                                 disabled="#{homeController.selectedPerson.firstName==null}" 
+                                 oncomplete="PF('dlgDelete').show()"
+                                 update="@form"/>    
+            </h:panelGrid>                
+        </p:panelGrid>
+    </p:dialog>
+
+
+
+
+
+
+    <!--New Person Dialog-->
+    <p:dialog id="dlgNewPerson" 
+              header="#{labels.dlgNewPerson}" 
+              widgetVar="dlgNewPerson" 
+              modal="true" 
+              closeOnEscape="true" 
+              width="500">
         <br/>        
         <p:panelGrid columns="2" layout="grid">
             <h:outputText value="First Name"/>
@@ -157,8 +180,13 @@
 
 
 
+
+
+
     <!--    Delete Person Dialog-->
-    <p:dialog id="dlgDelete" header="Delete Person" widgetVar="dlgDelete" 
+    <p:dialog id="dlgDelete" 
+              header="#{labels.dlgDeletePerson}" 
+              widgetVar="dlgDelete" 
               modal="true" 
               closeOnEscape="true">
         <br/>        
@@ -170,6 +198,9 @@
                          ajax="false"/>
         <p:commandButton value="No" onclick="hide()"/>
     </p:dialog>
+
+
+
 
 
 </ui:composition>

@@ -32,14 +32,13 @@
             <version>6.2</version>
         </dependency>
         
-        <!--Release Candidate-->
-        <!--        <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>6.3RC2</version>
-            <scope>system</scope>
-            <systemPath>/Users/peterhendriks/GIT/Primefaces/target/primefaces-6.3-SNAPSHOT.jar</systemPath>
-        </dependency>-->
+        
+        <dependency>
+            <groupId>net.bootsfaces</groupId>
+            <artifactId>bootsfaces</artifactId>
+            <version>1.3.0</version>
+            <scope>compile</scope>
+        </dependency>
         
               
         <dependency>
