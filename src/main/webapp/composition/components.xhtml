@@ -1,8 +1,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:p="http://primefaces.org/ui"                
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     
     
@@ -129,22 +128,22 @@
         <p:graphicImage url="https://picsum.photos/323/246"/>
         <p:graphicImage url="https://picsum.photos/324/247"/>
         <p:graphicImage url="https://picsum.photos/325/248"/>
-    </p:imageSwitch>
+    </p:imageSwitch>   
 
+    <br/>
+    <br/>
 
+    <h3>Google Maps</h3>
+    <p:gmap center="52.1601, 4.4970" zoom="14" type="hybrid" style="width:600px;height:400px" />
+    
     <br/>
     <br/>
 
     <h3>PayPal</h3>
     <ui:include src="paypal.xhtml"/>
 
-
-    <br/>
-    <br/>
-
-    <h3>OpenStreetmap</h3>
-    <b:openStreetMap  width="100%" height="500px" center="42.3402,-3.6972" marker="42.3396,-3.6972"/>
-
+        
+    
 </p:panelGrid>
 
 

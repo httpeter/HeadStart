@@ -31,8 +31,8 @@
                          var="person" 
                          reflow="true"                          
                          scrollable="true"
-                         scrollRows ="12"
-                         scrollHeight="300"
+                         scrollRows ="25"
+                         scrollHeight="600"
                          liveScroll="true"
                          selectionMode="single"                          
                          selection="#{homeController.selectedPerson}"
@@ -42,9 +42,14 @@
                         update="mainForm:editPanel"
                         oncomplete="PF('dlgEditPerson').show()"/>              
 
+                <f:facet name="header">
+                    <p:outputPanel>                        
+                        <p:inputText id="globalFilter" onkeyup="PF('personsTable').filter()" style="width:150px;" placeholder="Search"/>
+                    </p:outputPanel>
+                </f:facet>
 
                 <p:column sortBy="#{person.id}" filterBy="#{person.id}" 
-                          filterMatchMode="contains">
+                          filterMatchMode="contains" >
                     <f:facet name="header">
                         <h:outputText value="Id"/>
                     </f:facet>                  
