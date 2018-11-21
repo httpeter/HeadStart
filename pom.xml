@@ -20,6 +20,7 @@
             <artifactId>javax.faces</artifactId>
             <version>2.3.7</version>            
         </dependency>
+        
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
