@@ -34,9 +34,21 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Person.findByGender", query = "SELECT p FROM Person p WHERE p.gender = :gender")})
 public class Person implements Serializable {
 
-    @Size(max = 45)
+    @Size(max = 255)
     @Column(name = "age")
     private String age;
+    @Size(max = 255)
+    @Column(name = "firstName")
+    private String firstName;
+    @Size(max = 255)
+    @Column(name = "gender")
+    private String gender;
+    @Size(max = 255)
+    @Column(name = "lastName")
+    private String lastName;
+    @Size(max = 500)
+    @Column(name = "notes")
+    private String notes;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,15 +56,6 @@ public class Person implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 45)
-    @Column(name = "firstName")
-    private String firstName;
-    @Size(max = 45)
-    @Column(name = "lastName")
-    private String lastName;
-    @Size(max = 45)
-    @Column(name = "gender")
-    private String gender;
 
     public Person() {
     }
@@ -69,30 +72,6 @@ public class Person implements Serializable {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
 
     @Override
     public int hashCode() {
@@ -125,6 +104,38 @@ public class Person implements Serializable {
 
     public void setAge(String age) {
         this.age = age;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
     
 }

@@ -88,6 +88,14 @@
                     <h:outputText value="#{labels.f}" rendered="#{person.gender=='f'}"/>
                 </p:column>                    
 
+                <p:column sortBy="#{person.notes}"  filterBy="#{person.notes}" 
+                          filterMatchMode="contains" >
+                    <f:facet name="header">
+                        <h:outputText value="Notes"/>
+                    </f:facet>
+                    <p:inputTextarea value="#{person.notes}" disabled="true"/>
+                </p:column>        
+                
             </p:dataTable>           
 
         </p:panel>
@@ -112,8 +120,10 @@
             <p:inputText value="#{homeController.selectedPerson.firstName}">
                 <p:ajax update="@parent:btnGrid" event="change"/>
             </p:inputText>
+            
             <h:outputText value="Last Name"/>
-            <p:inputText value="#{homeController.selectedPerson.lastName}"/>                                    
+            <p:inputText value="#{homeController.selectedPerson.lastName}"/>     
+            
             <h:outputText value="Age"/>
             <h:panelGrid>
                 <p:inputText id="ageTxt" value="#{homeController.selectedPerson.age}"/>
@@ -121,11 +131,16 @@
                           minValue="1" 
                           maxValue="120"/>
             </h:panelGrid>
+            
             <h:outputText value="Gender"/>
             <p:selectOneButton value="#{homeController.selectedPerson.gender}">
                 <f:selectItem itemLabel="#{labels.m}" itemValue="m"/>
                 <f:selectItem itemLabel="#{labels.f}" itemValue="f"/>
             </p:selectOneButton>
+            
+            <h:outputText value="Notes"/>
+            <p:inputTextarea value="#{homeController.selectedPerson.notes}"/>
+            
             <h:outputText/>
             <h:panelGrid id="btnGrid" columns="3">
 
