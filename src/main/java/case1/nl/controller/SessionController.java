@@ -46,9 +46,12 @@ public class SessionController implements Serializable {
     }
 
     public Properties getLabels() {
-        Properties p = new Properties();                
+        Properties p = new Properties();
         try {
-            p.load(getClass().getClassLoader().getResourceAsStream(this.getLabelFile()+".properties"));
+            p.load(getClass()
+                    .getClassLoader()
+                    .getResourceAsStream(this.getLabelFile()
+                            + ".properties"));
         } catch (Exception e) {
             e.printStackTrace();
         }
