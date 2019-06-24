@@ -16,17 +16,56 @@
     border-radius: 2px;
     background: #ffffff;    
     padding: 16px;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     box-sizing: border-box;    
+    
 }
 
-body {
-    font-family: Roboto,"Helvetica Neue",sans-serif;
-    font-size: 14px;
+body .ui-panel .ui-panel-content {
+    /*border: 1px solid #c8c8c8;*/
+    border:none;
+    background-color: #fff;
+    color: #333;
+    padding: .571em 1em;
+    border-top: 0 none;
+    line-height: 1.5;
+    font-size: 16px;
+}
+
+.ui-menu .ui-menuitem-link {
+    display: block;
+    width: 92%;
+    outline: 0;
+    text-decoration: none;
+    font-weight: 400;    
+    border: solid 1px transparent;
+    float: left;
+    line-height: 16px;
+    padding: .3em;
+    cursor: pointer;
+     font-family: Roboto,"Helvetica Neue",sans-serif;
+    font-size: 18px;
     color: #424242;
     -webkit-font-smoothing: antialiased;
     height: 10%;
 }
+
+body
+{
+    font-size: 16px;
+}
+
+body .ui-datatable thead th .ui-column-title {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+body .ui-datatable .ui-datatable-data>tr>td {
+    padding: .571em .857em;
+    border: inherit;
+    font-size: 16px;
+}
+
 
 h1 {
     display: block;
