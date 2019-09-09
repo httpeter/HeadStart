@@ -10,10 +10,6 @@ import javax.faces.bean.ViewScoped;
 import case1.nl.controller.SessionController;
 import case1.nl.entities.Person;
 import case1.nl.util.FMessage;
-import org.primefaces.model.DashboardColumn;
-import org.primefaces.model.DashboardModel;
-import org.primefaces.model.DefaultDashboardColumn;
-import org.primefaces.model.DefaultDashboardModel;
 
 /**
  *
@@ -24,9 +20,7 @@ import org.primefaces.model.DefaultDashboardModel;
 public class HomeController implements Serializable {
 
     @ManagedProperty(value = "#{sessionController}")
-    private SessionController session;
-
-    private DashboardModel dashboardModel;
+    private SessionController session;    
 
     private List persons = new ArrayList<Person>();
 
@@ -59,14 +53,6 @@ public class HomeController implements Serializable {
         this.session = session;
     }
 
-    public DashboardModel getDashboardModel() {
-        return dashboardModel;
-    }
-
-    public void setDashboardModel(DashboardModel dashboardModel) {
-        this.dashboardModel = dashboardModel;
-    }
-
     public List getPersons() {
         return persons;
     }
@@ -76,17 +62,8 @@ public class HomeController implements Serializable {
     }
 
 //</editor-fold>
-    public HomeController() {
-
-        DashboardColumn column1 = new DefaultDashboardColumn();
-        column1.addWidget("welcomePanel");
-        column1.addWidget("demoPanel");
-
-        DashboardColumn column2 = new DefaultDashboardColumn();
-
-        dashboardModel = new DefaultDashboardModel();
-        dashboardModel.addColumn(column1);
-        dashboardModel.addColumn(column2);
+    public HomeController() {       
+        
 
     }
 
@@ -96,8 +73,7 @@ public class HomeController implements Serializable {
             persons = session.getDB().getResultList(Person.class);
             selectedPerson = (Person) persons.get(0);
         } catch (Exception e) {
-            FMessage.error(e.getMessage());
-            e.printStackTrace();
+            FMessage.error(e.getMessage());            
         }
     }
 

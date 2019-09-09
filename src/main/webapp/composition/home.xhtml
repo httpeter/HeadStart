@@ -2,111 +2,116 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
 
+    <p:panel id="welcomePanel">            
+        <h:outputText value="#{labels.welcomeMSG}" escape="false"/>                                 
+    </p:panel>
 
+    <p:panel id="demoPanel">               
 
+        <p:splitButton id="advanced" value="Action"  icon="pi pi-save" filter="true" filterMatchMode="startsWith">
+            <p:submenu label="New" icon="fa fa-plus">
+                <p:menuitem value="#{labels.btnNew}"
+                         icon="fa fa-plus"
+                         action="#{homeController.newPerson()}"
+                         oncomplete="PF('dlgNewPerson').show()"/>                
+            </p:submenu>            
+        </p:splitButton>
+        
+        <br/>
+        <br/>
+        
+        <p:dataTable id="personsTable"
+                     widgetVar="personsTable"
+                     value="#{homeController.persons}" 
+                     var="person" 
+                     reflow="true"                          
+                     scrollable="true"
+                     scrollRows ="25"
+                     scrollHeight="600"
+                     liveScroll="true"
+                     selectionMode="single"                          
+                     selection="#{homeController.selectedPerson}"
+                     rowKey="#{person.id}">                                                        
 
+            <p:ajax event="rowSelect" 
+                    update="mainForm:editPanel"
+                    oncomplete="PF('dlgEditPerson').show()"/>              
 
+            <f:facet name="header">
+                <p:outputPanel>                        
+                    <p:inputText id="globalFilter" onkeyup="PF('personsTable').filter()" style="width:150px;" placeholder="Search"/>
+                </p:outputPanel>
+            </f:facet>
 
-    <p:dashboard model="#{homeController.dashboardModel}">
-
-
-
-
-
-        <p:panel id="welcomePanel">            
-            <h:outputText value="#{labels.welcomeMSG}" escape="false"/>                                 
-        </p:panel>
-
-
-
-
-        <p:panel id="demoPanel">               
-
-            <p:dataTable id="personsTable"
-                         widgetVar="personsTable"
-                         value="#{homeController.persons}" 
-                         var="person" 
-                         reflow="true"                          
-                         scrollable="true"
-                         scrollRows ="25"
-                         scrollHeight="600"
-                         liveScroll="true"
-                         selectionMode="single"                          
-                         selection="#{homeController.selectedPerson}"
-                         rowKey="#{person.id}">                                                        
-
-                <p:ajax event="rowSelect" 
-                        update="mainForm:editPanel"
-                        oncomplete="PF('dlgEditPerson').show()"/>              
-
+            <p:column sortBy="#{person.id}" filterBy="#{person.id}" 
+                      filterMatchMode="contains" >
                 <f:facet name="header">
-                    <p:outputPanel>                        
-                        <p:inputText id="globalFilter" onkeyup="PF('personsTable').filter()" style="width:150px;" placeholder="Search"/>
-                    </p:outputPanel>
+                    <h:outputText value="Id"/>
+                </f:facet>                  
+                <h:outputText value="#{person.id}"/>
+            </p:column>
+
+            <p:column sortBy="#{person.firstName}" filterBy="#{person.firstName}" 
+                      filterMatchMode="contains">
+                <f:facet name="header">
+                    <h:outputText value="First Name"/>
                 </f:facet>
+                <h:outputText value="#{person.firstName}"/>
+            </p:column>               
 
-                <p:column sortBy="#{person.id}" filterBy="#{person.id}" 
-                          filterMatchMode="contains" >
-                    <f:facet name="header">
-                        <h:outputText value="Id"/>
-                    </f:facet>                  
-                    <h:outputText value="#{person.id}"/>
-                </p:column>
+            <p:column sortBy="#{person.lastName}" filterBy="#{person.lastName}" 
+                      filterMatchMode="contains">
+                <f:facet name="header">
+                    <h:outputText value="Last Name"/>
+                </f:facet>
+                <h:outputText value="#{person.lastName}"/>
+            </p:column>
 
-                <p:column sortBy="#{person.firstName}" filterBy="#{person.firstName}" 
-                          filterMatchMode="contains">
-                    <f:facet name="header">
-                        <h:outputText value="First Name"/>
-                    </f:facet>
-                    <h:outputText value="#{person.firstName}"/>
-                </p:column>               
+            <p:column sortBy="#{person.age}" filterBy="#{person.age}" 
+                      filterMatchMode="contains">
+                <f:facet name="header">
+                    <h:outputText value="Age"/>
+                </f:facet>
+                <h:outputText value="#{person.age}"/>
+            </p:column>
 
-                <p:column sortBy="#{person.lastName}" filterBy="#{person.lastName}" 
-                          filterMatchMode="contains">
-                    <f:facet name="header">
-                        <h:outputText value="Last Name"/>
-                    </f:facet>
-                    <h:outputText value="#{person.lastName}"/>
-                </p:column>
+            <p:column sortBy="#{person.gender}"  filterBy="#{person.gender}" 
+                      filterMatchMode="contains" >
+                <f:facet name="header">
+                    <h:outputText value="Gender"/>
+                </f:facet>
+                <h:outputText value="#{labels.m}" rendered="#{person.gender=='m'}"/>
+                <h:outputText value="#{labels.f}" rendered="#{person.gender=='f'}"/>
+            </p:column>                    
 
-                <p:column sortBy="#{person.age}" filterBy="#{person.age}" 
-                          filterMatchMode="contains">
-                    <f:facet name="header">
-                        <h:outputText value="Age"/>
-                    </f:facet>
-                    <h:outputText value="#{person.age}"/>
-                </p:column>
+            <p:column sortBy="#{person.notes}"  filterBy="#{person.notes}" 
+                      filterMatchMode="contains" >
+                <f:facet name="header">
+                    <h:outputText value="Notes"/>
+                </f:facet>
+                <p:inputTextarea value="#{person.notes}" disabled="true"/>
+            </p:column>        
 
-                <p:column sortBy="#{person.gender}"  filterBy="#{person.gender}" 
-                          filterMatchMode="contains" >
-                    <f:facet name="header">
-                        <h:outputText value="Gender"/>
-                    </f:facet>
-                    <h:outputText value="#{labels.m}" rendered="#{person.gender=='m'}"/>
-                    <h:outputText value="#{labels.f}" rendered="#{person.gender=='f'}"/>
-                </p:column>                    
+            <p:column>
+                <p:commandButton value="#{labels.btnDelete}"                                 
+                                 oncomplete="PF('dlgDelete').show()"
+                                 icon="fa fa-times"
+                                 update="@form"/>    
+            </p:column>
 
-                <p:column sortBy="#{person.notes}"  filterBy="#{person.notes}" 
-                          filterMatchMode="contains" >
-                    <f:facet name="header">
-                        <h:outputText value="Notes"/>
-                    </f:facet>
-                    <p:inputTextarea value="#{person.notes}" disabled="true"/>
-                </p:column>        
-                
-            </p:dataTable>           
+        </p:dataTable>           
 
-        </p:panel>
-
-    </p:dashboard>
+    </p:panel>    
 
 
 
 
 
-    <!--Edit person dialog-->
+    <!--Edit person dialog===================================================-->
     <p:dialog id="dlgEditPerson" 
               header="#{labels.dlgEditPerson}" 
               widgetVar="dlgEditPerson" 
@@ -120,10 +125,10 @@
             <p:inputText value="#{homeController.selectedPerson.firstName}">
                 <p:ajax update="@parent:btnGrid" event="change"/>
             </p:inputText>
-            
+
             <h:outputText value="Last Name"/>
             <p:inputText value="#{homeController.selectedPerson.lastName}"/>     
-            
+
             <h:outputText value="Age"/>
             <h:panelGrid>
                 <p:inputText id="ageTxt" value="#{homeController.selectedPerson.age}"/>
@@ -131,31 +136,23 @@
                           minValue="1" 
                           maxValue="120"/>
             </h:panelGrid>
-            
+
             <h:outputText value="Gender"/>
             <p:selectOneButton value="#{homeController.selectedPerson.gender}">
                 <f:selectItem itemLabel="#{labels.m}" itemValue="m"/>
                 <f:selectItem itemLabel="#{labels.f}" itemValue="f"/>
             </p:selectOneButton>
-            
+
             <h:outputText value="Notes"/>
             <p:inputTextarea value="#{homeController.selectedPerson.notes}"/>
-            
-            <h:outputText/>
-            <h:panelGrid id="btnGrid" columns="3">
 
-                <p:commandButton value="#{labels.btnNew}" 
-                                 oncomplete="PF('dlgNewPerson').show()"/>
+            <h:outputText/>
+            <h:panelGrid id="btnGrid">                
 
                 <p:commandButton value="#{labels.btnSave}" 
                                  disabled="#{homeController.selectedPerson.firstName==null}" 
                                  action="#{homeController.savePerson()}" 
-                                 update="@form" oncomplete="PF('dlgEditPerson').hide()"/>
-
-                <p:commandButton value="#{labels.btnDelete}" 
-                                 disabled="#{homeController.selectedPerson.firstName==null}" 
-                                 oncomplete="PF('dlgDelete').show()"
-                                 update="@form"/>    
+                                 update="@form" oncomplete="PF('dlgEditPerson').hide()"/>               
             </h:panelGrid>                
         </p:panelGrid>
     </p:dialog>
@@ -165,35 +162,52 @@
 
 
 
-    <!--New Person Dialog-->
+    <!--New Person Dialog ===================================================-->
     <p:dialog id="dlgNewPerson" 
               header="#{labels.dlgNewPerson}" 
               widgetVar="dlgNewPerson" 
               modal="true" 
               closeOnEscape="true" 
               width="500">
-        <br/>        
+
+        <br/>       
+
         <p:panelGrid columns="2" layout="grid">
+
             <h:outputText value="First Name"/>
             <p:inputText value="#{homeController.newPerson.firstName}">
                 <p:ajax update="@parent:btnGrid" event="change"/>
             </p:inputText>
+
             <h:outputText value="Last Name"/>
             <p:inputText value="#{homeController.newPerson.lastName}"/>                                    
+
             <h:outputText value="Age"/>
-            <p:spinner value="#{homeController.newPerson.age}" min="0" max="120"/>
+            <h:panelGrid>
+                <p:inputText id="npAgeTxt" value="#{homeController.newPerson.age}"/>
+                <p:slider for="npAgeTxt"
+                          minValue="1" 
+                          maxValue="120"/>
+            </h:panelGrid>
+
             <h:outputText value="Gender"/>
             <p:selectOneButton value="#{homeController.newPerson.gender}">
                 <f:selectItem itemLabel="#{labels.m}" itemValue="m"/>
                 <f:selectItem itemLabel="#{labels.f}" itemValue="f"/>
             </p:selectOneButton>
+
+            <h:outputText value="Notes"/>
+            <p:inputTextarea value="#{homeController.newPerson.notes}"/>
+
             <h:outputText/>
             <p:panelGrid columns="2">
-                <p:commandButton value="#{labels.btnSave}" action="#{homeController.saveNewPerson()}" 
+                <p:commandButton value="#{labels.btnSave}" 
+                                 action="#{homeController.saveNewPerson()}" 
                                  oncomplete="hide()" 
                                  ajax="false"/>
                 <p:commandButton value="#{labels.btnCancel}" onclick="hide()"/>
             </p:panelGrid>
+
         </p:panelGrid>
     </p:dialog>
 
@@ -202,14 +216,15 @@
 
 
 
-    <!--    Delete Person Dialog-->
+    <!--    Delete Person Dialog ============================================-->
     <p:dialog id="dlgDelete" 
               header="#{labels.dlgDeletePerson}" 
               widgetVar="dlgDelete" 
               modal="true" 
               closeOnEscape="true">
         <br/>        
-        <h:outputText value="Delete #{homeController.selectedPerson.firstName} #{homeController.selectedPerson.lastName} ?"/>        
+        <h:outputText value="Delete #{homeController.selectedPerson.firstName} 
+                      #{homeController.selectedPerson.lastName} ?"/>        
         <br/>
         <br/>
         <p:commandButton value="Yes" action="#{homeController.deletePerson()}" 
