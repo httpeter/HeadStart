@@ -104,27 +104,10 @@
 
 
 
-            <p:idleMonitor timeout="#{session.maxInactiveInterval*900}" 
-                           onidle="PF('idleDialog').show();"/>
+            <p:idleMonitor timeout="#{session.maxInactiveInterval*900}"  
+                           onidle="window.location.reload();"/>
 
 
-
-
-
-
-            <!--
-                Session Timeout Dialog
-            -->
-            <p:dialog widgetVar="idleDialog" 
-                      header="#{labels.MSGTimeoutHeader}"  
-                      modal="true" 
-                      closable="false" 
-                      resizable="false">
-                <h:outputText value="#{labels.MSGTimeoutBody}" escape="false"/>
-                <br/>
-                <br/>
-                <p:button value="Refresh" onclick="window.location.reload();"/>
-            </p:dialog> 
 
         </h:form>
 

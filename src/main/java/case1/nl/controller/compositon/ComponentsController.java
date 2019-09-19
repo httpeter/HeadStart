@@ -1,9 +1,6 @@
 package case1.nl.controller.compositon;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -29,7 +26,6 @@ public class ComponentsController implements Serializable {
     private SessionController session;
 
 //    private BarChartModel barModel;
-
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
 //    public BarChartModel getBarModel() {
 //        return barModel;
@@ -39,7 +35,6 @@ public class ComponentsController implements Serializable {
 //    public void setBarModel(BarChartModel barModel) {
 //        this.barModel = barModel;
 //    }
-
     //</editor-fold>
     public ComponentsController() {
     }
@@ -48,7 +43,6 @@ public class ComponentsController implements Serializable {
 //    public void init() {
 //        createBarModel();
 //    }
-
 //    public void createBarModel() {
 //        barModel = new BarChartModel();
 //        ChartData data = new ChartData();
@@ -117,5 +111,4 @@ public class ComponentsController implements Serializable {
 //
 //        barModel.setOptions(options);
 //    }
-
 }
