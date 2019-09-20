@@ -77,12 +77,6 @@ public class HomeController implements Serializable {
 
     public void newPerson() {
         selectedPerson = new Person();
-        selectedPerson.setFirstName("blaat");
-        selectedPerson.setLastName("asdf");
-        selectedPerson.setAge("33");
-        selectedPerson.setGender("m");
-        selectedPerson.setNotes("testing123");
-        FMessage.info(selectedPerson.getFirstName());
     }
 
     public void deletePerson() {
