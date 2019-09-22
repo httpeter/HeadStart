@@ -3,10 +3,10 @@ package case1.nl.controller;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class IndexController implements Serializable {
 
     @ManagedProperty(value = "#{sessionController}")

@@ -16,8 +16,6 @@
     </p:panel>
 
 
-    <p:commandButton icon="pi pi-check"/>
-
 
 
 
@@ -25,17 +23,15 @@
     <p:panel>               
         
         
-        <!--test-->
-        <p:commandButton action="#{homeController.newPerson()}" value="test" update="@form"/>
         
-        <p:textEditor value="#{homeController.selectedPerson.firstName}"/>
-
+        <!--ENd or test-->
+        
         <p:splitButton id="advanced" value="Action"  icon="pi pi-user-plus" filter="true" filterMatchMode="startsWith">
-            <p:submenu label="New" icon="fa fa-plus">
+            <p:submenu label="New" icon="pi pi-user-plus">
                 <p:menuitem value="#{labels.btnNew}"
-                            icon="fa fa-plus"
+                            icon="pi pi-user-plus"
                             action="#{homeController.newPerson()}"
-                            oncomplete="PF('dlgEditPerson').show()"/>                
+                            oncomplete="PF('dlgEditNewPerson').show()"/>                
             </p:submenu>            
         </p:splitButton>
 
@@ -57,13 +53,11 @@
                      liveScroll="true"
                      selectionMode="single"                          
                      selection="#{homeController.selectedPerson}"
-                     rowKey="#{person.id}">  
-
-            <p:autoUpdate/>
+                     rowKey="#{person.id}">              
 
             <p:ajax event="rowSelect" 
-                    update="mainForm:dlgEditPerson"
-                    oncomplete="PF('dlgEditPerson').show()"/>              
+                    update="mainForm:dlgEditSelectedPerson"
+                    oncomplete="PF('dlgEditSelectedPerson').show()"/>              
 
             <f:facet name="header">
                 <p:outputPanel>                        
@@ -147,9 +141,9 @@
 
 
     <!--Edit person dialog===================================================-->
-    <p:dialog id="dlgEditPerson" 
+    <p:dialog id="dlgEditSelectedPerson" 
               header="#{labels.dlgEditPerson}"              
-              widgetVar="dlgEditPerson" 
+              widgetVar="dlgEditSelectedPerson" 
               modal="true" 
               closeOnEscape="true" 
               fitViewport="true"
@@ -162,7 +156,7 @@
             <p:ajax update="@parent:btnGrid" event="change"/>
         </p:inputText>
         <br/>
-        <br/><!--
+        <br/>
 
         <h:outputText value="Last Name"/>
         <br/>
@@ -199,20 +193,92 @@
         <br/>
         <br/>
 
--->        <h:panelGrid id="btnGrid" columns="2">                
+        <h:panelGrid id="btnGrid" columns="2">                
 
             <p:commandButton value="#{labels.btnSave}" 
                              disabled="#{homeController.selectedPerson.firstName==null}" 
-                             action="#{homeController.savePerson()}" 
-                             update="@form" oncomplete="PF('dlgEditPerson').hide()"/>               
+                             action="#{homeController.saveSelectedPerson()}" 
+                             oncomplete="PF('dlgEditSelectedPerson').hide()"
+                             update="personsTable"/>               
 
             <p:commandButton value="#{labels.btnCancel}" 
-                             oncomplete="PF('dlgEditPerson').hide()"/>
+                             oncomplete="PF('dlgEditSelectedPerson').hide()"/>
 
         </h:panelGrid>      
 
     </p:dialog>
 
+    
+    
+    
+    
+    <!--New person dialog===================================================-->
+    <p:dialog id="dlgEditNewPerson" 
+              header="#{labels.dlgEditNewPerson}"              
+              widgetVar="dlgEditNewPerson" 
+              modal="true" 
+              closeOnEscape="true" 
+              fitViewport="true"
+              responsive="true"
+              dynamic="true">        
+
+        <h:outputText value="First Name"/>
+        <br/>
+        <p:inputText value="#{homeController.newPerson.firstName}">
+            <p:ajax update="@parent:btnGrid2" event="change"/>
+        </p:inputText>
+        <br/>
+        <br/>
+
+        <h:outputText value="Last Name"/>
+        <br/>
+        <p:inputText value="#{homeController.newPerson.lastName}"/>     
+        <br/>
+        <br/>
+
+        <h:outputText value="Age"/>
+        <br/>
+        <h:panelGrid>
+            <p:inputText id="ageTxt2" value="#{homeController.newPerson.age}"/>
+            <p:slider for="ageTxt2"
+                      minValue="1" 
+                      maxValue="120"/>
+        </h:panelGrid>
+
+        <br/>
+        <br/>
+
+        <h:outputText value="Gender"/>
+        <br/>
+        <p:selectOneButton value="#{homeController.newPerson.gender}">
+            <f:selectItem itemLabel="#{labels.m}" itemValue="m"/>
+            <f:selectItem itemLabel="#{labels.f}" itemValue="f"/>
+        </p:selectOneButton>
+
+        <br/>
+        <br/>
+
+        <h:outputText value="Notes"/>
+        <br/>
+        <p:inputTextarea value="#{homeController.newPerson.notes}"/>
+
+        <br/>
+        <br/>
+
+        <h:panelGrid id="btnGrid2" columns="2">                
+
+            <p:commandButton value="#{labels.btnSave}" 
+                             disabled="#{homeController.newPerson.firstName==null}" 
+                             action="#{homeController.saveNewPerson()}" 
+                             oncomplete="PF('dlgEditNewPerson').hide()"
+                             update="personsTable"/>               
+
+            <p:commandButton value="#{labels.btnCancel}" 
+                             oncomplete="PF('dlgEditNewPerson').hide()"/>
+
+        </h:panelGrid>      
+
+    </p:dialog>
 
 
 

@@ -20,14 +20,23 @@ import javax.faces.bean.SessionScoped;
 public class HomeController implements Serializable {
 
     @ManagedProperty(value = "#{sessionController}")
-    private SessionController session;    
+    private SessionController session;
 
     private List persons = new ArrayList<Person>();
 
     private Person selectedPerson = new Person();
-    
+
+    private Person newPerson = new Person();
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    public Person getNewPerson() {
+        return newPerson;
+    }
+
+    public void setNewPerson(Person newPerson) {
+        this.newPerson = newPerson;
+    }
+
     public Person getSelectedPerson() {
         return selectedPerson;
     }
@@ -52,18 +61,18 @@ public class HomeController implements Serializable {
         this.persons = persons;
     }
 
-//</editor-fold>   
-
+//</editor-fold>  
     @PostConstruct
     public void loadPersons() {
-        try {            
-            persons = session.getDB().getResultList(Person.class);               
+        try {
+            persons = session.getDB().getResultList(Person.class);
+            selectedPerson = (Person) persons.get(0);
         } catch (Exception e) {
-            FMessage.error(e.getMessage());            
+            FMessage.error(e.getMessage());
         }
     }
 
-    public void savePerson() {
+    public void saveSelectedPerson() {
         if (session.getDB().persisted(selectedPerson)) {
             FMessage.info(selectedPerson.getFirstName()
                     + " "
@@ -73,10 +82,22 @@ public class HomeController implements Serializable {
         } else {
             FMessage.error(session.getLabels().getProperty("msgPersonSaveError"));
         }
-    }    
+    }
+    
+    public void saveNewPerson() {
+        if (session.getDB().persisted(newPerson)) {
+            FMessage.info(newPerson.getFirstName()
+                    + " "
+                    + newPerson.getLastName()
+                    + " Saved");
+            loadPersons();
+        } else {
+            FMessage.error(session.getLabels().getProperty("msgPersonSaveError"));
+        }
+    }
 
     public void newPerson() {
-        selectedPerson = new Person();
+        newPerson = new Person();       
     }
 
     public void deletePerson() {
