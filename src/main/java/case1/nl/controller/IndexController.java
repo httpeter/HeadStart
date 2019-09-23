@@ -1,5 +1,6 @@
 package case1.nl.controller;
 
+import case1.nl.entities.User;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -29,8 +30,8 @@ public class IndexController implements Serializable {
                 .getRequestParameterMap()
                 .get("p");
 
-        if (p == null) {
-            p = "home";
+        if (p == null || sessionController.getCurrentUser() == null) {
+            p = "login";
         }
 
         return sessionController.getCompositionsDir() + p + ".xhtml";

@@ -13,6 +13,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import case1.nl.data.repository.DefaultRepository;
+import case1.nl.data.repository.UserRepository;
+import case1.nl.entities.User;
 
 /**
  *
@@ -23,6 +25,8 @@ import case1.nl.data.repository.DefaultRepository;
 @ManagedBean
 @SessionScoped
 public class SessionController implements Serializable {
+
+    private User currentUser;
 
     public FacesContext getFacesContext() {
 
@@ -61,6 +65,19 @@ public class SessionController implements Serializable {
     public String getCompositionsDir() {
         return getFacesContext().getExternalContext()
                 .getInitParameter("compositionsDir");
+    }
+
+    public User getCurrentUser() {
+        
+        UserRepository db = UserRepository.getInstance("PU");
+        
+        if(db.g .getUser("httpeter@gmail.com"))
+        
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 
 }

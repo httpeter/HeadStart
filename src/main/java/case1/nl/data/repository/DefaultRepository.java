@@ -20,7 +20,7 @@ import javax.persistence.TypedQuery;
  */
 public class DefaultRepository implements Serializable {
 
-    private static DefaultRepository instance = null;
+    public static DefaultRepository instance = null;
 
     private static final Logger logger = Logger.getLogger(DefaultRepository.class
             .getName());
