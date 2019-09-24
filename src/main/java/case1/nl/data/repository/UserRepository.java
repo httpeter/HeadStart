@@ -6,6 +6,7 @@
 package case1.nl.data.repository;
 
 import case1.nl.entities.User;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 /**
@@ -14,8 +15,20 @@ import javax.persistence.Query;
  */
 public class UserRepository extends DefaultRepository {
 
-    UserRepository() {
-        super();
+    private static UserRepository instance = null;
+
+    public static UserRepository getInstance(String puName) {
+        if (instance == null) {
+            try {
+                instance = new UserRepository();
+                instance.setEmf(Persistence.createEntityManagerFactory(puName));
+                instance.setEm(emf.createEntityManager());
+                return instance;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return instance;
     }
 
     public User getUser(String email) {

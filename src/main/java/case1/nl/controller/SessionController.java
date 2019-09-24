@@ -68,12 +68,7 @@ public class SessionController implements Serializable {
     }
 
     public User getCurrentUser() {
-        
-        UserRepository db = UserRepository.getInstance("PU");
-        
-        if(db.g .getUser("httpeter@gmail.com"))
-        
-        return currentUser;
+        return UserRepository.getInstance("PU").getUser("httpeter@gmail.com");
     }
 
     public void setCurrentUser(User currentUser) {

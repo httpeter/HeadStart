@@ -20,13 +20,13 @@ import javax.persistence.TypedQuery;
  */
 public class DefaultRepository implements Serializable {
 
-    public static DefaultRepository instance = null;
+    private static DefaultRepository instance = null;
 
     private static final Logger logger = Logger.getLogger(DefaultRepository.class
             .getName());
     private static final long serialVersionUID = 7086626098229281352L;
 
-    private static EntityManagerFactory emf;
+    public static EntityManagerFactory emf;
 
     private EntityManager em;
 
