@@ -8,6 +8,10 @@
     <p:panel>
 
         <h3>Login Page</h3>
+        
+        <p:inputText value="#{loginController.user.email}"/>
+        
+        <p:commandButton value="login" action="#{loginController.login()}"/>
 
     </p:panel>
 

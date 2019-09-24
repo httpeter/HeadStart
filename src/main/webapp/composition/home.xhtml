@@ -23,8 +23,7 @@
     <p:panel>               
         
         
-        
-        <!--ENd or test-->
+       
         
         <p:splitButton id="advanced" value="Action"  icon="pi pi-user-plus" filter="true" filterMatchMode="startsWith">
             <p:submenu label="New" icon="pi pi-user-plus">
@@ -75,20 +74,20 @@
                 <h:outputText value="#{person.id}"/>
             </p:column>
 
-            <p:column sortBy="#{person.firstName}" filterBy="#{person.firstName}" 
+            <p:column sortBy="#{person.firstname}" filterBy="#{person.firstname}" 
                       filterMatchMode="contains">
                 <f:facet name="header">
                     <h:outputText value="First Name"/>
                 </f:facet>
-                <h:outputText value="#{person.firstName}"/>
+                <h:outputText value="#{person.firstname}"/>
             </p:column>               
 
-            <p:column sortBy="#{person.lastName}" filterBy="#{person.lastName}" 
+            <p:column sortBy="#{person.lastname}" filterBy="#{person.lastname}" 
                       filterMatchMode="contains">
                 <f:facet name="header">
                     <h:outputText value="Last Name"/>
                 </f:facet>
-                <h:outputText value="#{person.lastName}"/>
+                <h:outputText value="#{person.lastname}"/>
             </p:column>
 
             <p:column sortBy="#{person.age}" filterBy="#{person.age}" 
@@ -151,7 +150,7 @@
 
         <h:outputText value="First Name"/>
         <br/>
-        <p:inputText value="#{homeController.selectedPerson.firstName}">
+        <p:inputText value="#{homeController.selectedPerson.firstname}">
             <p:ajax update="@parent:btnGrid" event="change"/>
         </p:inputText>
         <br/>
@@ -159,7 +158,7 @@
 
         <h:outputText value="Last Name"/>
         <br/>
-        <p:inputText value="#{homeController.selectedPerson.lastName}"/>     
+        <p:inputText value="#{homeController.selectedPerson.firstname}"/>     
         <br/>
         <br/>
 
@@ -195,7 +194,7 @@
         <h:panelGrid id="btnGrid" columns="2">                
 
             <p:commandButton value="#{labels.btnSave}" 
-                             disabled="#{homeController.selectedPerson.firstName==null}" 
+                             disabled="#{homeController.selectedPerson.firstname==null}" 
                              action="#{homeController.saveSelectedPerson()}" 
                              oncomplete="PF('dlgEditSelectedPerson').hide()"
                              update="personsTable"/>               
@@ -222,7 +221,7 @@
 
         <h:outputText value="First Name"/>
         <br/>
-        <p:inputText value="#{homeController.newPerson.firstName}">
+        <p:inputText value="#{homeController.newPerson.firstname}">
             <p:ajax update="@parent:btnGrid2" event="change"/>
         </p:inputText>
         <br/>
@@ -230,7 +229,7 @@
 
         <h:outputText value="Last Name"/>
         <br/>
-        <p:inputText value="#{homeController.newPerson.lastName}"/>     
+        <p:inputText value="#{homeController.newPerson.firstname}"/>     
         <br/>
         <br/>
 
@@ -266,7 +265,7 @@
         <h:panelGrid id="btnGrid2" columns="2">                
 
             <p:commandButton value="#{labels.btnSave}" 
-                             disabled="#{homeController.newPerson.firstName==null}" 
+                             disabled="#{homeController.newPerson.firstname==null}" 
                              action="#{homeController.saveNewPerson()}" 
                              oncomplete="PF('dlgEditNewPerson').hide()"
                              update="personsTable"/>               
@@ -297,8 +296,8 @@
 
         <br/>        
 
-        <h:outputText value="Delete #{homeController.selectedPerson.firstName} 
-                      #{homeController.selectedPerson.lastName} ?"/>        
+        <h:outputText value="Delete #{homeController.selectedPerson.firstname} 
+                      #{homeController.selectedPerson.firstname} ?"/>        
         <br/>
         <br/>
 

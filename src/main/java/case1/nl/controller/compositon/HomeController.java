@@ -74,9 +74,9 @@ public class HomeController implements Serializable {
 
     public void saveSelectedPerson() {
         if (session.getDB().persisted(selectedPerson)) {
-            FMessage.info(selectedPerson.getFirstName()
+            FMessage.info(selectedPerson.getFirstname()
                     + " "
-                    + selectedPerson.getLastName()
+                    + selectedPerson.getLastname()
                     + " Saved");
             loadPersons();
         } else {
@@ -86,9 +86,9 @@ public class HomeController implements Serializable {
     
     public void saveNewPerson() {
         if (session.getDB().persisted(newPerson)) {
-            FMessage.info(newPerson.getFirstName()
+            FMessage.info(newPerson.getFirstname()
                     + " "
-                    + newPerson.getLastName()
+                    + newPerson.getLastname()
                     + " Saved");
             loadPersons();
         } else {
@@ -103,9 +103,9 @@ public class HomeController implements Serializable {
     public void deletePerson() {
 
         if (session.getDB().deleted(selectedPerson)) {
-            FMessage.info(selectedPerson.getFirstName()
+            FMessage.info(selectedPerson.getFirstname()
                     + " "
-                    + selectedPerson.getLastName()
+                    + selectedPerson.getLastname()
                     + " Deleted");
             loadPersons();
         } else {

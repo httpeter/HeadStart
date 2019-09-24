@@ -13,22 +13,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author peterhendriks
  */
 @Entity
-@Table(catalog = "example", schema = "")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p"),
     @NamedQuery(name = "Person.findById", query = "SELECT p FROM Person p WHERE p.id = :id"),
     @NamedQuery(name = "Person.findByAge", query = "SELECT p FROM Person p WHERE p.age = :age"),
-    @NamedQuery(name = "Person.findByFirstName", query = "SELECT p FROM Person p WHERE p.firstName = :firstName"),
+    @NamedQuery(name = "Person.findByFirstname", query = "SELECT p FROM Person p WHERE p.firstname = :firstname"),
     @NamedQuery(name = "Person.findByGender", query = "SELECT p FROM Person p WHERE p.gender = :gender"),
-    @NamedQuery(name = "Person.findByLastName", query = "SELECT p FROM Person p WHERE p.lastName = :lastName"),
+    @NamedQuery(name = "Person.findByLastname", query = "SELECT p FROM Person p WHERE p.lastname = :lastname"),
     @NamedQuery(name = "Person.findByNotes", query = "SELECT p FROM Person p WHERE p.notes = :notes")})
 public class Person implements Serializable {
 
@@ -40,12 +40,12 @@ public class Person implements Serializable {
     @Size(max = 255)
     private String age;
     @Size(max = 255)
-    private String firstName;
+    private String firstname;
     @Size(max = 255)
     private String gender;
     @Size(max = 255)
-    private String lastName;
-    @Size(max = 500)
+    private String lastname;
+    @Size(max = 255)
     private String notes;
 
     public Person() {
@@ -71,12 +71,12 @@ public class Person implements Serializable {
         this.age = age;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getGender() {
@@ -87,12 +87,12 @@ public class Person implements Serializable {
         this.gender = gender;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getNotes() {
