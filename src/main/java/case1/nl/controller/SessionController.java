@@ -5,7 +5,6 @@
  */
 package case1.nl.controller;
 
-;
 
 import java.io.Serializable;
 import java.util.Properties;
@@ -15,6 +14,7 @@ import javax.faces.context.FacesContext;
 import case1.nl.data.repository.DefaultRepository;
 import case1.nl.data.repository.UserRepository;
 import case1.nl.entities.User;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,15 +26,14 @@ import case1.nl.entities.User;
 @SessionScoped
 public class SessionController implements Serializable {
 
+    public static Logger log = Logger.getLogger(DefaultRepository.class
+            .getName());
+    
     private User currentUser;
 
     public FacesContext getFacesContext() {
 
         return FacesContext.getCurrentInstance();
-    }
-
-    public DefaultRepository getDB() {
-        return DefaultRepository.getInstance("PU");
     }
 
     public boolean isDevelopmentStage() {
@@ -68,7 +67,7 @@ public class SessionController implements Serializable {
     }
 
     public User getCurrentUser() {
-        return UserRepository.getInstance("PU").getUser("httpeter@gmail.com");
+        return currentUser;
     }
 
     public void setCurrentUser(User currentUser) {

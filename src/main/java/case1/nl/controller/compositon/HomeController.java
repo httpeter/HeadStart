@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import case1.nl.controller.SessionController;
+import case1.nl.data.repository.DefaultRepository;
 import case1.nl.entities.Person;
 import case1.nl.util.FMessage;
 import javax.faces.bean.ViewScoped;
@@ -27,6 +28,8 @@ public class HomeController implements Serializable {
     private Person selectedPerson = new Person();
 
     private Person newPerson = new Person();
+    
+    private DefaultRepository defaultRepository = new DefaultRepository("PU");
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
     public Person getNewPerson() {
@@ -65,7 +68,7 @@ public class HomeController implements Serializable {
     @PostConstruct
     public void loadPersons() {
         try {
-            persons = session.getDB().getResultList(Person.class);
+            persons = defaultRepository.getResultList(Person.class);
             selectedPerson = (Person) persons.get(0);
         } catch (Exception e) {
             FMessage.error(e.getMessage());
@@ -73,7 +76,7 @@ public class HomeController implements Serializable {
     }
 
     public void saveSelectedPerson() {
-        if (session.getDB().persisted(selectedPerson)) {
+        if (defaultRepository.persisted(selectedPerson)) {
             FMessage.info(selectedPerson.getFirstname()
                     + " "
                     + selectedPerson.getLastname()
@@ -85,7 +88,7 @@ public class HomeController implements Serializable {
     }
     
     public void saveNewPerson() {
-        if (session.getDB().persisted(newPerson)) {
+        if (defaultRepository.persisted(newPerson)) {
             FMessage.info(newPerson.getFirstname()
                     + " "
                     + newPerson.getLastname()
@@ -102,7 +105,7 @@ public class HomeController implements Serializable {
 
     public void deletePerson() {
 
-        if (session.getDB().deleted(selectedPerson)) {
+        if (defaultRepository.deleted(selectedPerson)) {
             FMessage.info(selectedPerson.getFirstname()
                     + " "
                     + selectedPerson.getLastname()
