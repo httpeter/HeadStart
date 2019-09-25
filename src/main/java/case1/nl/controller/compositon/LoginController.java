@@ -4,10 +4,12 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import case1.nl.controller.SessionController;
-import case1.nl.data.repository.DefaultRepository;
 import case1.nl.data.repository.UserRepository;
 import case1.nl.entities.User;
+import case1.nl.util.AESEncryptor;
 import case1.nl.util.FMessage;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ViewScoped;
 
 /**
@@ -21,8 +23,8 @@ public class LoginController implements Serializable {
     @ManagedProperty(value = "#{sessionController}")
     private SessionController session;
 
-    private User user = new User();
-    
+    private String mail, pwd;
+
     UserRepository userRepository = new UserRepository("PU");
 
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
@@ -34,25 +36,43 @@ public class LoginController implements Serializable {
         this.session = session;
     }
 
-    public User getUser() {
-        return user;
+    public String getMail() {
+        return mail;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 
 //</editor-fold>
-    public void login() {        
+    public void login() {
 
-        
-            if(userRepository.getUser(user).getEmail() == user.getEmail())
-            {
-             FMessage.info("User " +user.getEmail() +" exists");
-            }
-            
-        
-
+        try {
+            User user = userRepository.getUser(mail, pwd);
+            FMessage.info("User "
+                    + mail
+                    + " logged in.");
+            session.setCurrentUser(user);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            FMessage.warn("Problem logging in user '"
+                    + mail
+                    + "'.");
+        }
     }
 
+    public void logout() {
+        FMessage.fatal("User '"
+                + session.getCurrentUser().getEmail()
+                + "' logged out.");
+        session.setCurrentUser(null);
+    }
 }

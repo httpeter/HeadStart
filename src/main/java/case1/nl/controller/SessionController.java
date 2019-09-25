@@ -5,7 +5,6 @@
  */
 package case1.nl.controller;
 
-
 import java.io.Serializable;
 import java.util.Properties;
 import javax.faces.bean.ManagedBean;
@@ -20,15 +19,10 @@ import java.util.logging.Logger;
  *
  * @author peterhendriks
  */
-
-
 @ManagedBean
 @SessionScoped
 public class SessionController implements Serializable {
 
-    public static Logger log = Logger.getLogger(DefaultRepository.class
-            .getName());
-    
     private User currentUser;
 
     public FacesContext getFacesContext() {

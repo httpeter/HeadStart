@@ -5,13 +5,27 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 
-    <p:panel>
+    <p:panel>              
+        
+        <h:panelGrid columns="2">
+            <h:outputText value="username"/>
+            <p:inputText value="#{loginController.mail}"
+                         required="true"
+                         requiredMessage="Username Required"/>
 
-        <h3>Login Page</h3>
-        
-        <p:inputText value="#{loginController.user.email}"/>
-        
-        <p:commandButton value="login" action="#{loginController.login()}" update="@form"/>
+            <h:outputText value="password"/>
+            <p:password value="#{loginController.pwd}" 
+                        required="true" 
+                        requiredMessage="Password Required"/>
+
+            <h:outputText/>
+            <p:commandButton value="login" 
+                             action="#{loginController.login()}" 
+                             update="@form"
+                             icon="pi pi-unlock"
+                             oncomplete="location.reload()"/>        
+        </h:panelGrid>
+
 
     </p:panel>
 

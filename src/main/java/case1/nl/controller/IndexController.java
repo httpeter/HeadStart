@@ -10,30 +10,30 @@ import javax.faces.bean.SessionScoped;
 public class IndexController implements Serializable {
 
     @ManagedProperty(value = "#{sessionController}")
-    private SessionController sessionController;
+    private SessionController session;
 
     //<editor-fold defaultstate="collapsed" desc="comment">
-    public SessionController getSessionController() {
-        return sessionController;
+    public SessionController getSession() {
+        return session;
     }
 
-    public void setSessionController(SessionController sessionController) {
-        this.sessionController = sessionController;
+    public void setSession(SessionController session) {
+        this.session = session;
     }
 //</editor-fold>
 
     public String getCurrentComposition() {
 
-        String p = sessionController.getFacesContext()
+        String p = session.getFacesContext()
                 .getExternalContext()
                 .getRequestParameterMap()
                 .get("p");
 
-        if (p == null) {
+        if (p == null || session.getCurrentUser() == null) {
             p = "login";
         }
 
-        return sessionController.getCompositionsDir() + p + ".xhtml";
+        return session.getCompositionsDir() + p + ".xhtml";
     }
 
 }

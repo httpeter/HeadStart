@@ -73,6 +73,15 @@
                 <p:menuitem value="#{labels.menuItemLogin}" 
                             icon="fa fa-th"
                             url="?p=login"/>
+                <p:menuitem/>
+                <p:menuitem/>
+                <p:menuitem/>
+                <p:menuitem/>
+                 <p:menuitem value="logout" 
+                             action="#{loginController.logout()}" 
+                             disabled="#{sessionController.currentUser==null}"
+                             update="@form"
+                             icon="pi pi-lock"/>
             </p:megaMenu>
 
             
