@@ -9,13 +9,13 @@ import javax.faces.bean.ManagedProperty;
 import case1.nl.controller.SessionController;
 import case1.nl.entities.Person;
 import case1.nl.util.FMessage;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author PeterH
  */
-@SessionScoped
+@ViewScoped
 @ManagedBean
 public class HomeController implements Serializable {
 

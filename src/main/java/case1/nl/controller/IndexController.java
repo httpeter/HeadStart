@@ -30,7 +30,7 @@ public class IndexController implements Serializable {
                 .get("p");
 
         if (p == null) {
-            p = "home";
+            p = "login";
         }
 
         return sessionController.getCompositionsDir() + p + ".xhtml";

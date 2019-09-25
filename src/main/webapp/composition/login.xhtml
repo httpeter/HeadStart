@@ -11,7 +11,7 @@
         
         <p:inputText value="#{loginController.user.email}"/>
         
-        <p:commandButton value="login" action="#{loginController.login()}"/>
+        <p:commandButton value="login" action="#{loginController.login()}" update="@form"/>
 
     </p:panel>
 
