@@ -28,11 +28,11 @@ public class IndexController implements Serializable {
                 .getExternalContext()
                 .getRequestParameterMap()
                 .get("p");
-
-        if (p == null || session.getCurrentUser() == null) {
-            p = "login";
+//|| session.getCurrentUser() == null
+        if (p == null ) {
+            p = "home";
         }
-
+        
         return session.getCompositionsDir() + p + ".xhtml";
     }
 

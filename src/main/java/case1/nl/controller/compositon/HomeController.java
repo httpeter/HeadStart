@@ -29,7 +29,7 @@ public class HomeController implements Serializable {
 
     private Person newPerson = new Person();
     
-    private DefaultRepository defaultRepository = new DefaultRepository("PU");
+    private final DefaultRepository defaultRepository = new DefaultRepository("PU");
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
     public Person getNewPerson() {

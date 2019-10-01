@@ -80,7 +80,7 @@
                  <p:menuitem value="logout" 
                              action="#{loginController.logout()}" 
                              disabled="#{sessionController.currentUser==null}"
-                             update="@form"
+                             ajax="false"
                              icon="pi pi-lock"/>
             </p:megaMenu>
 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package case1.nl.controller;
 
 import java.io.Serializable;
@@ -10,10 +5,7 @@ import java.util.Properties;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import case1.nl.data.repository.DefaultRepository;
-import case1.nl.data.repository.UserRepository;
 import case1.nl.entities.User;
-import java.util.logging.Logger;
 
 /**
  *
