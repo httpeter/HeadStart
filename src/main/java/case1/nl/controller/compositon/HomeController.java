@@ -28,7 +28,7 @@ public class HomeController implements Serializable {
     private Person selectedPerson = new Person();
 
     private Person newPerson = new Person();
-    
+
     private final DefaultRepository defaultRepository = new DefaultRepository("PU");
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
@@ -86,7 +86,7 @@ public class HomeController implements Serializable {
             FMessage.error(session.getLabels().getProperty("msgPersonSaveError"));
         }
     }
-    
+
     public void saveNewPerson() {
         if (defaultRepository.persisted(newPerson)) {
             FMessage.info(newPerson.getFirstname()
@@ -100,7 +100,7 @@ public class HomeController implements Serializable {
     }
 
     public void newPerson() {
-        newPerson = new Person();       
+        newPerson = new Person();
     }
 
     public void deletePerson() {

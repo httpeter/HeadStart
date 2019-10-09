@@ -6,8 +6,13 @@ import javax.faces.bean.ManagedProperty;
 import case1.nl.controller.SessionController;
 import case1.nl.data.repository.UserRepository;
 import case1.nl.entities.User;
-import case1.nl.util.AESEncryptor;
 import case1.nl.util.FMessage;
+import com.github.sardine.DavResource;
+import com.github.sardine.Sardine;
+import com.github.sardine.SardineFactory;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ViewScoped;
@@ -74,5 +79,23 @@ public class LoginController implements Serializable {
                 + session.getCurrentUser().getEmail()
                 + "' logged out.");
         session.setCurrentUser(null);
+    }
+
+    public void test() {
+        try {
+            Sardine sardine = SardineFactory.begin("httpeter", "Morsstraat4!");
+            List<DavResource> resources;
+
+            resources = sardine.list("https://peterveter.stackstorage.com/remote.php/webdav/");
+
+            for (DavResource res : resources) {
+                System.out.println(res); // calls the .toString() method.
+
+                InputStream is = sardine.get("peterveter.stackstorage.com/remote.php/webdav/gedeeld/KPN Hotspots FON.txt");
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

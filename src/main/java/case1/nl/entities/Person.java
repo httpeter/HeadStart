@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Person.findByNotes", query = "SELECT p FROM Person p WHERE p.notes = :notes")})
 public class Person implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 0x1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -49,6 +49,7 @@ public class Person implements Serializable {
     private String notes;
 
     public Person() {
+     
     }
 
     public Person(Integer id) {

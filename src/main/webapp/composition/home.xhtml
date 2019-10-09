@@ -52,11 +52,12 @@
                      liveScroll="true"
                      selectionMode="single"                          
                      selection="#{homeController.selectedPerson}"
-                     rowKey="#{person.id}">              
-
-            <p:ajax event="rowSelect" 
-                    update="mainForm:dlgEditSelectedPerson"
-                    oncomplete="PF('dlgEditSelectedPerson').show()"/>              
+                     rowKey="#{person.id}"
+                     onRowClick="PF('dlgEditSelectedPerson').show()">              
+<!--update="mainForm:dlgEditSelectedPerson"-->
+<!--            <p:ajax event="rowSelect" 
+                    update="@form"
+                    oncomplete="PF('dlgEditSelectedPerson').show()"/>              -->
 
             <f:facet name="header">
                 <p:outputPanel>                        
@@ -146,7 +147,8 @@
               modal="true" 
               closeOnEscape="true" 
               fitViewport="true"
-              responsive="true">        
+              responsive="true"
+              dynamic="true">        
 
         <h:outputText value="First Name"/>
         <br/>
@@ -214,10 +216,11 @@
     <p:dialog id="dlgEditNewPerson" 
               header="#{labels.dlgEditNewPerson}"              
               widgetVar="dlgEditNewPerson" 
-              modal="true" 
+              modal="true"
               closeOnEscape="true" 
               fitViewport="true"
-              responsive="true">        
+              responsive="true"
+              dynamic="true">        
 
         <h:outputText value="First Name"/>
         <br/>

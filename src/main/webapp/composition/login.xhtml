@@ -4,7 +4,8 @@
                 xmlns:p="http://primefaces.org/ui"                
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-
+    <p:commandButton value="test" action="#{loginController.test()}"/>
+    
     <p:panel>              
         
         <h:panelGrid columns="2">
@@ -21,7 +22,8 @@
             <h:outputText/>
             <p:commandButton value="login" 
                              action="#{loginController.login()}"                              
-                             icon="pi pi-unlock"/>        
+                             icon="pi pi-unlock"
+                             ajax="false"/>        
         </h:panelGrid>
 
 
