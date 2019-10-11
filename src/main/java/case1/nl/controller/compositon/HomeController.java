@@ -10,7 +10,10 @@ import case1.nl.controller.SessionController;
 import case1.nl.data.repository.DefaultRepository;
 import case1.nl.entities.Person;
 import case1.nl.util.FMessage;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -74,6 +77,12 @@ public class HomeController implements Serializable {
             FMessage.error(e.getMessage());
         }
     }
+    
+     public void selectPerson(SelectEvent event) {
+         selectedPerson = (Person) event.getObject(); 
+         System.out.println("test");
+    }
+ 
 
     public void saveSelectedPerson() {
         if (defaultRepository.persisted(selectedPerson)) {

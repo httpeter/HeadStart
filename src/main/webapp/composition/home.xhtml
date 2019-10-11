@@ -34,8 +34,8 @@
             </p:submenu>            
         </p:splitButton>
 
-
-
+        <p:inputTextarea id="testtext" value="#{homeController.selectedPerson.notes}"/>
+        
         <br/>
         <br/>
 
@@ -52,12 +52,12 @@
                      liveScroll="true"
                      selectionMode="single"                          
                      selection="#{homeController.selectedPerson}"
-                     rowKey="#{person.id}"
-                     onRowClick="PF('dlgEditSelectedPerson').show()">              
-<!--update="mainForm:dlgEditSelectedPerson"-->
-<!--            <p:ajax event="rowSelect" 
-                    update="@form"
-                    oncomplete="PF('dlgEditSelectedPerson').show()"/>              -->
+                     rowKey="#{person.id}">              
+
+            <p:ajax event="rowSelect"
+                    listener="#{homeController.selectPerson}"
+                    update="mainForm:testtext"                    />
+                    <!--oncomplete="PF('dlgEditSelectedPerson').show()"/>-->              
 
             <f:facet name="header">
                 <p:outputPanel>                        
@@ -143,13 +143,12 @@
     <!--Edit person dialog===================================================-->
     <p:dialog id="dlgEditSelectedPerson" 
               header="#{labels.dlgEditPerson}"              
-              widgetVar="dlgEditSelectedPerson" 
-              modal="true" 
+              widgetVar="dlgEditSelectedPerson"               
               closeOnEscape="true" 
               fitViewport="true"
               responsive="true"
-              dynamic="true">        
-
+              modal="true">                
+        
         <h:outputText value="First Name"/>
         <br/>
         <p:inputText value="#{homeController.selectedPerson.firstname}">
