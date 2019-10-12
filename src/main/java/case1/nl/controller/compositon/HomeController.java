@@ -10,9 +10,7 @@ import case1.nl.controller.SessionController;
 import case1.nl.data.repository.DefaultRepository;
 import case1.nl.entities.Person;
 import case1.nl.util.FMessage;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -72,15 +70,16 @@ public class HomeController implements Serializable {
     public void loadPersons() {
         try {
             persons = defaultRepository.getResultList(Person.class);
-            selectedPerson = (Person) persons.get(0);
+//            selectedPerson = (Person) persons.get(0);
         } catch (Exception e) {
             FMessage.error(e.getMessage());
         }
     }
     
      public void selectPerson(SelectEvent event) {
+         Person p = (Person) event.getObject();                  
          selectedPerson = (Person) event.getObject(); 
-         System.out.println("test");
+
     }
  
 

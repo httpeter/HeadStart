@@ -56,8 +56,8 @@
 
             <p:ajax event="rowSelect"
                     listener="#{homeController.selectPerson}"
-                    update="mainForm:testtext"                    />
-                    <!--oncomplete="PF('dlgEditSelectedPerson').show()"/>-->              
+                    update="mainForm:dlgEditSelectedPerson" 
+                    oncomplete="PF('dlgEditSelectedPerson').show()"/>              
 
             <f:facet name="header">
                 <p:outputPanel>                        

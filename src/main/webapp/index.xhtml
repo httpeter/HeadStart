@@ -1,116 +1,112 @@
 <!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"      
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
-      xmlns:p="http://primefaces.org/ui">
-
-
-
-
-
-
-
-
-    <f:loadBundle basename="#{sessionController.labelFile}" var="labels"/>
-
-
-
-
-
-
-
+<html xmlns="http://www.w3c.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-
-        <ui:include src="composition/analytics.xhtml"/>
-
-        <link rel="shortcut icon" 
-              href="resources/img/favicon.ico" 
-              type="image/x-icon"/>
-
-        <meta name="viewport" 
-              content="width=device-width, user-scalable=no"/>
-
-        <meta name="mobile-web-app-capable" 
-              content="yes"/>
-
-        <link href="resources/css/main.css" 
-              rel="stylesheet" 
-              type="text/css "/>             
-          
-        <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyAA2Io6jfjW_Q_HxVuQnZqqKxQvbBLbHPs" async="true" defer="true"></script> 
-      
-        <title>#{labels.appTitle} - #{labels.organizationName}</title>
-
-
     </h:head>
+    <h:body>
+
+        <f:view>
+
+
+            <h:form id="selectionForm">
+                <h1><h:outputText value="Selected"/></h1>
+                <p:dataTable value="#{homeController.selectedPerson}" var="item">
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Age"/>
+                        </f:facet>
+                        <h:outputText value="#{item.age}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Firstname"/>
+                        </f:facet>
+                        <h:outputText value="#{item.firstname}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Gender"/>
+                        </f:facet>
+                        <h:outputText value="#{item.gender}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Lastname"/>
+                        </f:facet>
+                        <h:outputText value="#{item.lastname}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Notes"/>
+                        </f:facet>
+                        <h:outputText value="#{item.notes}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
 
 
 
 
 
-
-    <h:body styleClass="myBody">     
-
-        <h:form id="mainForm" styleClass="myForm">            
-
-            <p:sticky target="menu"/>
-
-            <p:growl id="growl"/>
-
-            <!--Normal Menu, must be filled dynamically-->
-            <p:megaMenu id="menu">
-                <p:menuitem value="#{labels.menuItemHome}" 
-                            icon="fa fa-home"
-                            url="?p=home"/>
-                <p:menuitem value="#{labels.menuItemNotify}" 
-                            icon="fa fa-star"
-                            url="?p=notify"/>
-                <p:menuitem value="#{labels.menuItemComponents}" 
-                            icon="fa fa-th"
-                            url="?p=components"/>
-                <p:menuitem value="#{labels.menuItemLogin}" 
-                            icon="fa fa-th"
-                            url="?p=login"/>
-                <p:menuitem/>
-                <p:menuitem/>
-                <p:menuitem/>
-                <p:menuitem/>
-                 <p:menuitem value="logout" 
-                             action="#{loginController.logout()}" 
-                             disabled="#{sessionController.currentUser==null}"
-                             ajax="false"
-                             icon="pi pi-lock"/>
-            </p:megaMenu>
-
-            
-
-            <p:spacer/>
-
-
-
-
-            <p:outputPanel id="currentComposition">
-                <ui:include src="#{indexController.currentComposition}"/>
-            </p:outputPanel>
-
-
-
-
-
+            <h:form >
+                <h1><h:outputText value="All"/></h1>
+                <p:dataTable value="#{homeController.persons}" var="item" 
+                             selectionMode="single"
+                             selection="#{homeController.selectedPerson}"
+                             rowKey="#{item.id}">                             
+                <p:ajax event="rowSelect" 
+                        listener="#{homeController.selectPerson}" 
+                        update="selectionForm"/>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Id"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Age"/>
+                    </f:facet>
+                    <h:outputText value="#{item.age}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Firstname"/>
+                    </f:facet>
+                    <h:outputText value="#{item.firstname}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Gender"/>
+                    </f:facet>
+                    <h:outputText value="#{item.gender}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Lastname"/>
+                    </f:facet>
+                    <h:outputText value="#{item.lastname}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Notes"/>
+                    </f:facet>
+                    <h:outputText value="#{item.notes}"/>
+                </p:column>
+                </p:dataTable>
+            </h:form>
 
 
-            <p:idleMonitor timeout="#{session.maxInactiveInterval*900}"  
-                           onidle="window.location.reload();"/>
-
-
-
-        </h:form>
+        </f:view>
 
 
     </h:body>
-    
-   
 </html>
-
