@@ -1,0 +1,107 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+        <f:view>
+
+
+            <h:form id="selectionForm">
+                <h1><h:outputText value="Selected"/></h1>
+                <p:dataTable value="#{homeController.selectedPerson}" var="item">
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Age"/>
+                        </f:facet>
+                        <h:outputText value="#{item.age}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Firstname"/>
+                        </f:facet>
+                        <h:outputText value="#{item.firstname}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Gender"/>
+                        </f:facet>
+                        <h:outputText value="#{item.gender}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Lastname"/>
+                        </f:facet>
+                        <h:outputText value="#{item.lastname}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Notes"/>
+                        </f:facet>
+                        <h:outputText value="#{item.notes}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+
+
+
+
+
+            <h:form>
+                <h1><h:outputText value="All"/></h1>
+                <p:dataTable value="#{homeController.persons}" var="item" 
+                             selectionMode="single"
+                             selection="#{homeController.selectedPerson}"
+                             rowKey="#{item.id}">                             
+                <p:ajax event="rowSelect" 
+                        listener="#{homeController.selectPerson}" 
+                        update="mainForm:selectionForm"/>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Id"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Age"/>
+                    </f:facet>
+                    <h:outputText value="#{item.age}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Firstname"/>
+                    </f:facet>
+                    <h:outputText value="#{item.firstname}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Gender"/>
+                    </f:facet>
+                    <h:outputText value="#{item.gender}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Lastname"/>
+                    </f:facet>
+                    <h:outputText value="#{item.lastname}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Notes"/>
+                    </f:facet>
+                    <h:outputText value="#{item.notes}"/>
+                </p:column>
+                </p:dataTable>
+            </h:form>
+
+
+        </f:view>
+
+
+</ui:composition>
