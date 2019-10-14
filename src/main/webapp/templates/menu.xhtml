@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <p:sticky target="menu"/>
+
+    <p:growl id="growl"/>
+
+    <!--Normal Menu, must be filled dynamically-->
+    <p:megaMenu id="menu">
+        <p:menuitem value="#{labels.menuItemHome}" 
+                    icon="fa fa-home"
+                    url="home.html"/>
+        <p:menuitem value="#{labels.menuItemNotify}" 
+                    icon="fa fa-star"
+                    url="index.html"/>
+        <p:menuitem value="#{labels.menuItemComponents}" 
+                    icon="fa fa-th"
+                    url="?p=components"/>
+        <p:menuitem value="#{labels.menuItemLogin}" 
+                    icon="fa fa-th"
+                    url="?p=login"/>
+        <p:menuitem value="#{labels.test}" 
+                    icon="fa fa-home"
+                    url="?p=test"/>
+        <p:menuitem/>
+        <p:menuitem/>
+        <p:menuitem/>
+        <p:menuitem/>
+        <p:menuitem value="logout" 
+                    action="#{loginController.logout()}" 
+                    disabled="#{sessionController.currentUser==null}"
+                    ajax="false"
+                    icon="pi pi-lock"/>
+    </p:megaMenu>
+
+
+
+</ui:composition>

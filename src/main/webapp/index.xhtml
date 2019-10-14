@@ -13,42 +13,7 @@
 
 
 
-    <f:loadBundle basename="#{sessionController.labelFile}" var="labels"/>
-
-
-
-
-
-
-
-    <h:head>
-
-        <ui:include src="composition/analytics.xhtml"/>
-
-        <link rel="shortcut icon" 
-              href="resources/img/favicon.ico" 
-              type="image/x-icon"/>
-
-        <meta name="viewport" 
-              content="width=device-width, user-scalable=no"/>
-
-        <meta name="mobile-web-app-capable" 
-              content="yes"/>
-
-        <link href="resources/css/main.css" 
-              rel="stylesheet" 
-              type="text/css "/>             
-
-        <script type="text/javascript" 
-                src="https://maps.google.com/maps/api/js?key=AIzaSyAA2Io6jfjW_Q_HxVuQnZqqKxQvbBLbHPs" 
-                async="true" 
-        defer="true"></script> 
-
-        <title>#{labels.appTitle} - #{labels.organizationName}</title>
-
-
-    </h:head>
-
+    <ui:include src="templates/header.xhtml"/>
 
 
 
@@ -58,38 +23,7 @@
 
         <h:form id="mainForm" styleClass="myForm">            
 
-            <p:sticky target="menu"/>
-
-            <p:growl id="growl"/>
-
-            <!--Normal Menu, must be filled dynamically-->
-            <p:megaMenu id="menu">
-                <p:menuitem value="#{labels.menuItemHome}" 
-                            icon="fa fa-home"
-                            url="?p=home"/>
-                <p:menuitem value="#{labels.menuItemNotify}" 
-                            icon="fa fa-star"
-                            url="?p=notify"/>
-                <p:menuitem value="#{labels.menuItemComponents}" 
-                            icon="fa fa-th"
-                            url="?p=components"/>
-                <p:menuitem value="#{labels.menuItemLogin}" 
-                            icon="fa fa-th"
-                            url="?p=login"/>
-                <p:menuitem value="#{labels.test}" 
-                            icon="fa fa-home"
-                            url="?p=test"/>
-                <p:menuitem/>
-                <p:menuitem/>
-                <p:menuitem/>
-                <p:menuitem/>
-                <p:menuitem value="logout" 
-                            action="#{loginController.logout()}" 
-                            disabled="#{sessionController.currentUser==null}"
-                            ajax="false"
-                            icon="pi pi-lock"/>
-            </p:megaMenu>
-
+            <ui:include src="templates/menu.xhtml"/>
 
 
             <p:spacer/>
@@ -97,12 +31,7 @@
 
 
 
-            <p:outputPanel id="currentComposition">
-                <ui:include src="#{indexController.currentComposition}"/>
-            </p:outputPanel>
-
-
-
+          testing
 
 
 
