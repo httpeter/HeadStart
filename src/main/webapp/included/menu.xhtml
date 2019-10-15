@@ -4,18 +4,15 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-
+    <p:growl id="growl"/>
 
     <p:sticky target="menu"/>
-
-
-
-    <p:growl id="growl"/>
+    
 
     <p:megaMenu id="menu">
         <p:menuitem value="#{labels.menuItemHome}" 
                     icon="fa fa-home"
-                    url="home.html"/>
+                    url="index.html"/>
         <p:menuitem value="#{labels.menuItemNotify}" 
                     icon="fa fa-star"
                     url="index.html"/>
@@ -24,7 +21,8 @@
                     url="?p=components"/>
         <p:menuitem value="#{labels.menuItemLogin}" 
                     icon="fa fa-th"
-                    url="?p=login"/>
+                    url="login.html"
+                    disabled="#{sessionController.currentUser!=null}"/>
         <p:menuitem value="#{labels.test}" 
                     icon="fa fa-home"
                     url="?p=test"/>

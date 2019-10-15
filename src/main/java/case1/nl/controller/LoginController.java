@@ -52,7 +52,7 @@ public class LoginController implements Serializable {
     }
 
 //</editor-fold>
-    public void login() {
+    public String login() {
 
         try {
             User user = userRepository.getUser(mail, pwd);
@@ -60,19 +60,22 @@ public class LoginController implements Serializable {
                     + mail
                     + " logged in.");
             session.setCurrentUser(user);
+            return "index.html";
         } catch (Exception ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             FMessage.warn("Problem logging in user '"
                     + mail
                     + "'.");
+            return null;
         }
     }
 
-    public void logout() {
+    public String logout() {
         FMessage.fatal("User '"
                 + session.getCurrentUser().getEmail()
                 + "' logged out.");
         session.setCurrentUser(null);
+        return "login.html";
     }
 
 }

@@ -6,6 +6,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import case1.nl.entities.User;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 
 /**
  *
@@ -48,6 +52,16 @@ public class SessionController implements Serializable {
     }
 
     public User getCurrentUser() {
+        if (currentUser == null) {
+            try {
+                FacesContext.getCurrentInstance()
+                        .getExternalContext()
+                        .redirect("login.html");
+            } catch (IOException ex) {
+                Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
+            }
+        }
         return currentUser;
     }
 

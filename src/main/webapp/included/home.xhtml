@@ -29,12 +29,12 @@
             <p:submenu label="New" icon="pi pi-user-plus">
                 <p:menuitem value="#{labels.btnNew}"
                             icon="pi pi-user-plus"
-                            action="#{homeController.newPerson()}"
+                            action="#{indexController.newPerson()}"
                             oncomplete="PF('dlgEditNewPerson').show()"/>                
             </p:submenu>            
         </p:splitButton>
 
-        <p:inputTextarea id="testtext" value="#{homeController.selectedPerson.notes}"/>
+        <p:inputTextarea id="testtext" value="#{indexController.selectedPerson.notes}"/>
         
         <br/>
         <br/>
@@ -43,7 +43,7 @@
 
         <p:dataTable id="personsTable"
                      widgetVar="personsTable"
-                     value="#{homeController.persons}" 
+                     value="#{indexController.persons}" 
                      var="person" 
                      reflow="true"                          
                      scrollable="true"
@@ -51,11 +51,11 @@
                      scrollHeight="600"
                      liveScroll="true"
                      selectionMode="single"                          
-                     selection="#{homeController.selectedPerson}"
+                     selection="#{indexController.selectedPerson}"
                      rowKey="#{person.id}">              
 
             <p:ajax event="rowSelect"
-                    listener="#{homeController.selectPerson}"
+                    listener="#{indexController.selectPerson}"
                     update="mainForm:dlgEditSelectedPerson" 
                     oncomplete="PF('dlgEditSelectedPerson').show()"/>              
 
@@ -151,7 +151,7 @@
         
         <h:outputText value="First Name"/>
         <br/>
-        <p:inputText value="#{homeController.selectedPerson.firstname}">
+        <p:inputText value="#{indexController.selectedPerson.firstname}">
             <p:ajax update="@parent:btnGrid" event="change"/>
         </p:inputText>
         <br/>
@@ -159,14 +159,14 @@
 
         <h:outputText value="Last Name"/>
         <br/>
-        <p:inputText value="#{homeController.selectedPerson.lastname}"/>     
+        <p:inputText value="#{indexController.selectedPerson.lastname}"/>     
         <br/>
         <br/>
 
         <h:outputText value="Age"/>
         <br/>
         <h:panelGrid>
-            <p:inputText id="ageTxt" value="#{homeController.selectedPerson.age}"/>
+            <p:inputText id="ageTxt" value="#{indexController.selectedPerson.age}"/>
             <p:slider for="ageTxt"
                       minValue="1" 
                       maxValue="120"/>
@@ -177,7 +177,7 @@
 
         <h:outputText value="Gender"/>
         <br/>
-        <p:selectOneButton value="#{homeController.selectedPerson.gender}">
+        <p:selectOneButton value="#{indexController.selectedPerson.gender}">
             <f:selectItem itemLabel="#{labels.m}" itemValue="m"/>
             <f:selectItem itemLabel="#{labels.f}" itemValue="f"/>
         </p:selectOneButton>
@@ -187,7 +187,7 @@
 
         <h:outputText value="Notes"/>
         <br/>
-        <p:inputTextarea value="#{homeController.selectedPerson.notes}"/>
+        <p:inputTextarea value="#{indexController.selectedPerson.notes}"/>
 
         <br/>
         <br/>
@@ -195,8 +195,8 @@
         <h:panelGrid id="btnGrid" columns="2">                
 
             <p:commandButton value="#{labels.btnSave}" 
-                             disabled="#{homeController.selectedPerson.firstname==null}" 
-                             action="#{homeController.saveSelectedPerson()}" 
+                             disabled="#{indexController.selectedPerson.firstname==null}" 
+                             action="#{indexController.saveSelectedPerson()}" 
                              oncomplete="PF('dlgEditSelectedPerson').hide()"
                              update="personsTable"/>               
 
@@ -223,7 +223,7 @@
 
         <h:outputText value="First Name"/>
         <br/>
-        <p:inputText value="#{homeController.newPerson.firstname}">
+        <p:inputText value="#{indexController.newPerson.firstname}">
             <p:ajax update="@parent:btnGrid2" event="change"/>
         </p:inputText>
         <br/>
@@ -231,14 +231,14 @@
 
         <h:outputText value="Last Name"/>
         <br/>
-        <p:inputText value="#{homeController.newPerson.firstname}"/>     
+        <p:inputText value="#{indexController.newPerson.firstname}"/>     
         <br/>
         <br/>
 
         <h:outputText value="Age"/>
         <br/>
         <h:panelGrid>
-            <p:inputText id="ageTxt2" value="#{homeController.newPerson.age}"/>
+            <p:inputText id="ageTxt2" value="#{indexController.newPerson.age}"/>
             <p:slider for="ageTxt2"
                       minValue="1" 
                       maxValue="120"/>
@@ -249,7 +249,7 @@
 
         <h:outputText value="Gender"/>
         <br/>
-        <p:selectOneButton value="#{homeController.newPerson.gender}">
+        <p:selectOneButton value="#{indexController.newPerson.gender}">
             <f:selectItem itemLabel="#{labels.m}" itemValue="m"/>
             <f:selectItem itemLabel="#{labels.f}" itemValue="f"/>
         </p:selectOneButton>
@@ -259,7 +259,7 @@
 
         <h:outputText value="Notes"/>
         <br/>
-        <p:inputTextarea value="#{homeController.newPerson.notes}"/>
+        <p:inputTextarea value="#{indexController.newPerson.notes}"/>
 
         <br/>
         <br/>
@@ -267,8 +267,8 @@
         <h:panelGrid id="btnGrid2" columns="2">                
 
             <p:commandButton value="#{labels.btnSave}" 
-                             disabled="#{homeController.newPerson.firstname==null}" 
-                             action="#{homeController.saveNewPerson()}" 
+                             disabled="#{indexController.newPerson.firstname==null}" 
+                             action="#{indexController.saveNewPerson()}" 
                              oncomplete="PF('dlgEditNewPerson').hide()"
                              update="personsTable"/>               
 
@@ -298,12 +298,12 @@
 
         <br/>        
 
-        <h:outputText value="Delete #{homeController.selectedPerson.firstname} 
-                      #{homeController.selectedPerson.firstname} ?"/>        
+        <h:outputText value="Delete #{indexController.selectedPerson.firstname} 
+                      #{indexController.selectedPerson.firstname} ?"/>        
         <br/>
         <br/>
 
-        <p:commandButton value="Yes" action="#{homeController.deletePerson()}" 
+        <p:commandButton value="Yes" action="#{indexController.deletePerson()}" 
                          oncomplete="hide()" 
                          ajax="false"/>
 
