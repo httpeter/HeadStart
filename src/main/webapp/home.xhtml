@@ -6,38 +6,22 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
       xmlns:p="http://primefaces.org/ui">
 
-
-
-
-    <ui:include src="templates/header.xhtml"/>
-
+    <h:head>               
+        <ui:include src="included/head.xhtml"/>
+        <title>#{labels.appTitle} - #{labels.organizationName}</title>
+    </h:head>
 
     <h:body>
 
-        <h:form id="mainForm">
+        <h:form>
 
-            <ui:include src="templates/menu.xhtml"/>
-
-
-            <p:spacer/>
-
-
-
-            <p:panel id="welcomePanel">            
-                <h:outputText value="#{labels.welcomeMSG}" escape="false"/>                                 
-            </p:panel>
-
-
-
-
-
+            <ui:include src="included/menu.xhtml"/>                   
 
             <p:panel>               
-
-
-
-
-                <p:splitButton id="advanced" value="Action"  icon="pi pi-user-plus" filter="true" filterMatchMode="startsWith">
+                <p:splitButton id="advanced" value="Action"  
+                               icon="pi pi-user-plus" 
+                               filter="true" 
+                               filterMatchMode="startsWith">
                     <p:submenu label="New" icon="pi pi-user-plus">
                         <p:menuitem value="#{labels.btnNew}"
                                     icon="pi pi-user-plus"
@@ -48,10 +32,7 @@
 
                 <p:inputTextarea id="testtext" value="#{homeController.selectedPerson.notes}"/>
 
-                <br/>
-                <br/>
-
-
+                <p:spacer/>
 
                 <p:dataTable id="personsTable"
                              widgetVar="personsTable"
@@ -68,7 +49,7 @@
 
                     <p:ajax event="rowSelect"
                             listener="#{homeController.selectPerson}"
-                            update="mainForm:dlgEditSelectedPerson" 
+                            update="@form:dlgEditSelectedPerson" 
                             oncomplete="PF('dlgEditSelectedPerson').show()"/>              
 
                     <f:facet name="header">
@@ -134,25 +115,11 @@
                                          icon="fa fa-times"
                                          update="@form"/>    
                     </p:column>
-
                 </p:dataTable>   
-
-
-
             </p:panel>    
 
 
 
-
-
-
-
-
-
-
-
-
-            <!--Edit person dialog===================================================-->
             <p:dialog id="dlgEditSelectedPerson" 
                       header="#{labels.dlgEditPerson}"              
                       widgetVar="dlgEditSelectedPerson"               
@@ -221,9 +188,6 @@
 
 
 
-
-
-            <!--New person dialog===================================================-->
             <p:dialog id="dlgEditNewPerson" 
                       header="#{labels.dlgEditNewPerson}"              
                       widgetVar="dlgEditNewPerson" 
@@ -250,7 +214,8 @@
                 <h:outputText value="Age"/>
                 <br/>
                 <h:panelGrid>
-                    <p:inputText id="ageTxt2" value="#{homeController.newPerson.age}"/>
+                    <p:inputText id="ageTxt2" 
+                                 value="#{homeController.newPerson.age}"/>
                     <p:slider for="ageTxt2"
                               minValue="1" 
                               maxValue="120"/>
@@ -286,50 +251,29 @@
 
                     <p:commandButton value="#{labels.btnCancel}" 
                                      oncomplete="PF('dlgEditNewPerson').hide()"/>
-
                 </h:panelGrid>      
-
             </p:dialog>
 
 
-
-
-
-
-
-
-
-
-
-            <!--        Delete Person Dialog ============================================-->
+            
             <p:dialog id="dlgDelete" 
                       header="#{labels.dlgDeletePerson}" 
                       widgetVar="dlgDelete" 
                       modal="true" 
                       closeOnEscape="true">
-
                 <br/>        
-
                 <h:outputText value="Delete #{homeController.selectedPerson.firstname} 
                               #{homeController.selectedPerson.firstname} ?"/>        
                 <br/>
                 <br/>
-
                 <p:commandButton value="Yes" action="#{homeController.deletePerson()}" 
                                  oncomplete="hide()" 
                                  ajax="false"/>
-
                 <p:commandButton value="No" onclick="PF('dlgDelete').hide()"/>
-
             </p:dialog>
-
 
         </h:form>
 
-
-
     </h:body>
-
-
 
 </html>

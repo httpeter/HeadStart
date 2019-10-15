@@ -1,4 +1,4 @@
-package case1.nl.controller.compositon;
+package case1.nl.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;

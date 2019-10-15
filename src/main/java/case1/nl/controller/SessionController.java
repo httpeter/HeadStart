@@ -47,11 +47,6 @@ public class SessionController implements Serializable {
         return p;
     }
 
-    public String getCompositionsDir() {
-        return getFacesContext().getExternalContext()
-                .getInitParameter("compositionsDir");
-    }
-
     public User getCurrentUser() {
         return currentUser;
     }

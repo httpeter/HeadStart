@@ -59,12 +59,7 @@
     <context-param>
         <param-name>sixteenBitEncryptionSalt</param-name>
         <param-value>confusing0000000</param-value>
-    </context-param>
-    
-    <context-param>
-        <param-name>compositionsDir</param-name>
-        <param-value>composition/</param-value>
-    </context-param>
+    </context-param>    
             
     <context-param>
         <param-name>primefaces.FONT_AWESOME</param-name>
@@ -114,7 +109,7 @@
         </tracking-mode>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>login.html</welcome-file>
     </welcome-file-list>
     <error-page>
         <error-code>404</error-code>

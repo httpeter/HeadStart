@@ -4,11 +4,14 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
+
+
     <p:sticky target="menu"/>
+
+
 
     <p:growl id="growl"/>
 
-    <!--Normal Menu, must be filled dynamically-->
     <p:megaMenu id="menu">
         <p:menuitem value="#{labels.menuItemHome}" 
                     icon="fa fa-home"
@@ -35,6 +38,7 @@
                     ajax="false"
                     icon="pi pi-lock"/>
     </p:megaMenu>
+
 
 
 

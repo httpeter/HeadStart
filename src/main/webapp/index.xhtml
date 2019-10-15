@@ -6,46 +6,32 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
       xmlns:p="http://primefaces.org/ui">
 
+    <h:head>        
+        <ui:include src="included/head.xhtml"/>
+        <title>#{labels.appTitle} - #{labels.organizationName}</title>
+    </h:head>
 
+    <h:body>              
 
+        <h:form>
 
+            <ui:include src="included/menu.xhtml"/>            
 
+            <p:panel>            
+                <h:outputText value="#{labels.welcomeMSG}" escape="false"/>                                 
+            </p:panel>            
 
-
-
-    <ui:include src="templates/header.xhtml"/>
-
-
-
-
-
-    <h:body styleClass="myBody">     
-
-        <h:form id="mainForm" styleClass="myForm">            
-
-            <ui:include src="templates/menu.xhtml"/>
-
-
-            <p:spacer/>
-
-
-
-
-          testing
-
-
-
-
-            <p:idleMonitor timeout="#{session.maxInactiveInterval*900}"  
-                           onidle="window.location.reload();"/>
-
-
+            <p:panel>
+                <p:inputTextarea value="testing123"/>            
+            </p:panel>
+            
+             <p:panel>
+                <p:inputTextarea value="testing123"/>            
+            </p:panel>
 
         </h:form>
 
-
     </h:body>
-
 
 </html>
 
