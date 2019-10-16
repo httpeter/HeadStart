@@ -52,16 +52,7 @@ public class SessionController implements Serializable {
     }
 
     public User getCurrentUser() {
-        if (currentUser == null) {
-            try {
-                FacesContext.getCurrentInstance()
-                        .getExternalContext()
-                        .redirect("login.html");
-            } catch (IOException ex) {
-                Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
-                return null;
-            }
-        }
+
         return currentUser;
     }
 

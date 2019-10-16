@@ -3,13 +3,14 @@ package case1.nl.controller;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import case1.nl.controller.SessionController;
 import case1.nl.data.repository.UserRepository;
 import case1.nl.entities.User;
 import case1.nl.util.FMessage;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -52,6 +53,22 @@ public class LoginController implements Serializable {
     }
 
 //</editor-fold>
+    public User getUser() {
+        User u = session.getCurrentUser();
+        if (u == null) {
+            try {
+                FacesContext.getCurrentInstance()
+                        .getExternalContext()
+                        .redirect("login.html");
+
+            } catch (IOException ex) {
+                Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
+
+            }
+        }
+        return u;
+    }
+
     public String login() {
 
         try {
@@ -71,11 +88,7 @@ public class LoginController implements Serializable {
     }
 
     public String logout() {
-        FMessage.fatal("User '"
-                + session.getCurrentUser().getEmail()
-                + "' logged out.");
-        session.setCurrentUser(null);
-        return "login.html";
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/login.xhtml?faces-redirect=true";
     }
-
 }

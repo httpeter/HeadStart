@@ -30,10 +30,11 @@
         <p:menuitem/>
         <p:menuitem/>
         <p:menuitem/>
-        <p:menuitem value="logout" 
+        <p:menuitem value="#{loginController.user.firstname}  #{loginController.user.lastname} logout" 
                     action="#{loginController.logout()}" 
                     disabled="#{sessionController.currentUser==null}"
                     ajax="false"
+                    url='login.html'
                     icon="pi pi-lock"/>
     </p:megaMenu>
 
