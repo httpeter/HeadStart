@@ -7,7 +7,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>        
-        <ui:include src="included/head.xhtml"/>
+        <!--<ui:include src="included/head.xhtml"/>-->
         <title>#{labels.appTitle} - #{labels.organizationName}</title>
     </h:head>
 
@@ -16,7 +16,11 @@
         <h:form id="mainForm">  
 
             <p:growl id="growl"/>
-            
+
+            <p:panel id="welcomePanel">            
+                <h:outputText value="#{labels.welcomeMSG}" escape="false"/>                 
+            </p:panel>
+
             <p:panel>              
 
                 <h:panelGrid columns="2">
@@ -34,7 +38,12 @@
                     <p:commandButton value="login" 
                                      action="#{loginController.login()}"                              
                                      icon="pi pi-unlock"
-                                     ajax="false"/>        
+                                     ajax="false"/>      
+                    <h:outputText/>
+                    <p:commandButton value="Logout #{loginController.session.currentUser.firstname}  #{loginController.session.currentUser.lastname}"
+                                     action="#{loginController.logout()}" 
+                                     update="@form"/>
+                    
                 </h:panelGrid>
 
             </p:panel>

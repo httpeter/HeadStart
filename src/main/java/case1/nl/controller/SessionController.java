@@ -6,10 +6,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import case1.nl.entities.User;
+import case1.nl.util.FMessage;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 
 /**
  *
@@ -45,19 +45,27 @@ public class SessionController implements Serializable {
                     .getClassLoader()
                     .getResourceAsStream(this.getLabelFile()
                             + ".properties"));
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, e);
+            FMessage.error(e.getMessage());
         }
         return p;
     }
 
     public User getCurrentUser() {
-
         return currentUser;
     }
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
+    
+    public SessionController()
+    {
+        FMessage.info("new SessionContoller instance called");
+        
+    }
+
+   
 
 }

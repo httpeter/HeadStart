@@ -14,10 +14,13 @@
     <h:body>
 
         <h:form id="mainForm">
+            
+            <p:panel>
+                <ui:include src="included/menu.xhtml"/>                   
+            </p:panel>
 
-            <ui:include src="included/menu.xhtml"/>                   
-
-            <p:panel>               
+            <p:panel>      
+                
                 <p:splitButton id="advanced" value="Action"  
                                icon="pi pi-user-plus" 
                                filter="true" 
@@ -28,11 +31,8 @@
                                     action="#{indexController.newPerson()}"
                                     oncomplete="PF('dlgEditNewPerson').show()"/>                
                     </p:submenu>            
-                </p:splitButton>
-
-                <p:inputTextarea id="testtext" value="#{indexController.selectedPerson.notes}"/>
-
-                <p:spacer/>
+                </p:splitButton>                                
+                
 
                 <p:dataTable id="personsTable"
                              widgetVar="personsTable"
@@ -126,7 +126,8 @@
                       closeOnEscape="true" 
                       fitViewport="true"
                       responsive="true"
-                      modal="true">                
+                      modal="true"
+                      dynamic="true">                
 
                 <h:outputText value="First Name"/>
                 <br/>

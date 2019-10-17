@@ -9,14 +9,13 @@ import case1.nl.util.FMessage;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author PeterH
  */
-@ViewScoped
+@SessionScoped
 @ManagedBean
 public class LoginController implements Serializable {
 
@@ -52,23 +51,7 @@ public class LoginController implements Serializable {
         this.pwd = pwd;
     }
 
-//</editor-fold>
-    public User getUser() {
-        User u = session.getCurrentUser();
-        if (u == null) {
-            try {
-                FacesContext.getCurrentInstance()
-                        .getExternalContext()
-                        .redirect("login.html");
-
-            } catch (IOException ex) {
-                Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
-
-            }
-        }
-        return u;
-    }
-
+//</editor-fold>    
     public String login() {
 
         try {
@@ -83,12 +66,20 @@ public class LoginController implements Serializable {
             FMessage.warn("Problem logging in user '"
                     + mail
                     + "'.");
+            session = null;
             return null;
         }
     }
 
     public String logout() {
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "/login.xhtml?faces-redirect=true";
+        try {
+            session.setCurrentUser(null);
+            session.getFacesContext().getExternalContext().invalidateSession();
+            session.getFacesContext().getExternalContext().redirect("login.html");
+        } catch (IOException ex) {
+            Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "login.html";
     }
+
 }

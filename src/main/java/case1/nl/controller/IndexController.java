@@ -9,14 +9,14 @@ import javax.faces.bean.ManagedProperty;
 import case1.nl.data.repository.DefaultRepository;
 import case1.nl.entities.Person;
 import case1.nl.util.FMessage;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import org.primefaces.event.SelectEvent;
 
 /**
  *
  * @author PeterH
  */
-@ViewScoped
+@SessionScoped
 @ManagedBean
 public class IndexController implements Serializable {
 

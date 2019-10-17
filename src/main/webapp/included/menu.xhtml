@@ -7,7 +7,7 @@
     <p:growl id="growl"/>
 
     <p:sticky target="menu"/>
-    
+
 
     <p:megaMenu id="menu">
         <p:menuitem value="#{labels.menuItemHome}" 
@@ -27,17 +27,14 @@
                     icon="fa fa-home"
                     url="?p=test"/>
         <p:menuitem/>
-        <p:menuitem/>
-        <p:menuitem/>
-        <p:menuitem/>
-        <p:menuitem value="#{loginController.user.firstname}  #{loginController.user.lastname} logout" 
-                    action="#{loginController.logout()}" 
-                    disabled="#{sessionController.currentUser==null}"
-                    ajax="false"
-                    url='login.html'
-                    icon="pi pi-lock"/>
+
     </p:megaMenu>
 
+    <p:commandButton value="#{loginController.session.currentUser.firstname}  #{loginController.session.currentUser.lastname} logout" 
+                     action="#{loginController.logout()}" 
+                     disabled="#{loginController.session.currentUser==null}"                    
+                     icon="pi pi-lock"
+                     ajax="false"/>
 
 
 
