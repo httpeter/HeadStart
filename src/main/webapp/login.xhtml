@@ -7,7 +7,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>        
-        <!--<ui:include src="included/head.xhtml"/>-->
+        <ui:include src="included/head.xhtml"/>
         <title>#{labels.appTitle} - #{labels.organizationName}</title>
     </h:head>
 
@@ -39,10 +39,6 @@
                                      action="#{loginController.login()}"                              
                                      icon="pi pi-unlock"
                                      ajax="false"/>      
-                    <h:outputText/>
-                    <p:commandButton value="Logout #{loginController.session.currentUser.firstname}  #{loginController.session.currentUser.lastname}"
-                                     action="#{loginController.logout()}" 
-                                     update="@form"/>
                     
                 </h:panelGrid>
 

@@ -6,7 +6,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import case1.nl.data.repository.DefaultRepository;
 import case1.nl.entities.Person;
 import case1.nl.util.FMessage;
 import javax.faces.bean.SessionScoped;
@@ -27,9 +26,7 @@ public class IndexController implements Serializable {
 
     private Person selectedPerson = new Person();
 
-    private Person newPerson = new Person();
-
-    private final DefaultRepository defaultRepository = new DefaultRepository("PU");
+    private Person newPerson = new Person();    
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
     public Person getNewPerson() {
@@ -68,7 +65,7 @@ public class IndexController implements Serializable {
     @PostConstruct
     public void loadPersons() {
         try {
-            persons = defaultRepository.getResultList(Person.class);
+            persons = session.getDefaultRepository().getResultList(Person.class);
 //            selectedPerson = (Person) persons.get(0);
         } catch (Exception e) {
             FMessage.error(e.getMessage());
@@ -83,7 +80,7 @@ public class IndexController implements Serializable {
  
 
     public void saveSelectedPerson() {
-        if (defaultRepository.persisted(selectedPerson)) {
+        if (session.getDefaultRepository().persisted(selectedPerson)) {
             FMessage.info(selectedPerson.getFirstname()
                     + " "
                     + selectedPerson.getLastname()
@@ -95,7 +92,7 @@ public class IndexController implements Serializable {
     }
 
     public void saveNewPerson() {
-        if (defaultRepository.persisted(newPerson)) {
+        if (session.getDefaultRepository().persisted(newPerson)) {
             FMessage.info(newPerson.getFirstname()
                     + " "
                     + newPerson.getLastname()
@@ -112,7 +109,7 @@ public class IndexController implements Serializable {
 
     public void deletePerson() {
 
-        if (defaultRepository.deleted(selectedPerson)) {
+        if (session.getDefaultRepository().deleted(selectedPerson)) {
             FMessage.info(selectedPerson.getFirstname()
                     + " "
                     + selectedPerson.getLastname()

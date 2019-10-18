@@ -1,5 +1,7 @@
 package case1.nl.controller;
 
+import case1.nl.data.repository.DefaultRepository;
+import case1.nl.data.repository.UserRepository;
 import java.io.Serializable;
 import java.util.Properties;
 import javax.faces.bean.ManagedBean;
@@ -15,11 +17,23 @@ import java.util.logging.Logger;
  *
  * @author peterhendriks
  */
-@ManagedBean
+@ManagedBean(eager = true)
 @SessionScoped
 public class SessionController implements Serializable {
 
     private User currentUser;
+
+    private final UserRepository userRepository = new UserRepository("PU");
+
+    private final DefaultRepository defaultRepository = new DefaultRepository("PU");
+
+    public UserRepository getUserRepository() {
+        return userRepository;
+    }
+
+    public DefaultRepository getDefaultRepository() {
+        return defaultRepository;
+    }
 
     public FacesContext getFacesContext() {
 
@@ -59,13 +73,15 @@ public class SessionController implements Serializable {
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
-    
-    public SessionController()
-    {
-        FMessage.info("new SessionContoller instance called");
-        
-    }
 
-   
+    public String getRedirectToLogin() {
+        if (currentUser.getFirstname() == null) {
+            FacesContext.getCurrentInstance()
+                    .getApplication()
+                    .getNavigationHandler()
+                    .handleNavigation(FacesContext.getCurrentInstance(), null, "login.htm");
+        }
+        return null;
+    }
 
 }

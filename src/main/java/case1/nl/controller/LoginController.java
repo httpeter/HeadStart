@@ -1,30 +1,28 @@
 package case1.nl.controller;
 
 import java.io.Serializable;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import case1.nl.data.repository.UserRepository;
 import case1.nl.entities.User;
 import case1.nl.util.FMessage;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.faces.bean.SessionScoped;
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
  * @author PeterH
  */
-@SessionScoped
+@ViewScoped
 @ManagedBean
 public class LoginController implements Serializable {
 
     @ManagedProperty(value = "#{sessionController}")
     private SessionController session;
 
-    private String mail, pwd;
-
-    UserRepository userRepository = new UserRepository("PU");
+    private String mail, pwd;    
 
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     public SessionController getSession() {
@@ -51,15 +49,23 @@ public class LoginController implements Serializable {
         this.pwd = pwd;
     }
 
-//</editor-fold>    
+//</editor-fold>
+
+
+    @PostConstruct
+    public void init()
+    {
+        logout();
+    }
+    
     public String login() {
 
         try {
-            User user = userRepository.getUser(mail, pwd);
+            User user = session.getUserRepository().getUser(mail, pwd);
             FMessage.info("User "
                     + mail
                     + " logged in.");
-            session.setCurrentUser(user);
+            session.setCurrentUser(user);            
             return "index.html";
         } catch (Exception ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
@@ -74,12 +80,11 @@ public class LoginController implements Serializable {
     public String logout() {
         try {
             session.setCurrentUser(null);
-            session.getFacesContext().getExternalContext().invalidateSession();
-            session.getFacesContext().getExternalContext().redirect("login.html");
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "login.html";
     }
+      
 
 }

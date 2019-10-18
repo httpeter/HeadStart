@@ -4,12 +4,11 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <p:growl id="growl"/>
-
-    <p:sticky target="menu"/>
+    <p:growl id="growl"/>    
 
 
-    <p:megaMenu id="menu">
+    <p:megaMenu>
+        
         <p:menuitem value="#{labels.menuItemHome}" 
                     icon="fa fa-home"
                     url="index.html"/>
@@ -26,15 +25,15 @@
         <p:menuitem value="#{labels.test}" 
                     icon="fa fa-home"
                     url="?p=test"/>
+        <p:menuitem  value="#{sessionController.currentUser.firstname}  #{sessionController.currentUser.lastname} logout"                      
+                     disabled="#{sessionController.currentUser==null}"                    
+                     icon="pi pi-lock"
+                     url="login.html"/>
         <p:menuitem/>
 
     </p:megaMenu>
 
-    <p:commandButton value="#{loginController.session.currentUser.firstname}  #{loginController.session.currentUser.lastname} logout" 
-                     action="#{loginController.logout()}" 
-                     disabled="#{loginController.session.currentUser==null}"                    
-                     icon="pi pi-lock"
-                     ajax="false"/>
+    <h:outputText value="#{sessionController.redirectToLogin}"/>    
 
 
 
