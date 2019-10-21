@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import org.primefaces.PrimeFaces;
 
 public final class FMessage implements Serializable {
 
@@ -18,8 +17,6 @@ public final class FMessage implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_WARN,
                         msg, null));
-        updateGrowl();
-
         logger.log(Level.WARNING, msg);
     }
 
@@ -27,8 +24,6 @@ public final class FMessage implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR,
                         msg, null));
-        updateGrowl();
-
         logger.log(Level.WARNING, msg);
     }
 
@@ -36,8 +31,6 @@ public final class FMessage implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_FATAL,
                         msg, null));
-        updateGrowl();
-
         logger.log(Level.WARNING, msg);
     }
 
@@ -45,13 +38,10 @@ public final class FMessage implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO,
                         msg, null));
-        updateGrowl();
-
         logger.log(Level.INFO, msg);
     }
 
-    private static void updateGrowl() {
-        PrimeFaces.current().ajax().update("mainForm:growl");
-    }
-
+//    private static void updateGrowl() {
+//        PrimeFaces.current().ajax().update("mainForm:growl");
+//    }
 }

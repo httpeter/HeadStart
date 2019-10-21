@@ -1,0 +1,21 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <p:timeline id="timeline" value="#{basicTimelineView.model}" height="250px"
+                selectable="#{basicTimelineView.selectable}"
+                zoomable="#{basicTimelineView.zoomable}"
+                moveable="#{basicTimelineView.moveable}"
+                stackEvents="#{basicTimelineView.stackEvents}"
+                axisOnTop="#{basicTimelineView.axisOnTop}"
+                eventStyle="#{basicTimelineView.eventStyle}"
+                showCurrentTime="#{basicTimelineView.showCurrentTime}"
+                showNavigation="#{basicTimelineView.showNavigation}">
+
+        <p:ajax event="select" listener="#{basicTimelineView.onSelect}"/>
+        
+    </p:timeline>
+
+</ui:composition>

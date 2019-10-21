@@ -13,7 +13,7 @@
 
     <h:body>
 
-        <h:form id="mainForm">
+        <h:form>
             
             <p:panel>
                 <ui:include src="included/menu.xhtml"/>                   
@@ -195,8 +195,7 @@
                       modal="true"
                       closeOnEscape="true" 
                       fitViewport="true"
-                      responsive="true"
-                      dynamic="true">        
+                      responsive="true">        
 
                 <h:outputText value="First Name"/>
                 <br/>
@@ -264,7 +263,7 @@
                       closeOnEscape="true">
                 <br/>        
                 <h:outputText value="Delete #{indexController.selectedPerson.firstname} 
-                              #{indexController.selectedPerson.firstname} ?"/>        
+                              #{indexController.selectedPerson.lastname}?"/>        
                 <br/>
                 <br/>
                 <p:commandButton value="Yes" action="#{indexController.deletePerson()}" 

@@ -4,12 +4,12 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <ui:include src="../included/analytics.xhtml"/>     
+    <ui:include src="analytics.xhtml"/>     
 
     <f:loadBundle basename="#{sessionController.labelFile}" var="labels"/>
 
-<!--    <p:idleMonitor timeout="#{session.maxInactiveInterval*900}"  
-                   onidle="window.location.reload();"/>-->
+    <!--    <p:idleMonitor timeout="{session.maxInactiveInterval*900}"  
+                       onidle="window.location.reload();"/>-->
 
     <link rel="shortcut icon" 
           href="resources/img/favicon.ico" 
@@ -20,9 +20,10 @@
           content="yes"/>
     <link href="resources/css/main.css" 
           rel="stylesheet" 
-          type="text/css "/>             
+          type="text/css "/>      
     <script type="text/javascript" 
             src="https://maps.google.com/maps/api/js?key=AIzaSyAA2Io6jfjW_Q_HxVuQnZqqKxQvbBLbHPs" 
             async="true" 
-            defer="true"></script>         
+    defer="true"></script>
+
 </ui:composition>
