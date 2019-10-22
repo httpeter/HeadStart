@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import case1.nl.entities.User;
+import case1.nl.util.AESEncryptor;
 import case1.nl.util.FMessage;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -22,6 +23,8 @@ import java.util.logging.Logger;
 public class SessionController implements Serializable {
 
     private User currentUser;
+
+    private AESEncryptor cryptor;
 
     private final UserRepository userRepository = new UserRepository("PU");
 
@@ -82,6 +85,22 @@ public class SessionController implements Serializable {
                     .handleNavigation(FacesContext.getCurrentInstance(), null, "login.htm");
         }
         return null;
+    }
+
+    public AESEncryptor getCryptor() {
+        return cryptor;
+    }
+
+    public void setCryptor(AESEncryptor cryptor) {
+        this.cryptor = cryptor;
+    }
+
+    public SessionController() {
+        try {
+            cryptor = new AESEncryptor();
+        } catch (Exception ex) {
+            Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

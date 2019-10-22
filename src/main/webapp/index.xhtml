@@ -13,14 +13,12 @@
 
     <h:body>
 
-        <h:form>
-            
-            <p:panel>
-                <ui:include src="included/menu.xhtml"/>                   
-            </p:panel>
+        <h:form>          
+
+            <ui:include src="included/menu.xhtml"/>                   
 
             <p:panel>      
-                
+
                 <p:splitButton id="advanced" value="Action"  
                                icon="pi pi-user-plus" 
                                filter="true" 
@@ -32,7 +30,7 @@
                                     oncomplete="PF('dlgEditNewPerson').show()"/>                
                     </p:submenu>            
                 </p:splitButton>                                
-                
+
 
                 <p:dataTable id="personsTable"
                              widgetVar="personsTable"
@@ -255,7 +253,7 @@
             </p:dialog>
 
 
-            
+
             <p:dialog id="dlgDelete" 
                       header="#{labels.dlgDeletePerson}" 
                       widgetVar="dlgDelete" 

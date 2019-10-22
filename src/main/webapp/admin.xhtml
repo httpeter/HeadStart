@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>               
+        <ui:include src="included/head.xhtml"/>
+        <title>#{labels.appTitle} - #{labels.organizationName}</title>
+    </h:head>
+
+    <h:body>
+
+        <h:form>
+
+
+            <ui:include src="included/menu.xhtml"/>                   
+
+
+            <p:panel>
+                <f:view>
+
+
+                    <h:form>
+                        <h1><h:outputText value="List"/></h1>
+                        <p:dataTable value="#{adminController.users}" var="user" >
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Id"/>
+                                </f:facet>
+                                <h:outputText value="#{user.id}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Email"/>
+                                </f:facet>
+                                <h:outputText value="#{user.email}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Pwdhash"/>
+                                </f:facet>
+                                <h:outputText value="#{sessionController.cryptor.decrypt(user.pwdhash)}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Role"/>
+                                </f:facet>
+                                <h:outputText value="#{user.role}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Firstname"/>
+                                </f:facet>
+                                <h:outputText value="#{user.firstname}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Lastname"/>
+                                </f:facet>
+                                <h:outputText value="#{user.lastname}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+
+            </p:panel>
+
+            <p:panel>
+
+            </p:panel>
+
+        </h:form>
+
+    </h:body>
+
+</html>
