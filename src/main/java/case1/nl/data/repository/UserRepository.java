@@ -1,7 +1,6 @@
 package case1.nl.data.repository;
 
 import case1.nl.entities.User;
-import case1.nl.util.AESEncryptor;
 import javax.persistence.Query;
 
 /**
@@ -14,12 +13,11 @@ public class UserRepository extends DefaultRepository {
         super(pu);
     }
     
-    public User getUser(String email, String pwd) throws Exception {
-        AESEncryptor cryptor = new AESEncryptor();
+    public User getUser(String email, String pwdHash) throws Exception {        
         Query q = this.getEm().createQuery("select u from User u "
-                + "where u.email = :email and u.pwdhash = :pwd")
+                + "where u.email = :email and u.pwdhash = :pwdHash")
                 .setParameter("email", email)
-                .setParameter("pwd", cryptor.encrypt(pwd));
+                .setParameter("pwdHash", pwdHash);
         return (User) q.getSingleResult();
     }
     

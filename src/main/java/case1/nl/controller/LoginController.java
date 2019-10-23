@@ -9,7 +9,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
 /**
  *
@@ -22,7 +21,7 @@ public class LoginController implements Serializable {
     @ManagedProperty(value = "#{sessionController}")
     private SessionController session;
 
-    private String mail, pwd;    
+    private String mail, pwd;
 
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     public SessionController getSession() {
@@ -50,26 +49,23 @@ public class LoginController implements Serializable {
     }
 
 //</editor-fold>
-
-
     @PostConstruct
-    public void init()
-    {
+    public void init() {
         logout();
     }
-    
+
     public String login() {
 
         try {
-            User user = session.getUserRepository().getUser(mail, pwd);
+            User user = session.getUserRepository().getUser(mail, session.getCryptor().encrypt(pwd));
             FMessage.info("User "
                     + mail
                     + " logged in.");
-            session.setCurrentUser(user);            
+            session.setCurrentUser(user);
             return "index.html";
         } catch (Exception ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            FMessage.warn("Problem logging in user '"
+            FMessage .warn("Problem logging in user '"
                     + mail
                     + "'.");
             session = null;
@@ -85,6 +81,5 @@ public class LoginController implements Serializable {
         }
         return "login.html";
     }
-      
 
 }

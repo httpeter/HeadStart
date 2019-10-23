@@ -41,7 +41,4 @@ public final class FMessage implements Serializable {
         logger.log(Level.INFO, msg);
     }
 
-//    private static void updateGrowl() {
-//        PrimeFaces.current().ajax().update("mainForm:growl");
-//    }
 }
