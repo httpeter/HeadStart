@@ -96,10 +96,13 @@ public class SessionController implements Serializable {
     }
 
     public SessionController() {
-        try {
-            cryptor = new AESEncryptor();
-        } catch (Exception ex) {
-            Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
+
+        if (cryptor == null) {
+            try {
+                cryptor = new AESEncryptor();
+            } catch (Exception ex) {
+                Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

@@ -12,62 +12,87 @@
 
     <h:body>
 
-        <h:form>
+        <h:form id="mainForm">
 
 
             <ui:include src="included/menu.xhtml"/>                   
 
 
             <p:panel>
-                <f:view>
 
+                <p:dataTable value="#{adminController.users}" 
+                             var="user"  
+                             selectionMode="single" 
+                             selection="#{adminController.selectedUser}" 
+                             rowKey="#{user.id}"
+                             reflow="true">
 
-                    <h:form>
-                        <h1><h:outputText value="List"/></h1>
-                        <p:dataTable value="#{adminController.users}" var="user" >
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Id"/>
-                                </f:facet>
-                                <h:outputText value="#{user.id}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Email"/>
-                                </f:facet>
-                                <h:outputText value="#{user.email}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Pwdhash"/>
-                                </f:facet>
-                                <h:outputText value="#{sessionController.cryptor.decrypt(user.pwdhash)}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Role"/>
-                                </f:facet>
-                                <h:outputText value="#{user.role}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Firstname"/>
-                                </f:facet>
-                                <h:outputText value="#{user.firstname}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Lastname"/>
-                                </f:facet>
-                                <h:outputText value="#{user.lastname}"/>
-                            </p:column>
-                        </p:dataTable>
-                    </h:form>
-                </f:view>
+                    <p:ajax event="rowSelect" 
+                            listener="#{adminController.selectUser}" 
+                            update="@form"/>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
+                        <h:outputText value="#{user.id}"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Email"/>
+                        </f:facet>
+                        <h:outputText value="#{user.email}"/>
+                    </p:column>                                      
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Role"/>
+                        </f:facet>
+                        <h:outputText value="#{user.role}"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Firstname"/>
+                        </f:facet>
+                        <h:outputText value="#{user.firstname}"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Lastname"/>
+                        </f:facet>
+                        <h:outputText value="#{user.lastname}"/>
+                    </p:column>
+
+                </p:dataTable>                                    
 
             </p:panel>
 
-            <p:panel>
+
+            <p:panel rendered="#{adminController.selectedUser.firstname!=null}">
+
+                <p:panelGrid layout="grid" columns="2">
+
+                    <h:outputText value="First name"/>
+                    <p:inputText value="#{adminController.selectedUser.firstname}" required="true"/>
+                    <h:outputText value="Last name"/>
+                    <p:inputText value="#{adminController.selectedUser.lastname}" required="true"/>
+                    <h:outputText value="Email"/>
+                    <p:inputText value="#{adminController.selectedUser.email}" required="true"/>
+                    <h:outputText value="Role"/>
+                    <p:inputText value="#{adminController.selectedUser.role}" required="true"/>
+                    <h:outputText value="Password"/>
+                    <p:password value="#{adminController.selectedUser.pwdhash}"  required="true"/>
+                    <h:outputText/>                                       
+                    <p:commandButton value="Save" 
+                                     action="#{adminController.saveUser()}"
+                                     update="@form"/>
+
+                </p:panelGrid>
+                
+                
 
             </p:panel>
 

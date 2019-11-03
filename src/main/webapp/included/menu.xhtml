@@ -23,15 +23,15 @@
                     icon="fa fa-th"
                     url="components.html"/>                                    
 
+        <p:menuitem value="#{labels.menuItemAdmin}" 
+                    icon="fa fa-gear"
+                    url="admin.html"/>            
+
         <p:menuitem  value="#{sessionController.currentUser.firstname}  #{sessionController.currentUser.lastname} logout"                      
                      disabled="#{sessionController.currentUser==null}"                    
                      icon="pi pi-lock"
                      url="login.html"/>
         <p:menuitem/>
-        
-         <p:menuitem value="#{labels.menuItemAdmin}" 
-                    icon="fa fa-gear"
-                    url="admin.html"/>            
 
     </p:megaMenu>
 

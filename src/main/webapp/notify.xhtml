@@ -14,26 +14,28 @@
 
         <h:form>
 
-
             <ui:include src="included/menu.xhtml"/>                   
-s
 
-            <p:commandButton id="chatButton" value="Chat"/>
+            <p:panel>
 
-            <p:overlayPanel for="chatButton">
+                <p:commandButton id="chatButton" value="Chat"/>
 
-                <h:panelGrid columns="2">
-                    <p:outputLabel for="name" value="Name" /> 
-                    <p:inputText id="name"/>
+                <p:overlayPanel for="chatButton">
 
-                    <p:outputLabel for="msg" value="Message" /> 
-                    <p:inputTextarea id="msg" />
+                    <h:panelGrid columns="2">
+                        <p:outputLabel for="name" value="Name" /> 
+                        <p:inputText id="name"/>
 
-                    <h:outputText/>
-                    <p:commandButton value="Send" />
-                </h:panelGrid>        
+                        <p:outputLabel for="msg" value="Message" /> 
+                        <p:inputTextarea id="msg" />
 
-            </p:overlayPanel>    
+                        <h:outputText/>
+                        <p:commandButton value="Send" />
+                    </h:panelGrid>        
+
+                </p:overlayPanel> 
+
+            </p:panel>
 
         </h:form>
 

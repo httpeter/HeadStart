@@ -3,12 +3,16 @@ package case1.nl.controller;
 import java.io.Serializable;
 import case1.nl.entities.User;
 import case1.nl.util.FMessage;
+import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -56,26 +60,32 @@ public class LoginController implements Serializable {
 
     public String login() {
 
+        User user = null;
         try {
-            User user = session.getUserRepository().getUser(mail, session.getCryptor().encrypt(pwd));
+            System.out.println("PASSWORD::: " + session.getCryptor().encrypt(pwd));
+            user = session.getUserRepository().getUser(mail, session.getCryptor().encrypt(pwd));
+        } catch (UnsupportedEncodingException | IllegalBlockSizeException | BadPaddingException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (user != null) {
             FMessage.info("User "
                     + mail
                     + " logged in.");
             session.setCurrentUser(user);
             return "index.html";
-        } catch (Exception ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            FMessage .warn("Problem logging in user '"
+
+        } else {
+            FMessage.warn("Problem logging in user '"
                     + mail
                     + "'.");
-            session = null;
             return null;
         }
     }
 
     public String logout() {
         try {
-            session.setCurrentUser(null);
+            session.setCurrentUser(null);            
         } catch (Exception ex) {
             Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
         }

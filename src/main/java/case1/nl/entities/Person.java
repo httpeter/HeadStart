@@ -7,12 +7,14 @@ package case1.nl.entities;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -21,6 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author peterhendriks
  */
 @Entity
+@Table(name = "PERSON")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p"),
@@ -32,24 +35,29 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Person.findByNotes", query = "SELECT p FROM Person p WHERE p.notes = :notes")})
 public class Person implements Serializable {
 
-    private static final long serialVersionUID = 0x1L;
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @Column(name = "ID")
     private Integer id;
     @Size(max = 255)
+    @Column(name = "AGE")
     private String age;
     @Size(max = 255)
+    @Column(name = "FIRSTNAME")
     private String firstname;
     @Size(max = 255)
+    @Column(name = "GENDER")
     private String gender;
     @Size(max = 255)
+    @Column(name = "LASTNAME")
     private String lastname;
     @Size(max = 255)
+    @Column(name = "NOTES")
     private String notes;
 
     public Person() {
-     
     }
 
     public Person(Integer id) {

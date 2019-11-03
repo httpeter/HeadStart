@@ -1,1 +1,1 @@
-To get started download Netbeans: http://netbeans.apache.org/download , Click on 'Clone or download' and download the zip package and extract it. Open the solution in Netbeans, setup a servlet server and mysql (or other) database and you're good to go.
+To get started download Netbeans: http://netbeans.apache.org/download , Click on 'Clone or download' and download the zip package and extract it. Open the solution in Netbeans, setup a servlet server and mysql (or other) database and you're good to go.<br/><br/>Login with test@test.com / test
