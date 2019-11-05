@@ -30,90 +30,92 @@
                                     oncomplete="PF('dlgEditNewPerson').show()"/>                
                     </p:submenu>            
                 </p:splitButton>                                
+                <p:outputPanel deferredMode="visible" deferred="true" >
 
+                    <p:dataTable id="personsTable"
+                                 widgetVar="personsTable"
+                                 value="#{indexController.persons}" 
+                                 var="person" 
+                                 reflow="true"                          
+                                 scrollable="true"
+                                 scrollRows ="25"
+                                 scrollHeight="600"
+                                 liveScroll="true"
+                                 selectionMode="single"                          
+                                 selection="#{indexController.selectedPerson}"
+                                 rowKey="#{person.id}">              
 
-                <p:dataTable id="personsTable"
-                             widgetVar="personsTable"
-                             value="#{indexController.persons}" 
-                             var="person" 
-                             reflow="true"                          
-                             scrollable="true"
-                             scrollRows ="25"
-                             scrollHeight="600"
-                             liveScroll="true"
-                             selectionMode="single"                          
-                             selection="#{indexController.selectedPerson}"
-                             rowKey="#{person.id}">              
+                        <p:ajax event="rowSelect"
+                                listener="#{indexController.selectPerson}"
+                                update="@form:dlgEditSelectedPerson" 
+                                oncomplete="PF('dlgEditSelectedPerson').show()"/>              
 
-                    <p:ajax event="rowSelect"
-                            listener="#{indexController.selectPerson}"
-                            update="@form:dlgEditSelectedPerson" 
-                            oncomplete="PF('dlgEditSelectedPerson').show()"/>              
-
-                    <f:facet name="header">
-                        <p:outputPanel>                        
-                            <p:inputText id="globalFilter" 
-                                         onkeyup="PF('personsTable').filter()" 
-                                         style="width:150px;" placeholder="Search"/>
-                        </p:outputPanel>
-                    </f:facet>
-
-                    <p:column sortBy="#{person.id}" filterBy="#{person.id}" 
-                              filterMatchMode="contains" >
                         <f:facet name="header">
-                            <h:outputText value="Id"/>
-                        </f:facet>                  
-                        <h:outputText value="#{person.id}"/>
-                    </p:column>
-
-                    <p:column sortBy="#{person.firstname}" filterBy="#{person.firstname}" 
-                              filterMatchMode="contains">
-                        <f:facet name="header">
-                            <h:outputText value="First Name"/>
+                            <p:outputPanel>                        
+                                <p:inputText id="globalFilter" 
+                                             onkeyup="PF('personsTable').filter()" 
+                                             style="width:150px;" placeholder="Search"/>
+                            </p:outputPanel>
                         </f:facet>
-                        <h:outputText value="#{person.firstname}"/>
-                    </p:column>               
 
-                    <p:column sortBy="#{person.lastname}" filterBy="#{person.lastname}" 
-                              filterMatchMode="contains">
-                        <f:facet name="header">
-                            <h:outputText value="Last Name"/>
-                        </f:facet>
-                        <h:outputText value="#{person.lastname}"/>
-                    </p:column>
+                        <p:column sortBy="#{person.id}" filterBy="#{person.id}" 
+                                  filterMatchMode="contains" >
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>                  
+                            <h:outputText value="#{person.id}"/>
+                        </p:column>
 
-                    <p:column sortBy="#{person.age}" filterBy="#{person.age}" 
-                              filterMatchMode="contains">
-                        <f:facet name="header">
-                            <h:outputText value="Age"/>
-                        </f:facet>
-                        <h:outputText value="#{person.age}"/>
-                    </p:column>
+                        <p:column sortBy="#{person.firstname}" filterBy="#{person.firstname}" 
+                                  filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="First Name"/>
+                            </f:facet>
+                            <h:outputText value="#{person.firstname}"/>
+                        </p:column>               
 
-                    <p:column sortBy="#{person.gender}"  filterBy="#{person.gender}" 
-                              filterMatchMode="contains" >
-                        <f:facet name="header">
-                            <h:outputText value="Gender"/>
-                        </f:facet>
-                        <h:outputText value="#{labels.m}" rendered="#{person.gender=='m'}"/>
-                        <h:outputText value="#{labels.f}" rendered="#{person.gender=='f'}"/>
-                    </p:column>                    
+                        <p:column sortBy="#{person.lastname}" filterBy="#{person.lastname}" 
+                                  filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Last Name"/>
+                            </f:facet>
+                            <h:outputText value="#{person.lastname}"/>
+                        </p:column>
 
-                    <p:column sortBy="#{person.notes}"  filterBy="#{person.notes}" 
-                              filterMatchMode="contains" >
-                        <f:facet name="header">
-                            <h:outputText value="Notes"/>
-                        </f:facet>
-                        <p:inputTextarea value="#{person.notes}" disabled="true"/>
-                    </p:column>        
+                        <p:column sortBy="#{person.age}" filterBy="#{person.age}" 
+                                  filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Age"/>
+                            </f:facet>
+                            <h:outputText value="#{person.age}"/>
+                        </p:column>
 
-                    <p:column>
-                        <p:commandButton value="#{labels.btnDelete}"                                 
-                                         oncomplete="PF('dlgDelete').show()"
-                                         icon="fa fa-times"
-                                         update="@form"/>    
-                    </p:column>
-                </p:dataTable>   
+                        <p:column sortBy="#{person.gender}"  filterBy="#{person.gender}" 
+                                  filterMatchMode="contains" >
+                            <f:facet name="header">
+                                <h:outputText value="Gender"/>
+                            </f:facet>
+                            <h:outputText value="#{labels.m}" rendered="#{person.gender=='m'}"/>
+                            <h:outputText value="#{labels.f}" rendered="#{person.gender=='f'}"/>
+                        </p:column>                    
+
+                        <p:column sortBy="#{person.notes}"  filterBy="#{person.notes}" 
+                                  filterMatchMode="contains" >
+                            <f:facet name="header">
+                                <h:outputText value="Notes"/>
+                            </f:facet>
+                            <p:inputTextarea value="#{person.notes}" disabled="true"/>
+                        </p:column>        
+
+                        <p:column>
+                            <p:commandButton value="#{labels.btnDelete}"                                 
+                                             oncomplete="PF('dlgDelete').show()"
+                                             icon="fa fa-times"
+                                             update="@form"/>    
+                        </p:column>
+                    </p:dataTable>   
+                </p:outputPanel>
+
             </p:panel>    
 
 
