@@ -31,7 +31,17 @@ public class AdminController implements Serializable {
 
     private User selectedUser;
 
+    private User newUser;
+
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    public User getNewUser() {
+        return newUser;
+    }
+
+    public void setNewUser(User newUser) {
+        this.newUser = newUser;
+    }
+
     public User getSelectedUser() {
         return selectedUser;
     }
@@ -60,6 +70,27 @@ public class AdminController implements Serializable {
     @PostConstruct
     private void init() {
         users = session.getUserRepository().getResultList(User.class);
+    }
+
+    public void makeNewUser() {
+        newUser = new User();
+    }
+
+    public void saveNewUser() {
+        if (newUser.getEmail() != null) {
+            if (session.getUserRepository().persisted(newUser)) {
+                FMessage.info(newUser.getFirstname()
+                        + " "
+                        + newUser.getLastname()
+                        + " saved.");
+                this.init();
+            } else {
+                FMessage.fatal("Could not save "
+                        + newUser.getFirstname()
+                        + " "
+                        + newUser.getLastname());
+            }
+        }
     }
 
     public void selectUser(SelectEvent selectEvent) {

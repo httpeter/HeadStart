@@ -20,6 +20,10 @@
 
             <p:panel>
 
+                <p:commandButton value="New" 
+                                 action="#{adminController.makeNewUser()}"
+                                 oncomplete="PF('newDialog').show()"/>
+
                 <p:dataTable value="#{adminController.users}" 
                              var="user"  
                              selectionMode="single" 
@@ -72,7 +76,6 @@
 
 
             <p:panel rendered="#{adminController.selectedUser.firstname!=null}">
-
                 <p:panelGrid layout="grid" columns="2">
 
                     <h:outputText value="First name"/>
@@ -90,11 +93,40 @@
                                      action="#{adminController.saveUser()}"
                                      update="@form"/>
 
-                </p:panelGrid>
-                
-                
-
+                </p:panelGrid>                              
             </p:panel>
+
+
+            <p:dialog id="newDialog" 
+                      widgetVar="newDialog"
+                      modal="true"
+                      fitViewport="true"
+                      dynamic="true"
+                      width="500"
+                      closeOnEscape="true"
+                      header="#{labels.dlgNewAdmin}">
+
+                <p:panelGrid layout="grid" columns="2">
+
+                    <h:outputText value="First name"/>
+                    <p:inputText value="#{adminController.newUser.firstname}" required="true"/>
+                    <h:outputText value="Last name"/>
+                    <p:inputText value="#{adminController.newUser.lastname}" required="true"/>
+                    <h:outputText value="Email"/>
+                    <p:inputText value="#{adminController.newUser.email}" required="true"/>
+                    <h:outputText value="Role"/>
+                    <p:inputText value="#{adminController.newUser.role}" required="true"/>
+                    <h:outputText value="Password"/>
+                    <p:password value="#{adminController.newUser.pwdhash}"  required="true"/>                    
+                    <p:commandButton value="Save" 
+                                     action="#{adminController.saveNewUser()}"
+                                     oncomplete="PF('newDialog').close" 
+                                     update="@form"/>
+                    <p:button value="Cancel" onclick="PF('newDialog').close"/>
+
+                </p:panelGrid>
+
+            </p:dialog>
 
         </h:form>
 
