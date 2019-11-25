@@ -17,17 +17,23 @@
             <p:outputPanel deferredMode="visible" deferred="true" >
                 <ui:include src="included/menu.xhtml"/>                   
 
-                <p:panel>      
+                <p:panel id="personPanel">      
 
                     <p:splitButton id="advanced" value="Action"  
                                    icon="pi pi-user-plus" 
                                    filter="true" 
                                    filterMatchMode="startsWith">
                         <p:submenu label="New" icon="pi pi-user-plus">
+                            
                             <p:menuitem value="#{labels.btnNew}"
                                         icon="pi pi-user-plus"
                                         action="#{indexController.newPerson()}"
                                         oncomplete="PF('dlgEditNewPerson').show()"/>                
+                            
+                            <p:menuitem value="#{labels.btnDelete} #{indexController.selectedPerson.firstname} #{indexController.selectedPerson.lastname}"                                 
+                                        oncomplete="PF('dlgDelete').show()"
+                                        icon="fa fa-times"
+                                        disabled="#{indexController.selectedPerson.id==null}"/>                                                                
                         </p:submenu>            
                     </p:splitButton>                                
 
@@ -47,7 +53,7 @@
 
                         <p:ajax event="rowSelect"
                                 listener="#{indexController.selectPerson}"
-                                update="@form:dlgEditSelectedPerson" 
+                                update="@form:personPanel" 
                                 oncomplete="PF('dlgEditSelectedPerson').show()"/>              
 
                         <f:facet name="header">
@@ -105,138 +111,134 @@
                                 <h:outputText value="Notes"/>
                             </f:facet>
                             <p:inputTextarea value="#{person.notes}" disabled="true"/>
-                        </p:column>        
-
-                        <p:column>
-                            <p:commandButton value="#{labels.btnDelete}"                                 
-                                             oncomplete="PF('dlgDelete').show()"
-                                             icon="fa fa-times"
-                                             update="@form"/>    
-                        </p:column>
+                        </p:column>                               
 
                     </p:dataTable>                   
 
-                </p:panel>    
 
 
 
-                <p:dialog id="dlgEditSelectedPerson" 
-                          header="#{labels.dlgEditPerson}"              
-                          widgetVar="dlgEditSelectedPerson"               
-                          closeOnEscape="true" 
-                          fitViewport="true"                          
-                          width="400"
-                          modal="true">                
+                    <p:dialog id="dlgEditSelectedPerson" 
+                              dynamic="true"
+                              header="#{labels.dlgEditPerson}"              
+                              widgetVar="dlgEditSelectedPerson"               
+                              closeOnEscape="true" 
+                              fitViewport="true"                          
+                              width="400"
+                              modal="true">                
 
-                    <p:panelGrid columns="2" layout="grid">
+                        <p:panelGrid columns="2" layout="grid">
 
-                        <h:outputText value="First Name"/>                        
-                        <p:inputText value="#{indexController.selectedPerson.firstname}">
-                            <p:ajax update="@parent:editSelectedPersonSaveBTN" event="change"/>
-                        </p:inputText>
+                            <h:outputText value="First Name"/>                        
+                            <p:inputText value="#{indexController.selectedPerson.firstname}">
+                                <p:ajax update="@parent:editSelectedPersonSaveBTN" event="change"/>
+                            </p:inputText>
 
-                        <h:outputText value="Last Name"/>                        
-                        <p:inputText value="#{indexController.selectedPerson.lastname}"/>     
+                            <h:outputText value="Last Name"/>                        
+                            <p:inputText value="#{indexController.selectedPerson.lastname}"/>     
 
-                        <h:outputText value="Age"/>                        
-                        <h:panelGrid>
-                            <p:inputText id="ageTxt" value="#{indexController.selectedPerson.age}"/>
-                            <p:slider for="ageTxt"
-                                      minValue="1" 
-                                      maxValue="120"/>
-                        </h:panelGrid>
+                            <h:outputText value="Age"/>                        
+                            <h:panelGrid>
+                                <p:inputText id="ageTxt" value="#{indexController.selectedPerson.age}"/>
+                                <p:slider for="ageTxt"
+                                          minValue="1" 
+                                          maxValue="120"/>
+                            </h:panelGrid>
 
-                        <h:outputText value="Gender"/>                        
-                        <p:selectOneButton value="#{indexController.selectedPerson.gender}">
-                            <f:selectItem itemLabel="#{labels.m}" itemValue="m"/>
-                            <f:selectItem itemLabel="#{labels.f}" itemValue="f"/>
-                        </p:selectOneButton>
+                            <h:outputText value="Gender"/>                        
+                            <p:selectOneButton value="#{indexController.selectedPerson.gender}">
+                                <f:selectItem itemLabel="#{labels.m}" itemValue="m"/>
+                                <f:selectItem itemLabel="#{labels.f}" itemValue="f"/>
+                            </p:selectOneButton>
 
-                        <h:outputText value="Notes"/>                        
-                        <p:inputTextarea value="#{indexController.selectedPerson.notes}"/>
+                            <h:outputText value="Notes"/>                        
+                            <p:inputTextarea value="#{indexController.selectedPerson.notes}"/>
 
-                        <p:commandButton id="editSelectedPersonSaveBTN" 
-                                         value="#{labels.btnSave}" 
-                                         disabled="#{indexController.selectedPerson.firstname==null}" 
-                                         action="#{indexController.saveSelectedPerson()}" 
-                                         oncomplete="PF('dlgEditSelectedPerson').hide()"
-                                         update="personsTable"/>               
+                            <p:commandButton id="editSelectedPersonSaveBTN" 
+                                             value="#{labels.btnSave}" 
+                                             disabled="#{indexController.selectedPerson.firstname==null}" 
+                                             action="#{indexController.saveSelectedPerson()}" 
+                                             oncomplete="PF('dlgEditSelectedPerson').hide()"
+                                             update="personsTable"/>               
 
-                        <p:commandButton value="#{labels.btnCancel}" 
-                                         oncomplete="PF('dlgEditSelectedPerson').hide()"/>
+                            <p:commandButton value="#{labels.btnCancel}" 
+                                             oncomplete="PF('dlgEditSelectedPerson').hide()"/>
 
-                    </p:panelGrid>
-                </p:dialog>
-
-
-
-                <p:dialog id="dlgEditNewPerson" 
-                          header="#{labels.dlgEditNewPerson}"              
-                          widgetVar="dlgEditNewPerson" 
-                          modal="true"
-                          closeOnEscape="true" 
-                          fitViewport="true"
-                          dynamic="true"
-                          width="400">        
-
-                    <p:panelGrid columns="2" layout="grid">
-
-                        <h:outputText value="First Name"/>                        
-                        <p:inputText value="#{indexController.newPerson.firstname}">
-                            <p:ajax update="@parent:dlgEditNewPersonbtnSave" event="change"/>
-                        </p:inputText>
-
-                        <h:outputText value="Last Name"/>                        
-                        <p:inputText value="#{indexController.newPerson.lastname}"/>     
-
-                        <h:outputText value="Age"/>
-                        <h:panelGrid>
-                            <p:inputText id="ageTxt2" 
-                                         value="#{indexController.newPerson.age}"/>
-                            <p:slider for="ageTxt2"
-                                      minValue="1" 
-                                      maxValue="120"/>
-                        </h:panelGrid>                        
-
-                        <h:outputText value="Gender"/>                        
-                        <p:selectOneButton value="#{indexController.newPerson.gender}">
-                            <f:selectItem itemLabel="#{labels.m}" itemValue="m"/>
-                            <f:selectItem itemLabel="#{labels.f}" itemValue="f"/>
-                        </p:selectOneButton>
-
-                        <h:outputText value="Notes"/>                        
-                        <p:inputTextarea value="#{indexController.newPerson.notes}"/>                        
-
-                        <p:commandButton id="dlgEditNewPersonbtnSave" 
-                                         value="#{labels.btnSave}" 
-                                         disabled="#{indexController.newPerson.firstname==null}" 
-                                         action="#{indexController.saveNewPerson()}" 
-                                         oncomplete="PF('dlgEditNewPerson').hide()"
-                                         update="personsTable"/>               
-
-                        <p:commandButton value="#{labels.btnCancel}" 
-                                         oncomplete="PF('dlgEditNewPerson').hide()"/>
-                    </p:panelGrid>
-                </p:dialog>
+                        </p:panelGrid>
+                    </p:dialog>
 
 
 
-                <p:dialog id="dlgDelete" 
-                          header="#{labels.dlgDeletePerson}" 
-                          widgetVar="dlgDelete" 
-                          modal="true"                           
-                          closeOnEscape="true">
-                    <br/>        
-                    <h:outputText value="Delete #{indexController.selectedPerson.firstname} 
-                                  #{indexController.selectedPerson.lastname}?"/>        
-                    <br/>
-                    <br/>
-                    <p:commandButton value="Yes" action="#{indexController.deletePerson()}" 
-                                     oncomplete="hide()" 
-                                     ajax="false"/>
-                    <p:commandButton value="No" onclick="PF('dlgDelete').hide()"/>
-                </p:dialog>
+                    <p:dialog id="dlgEditNewPerson" 
+                              header="#{labels.dlgEditNewPerson}"              
+                              widgetVar="dlgEditNewPerson" 
+                              modal="true"
+                              closeOnEscape="true" 
+                              fitViewport="true"
+                              dynamic="true"
+                              width="400">        
 
+                        <p:panelGrid columns="2" layout="grid">
+
+                            <h:outputText value="First Name"/>                        
+                            <p:inputText value="#{indexController.newPerson.firstname}">
+                                <p:ajax update="@parent:dlgEditNewPersonbtnSave" event="change"/>
+                            </p:inputText>
+
+                            <h:outputText value="Last Name"/>                        
+                            <p:inputText value="#{indexController.newPerson.lastname}"/>     
+
+                            <h:outputText value="Age"/>
+                            <h:panelGrid>
+                                <p:inputText id="ageTxt2" 
+                                             value="#{indexController.newPerson.age}"/>
+                                <p:slider for="ageTxt2"
+                                          minValue="1" 
+                                          maxValue="120"/>
+                            </h:panelGrid>                        
+
+                            <h:outputText value="Gender"/>                        
+                            <p:selectOneButton value="#{indexController.newPerson.gender}">
+                                <f:selectItem itemLabel="#{labels.m}" itemValue="m"/>
+                                <f:selectItem itemLabel="#{labels.f}" itemValue="f"/>
+                            </p:selectOneButton>
+
+                            <h:outputText value="Notes"/>                        
+                            <p:inputTextarea value="#{indexController.newPerson.notes}"/>                        
+
+                            <p:commandButton id="dlgEditNewPersonbtnSave" 
+                                             value="#{labels.btnSave}" 
+                                             disabled="#{indexController.newPerson.firstname==null}" 
+                                             action="#{indexController.saveNewPerson()}" 
+                                             oncomplete="PF('dlgEditNewPerson').hide()"
+                                             update="personsTable"/>               
+
+                            <p:commandButton value="#{labels.btnCancel}" 
+                                             oncomplete="PF('dlgEditNewPerson').hide()"/>
+                        </p:panelGrid>
+                    </p:dialog>
+
+
+
+                    <p:dialog id="dlgDelete" 
+                              header="#{labels.dlgDeletePerson}" 
+                              widgetVar="dlgDelete" 
+                              modal="true"                           
+                              closeOnEscape="true">
+                        <br/>        
+                        <h:outputText value="Delete #{indexController.selectedPerson.firstname} 
+                                      #{indexController.selectedPerson.lastname}?"/>        
+                        <br/>
+                        <br/>
+                        <p:commandButton value="Yes" 
+                                         action="#{indexController.deletePerson()}"                                      
+                                         update="personsTable"
+                                         oncomplete="PF('dlgDelete').hide()"/>
+                        <p:commandButton value="No" 
+                                         onclick="PF('dlgDelete').hide()"/>
+                    </p:dialog>
+                    
+                </p:panel> 
 
             </p:outputPanel>
         </h:form>

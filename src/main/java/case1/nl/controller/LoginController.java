@@ -61,8 +61,7 @@ public class LoginController implements Serializable {
     public String login() {
 
         User user = null;
-        try {
-            System.out.println("PASSWORD::: " + session.getCryptor().encrypt(pwd));
+        try {           
             user = session.getUserRepository().getUser(mail, session.getCryptor().encrypt(pwd));
         } catch (UnsupportedEncodingException | IllegalBlockSizeException | BadPaddingException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
