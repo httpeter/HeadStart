@@ -1,8 +1,6 @@
 package case1.nl.data.repository;
 
 import case1.nl.entities.User;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.Query;
 
 /**

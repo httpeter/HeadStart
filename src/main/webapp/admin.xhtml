@@ -20,9 +20,15 @@
 
             <p:panel>
 
-                <p:commandButton value="New" 
+                <p:splitButton value="Action" icon="pi pi-user">
+                    <p:menuitem value="New user" 
                                  action="#{adminController.makeNewUser()}"
                                  oncomplete="PF('newDialog').show()"/>
+                    <p:menuitem value="Delete #{adminController.selectedUser.firstname} #{adminController.selectedUser.lastname}" 
+                                 disabled="#{adminController.selectedUser == null}"
+                                 oncomplete="PF('dlgDelete').show()"/>
+                
+                </p:splitButton>
 
                 <p:dataTable value="#{adminController.users}" 
                              var="user"  
@@ -69,7 +75,7 @@
                         </f:facet>
                         <h:outputText value="#{user.lastname}"/>
                     </p:column>
-
+                    
                 </p:dataTable>                                    
 
             </p:panel>
@@ -96,11 +102,11 @@
                 </p:panelGrid>                              
             </p:panel>
 
-            
-            
-            
-            
-            
+
+
+
+
+
 
             <p:dialog id="newDialog" 
                       widgetVar="newDialog"
@@ -132,15 +138,30 @@
                 </p:panelGrid>
 
             </p:dialog>
+            
+            
 
-            
-            
-            
-            
-            
-            
-            
-            
+            <p:dialog id="dlgDelete" 
+                      widgetVar="dlgDelete"
+                      styleClass="dlgDelete"
+                      header="Delete #{adminController.selectedUser.firstname} #{adminController.selectedUser.lastname}?"
+                      closeOnEscape="true">                
+
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Yes" 
+                                     action="#{adminController.deleteUser()}"
+                                     ajax="false"/>                                            
+                    <p:button value="No" onclick="PF('dlgDelete').close"/>
+                </h:panelGrid>
+
+            </p:dialog>
+
+
+
+
+
+
+
         </h:form>
 
     </h:body>

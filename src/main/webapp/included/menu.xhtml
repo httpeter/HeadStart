@@ -24,6 +24,7 @@
                     url="components.html"/>                                    
 
         <p:menuitem value="#{labels.menuItemAdmin}" 
+                    disabled="#{sessionController.currentUser.role!= 'admin'}"
                     icon="fa fa-gear"
                     url="admin.html"/>            
 

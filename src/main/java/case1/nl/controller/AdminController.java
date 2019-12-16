@@ -13,55 +13,55 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import org.primefaces.event.SelectEvent;
 
 /**
  *
  * @author PeterH
  */
-@ViewScoped
+@SessionScoped
 @ManagedBean
 public class AdminController implements Serializable {
-    
+
     @ManagedProperty(value = "#{sessionController}")
     private SessionController session;
-    
+
     private List<User> users;
-    
+
     private User selectedUser;
-    
+
     private User newUser;
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
     public User getNewUser() {
         return newUser;
     }
-    
+
     public void setNewUser(User newUser) {
         this.newUser = newUser;
     }
-    
+
     public User getSelectedUser() {
         return selectedUser;
     }
-    
+
     public void setSelectedUser(User selectedUser) {
         this.selectedUser = selectedUser;
     }
-    
+
     public SessionController getSession() {
         return session;
     }
-    
+
     public void setSession(SessionController session) {
         this.session = session;
     }
-    
+
     public List<User> getUsers() {
         return users;
     }
-    
+
     public void setUsers(List<User> users) {
         this.users = users;
     }
@@ -69,13 +69,17 @@ public class AdminController implements Serializable {
 
     @PostConstruct
     private void init() {
+        this.loadUsers();
+    }
+
+    public void loadUsers() {
         users = session.getUserRepository().getResultList(User.class);
     }
-    
+
     public void makeNewUser() {
         newUser = new User();
     }
-    
+
     public void saveNewUser() {
         try {
             newUser.setPwdhash(session.getCryptor().encrypt(newUser.getPwdhash()));
@@ -97,8 +101,9 @@ public class AdminController implements Serializable {
                         + newUser.getLastname());
             }
         }
+        this.loadUsers();
     }
-    
+
     public void selectUser(SelectEvent selectEvent) {
         selectedUser = (User) selectEvent.getObject();
         try {
@@ -110,7 +115,7 @@ public class AdminController implements Serializable {
             FMessage.error(ex.getMessage());
         }
     }
-    
+
     public void saveUser() {
         try {
             selectedUser.setPwdhash(session.getCryptor().encrypt(selectedUser.getPwdhash()));
@@ -119,7 +124,7 @@ public class AdminController implements Serializable {
         }
         if (selectedUser != null
                 && session.getUserRepository().persisted(selectedUser)) {
-            
+
             FMessage.info(selectedUser.getFirstname()
                     + " "
                     + selectedUser.getLastname()
@@ -131,6 +136,20 @@ public class AdminController implements Serializable {
                     + " "
                     + selectedUser.getLastname());
         }
+        this.loadUsers();
     }
-    
+
+    public void deleteUser() {
+
+        if (session.getUserRepository().deleted(selectedUser)) {
+            FMessage.info(selectedUser.getFirstname()
+                    + " "
+                    + selectedUser.getLastname()
+                    + " Deleted");
+        } else {
+            FMessage.error(session.getLabels().getProperty("msgPersonDeleteError"));
+        }
+        this.loadUsers();
+    }
+
 }
