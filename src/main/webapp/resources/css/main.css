@@ -1,4 +1,11 @@
 
+.myWelcomePanel
+{
+    background-image: url('resources/img/arg.jpg');
+    background-repeat:no-repeat;
+    background-size:cover;
+}
+
 .myMap
 {
     width: 100%;
