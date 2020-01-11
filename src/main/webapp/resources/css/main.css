@@ -1,10 +1,9 @@
 
-.myWelcomePanel
-{
-    background-image: url('resources/img/arg.jpg');
-    background-repeat:no-repeat;
-    background-size:cover;
+
+.ui-datatable .ui-column-filter {
+    visibility: hidden;
 }
+
 
 .myMap
 {
