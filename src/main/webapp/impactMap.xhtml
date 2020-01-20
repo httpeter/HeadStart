@@ -16,9 +16,9 @@
 
             <ui:include src="included/menu.xhtml"/>                   
 
-            
-            
-            
+
+
+
             <p:panel id="imPanel">                               
 
                 <p:tree value="#{impactMapController.goal}" 
@@ -31,14 +31,12 @@
                     <p:treeNode>
                         <h:outputText value="#{node}"/>                       
                     </p:treeNode>                    
-                </p:tree>
-                
-                <p:draggable for="imPanel"/>
-                
+                </p:tree>                               
+
             </p:panel>
-            
-            
-            
+
+
+
 
             <p:panel id="imEditPanel">
 
@@ -50,7 +48,7 @@
 
                         <p:menuitem value="Goal"
                                     icon="pi pi-plus"/>
-                        
+
                         <p:menuitem value="Actor"
                                     icon="pi pi-plus" 
                                     disabled="true"/>     
@@ -62,22 +60,18 @@
                         <p:menuitem value="Deliverable"
                                     icon="pi pi-plus"
                                     disabled="true"/>                
-                                                    
+
                         <p:menuitem value="Userstory"
-                                        icon="pi pi-plus"
-                                        disabled="true"/>                
+                                    icon="pi pi-plus"
+                                    disabled="true"/>                
 
 
 
 
                     </p:submenu>            
                 </p:splitButton>     
-
-                <p:panelGrid columns="2">
-
-                </p:panelGrid>
-
-                <p:draggable for="imEditPanel"/>
+              
+                
             </p:panel>
 
 
