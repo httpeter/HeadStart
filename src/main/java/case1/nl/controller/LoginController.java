@@ -72,7 +72,7 @@ public class LoginController implements Serializable {
                     + mail
                     + " logged in.");
             session.setCurrentUser(user);
-            return "s3.html";
+            return "index.html";
 
         } else {
             FMessage.warn("Problem logging in user '"
