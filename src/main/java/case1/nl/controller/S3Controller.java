@@ -54,8 +54,8 @@ public class S3Controller implements Serializable {
     public void init() {
 
         credentials = new BasicAWSCredentials(
-                "AKIAJUYEB66B62A5JASQ",
-                "+mIcnoNcmaFYneytDkqXou01UxpoB9YF8sst9YH0");
+                "AKIAWHSTNMJ6NQZLMHMQ",
+                "+tuhq4PG7rYUx2zD4oHbQazdofAm8Q24opkmb4dmv");
     }
 
     public void generateURL() {        
@@ -65,15 +65,15 @@ public class S3Controller implements Serializable {
                 s3client = AmazonS3ClientBuilder
                         .standard()
                         .withCredentials(new AWSStaticCredentialsProvider(credentials))
-                        .withRegion(Regions.EU_NORTH_1)
+                        .withRegion(Regions.EU_CENTRAL_1)
                         .build();
 
-                List<Bucket> buckets = s3client.listBuckets();
-                buckets.forEach((bucket) -> {
-                    FMessage.info(bucket.getName());
-                });
+//                List<Bucket> buckets = s3client.listBuckets();
+//                buckets.forEach((bucket) -> {
+//                    FMessage.info(bucket.getName());
+//                });
 
-                s3URI = "http://www.bla.com/";
+                s3URI = s3client.getS3AccountOwner().getDisplayName();
 
             } catch (Exception e) {
                 FMessage.error(e.getMessage());
