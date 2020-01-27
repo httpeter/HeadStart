@@ -110,7 +110,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Notes"/>
                             </f:facet>
-                            <p:inputTextarea value="#{person.notes}" disabled="true"/>
+                            <h:outputText value="#{person.notes}"/>
                         </p:column>                               
 
                     </p:dataTable>                   
@@ -152,7 +152,7 @@
                             </p:selectOneButton>
 
                             <h:outputText value="Notes"/>                        
-                            <p:inputTextarea value="#{indexController.selectedPerson.notes}" rows="2"/>
+                            <p:inputTextarea value="#{indexController.selectedPerson.notes}"/>
 
                             <p:commandButton id="editSelectedPersonSaveBTN" 
                                              value="#{labels.btnSave}" 
