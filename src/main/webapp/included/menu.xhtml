@@ -9,14 +9,25 @@
 
 
     <p:megaMenu>
-        
-        <p:menuitem value="#{labels.menuItemImpactMap}" 
-                    icon="pi pi-sitemap"
-                    url="impactMap.html"/>
-        
-        <p:menuitem value="#{labels.menuItemRemarkable}" 
-                    icon="pi pi-table"
-                    url="remarkable.html"/>
+
+        <p:submenu label="Experiments" icon="pi pi-check">
+            <p:column>
+                <p:submenu label="Various">
+                <p:menuitem value="#{labels.menuItemPlaces}" 
+                            icon="fa fa-globe"
+                            url="places.html"/>
+
+                <p:menuitem value="#{labels.menuItemImpactMap}" 
+                            icon="pi pi-sitemap"
+                            url="impactMap.html"/>
+
+                <p:menuitem value="#{labels.menuItemRemarkable}" 
+                            icon="pi pi-table"
+                            url="remarkable.html"/>
+                </p:submenu>
+            </p:column>
+
+        </p:submenu>
 
         <p:menuitem value="#{labels.menuItemCRM}" 
                     icon="fa fa-people"
