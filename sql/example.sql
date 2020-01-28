@@ -44,6 +44,33 @@ INSERT INTO `PERSON` VALUES (3,'64','Pieter','m','Post','test'),(4,'58','sdfdf',
 UNLOCK TABLES;
 
 --
+-- Table structure for table `PLACE`
+--
+
+DROP TABLE IF EXISTS `PLACE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `PLACE` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(45) NOT NULL,
+  `RATING` int(11) DEFAULT NULL,
+  `DESCRIPTION` varchar(2500) DEFAULT NULL,
+  `IMGURLS` varchar(1024) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `PLACE`
+--
+
+LOCK TABLES `PLACE` WRITE;
+/*!40000 ALTER TABLE `PLACE` DISABLE KEYS */;
+INSERT INTO `PLACE` VALUES (1,'Alpenblick',3,'Located and founded within the Alps, our company has been growing rapidly over the last 8 years.\n\nWe were awarded Gold in 2018 and Silver in 2017 in the winter ski chalet category.\n\nWe have over 130 beautiful chalets, luxurious, ultra luxurious for all kinds of budget, just contact us and we will find you the best option within your budget.\n\nWe charge 0% booking commission + all bookings will receive a free airport transfer up to 10 people.\n\nBook one of our chalets and let us take care of you - it\'s your holiday - just sit back & relax.','https://i.ytimg.com/vi/_X1nU-qpGkI/maxresdefault.jpg'),(2,'Marmottengau',5,'Don\'t have time to browse all the 100+ chalets? Fill out our contact form with the following details - your preferred destination, bedrooms, budget per night, the dates and we will get back to you shortly with the best available options.','https://s-ec.bstatic.com/images/hotel/max1024x768/933/93300258.jpg'),(3,'Marmottengau',5,'Don\'t have time to browse all the 100+ chalets? Fill out our contact form with the following details - your preferred destination, bedrooms, budget per night, the dates and we will get back to you shortly with the best available options.','https://s-ec.bstatic.com/images/hotel/max1024x768/933/93300258.jpg'),(4,'Marmottengau',5,'Don\'t have time to browse all the 100+ chalets? Fill out our contact form with the following details - your preferred destination, bedrooms, budget per night, the dates and we will get back to you shortly with the best available options.','https://s-ec.bstatic.com/images/hotel/max1024x768/933/93300258.jpg');
+/*!40000 ALTER TABLE `PLACE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `USER`
 --
 
@@ -80,4 +107,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-01-28 23:05:13
+-- Dump completed on 2020-01-29  0:33:18
