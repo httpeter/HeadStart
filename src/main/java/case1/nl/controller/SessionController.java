@@ -1,6 +1,7 @@
 package case1.nl.controller;
 
 import case1.nl.data.repository.DefaultRepository;
+import case1.nl.data.repository.PlacesRepository;
 import case1.nl.data.repository.UserRepository;
 import java.io.Serializable;
 import java.util.Properties;
@@ -26,15 +27,30 @@ public class SessionController implements Serializable {
 
     private AESEncryptor cryptor;
 
-    private final UserRepository userRepository = new UserRepository("PU");
+    private PlacesRepository placesRepository;
 
-    private final DefaultRepository defaultRepository = new DefaultRepository("PU");
+    private UserRepository userRepository;
+
+    private DefaultRepository defaultRepository;
+
+    public PlacesRepository getPlacesRepository() {
+        if (placesRepository == null) {
+            placesRepository = new PlacesRepository("PU");
+        }
+        return placesRepository;
+    }
 
     public UserRepository getUserRepository() {
+        if (userRepository == null) {
+            userRepository = new UserRepository("PU");
+        }
         return userRepository;
     }
 
     public DefaultRepository getDefaultRepository() {
+        if (defaultRepository == null) {
+            defaultRepository = new DefaultRepository("PU");
+        }
         return defaultRepository;
     }
 
