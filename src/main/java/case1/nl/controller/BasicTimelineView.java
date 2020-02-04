@@ -1,6 +1,7 @@
 package case1.nl.controller;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -29,7 +30,8 @@ public class BasicTimelineView {
     protected void initialize() {
         model = new TimelineModel();
 
-        Calendar cal = Calendar.getInstance();
+        GregorianCalendar cal = new GregorianCalendar();              
+        
         cal.set(2014, Calendar.JUNE, 12, 0, 0, 0);
         model.add(new TimelineEvent("PrimeUI 1.1", cal.getTime()));
 
