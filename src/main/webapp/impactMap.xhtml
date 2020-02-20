@@ -17,61 +17,90 @@
             <ui:include src="included/menu.xhtml"/>                   
 
 
+            <p:panel id="imPanel">
 
+                <h:outputText value="Title: MyMap" 
+                              style="font-size: large; font-weight: bold"/> 
 
-            <p:panel id="imPanel">                               
+                <br/>
+                <br/>
 
-                <p:tree value="#{impactMapController.goal}" 
-                        animate="true"
-                        draggable="true"  
-                        var="node"
-                        dynamic="true" 
-                        orientation="horizontal">
+                <p:spacer width="45" height="0"/>
+                <h:outputText value="Goals"  style="font-size: larger"/>                
+                <p:spacer width="130" height="0"/>
 
-                    <p:treeNode>
-                        <h:outputText value="#{node}"/>                       
-                    </p:treeNode>                    
-                </p:tree>                               
+                <h:outputText value="Actors"  style="font-size: larger"/>
+                <p:spacer width="130" height="0"/>                
+
+                <h:outputText value="Impacts"  style="font-size: larger"/>
+                <p:spacer width="130" height="0"/>                
+
+                <h:outputText value="Deliverables"  style="font-size: larger"/>
+                <p:spacer width="130" height="0"/>                
+
+                <h:outputText value="User Stories" style="font-size: larger"/>
+                <p:spacer width="170" height="0"/>                                   
+
+                <ui:repeat value="#{impactMapController.impactMaps}" 
+                           var="ims">
+
+                    <p:tree value="#{ims}"                                                    
+                            var="im"                            
+                            orientation="horizontal"  >
+
+                        <p:treeNode>
+                            <p:inplace editor="true" toggleable="true">
+                                <p:inputText value="#{im}"/>                       
+                            </p:inplace>                                   
+                        </p:treeNode>                    
+
+                    </p:tree>
+
+                </ui:repeat>
+
+                <br/>
+
+                <p:commandButton icon="fa fa-gear" 
+                                 rendered="#{impactMapController.impactMaps.size()!=0}"/>
 
             </p:panel>
 
 
 
 
-            <p:panel id="imEditPanel">
+
+            <p:panel>                
 
                 <p:splitButton id="advanced" value="Add"  
                                icon="pi pi-plus" 
                                filter="true" 
                                filterMatchMode="startsWith">
+
                     <p:submenu label="New" icon="fa fa-plus">
-
                         <p:menuitem value="Goal"
-                                    icon="pi pi-plus"/>
-
+                                    icon="pi pi-plus"
+                                    action="#{impactMapController.newIM()}"
+                                    update="imPanel"/>
                         <p:menuitem value="Actor"
                                     icon="pi pi-plus" 
                                     disabled="true"/>     
-
                         <p:menuitem value="Implact"
                                     icon="pi pi-plus" 
                                     disabled="true"/>                
-
                         <p:menuitem value="Deliverable"
                                     icon="pi pi-plus"
                                     disabled="true"/>                
-
                         <p:menuitem value="Userstory"
                                     icon="pi pi-plus"
                                     disabled="true"/>                
+                    </p:submenu>     
 
-
-
-
-                    </p:submenu>            
                 </p:splitButton>     
-              
-                
+
+                <p:separator/>
+
+
+
             </p:panel>
 
 

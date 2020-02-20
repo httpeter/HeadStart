@@ -16,22 +16,24 @@
 
             <ui:include src="included/menu.xhtml"/>                   
 
-            
+
             <p:panel>
 
-                <p:fileUpload auto="true" 
-                              fileUploadListener="#{remarkableController.handleFileUpload}" 
-                              update="remarkupPanel"/>                                             
-                
+                <p:fileUpload auto="true"                               
+                              listener="#{remarkableController.handleFileUpload}"
+                              update="remarkupPanel" />                                             
+
             </p:panel>                      
-            
-            
+
+
             <p:panel id="remarkupPanel">
-                
-                <p:inputTextarea style="width: 100%" value="#{remarkableController.remarkup}"/>
-                
+
+                <p:inputTextarea 
+                    style="width: 100%" 
+                    value="#{remarkableController.remarkup}"/>
+
             </p:panel>
-          
+
 
         </h:form>
 

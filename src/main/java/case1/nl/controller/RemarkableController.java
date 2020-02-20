@@ -1,10 +1,7 @@
 package case1.nl.controller;
 
-
-
 import case1.nl.util.FMessage;
 import case1.nl.util.Tabricator;
-import java.io.File;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -54,11 +51,13 @@ public class RemarkableController implements Serializable {
     public void handleFileUpload(FileUploadEvent event) {
 
         if (event.getFile() != null) {
-            FMessage.info("Successful" + event.getFile().getFileName() + " is uploaded.");
+            FMessage.info("File '"
+                    + event.getFile().getFileName()
+                    + "' was uploaded.");
 
             Tabricator t = new Tabricator();
 
-            remarkup = t.getRemarkupTable(new String(event.getFile().getContents()));
+            remarkup = t.getRemarkupTable(new String(event.getFile().getContent()));            
 
         } else {
             FMessage.error("Upload failed");

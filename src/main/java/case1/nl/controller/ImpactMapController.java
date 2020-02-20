@@ -1,6 +1,8 @@
 package case1.nl.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -19,9 +21,27 @@ public class ImpactMapController implements Serializable {
     @ManagedProperty(value = "#{sessionController}")
     private SessionController session;
 
-    private TreeNode goal;
+    private List<TreeNode> impactMaps;
+
+    private TreeNode selectedIM;
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    public List<TreeNode> getImpactMaps() {
+        return impactMaps;
+    }
+
+    public void setImpactMaps(List<TreeNode> impactMaps) {
+        this.impactMaps = impactMaps;
+    }
+
+    public TreeNode getSelectedIM() {
+        return selectedIM;
+    }
+
+    public void setSelectedIM(TreeNode selectedIM) {
+        this.selectedIM = selectedIM;
+    }
+
     public SessionController getSession() {
         return session;
     }
@@ -30,25 +50,22 @@ public class ImpactMapController implements Serializable {
         this.session = session;
     }
 
-    public TreeNode getGoal() {
-        return goal;
-    }
-
-    public void setGoal(TreeNode goal) {
-        this.goal = goal;
-    }
-
     //</editor-fold>
     public ImpactMapController() {
     }
 
     @PostConstruct
     public void init() {
-        goal = new DefaultTreeNode("Goal:", null);
 
-        TreeNode actor = new DefaultTreeNode("Actor:", goal);
-        TreeNode actor2 = new DefaultTreeNode("Actor:", goal);
-        TreeNode actor3 = new DefaultTreeNode("Actor:", goal);
+        impactMaps = new ArrayList();
+
+    }
+
+    public void newIM() {
+
+        TreeNode impactMap = new DefaultTreeNode("Goal:", null);
+
+        TreeNode actor = new DefaultTreeNode("Actor:", impactMap);
 
         TreeNode imapct = new DefaultTreeNode("Impact:", actor);
 
@@ -56,6 +73,7 @@ public class ImpactMapController implements Serializable {
 
         TreeNode userStory = new DefaultTreeNode("UserStory:", deliverable);
 
+        impactMaps.add(impactMap);
     }
 
 }
