@@ -1,5 +1,6 @@
 package case1.nl.controller;
 
+import case1.nl.util.FMessage;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +74,11 @@ public class ImpactMapController implements Serializable {
 
         TreeNode userStory = new DefaultTreeNode("UserStory:", deliverable);
 
-        impactMaps.add(impactMap);
-    }
+        impactMap.getChildren().forEach(child -> {
+            System.out.println("test");
+        });
+        
+    impactMaps.add (impactMap);
+}
 
 }
