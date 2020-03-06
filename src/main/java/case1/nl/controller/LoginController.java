@@ -12,7 +12,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -61,7 +61,8 @@ public class LoginController implements Serializable {
     public String login() {
 
         User user = null;
-        try {            
+
+        try {
             user = session.getUserRepository().getUser(mail, session.getCryptor().encrypt(pwd));
         } catch (UnsupportedEncodingException | IllegalBlockSizeException | BadPaddingException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,7 +85,7 @@ public class LoginController implements Serializable {
 
     public String logout() {
         try {
-            session.setCurrentUser(null);            
+            session.setCurrentUser(null);
         } catch (Exception ex) {
             Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
         }

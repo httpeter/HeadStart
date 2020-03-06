@@ -8,6 +8,14 @@
     <h:head>               
         <ui:include src="included/head.xhtml"/>
         <title>#{labels.appTitle} - #{labels.organizationName}</title>
+
+        <script>
+            function onMessage(message, channel, event) {
+                console.log('jsf push message::' + message + ", channel ::" + channel + ", event::" + event);
+                document.getElementById("messageInput").innerHTML = message;
+            }
+        </script>    
+
     </h:head>
 
     <h:body>
@@ -37,7 +45,21 @@
 
             </p:panel>
 
+
+            <p:panel>
+
+                <p:commandButton id="sendMessage" 
+                                 action="#{notesController.sendMessage()}" 
+                                 value="Send Message" update="messageInput"/>                                    
+
+                <br/>                    
+                <p:inputText id="messageInput" value="#{notesController.message}"/>
+
+            </p:panel>
+
         </h:form>
+
+        <f:websocket channel="helloChannel" onmessage="onMessage" />
 
     </h:body>
 

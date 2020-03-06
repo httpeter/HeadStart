@@ -20,26 +20,7 @@
             <p:panel id="imPanel">
 
                 <h:outputText value="Title: MyMap" 
-                              style="font-size: large; font-weight: bold"/> 
-
-                <br/>
-                <br/>
-
-                <p:spacer width="45" height="0"/>
-                <h:outputText value="Goals"  style="font-size: larger"/>                
-                <p:spacer width="130" height="0"/>
-
-                <h:outputText value="Actors"  style="font-size: larger"/>
-                <p:spacer width="130" height="0"/>                
-
-                <h:outputText value="Impacts"  style="font-size: larger"/>
-                <p:spacer width="130" height="0"/>                
-
-                <h:outputText value="Deliverables"  style="font-size: larger"/>
-                <p:spacer width="130" height="0"/>                
-
-                <h:outputText value="User Stories" style="font-size: larger"/>
-                <p:spacer width="170" height="0"/>                                   
+                              style="font-size: large; font-weight: bold"/>                                                
 
                 <ui:repeat value="#{impactMapController.impactMaps}" 
                            var="ims">
@@ -48,10 +29,12 @@
                             var="im"                            
                             orientation="horizontal"  >
 
-                        <p:treeNode>
+                        <p:treeNode  collapsedIcon="">
                             <p:inplace editor="true" toggleable="true">
                                 <p:inputText value="#{im}"/>                       
-                            </p:inplace>                                   
+                            </p:inplace> 
+                            <br/>
+                            <p:commandButton value="Add Actor"/>
                         </p:treeNode>                    
 
                     </p:tree>
@@ -81,25 +64,10 @@
                                     icon="pi pi-plus"
                                     action="#{impactMapController.newIM()}"
                                     update="imPanel"/>
-                        <p:menuitem value="Actor"
-                                    icon="pi pi-plus" 
-                                    disabled="true"/>     
-                        <p:menuitem value="Implact"
-                                    icon="pi pi-plus" 
-                                    disabled="true"/>                
-                        <p:menuitem value="Deliverable"
-                                    icon="pi pi-plus"
-                                    disabled="true"/>                
-                        <p:menuitem value="Userstory"
-                                    icon="pi pi-plus"
-                                    disabled="true"/>                
+                       
                     </p:submenu>     
 
-                </p:splitButton>     
-
-                <p:separator/>
-
-
+                </p:splitButton>                    
 
             </p:panel>
 
