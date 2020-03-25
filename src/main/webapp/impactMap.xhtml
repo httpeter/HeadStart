@@ -54,7 +54,7 @@
 
             <p:panel>                
 
-                <p:splitButton id="advanced" value="Add"  
+                <p:splitButton id="advancetreed" value="Add"  
                                icon="pi pi-plus" 
                                filter="true" 
                                filterMatchMode="startsWith">
@@ -66,8 +66,12 @@
                                     update="imPanel"/>
                        
                     </p:submenu>     
+                </p:splitButton>    
 
-                </p:splitButton>                    
+
+                <p:commandButton value="Update" 
+                                 action="#{impactMapController.showChildren()}"/>
+                
 
             </p:panel>
 
