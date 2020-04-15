@@ -1,6 +1,7 @@
 package case1.nl.controller;
 
 import case1.nl.data.repository.DefaultRepository;
+import case1.nl.data.repository.FoodMomentRepository;
 import case1.nl.data.repository.PlacesRepository;
 import case1.nl.data.repository.UserRepository;
 import java.io.Serializable;
@@ -29,9 +30,18 @@ public class SessionController implements Serializable {
 
     private PlacesRepository placesRepository;
 
+    private FoodMomentRepository foodMomentRepository;
+
     private UserRepository userRepository;
 
     private DefaultRepository defaultRepository;
+
+    public FoodMomentRepository getFoodMomentRepository() {
+        if (foodMomentRepository == null) {
+            foodMomentRepository = new FoodMomentRepository("PU");
+        }
+        return foodMomentRepository;
+    }
 
     public PlacesRepository getPlacesRepository() {
         if (placesRepository == null) {

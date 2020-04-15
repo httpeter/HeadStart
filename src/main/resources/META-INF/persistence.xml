@@ -5,6 +5,8 @@
     <class>case1.nl.entities.User</class>
     <class>case1.nl.entities.Person</class>
     <class>case1.nl.entities.Place</class>
+    <class>case1.nl.entities.Peetpatroon</class>
+    <class>case1.nl.entities.Foodmoment</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/example?zeroDateTimeBehavior=convertToNull"/>

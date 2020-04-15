@@ -12,7 +12,6 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -73,7 +72,7 @@ public class LoginController implements Serializable {
                     + mail
                     + " logged in.");
             session.setCurrentUser(user);
-            return "impactMap.html";
+            return "index.html";
 
         } else {
             FMessage.warn("Problem logging in user '"
@@ -85,7 +84,7 @@ public class LoginController implements Serializable {
 
     public String logout() {
         try {
-            session.setCurrentUser(null);
+            session.setCurrentUser(null);                        
         } catch (Exception ex) {
             Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
         }
