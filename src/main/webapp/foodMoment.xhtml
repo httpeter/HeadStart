@@ -21,22 +21,22 @@
                 <p:panelGrid layout="grid" columns="2">                                
 
                     <p:outputLabel value="Food Moment"/>
-                    <p:calendar value="#{peetPatroonController.newFoodMoment.moment}" 
+                    <p:calendar value="#{foodMomentController.newFoodMoment.moment}" 
                                 required="true" 
                                 requiredMessage="Input Required"
                                 mode="inline"/>
 
                     <p:outputLabel value="Moment Type"/>
-                    <p:inputText value="#{peetPatroonController.newFoodMoment.momenttype}"
+                    <p:inputText value="#{foodMomentController.newFoodMoment.momenttype}"
                                  required="true" requiredMessage="Input Required"/>
 
                     <p:outputLabel value="Food Taken"/>
-                    <p:inputText value="#{peetPatroonController.newFoodMoment.intake}"
+                    <p:inputText value="#{foodMomentController.newFoodMoment.intake}"
                                  required="true" requiredMessage="Input Required"/>
 
                     <h:outputText/>
                     <p:commandButton value="save" 
-                                     action="#{peetPatroonController.save()}"
+                                     action="#{foodMomentController.save()}"
                                      update="@form"/>
 
                 </p:panelGrid>
@@ -48,7 +48,7 @@
             <p:panel>
 
                 <h1><h:outputText value="Food Moments"/></h1>
-                <p:dataTable value="#{peetPatroonController.foodMoments}" 
+                <p:dataTable value="#{foodMomentController.foodMoments}" 
                              var="item" 
                              reflow="true">                    
                     <p:column>

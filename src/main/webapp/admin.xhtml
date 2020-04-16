@@ -22,12 +22,12 @@
 
                 <p:splitButton value="Action" icon="pi pi-user">
                     <p:menuitem value="New user" 
-                                 action="#{adminController.makeNewUser()}"
-                                 oncomplete="PF('newDialog').show()"/>
+                                action="#{adminController.makeNewUser()}"
+                                oncomplete="PF('newDialog').show()"/>
                     <p:menuitem value="Delete #{adminController.selectedUser.firstname} #{adminController.selectedUser.lastname}" 
-                                 disabled="#{adminController.selectedUser == null}"
-                                 oncomplete="PF('dlgDelete').show()"/>
-                
+                                disabled="#{adminController.selectedUser == null}"
+                                oncomplete="PF('dlgDelete').show()"/>
+
                 </p:splitButton>
 
                 <p:dataTable value="#{adminController.users}" 
@@ -75,7 +75,7 @@
                         </f:facet>
                         <h:outputText value="#{user.lastname}"/>
                     </p:column>
-                    
+
                 </p:dataTable>                                    
 
             </p:panel>
@@ -86,14 +86,33 @@
 
                     <h:outputText value="First name"/>
                     <p:inputText value="#{adminController.selectedUser.firstname}" required="true"/>
+
                     <h:outputText value="Last name"/>
                     <p:inputText value="#{adminController.selectedUser.lastname}" required="true"/>
+
                     <h:outputText value="Email"/>
                     <p:inputText value="#{adminController.selectedUser.email}" required="true"/>
+
                     <h:outputText value="Role"/>
                     <p:inputText value="#{adminController.selectedUser.role}" required="true"/>
+
                     <h:outputText value="Password"/>
                     <p:password value="#{adminController.selectedUser.pwdhash}"  required="true"/>
+
+                    <h:outputText value="Use Token"/>
+                    <p:panelGrid columns="3">
+                        <p:selectOneMenu value="#{adminController.selectedUser.usetoken}">                        
+                            <f:selectItem itemLabel="No" itemValue="0"/>
+                            <f:selectItem itemLabel="Yes" itemValue="1"/>
+                            <p:ajax update="@parent"/>
+                        </p:selectOneMenu>
+                        <h:outputText  value="Token:" 
+                                      rendered="#{adminController.selectedUser.usetoken == 1}"/>
+                        <p:inputTextarea value="#{sessionController.cryptor.encrypt(adminController.selectedUser.email)}" 
+                                         disabled="true"
+                                         rendered="#{adminController.selectedUser.usetoken == 1}"/>
+                    </p:panelGrid>
+
                     <h:outputText/>                                       
                     <p:commandButton value="Save" 
                                      action="#{adminController.saveUser()}"
@@ -138,8 +157,8 @@
                 </p:panelGrid>
 
             </p:dialog>
-            
-            
+
+
 
             <p:dialog id="dlgDelete" 
                       widgetVar="dlgDelete"

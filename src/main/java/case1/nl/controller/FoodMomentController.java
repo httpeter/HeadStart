@@ -15,7 +15,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ViewScoped
 @ManagedBean
-public class PeetPatroonController implements Serializable {
+public class FoodMomentController implements Serializable {
 
     @ManagedProperty(value = "#{sessionController}")
     private SessionController session;
@@ -53,7 +53,7 @@ public class PeetPatroonController implements Serializable {
     
 
     //</editor-fold>
-    public PeetPatroonController() {
+    public FoodMomentController() {
     }
 
     @PostConstruct

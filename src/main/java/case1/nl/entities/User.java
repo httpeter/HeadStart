@@ -35,6 +35,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname")})
 public class User implements Serializable {
 
+    @Column(name = "USETOKEN")
+    private Integer usetoken;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -136,6 +139,14 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "case1.nl.entities.User[ id=" + id + " ]";
+    }
+
+    public Integer getUsetoken() {
+        return usetoken;
+    }
+
+    public void setUsetoken(Integer usetoken) {
+        this.usetoken = usetoken;
     }
     
 }
