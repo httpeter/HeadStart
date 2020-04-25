@@ -13,8 +13,8 @@
         <p:submenu label="Experiments" icon="fa fa-flask">
             <p:column>
                 <p:submenu label="Various" icon="pi pi-home">
-                    
-                     <p:menuitem value="#{labels.menuItemFoodMoment}" 
+
+                    <p:menuitem value="#{labels.menuItemFoodMoment}" 
                                 icon="pi pi-apple"
                                 url="foodMoment.html"/>
 
@@ -67,6 +67,18 @@
         </p:submenu>
 
     </p:megaMenu>
+
+    <br/>
+    <p:breadCrumb>
+        <p:menuitem value="Categories" url="#" />
+        <p:menuitem value="Sports" url="#" />
+        <p:menuitem value="Basketball" url="#" />
+        <p:menuitem value="NBA" url="#" />
+        <p:menuitem value="Teams" url="#" />
+        <p:menuitem value="L.A. Lakers" url="#" />
+        <p:menuitem value="Roster" url="#" />
+        <p:menuitem value="Kobe Bryant" url="#" />
+    </p:breadCrumb>
 
     <!--Do not remove!-->
     <h:outputText value="#{sessionController.redirectToLogin}"/>    

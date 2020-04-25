@@ -18,6 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -35,6 +36,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Foodmoment.findByMomenttype", query = "SELECT f FROM Foodmoment f WHERE f.momenttype = :momenttype"),
     @NamedQuery(name = "Foodmoment.findByIntake", query = "SELECT f FROM Foodmoment f WHERE f.intake = :intake")})
 public class Foodmoment implements Serializable {
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "USERID")
+    private int userid;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -114,6 +120,14 @@ public class Foodmoment implements Serializable {
     @Override
     public String toString() {
         return "case1.nl.entities.Foodmoment[ id=" + id + " ]";
+    }
+
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
     }
     
 }

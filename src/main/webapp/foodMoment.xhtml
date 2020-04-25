@@ -23,12 +23,17 @@
                     <p:outputLabel value="Food Moment"/>
                     <p:calendar value="#{foodMomentController.newFoodMoment.moment}" 
                                 required="true" 
-                                requiredMessage="Input Required"
-                                mode="inline"/>
+                                requiredMessage="Input Required"/>
 
-                    <p:outputLabel value="Moment Type"/>
-                    <p:inputText value="#{foodMomentController.newFoodMoment.momenttype}"
-                                 required="true" requiredMessage="Input Required"/>
+                    <p:outputLabel value="Moment Type"/>                    
+                    <p:selectOneRadio label="Moment Type" 
+                                      value="#{foodMomentController.newFoodMoment.momenttype}"
+                                      required="yes" requiredMessage="Select a food moment">
+                        <f:selectItem itemLabel="Breakfast" itemValue="breakfast"/>
+                        <f:selectItem itemLabel="Lunch" itemValue="lunch"/>
+                        <f:selectItem itemLabel="Dinner" itemValue="dinner"/>
+                        <f:selectItem itemLabel="Snack" itemValue="snack"/>
+                    </p:selectOneRadio>
 
                     <p:outputLabel value="Food Taken"/>
                     <p:inputText value="#{foodMomentController.newFoodMoment.intake}"
@@ -56,6 +61,7 @@
                             <h:outputText value="Moment"/>
                         </f:facet>
                         <p:calendar value="#{item.moment}" 
+                                    timeZone="CEST"
                                     readonly="true"/>                        
                     </p:column>
                     <p:column>

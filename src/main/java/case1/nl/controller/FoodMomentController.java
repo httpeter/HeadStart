@@ -48,9 +48,6 @@ public class FoodMomentController implements Serializable {
     public void setNewFoodMoment(Foodmoment newFoodMoment) {
         this.newFoodMoment = newFoodMoment;
     }
-    
-    
-    
 
     //</editor-fold>
     public FoodMomentController() {
@@ -59,27 +56,23 @@ public class FoodMomentController implements Serializable {
     @PostConstruct
     public void init() {
 
-        newFoodMoment = new Foodmoment();              
+        newFoodMoment = new Foodmoment();
         this.loadMoments();
     }
-    
-    public void loadMoments()
-    {
-         foodMoments = session.getFoodMomentRepository()
-                .getResultList(Foodmoment.class);
+
+    public void loadMoments() {
+        foodMoments = session.getFoodMomentRepository()
+                .getFoodMoments(session.getCurrentUser()
+                        .getId());
     }
-    
-    public void save()
-    {
-        if(newFoodMoment.getMoment() != null 
-                && session.getFoodMomentRepository().persisted(newFoodMoment))
-        {
+
+    public void save() {
+        if (newFoodMoment.getMoment() != null
+                && session.getFoodMomentRepository().persisted(newFoodMoment)) {
             FMessage.info("Moment saved");
             newFoodMoment = new Foodmoment();
             this.loadMoments();
-        }
-        else
-        {
+        } else {
             FMessage.warn("Moment empty");
         }
     }
