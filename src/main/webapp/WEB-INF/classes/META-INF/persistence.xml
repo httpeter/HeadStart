@@ -7,7 +7,7 @@
     <class>case1.nl.entities.User</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="eclipselink.logging.level" value="ALL"/>
+      <!--<property name="eclipselink.logging.level" value="ALL"/>-->
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/example?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Amsterdam&amp;useSSL=false"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.user" value="case1"/>

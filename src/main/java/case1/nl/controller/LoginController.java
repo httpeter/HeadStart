@@ -4,6 +4,7 @@ import java.io.Serializable;
 import case1.nl.entities.User;
 import case1.nl.util.FMessage;
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -11,20 +12,24 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
  * @author PeterH
  */
-@ViewScoped
 @ManagedBean
+@RequestScoped
 public class LoginController implements Serializable {
 
     @ManagedProperty(value = "#{sessionController}")
     private SessionController session;
 
     private String mail, pwd;
+
+    @ManagedProperty("#{param.page}")
+    private String page;
 
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     public SessionController getSession() {
@@ -51,6 +56,14 @@ public class LoginController implements Serializable {
         this.pwd = pwd;
     }
 
+    public String getPage() {
+        return page;
+    }
+
+    public void setPage(String page) {
+        this.page = page;
+    }
+
 //</editor-fold>
     @PostConstruct
     public void init() {
@@ -62,9 +75,14 @@ public class LoginController implements Serializable {
         User user = null;
 
         try {
-            user = session.getUserRepository().getUser(mail, session.getCryptor().encrypt(pwd));
-        } catch (UnsupportedEncodingException | IllegalBlockSizeException | BadPaddingException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            user = session.getUserRepository()
+                    .getUser(mail, session.getCryptor()
+                            .encrypt(pwd));
+        } catch (UnsupportedEncodingException
+                | IllegalBlockSizeException
+                | BadPaddingException ex) {
+            Logger.getLogger(LoginController.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
 
         if (user != null) {
@@ -72,7 +90,15 @@ public class LoginController implements Serializable {
                     + mail
                     + " logged in.");
             session.setCurrentUser(user);
-            return "foodMoment.html";
+
+            FMessage.info("======================== parameter page value: " + page);
+
+            if (page != null) {
+                return page + ".html";
+            } else {
+
+                return "index.html";
+            }
 
         } else {
             FMessage.warn("Problem logging in user '"
@@ -84,10 +110,11 @@ public class LoginController implements Serializable {
 
     public String logout() {
         try {
-            session.setCurrentUser(null);                        
+            session.setCurrentUser(null);
         } catch (Exception ex) {
             Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return "login.html";
     }
 

@@ -109,7 +109,7 @@
                     <h:outputText  value="Token URL" 
                                    rendered="#{adminController.selectedUser.usetoken == 1}"/>                        
                     <p:outputPanel rendered="#{adminController.selectedUser.usetoken == 1}">
-                        <a href="http://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}/login.html?p=login&t=#{sessionController.cryptor.encrypt(adminController.selectedUser.email)}" target="_blank">
+                        <a href="http://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}/login.html?p=login&amp;t=#{sessionController.cryptor.encrypt(adminController.selectedUser.email)}" target="_blank">
                             http://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}/login.html?t=#{sessionController.cryptor.encrypt(adminController.selectedUser.email)}
                         </a> 
                     </p:outputPanel>
