@@ -17,10 +17,14 @@
             <ui:include src="included/menu.xhtml"/>        
 
             <p:panel>
+                
+                <h4>
+                    Register food
+                </h4>
 
                 <p:panelGrid layout="grid" columns="2">                                
 
-                    <p:outputLabel value="Food Moment"/>
+                    <p:outputLabel value="Moment"/>
                     <p:calendar value="#{foodMomentController.newFoodMoment.moment}" 
                                 required="true" 
                                 requiredMessage="Input Required"/>
@@ -52,7 +56,10 @@
 
             <p:panel>
 
-                <h1><h:outputText value="Food Moments"/></h1>
+                <h4>
+                    <h:outputText 
+                        value="Food Moments of #{sessionController.currentUser.firstname} #{sessionController.currentUser.lastname}"/>
+                </h4>
                 <p:dataTable value="#{foodMomentController.foodMoments}" 
                              var="item" 
                              reflow="true">                    

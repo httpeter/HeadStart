@@ -16,35 +16,35 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 @ManagedBean
 public class FoodMomentController implements Serializable {
-
+    
     @ManagedProperty(value = "#{sessionController}")
     private SessionController session;
-
+    
     private List<Foodmoment> foodMoments;
-
+    
     private Foodmoment newFoodMoment;
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
     public SessionController getSession() {
         return session;
     }
-
+    
     public void setSession(SessionController session) {
         this.session = session;
     }
-
+    
     public List<Foodmoment> getFoodMoments() {
         return foodMoments;
     }
-
+    
     public void setFoodMoments(List<Foodmoment> foodMoments) {
         this.foodMoments = foodMoments;
     }
-
+    
     public Foodmoment getNewFoodMoment() {
         return newFoodMoment;
     }
-
+    
     public void setNewFoodMoment(Foodmoment newFoodMoment) {
         this.newFoodMoment = newFoodMoment;
     }
@@ -52,20 +52,21 @@ public class FoodMomentController implements Serializable {
     //</editor-fold>
     public FoodMomentController() {
     }
-
+    
     @PostConstruct
     public void init() {
-
+        
         newFoodMoment = new Foodmoment();
+        newFoodMoment.setUserid(session.getCurrentUser().getId());
         this.loadMoments();
     }
-
+    
     public void loadMoments() {
         foodMoments = session.getFoodMomentRepository()
                 .getFoodMoments(session.getCurrentUser()
                         .getId());
     }
-
+    
     public void save() {
         if (newFoodMoment.getMoment() != null
                 && session.getFoodMomentRepository().persisted(newFoodMoment)) {
@@ -76,5 +77,5 @@ public class FoodMomentController implements Serializable {
             FMessage.warn("Moment empty");
         }
     }
-
+    
 }
