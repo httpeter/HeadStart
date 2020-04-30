@@ -16,11 +16,9 @@
 
             <ui:include src="included/menu.xhtml"/>        
 
-            <p:panel>
-                
-                <h4>
-                    Register food
-                </h4>
+            <p:panel collapsed="true" 
+                     toggleable="true" 
+                     header=" Register food">
 
                 <p:panelGrid layout="grid" columns="2">                                
 
@@ -62,22 +60,25 @@
                 </h4>
                 <p:dataTable value="#{foodMomentController.foodMoments}" 
                              var="item" 
-                             reflow="true">                    
-                    <p:column>
+                             reflow="true"
+                             paginator="true" 
+                             filterBy="#{item.moment}">                    
+                    <p:column groupRow="true" sortBy="#{item.moment}">
                         <f:facet name="header">
-                            <h:outputText value="Moment"/>
+                            <h:outputText value="Moment"/>                                                         
                         </f:facet>
-                        <p:calendar value="#{item.moment}" 
-                                    timeZone="CEST"
-                                    readonly="true"/>                        
+                        <h:outputText value="#{item.moment}">
+                            <f:convertDateTime pattern="dd-MM-yyyy" 
+                                               timeZone="CET"/>
+                        </h:outputText>
                     </p:column>
-                    <p:column>
+                    <p:column groupRow="true" sortBy="#{item.momenttype}">
                         <f:facet name="header">
                             <h:outputText value="Momenttype"/>
                         </f:facet>
                         <h:outputText value="#{item.momenttype}"/>
                     </p:column>
-                    <p:column>
+                    <p:column sortBy="#{item.intake}">
                         <f:facet name="header">
                             <h:outputText value="Intake"/>
                         </f:facet>
