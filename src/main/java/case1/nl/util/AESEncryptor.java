@@ -13,16 +13,12 @@ import java.util.Base64;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-public class AESEncryptor implements Serializable
-{
+public class AESEncryptor implements Serializable {
 
     private final Cipher encryptor = Cipher.getInstance("AES/CBC/PKCS5Padding");
     private final Cipher decryptor = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
-
-
-    public AESEncryptor() throws Exception
-    {
+    public AESEncryptor() throws Exception {
         ExternalContext externalContext = FacesContext.getCurrentInstance()
                 .getExternalContext();
 
@@ -32,9 +28,8 @@ public class AESEncryptor implements Serializable
         byte[] keyBytes;
         byte[] vectorBytes;
 
-        //new BASE64Decoder().decodeBuffer(sessionKey);
         keyBytes = sessionKey.getBytes();
-        //new BASE64Decoder().decodeBuffer(iv);
+
         vectorBytes = iv.getBytes();
 
         encryptor.init(Cipher.ENCRYPT_MODE,
@@ -46,26 +41,20 @@ public class AESEncryptor implements Serializable
                 encryptor.getParameters());
     }
 
-
-
     public String encrypt(String plainText) throws UnsupportedEncodingException,
             IllegalBlockSizeException,
-            BadPaddingException
-    {
+            BadPaddingException {
         // get bytes from string, encrypt, encode
         byte[] utf8bytes = plainText.getBytes("utf-8");
         byte[] ciphertext = encryptor.doFinal(utf8bytes);
-        return Base64.getEncoder().encodeToString(ciphertext);
+        return Base64.getUrlEncoder().encodeToString(ciphertext);
     }
-
-
 
     public String decrypt(String cipherText) throws IOException,
             IllegalBlockSizeException,
-            BadPaddingException
-    {
+            BadPaddingException {
         // decode, decrypt, use bytes to create string
-        byte[] encryptedBytes = Base64.getDecoder().decode(cipherText);
+        byte[] encryptedBytes = Base64.getUrlDecoder().decode(cipherText);
         byte[] plaintext = decryptor.doFinal(encryptedBytes);
         return new String(plaintext, "UTF-8");
     }

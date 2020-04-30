@@ -3,8 +3,8 @@ package case1.nl.controller;
 import java.io.Serializable;
 import case1.nl.entities.User;
 import case1.nl.util.FMessage;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -12,24 +12,24 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
  * @author PeterH
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class LoginController implements Serializable {
 
     @ManagedProperty(value = "#{sessionController}")
     private SessionController session;
 
-    private String mail, pwd;
+    private HttpServletRequest request;
 
-    @ManagedProperty("#{param.page}")
-    private String page;
+    private String mail, pwd, p, t;
 
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     public SessionController getSession() {
@@ -56,18 +56,44 @@ public class LoginController implements Serializable {
         this.pwd = pwd;
     }
 
-    public String getPage() {
-        return page;
-    }
-
-    public void setPage(String page) {
-        this.page = page;
-    }
-
 //</editor-fold>
+    public LoginController() {
+
+    }
+
     @PostConstruct
     public void init() {
         logout();
+
+        request = (HttpServletRequest) FacesContext.getCurrentInstance()
+                .getExternalContext()
+                .getRequest();
+
+        //Needs to be done at bean creation time since we are using viewscoped scope
+        p = request.getParameter("p");
+
+        t = request.getParameter("t");
+
+        if (t != null) {
+            try {
+
+                User user = session.getUserRepository().getUser(session.getCryptor().decrypt(t));
+
+                if (user != null) {
+                    session.setCurrentUser(user);
+                    session.getFacesContext().getExternalContext().redirect(p + ".html");
+                } else {
+                    FMessage.warn("Token not valid");
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalBlockSizeException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (BadPaddingException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
     }
 
     public String login() {
@@ -91,12 +117,9 @@ public class LoginController implements Serializable {
                     + " logged in.");
             session.setCurrentUser(user);
 
-            FMessage.info("======================== parameter page value: " + page);
-
-            if (page != null) {
-                return page + ".html";
+            if (p != null) {
+                return p + ".html";
             } else {
-
                 return "index.html";
             }
 
