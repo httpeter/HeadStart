@@ -106,7 +106,7 @@
                         <f:selectItem itemLabel="Yes" itemValue="1"/>
                         <p:ajax update="@form"/>
                     </p:selectOneMenu>                        
-                    <h:outputText  value="Token URL" 
+                    <h:outputText  value="Token" 
                                    rendered="#{adminController.selectedUser.usetoken == 1}"/>                        
                     <p:outputPanel rendered="#{adminController.selectedUser.usetoken == 1}">
                         <h:outputText value="#{sessionController.cryptor.encrypt(adminController.selectedUser.email)}"/>
