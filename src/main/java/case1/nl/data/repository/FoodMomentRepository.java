@@ -17,7 +17,7 @@ public class FoodMomentRepository extends DefaultRepository {
     public List<Foodmoment> getFoodMoments(int userID) {
 
         Query q = this.getEm().createQuery("select fm from Foodmoment fm "
-                + "where fm.userid = :userID")
+                + "where fm.userid = :userID order by fm.id desc")
                 .setParameter("userID", userID);
         
         return q.getResultList();

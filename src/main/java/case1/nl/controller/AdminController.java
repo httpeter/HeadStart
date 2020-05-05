@@ -81,13 +81,10 @@ public class AdminController implements Serializable {
     }
 
     public void saveNewUser() {
+
         try {
-            newUser.setPwdhash(session.getCryptor().encrypt(newUser.getPwdhash()));
-        } catch (UnsupportedEncodingException | IllegalBlockSizeException | BadPaddingException ex) {
-            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
-            FMessage.fatal(ex.getMessage());
-        }
-        if (newUser.getEmail() != null) {
+            newUser.setPwdhash(session.getCryptor()
+                    .encrypt(newUser.getPwdhash()));
             if (session.getUserRepository().persisted(newUser)) {
                 FMessage.info(newUser.getFirstname()
                         + " "
@@ -100,8 +97,14 @@ public class AdminController implements Serializable {
                         + " "
                         + newUser.getLastname());
             }
+            this.loadUsers();
+        } catch (UnsupportedEncodingException
+                | IllegalBlockSizeException
+                | BadPaddingException ex) {
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+            FMessage.fatal(ex.getMessage());
         }
-        this.loadUsers();
+
     }
 
     public void selectUser(SelectEvent selectEvent) {
@@ -119,24 +122,28 @@ public class AdminController implements Serializable {
     public void saveUser() {
         try {
             selectedUser.setPwdhash(session.getCryptor().encrypt(selectedUser.getPwdhash()));
+            if (session.getUserRepository().persisted(selectedUser)) {
+
+                FMessage.info(selectedUser.getFirstname()
+                        + " "
+                        + selectedUser.getLastname()
+                        + " saved.");
+                selectedUser = null;
+            } else {
+                FMessage.error("Could not save user "
+                        + selectedUser.getFirstname()
+                        + " "
+                        + selectedUser.getLastname());
+            }
+            this.loadUsers();
         } catch (UnsupportedEncodingException | IllegalBlockSizeException | BadPaddingException ex) {
             Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (selectedUser != null
-                && session.getUserRepository().persisted(selectedUser)) {
-
-            FMessage.info(selectedUser.getFirstname()
-                    + " "
-                    + selectedUser.getLastname()
-                    + " saved.");
-            selectedUser = null;
-        } else {
-            FMessage.error("Could not save user "
+            FMessage.fatal("Could not save "
                     + selectedUser.getFirstname()
                     + " "
                     + selectedUser.getLastname());
         }
-        this.loadUsers();
+
     }
 
     public void deleteUser() {
