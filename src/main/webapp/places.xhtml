@@ -19,6 +19,18 @@
 
 
             <p:panel>
+
+                <h3>Trip</h3>
+                <p:selectOneMenu value="#{placesController.selectedTrip}" converter="tripConverter">
+                    <f:selectItems value="#{placesController.trips}" 
+                                   var="trip" 
+                                   itemValue="#{trip}" 
+                                   itemLabel="#{trip.name}"/>
+                    <p:ajax update="@form"/>
+                </p:selectOneMenu>          
+                
+                <h1>#{placesController.selectedTrip.name}</h1>
+
                 <h3>Timeline</h3>
                 <ui:include src="included/placesTimeline.xhtml"/>
             </p:panel>

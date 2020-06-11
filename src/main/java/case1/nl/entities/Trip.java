@@ -24,21 +24,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author peterhendriks
  */
 @Entity
-@Table(name = "PLACE")
+@Table(name = "TRIP")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Place.findAll", query = "SELECT p FROM Place p"),
-    @NamedQuery(name = "Place.findById", query = "SELECT p FROM Place p WHERE p.id = :id"),
-    @NamedQuery(name = "Place.findByName", query = "SELECT p FROM Place p WHERE p.name = :name"),
-    @NamedQuery(name = "Place.findByRating", query = "SELECT p FROM Place p WHERE p.rating = :rating"),
-    @NamedQuery(name = "Place.findByDescription", query = "SELECT p FROM Place p WHERE p.description = :description"),
-    @NamedQuery(name = "Place.findByImgurls", query = "SELECT p FROM Place p WHERE p.imgurls = :imgurls")})
-public class Place implements Serializable {
-
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "TRIPID")
-    private int tripid;
+    @NamedQuery(name = "Trip.findAll", query = "SELECT t FROM Trip t"),
+    @NamedQuery(name = "Trip.findById", query = "SELECT t FROM Trip t WHERE t.id = :id"),
+    @NamedQuery(name = "Trip.findByName", query = "SELECT t FROM Trip t WHERE t.name = :name"),
+    @NamedQuery(name = "Trip.findByDescription", query = "SELECT t FROM Trip t WHERE t.description = :description")})
+public class Trip implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,23 +44,18 @@ public class Place implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "NAME")
     private String name;
-    @Column(name = "RATING")
-    private Integer rating;
-    @Size(max = 512)
+    @Size(max = 1024)
     @Column(name = "DESCRIPTION")
     private String description;
-    @Size(max = 1024)
-    @Column(name = "IMGURLS")
-    private String imgurls;
 
-    public Place() {
+    public Trip() {
     }
 
-    public Place(Integer id) {
+    public Trip(Integer id) {
         this.id = id;
     }
 
-    public Place(Integer id, String name) {
+    public Trip(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -88,28 +76,12 @@ public class Place implements Serializable {
         this.name = name;
     }
 
-    public Integer getRating() {
-        return rating;
-    }
-
-    public void setRating(Integer rating) {
-        this.rating = rating;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getImgurls() {
-        return imgurls;
-    }
-
-    public void setImgurls(String imgurls) {
-        this.imgurls = imgurls;
     }
 
     @Override
@@ -122,10 +94,10 @@ public class Place implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Place)) {
+        if (!(object instanceof Trip)) {
             return false;
         }
-        Place other = (Place) object;
+        Trip other = (Trip) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -134,15 +106,7 @@ public class Place implements Serializable {
 
     @Override
     public String toString() {
-        return "case1.nl.entities.Place[ id=" + id + " ]";
-    }
-
-    public int getTripid() {
-        return tripid;
-    }
-
-    public void setTripid(int tripid) {
-        this.tripid = tripid;
+        return "case1.nl.entities.Trip[ id=" + id + " ]";
     }
     
 }

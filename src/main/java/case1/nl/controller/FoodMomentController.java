@@ -71,12 +71,12 @@ public class FoodMomentController implements Serializable {
         if (newFoodMoment.getMoment() != null
                 && session.getFoodMomentRepository()
                         .persisted(newFoodMoment)) {
-            FMessage.info("Moment saved");
-            newFoodMoment = new Foodmoment();
-            this.loadMoments();
+            FMessage.info("Moment saved");                        
         } else {
             FMessage.warn("Moment empty");
         }
+        this.loadMoments();
+        newFoodMoment = new Foodmoment();
     }
 
 }

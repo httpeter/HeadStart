@@ -1,6 +1,7 @@
 package case1.nl.controller;
 
 import case1.nl.entities.Place;
+import case1.nl.entities.Trip;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -33,9 +34,39 @@ public class PlacesController implements Serializable {
     private boolean showCurrentTime = true;
     private boolean showNavigation = false;
 
+    private List<Trip> trips;
+
+    private Trip selectedTrip;
+
     private List<Place> places;
 
+    private Place selectedPlace;
+
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    public List<Trip> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(List<Trip> trips) {
+        this.trips = trips;
+    }
+
+    public Trip getSelectedTrip() {
+        return selectedTrip;
+    }
+
+    public void setSelectedTrip(Trip selectedTrip) {
+        this.selectedTrip = selectedTrip;
+    }
+
+    public Place getSelectedPlace() {
+        return selectedPlace;
+    }
+
+    public void setSelectedPlace(Place selectedPlace) {
+        this.selectedPlace = selectedPlace;
+    }
+
     public boolean isSelectable() {
         return selectable;
     }
@@ -125,12 +156,10 @@ public class PlacesController implements Serializable {
     }
 
     //</editor-fold>
-    public PlacesController() {
-    }
-
     @PostConstruct
     public void init() {
-        loadPlaces();
+
+        loadTripsAndPlaces();                
 
         model = new TimelineModel();
 
@@ -140,7 +169,9 @@ public class PlacesController implements Serializable {
 
     }
 
-    public void loadPlaces() {
+    public void loadTripsAndPlaces() {
+        trips = session.getPlacesRepository().getResultList(Trip.class);
         places = session.getPlacesRepository().getResultList(Place.class);
     }
+
 }
