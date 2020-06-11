@@ -57,10 +57,6 @@ public class LoginController implements Serializable {
     }
 
 //</editor-fold>
-    public LoginController() {
-
-    }
-
     @PostConstruct
     public void init() {
         logout();
@@ -77,20 +73,22 @@ public class LoginController implements Serializable {
         if (t != null) {
             try {
 
-                User user = session.getUserRepository().getUser(session.getCryptor().decrypt(t));
+                User user = session.getUserRepository()
+                        .getUser(session.getCryptor().decrypt(t));
 
                 if (user != null) {
                     session.setCurrentUser(user);
-                    session.getFacesContext().getExternalContext().redirect(p + ".html");
+                    session.getFacesContext()
+                            .getExternalContext()
+                            .redirect(p + ".html");
                 } else {
                     FMessage.warn("Token not valid");
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IllegalBlockSizeException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (BadPaddingException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException
+                    | IllegalBlockSizeException
+                    | BadPaddingException ex) {
+                Logger.getLogger(LoginController.class.getName())
+                        .log(Level.SEVERE, null, ex);
             }
 
         }
@@ -120,7 +118,7 @@ public class LoginController implements Serializable {
             if (p != null) {
                 return p + ".html";
             } else {
-                return "index.html";
+                return session.getCurrentUser().getLandingpage() + ".html";
             }
 
         } else {
@@ -135,7 +133,8 @@ public class LoginController implements Serializable {
         try {
             session.setCurrentUser(null);
         } catch (Exception ex) {
-            Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SessionController.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
 
         return "login.html";

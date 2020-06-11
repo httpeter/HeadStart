@@ -75,6 +75,13 @@
                         </f:facet>
                         <h:outputText value="#{user.lastname}"/>
                     </p:column>
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Landingpage"/>
+                        </f:facet>
+                        <h:outputText value="#{user.landingpage}"/>
+                    </p:column>
 
                 </p:dataTable>                                    
 
@@ -111,6 +118,9 @@
                     <p:outputPanel rendered="#{adminController.selectedUser.usetoken == 1}">
                         <h:outputText value="#{sessionController.cryptor.encrypt(adminController.selectedUser.email)}"/>
                     </p:outputPanel>
+                    
+                    <h:outputText value="Landingpage"/>
+                    <p:inputText value="#{adminController.selectedUser.landingpage}" required="true"/>
 
 
                     <h:outputText/>                                       

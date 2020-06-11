@@ -6,8 +6,7 @@ import java.time.LocalDateTime;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
-import javax.faces.push.Push;
+import javax.faces.view.ViewScoped;
 import javax.faces.push.PushContext;
 
 

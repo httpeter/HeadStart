@@ -101,7 +101,8 @@ public class AdminController implements Serializable {
         } catch (UnsupportedEncodingException
                 | IllegalBlockSizeException
                 | BadPaddingException ex) {
-            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminController.class.getName())
+                    .log(Level.SEVERE, null, ex);
             FMessage.fatal(ex.getMessage());
         }
 
@@ -111,17 +112,23 @@ public class AdminController implements Serializable {
         selectedUser = (User) selectEvent.getObject();
         try {
             if (selectedUser.getPwdhash().endsWith("==")) {
-                selectedUser.setPwdhash(session.getCryptor().decrypt(selectedUser.getPwdhash()));
+                selectedUser.setPwdhash(session.getCryptor()
+                        .decrypt(selectedUser
+                                .getPwdhash()));
             }
-        } catch (IOException | IllegalBlockSizeException | BadPaddingException ex) {
-            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException
+                | IllegalBlockSizeException
+                | BadPaddingException ex) {
+            Logger.getLogger(AdminController.class.getName())
+                    .log(Level.SEVERE, null, ex);
             FMessage.error(ex.getMessage());
         }
     }
 
     public void saveUser() {
         try {
-            selectedUser.setPwdhash(session.getCryptor().encrypt(selectedUser.getPwdhash()));
+            selectedUser.setPwdhash(session.getCryptor()
+                    .encrypt(selectedUser.getPwdhash()));
             if (session.getUserRepository().persisted(selectedUser)) {
 
                 FMessage.info(selectedUser.getFirstname()
@@ -136,8 +143,11 @@ public class AdminController implements Serializable {
                         + selectedUser.getLastname());
             }
             this.loadUsers();
-        } catch (UnsupportedEncodingException | IllegalBlockSizeException | BadPaddingException ex) {
-            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException
+                | IllegalBlockSizeException
+                | BadPaddingException ex) {
+            Logger.getLogger(AdminController.class.getName())
+                    .log(Level.SEVERE, null, ex);
             FMessage.fatal("Could not save "
                     + selectedUser.getFirstname()
                     + " "

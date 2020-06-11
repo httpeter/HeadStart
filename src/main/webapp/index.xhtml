@@ -30,7 +30,9 @@
                                         action="#{indexController.newPerson()}"
                                         oncomplete="PF('dlgEditNewPerson').show()"/>                
                             
-                            <p:menuitem value="#{labels.btnDelete} #{indexController.selectedPerson.firstname} #{indexController.selectedPerson.lastname}"                                 
+                            <p:menuitem value="#{labels.btnDelete} 
+                                        #{indexController.selectedPerson.firstname} 
+                                        #{indexController.selectedPerson.lastname}"                                 
                                         oncomplete="PF('dlgDelete').show()"
                                         icon="fa fa-times"
                                         disabled="#{indexController.selectedPerson.id==null}"/>                                                                

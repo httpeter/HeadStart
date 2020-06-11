@@ -35,6 +35,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname")})
 public class User implements Serializable {
 
+    @Size(max = 45)
+    @Column(name = "LANDINGPAGE")
+    private String landingpage;
+
     @Column(name = "USETOKEN")
     private Integer usetoken;
 
@@ -147,6 +151,14 @@ public class User implements Serializable {
 
     public void setUsetoken(Integer usetoken) {
         this.usetoken = usetoken;
+    }
+
+    public String getLandingpage() {
+        return landingpage;
+    }
+
+    public void setLandingpage(String landingpage) {
+        this.landingpage = landingpage;
     }
     
 }
