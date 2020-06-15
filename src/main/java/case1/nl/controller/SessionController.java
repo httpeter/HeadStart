@@ -104,7 +104,7 @@ public class SessionController implements Serializable {
     }
 
     public String getRedirectToLogin() {
-        if (currentUser.getFirstname() == null) {
+        if (currentUser == null || currentUser.getFirstname() == null) {
             FacesContext.getCurrentInstance()
                     .getApplication()
                     .getNavigationHandler()

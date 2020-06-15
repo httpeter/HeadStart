@@ -47,8 +47,26 @@ public class DefaultRepository implements Serializable {
         try {
             em.getTransaction().begin();
             em.persist(object);
-            em.getTransaction().commit();
-            em.clear();
+            em.getTransaction().commit();            
+            em.clear();            
+            return true;
+        } catch (Exception e) {
+            logger.log(Level.WARNING, e.getCause().getMessage());
+            try {
+                em.getTransaction().rollback();
+            } catch (Exception e1) {
+                logger.log(Level.WARNING, e1.getCause().getMessage());
+            }
+            return false;
+        }
+    }
+    
+     public boolean merged(Object object) {
+        try {
+            em.getTransaction().begin();
+            em.merge(object);
+            em.getTransaction().commit();            
+            em.clear();            
             return true;
         } catch (Exception e) {
             logger.log(Level.WARNING, e.getCause().getMessage());

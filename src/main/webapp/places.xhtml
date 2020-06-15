@@ -12,55 +12,88 @@
 
     <h:body>
 
-        <h:form style="background-image: url('https://cdn.shopify.com/s/files/1/0282/3392/4740/files/matterh_1200x.jpg'); background-size: cover; background-repeat: no-repeat">
+        <h:form>
 
             <ui:include src="included/menu.xhtml"/>        
+                        
+
+            <p:panelGrid columns="2" layout="grid">
+
+                <p:panel>
+
+                    <h2>Trips</h2>
+
+                    <p:panelGrid columns="2" layout="grid">
+
+                        <h4>Current Trip</h4>
+                        <p:selectOneMenu value="#{placesController.selectedTripID}">                    
+                            <f:selectItems value="#{placesController.trips}" 
+                                           var="trip" 
+                                           itemValue="#{trip.id}" 
+                                           itemLabel="#{trip.name}"/>
+                            <p:ajax update="@form"/>
+                        </p:selectOneMenu>          
+
+                        <h4>Description</h4>
+                        <p:inplace editor="true" >
+                            <p:inputTextarea value="#{placesController.selectedTrip.description}"/>
+                            <p:ajax event="save"
+                                    listener="#{placesController.saveSelectedTrip()}"
+                                    update="@form"/>
+                        </p:inplace>
+
+                    </p:panelGrid>
 
 
-
-            <p:panel>
-
-                <h3>Trip</h3>
-                <p:selectOneMenu value="#{placesController.selectedTrip}" converter="tripConverter">
-                    <f:selectItems value="#{placesController.trips}" 
-                                   var="trip" 
-                                   itemValue="#{trip}" 
-                                   itemLabel="#{trip.name}"/>
-                    <p:ajax update="@form"/>
-                </p:selectOneMenu>          
-                
-                <h1>#{placesController.selectedTrip.name}</h1>
-
-                <h3>Timeline</h3>
-                <ui:include src="included/placesTimeline.xhtml"/>
-            </p:panel>
-
-
-            <ui:repeat value="#{placesController.places}" var="place">
-
-
-                <p:panel style="width:800px; align-self: center">
-
-                    <h:panelGrid columns="3">
-                        <h3>#{place.name}</h3>                                            
-                        <p:spacer width="25"/>                        
-                        <p:rating value="#{place.rating}" readonly="true"/>
-
-                        <p:graphicImage url="#{place.imgurls}" width="300"/>                                                                                                  
-                        <p:spacer width="25"/>
-                        <h:outputText value="#{place.description}"/>                        
-
-                        <p:spacer width="25"/>
-                        <p:spacer width="25"/>
-                        <p:spacer width="25"/>
-                    </h:panelGrid>
-
+                    <br/>
                 </p:panel>
 
 
 
 
-            </ui:repeat>
+                <p:panel>
+
+                    <h2>Timeline</h2>
+                    <ui:include src="included/placesTimeline.xhtml"/>
+
+                    <br/>
+
+                </p:panel>
+
+
+                <p:panel>
+
+                    <h2>Map</h2>
+                    <p:gmap id="gmap" widgetVar="gmap" center="52.1601, 4.4970" zoom="14" type="map" style="width:400px;height:250px" />         
+                    <br/>
+
+                </p:panel>
+
+            </p:panelGrid>
+            
+            
+            
+
+            <p:panel>
+
+                <p:dataScroller value="#{placesController.places}" 
+                                var="place"
+                                chunkSize="10">                    
+
+                    <p:panelGrid columns="2"
+                                 layout="grid">
+                        <h3>#{place.name}</h3>                                                                                              
+                        <p:rating value="#{place.rating}" readonly="true"/>
+
+                        <p:graphicImage url="#{place.imgurls}" width="300"/>                                                                                                                              
+                        <h:outputText value="#{place.description}"/>                        
+
+                    </p:panelGrid>
+
+                </p:dataScroller>
+
+            </p:panel>
+
 
 
 
@@ -91,6 +124,7 @@
                 </p:overlayPanel> 
 
             </p:outputPanel>
+
 
         </h:form>
 

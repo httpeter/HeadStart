@@ -2,6 +2,7 @@ package case1.nl.controller;
 
 import case1.nl.entities.Place;
 import case1.nl.entities.Trip;
+import case1.nl.util.FMessage;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -51,13 +52,20 @@ public class PlacesController implements Serializable {
         this.trips = trips;
     }
 
-    public Trip getSelectedTrip() {
-        return selectedTrip;
+    public int getSelectedTripID() {
+        return selectedTrip.getId();
     }
 
-    public void setSelectedTrip(Trip selectedTrip) {
-        this.selectedTrip = selectedTrip;
+    public void setSelectedTripID(int id) {
+        this.selectedTrip = trips.stream()
+                .filter(trip -> trip.getId() == id)
+                .findFirst()
+                .get();
     }
+
+    public Trip getSelectedTrip() {
+        return selectedTrip;
+    }    
 
     public Place getSelectedPlace() {
         return selectedPlace;
@@ -159,12 +167,15 @@ public class PlacesController implements Serializable {
     @PostConstruct
     public void init() {
 
-        loadTripsAndPlaces();                
+        loadTripsAndPlaces();
 
         model = new TimelineModel();
 
         places.forEach(place -> {
-            model.add(TimelineEvent.<String>builder().data(place.getName()).startDate(LocalDate.of(2014, 6, 12)).build());
+            model.add(TimelineEvent.<String>builder()
+                    .data(place.getName())
+                    .startDate(LocalDate.of(2014, 6, 12))
+                    .build());
         });
 
     }
@@ -172,6 +183,17 @@ public class PlacesController implements Serializable {
     public void loadTripsAndPlaces() {
         trips = session.getPlacesRepository().getResultList(Trip.class);
         places = session.getPlacesRepository().getResultList(Place.class);
+        selectedTrip = trips.get(0);
+    }
+
+    public void saveSelectedTrip() {
+        if (selectedTrip != null
+                && session.getPlacesRepository()
+                        .merged(selectedTrip)) {
+            FMessage.info("Trip Saved");
+        } else {
+            FMessage.error("Could not save trip");
+        }
     }
 
 }

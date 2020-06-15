@@ -132,6 +132,7 @@ public class LoginController implements Serializable {
     public String logout() {
         try {
             session.setCurrentUser(null);
+
         } catch (Exception ex) {
             Logger.getLogger(SessionController.class.getName())
                     .log(Level.SEVERE, null, ex);

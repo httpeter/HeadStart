@@ -13,11 +13,11 @@ public class PlacesRepository extends DefaultRepository {
         super(pu);
     }
 
-    public Trip getTrip(String name) {
+    public Trip getTrip(int id) {
 
         Query q = this.getEm().createQuery("select t from Trip t "
-                + "where t.name = :name")
-                .setParameter("name", name);
+                + "where t.id = :id")
+                .setParameter("id", id);
 
         return (Trip) q.getSingleResult();
     }
