@@ -10,6 +10,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.model.DashboardColumn;
+import org.primefaces.model.DashboardModel;
+import org.primefaces.model.DefaultDashboardColumn;
+import org.primefaces.model.DefaultDashboardModel;
 import org.primefaces.model.timeline.TimelineEvent;
 import org.primefaces.model.timeline.TimelineModel;
 
@@ -24,7 +28,9 @@ public class PlacesController implements Serializable {
     @ManagedProperty(value = "#{sessionController}")
     private SessionController session;
 
-    private TimelineModel model;
+    private TimelineModel timelineModel;
+
+    private DashboardModel dashboardModel;
 
     private boolean selectable = true;
     private boolean zoomable = true;
@@ -44,6 +50,14 @@ public class PlacesController implements Serializable {
     private Place selectedPlace;
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    public DashboardModel getDashboardModel() {
+        return dashboardModel;
+    }
+
+    public void setDashboardModel(DashboardModel dashboardModel) {
+        this.dashboardModel = dashboardModel;
+    }
+
     public List<Trip> getTrips() {
         return trips;
     }
@@ -65,7 +79,7 @@ public class PlacesController implements Serializable {
 
     public Trip getSelectedTrip() {
         return selectedTrip;
-    }    
+    }
 
     public Place getSelectedPlace() {
         return selectedPlace;
@@ -123,12 +137,12 @@ public class PlacesController implements Serializable {
         this.axisOnTop = axisOnTop;
     }
 
-    public TimelineModel getModel() {
-        return model;
+    public TimelineModel getTimelineModel() {
+        return timelineModel;
     }
 
-    public void setModel(TimelineModel model) {
-        this.model = model;
+    public void setTimelineModel(TimelineModel timelineModel) {
+        this.timelineModel = timelineModel;
     }
 
     public boolean isMoveable() {
@@ -167,12 +181,16 @@ public class PlacesController implements Serializable {
     @PostConstruct
     public void init() {
 
+        loadDasboards();
+
         loadTripsAndPlaces();
 
-        model = new TimelineModel();
+        timelineModel = new TimelineModel();
+
+        loadTripsAndPlaces();
 
         places.forEach(place -> {
-            model.add(TimelineEvent.<String>builder()
+            timelineModel.add(TimelineEvent.<String>builder()
                     .data(place.getName())
                     .startDate(LocalDate.of(2014, 6, 12))
                     .build());
@@ -180,9 +198,25 @@ public class PlacesController implements Serializable {
 
     }
 
+    private void loadDasboards() {
+        dashboardModel = new DefaultDashboardModel();
+        DashboardColumn columnn1 = new DefaultDashboardColumn();
+        columnn1.addWidget("trips");
+        DashboardColumn column2 = new DefaultDashboardColumn();
+        column2.addWidget("timeLine");
+
+        columnn1.addWidget("map");
+        dashboardModel.addColumn(columnn1);
+
+        column2.addWidget("places");
+        dashboardModel.addColumn(column2);
+    }
+
     public void loadTripsAndPlaces() {
         trips = session.getPlacesRepository().getResultList(Trip.class);
+
         places = session.getPlacesRepository().getResultList(Place.class);
+
         selectedTrip = trips.get(0);
     }
 
