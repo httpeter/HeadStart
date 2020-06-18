@@ -8,15 +8,14 @@ import org.flywaydb.core.Flyway;
  */
 public class DBVersionController {
 
-    public void migrateToLatest() {
+    public int migrateToLatest() {
 
         Flyway flyway = Flyway.configure()
                 .dataSource("jdbc:mysql://localhost:3306/example?useLegacyDatetimeCode=false&serverTimezone=UTC", "case1", "")
                 .load();
-
         flyway.baseline();
 
-        flyway.migrate();
+        return flyway.migrate();
     }
 
 }

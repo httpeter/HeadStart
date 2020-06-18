@@ -2,6 +2,7 @@ package case1.nl.controller;
 
 import java.io.Serializable;
 import case1.nl.entities.User;
+import case1.nl.util.DBVersionController;
 import case1.nl.util.FMessage;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -29,7 +30,7 @@ public class LoginController implements Serializable {
 
     private HttpServletRequest request;
 
-    private String mail, pwd, p, t;
+    private String mail, pwd, p, t, dbStatus = "";
 
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     public SessionController getSession() {
@@ -59,7 +60,7 @@ public class LoginController implements Serializable {
 //</editor-fold>
     @PostConstruct
     public void init() {
-        logout();
+        logout();               
 
         request = (HttpServletRequest) FacesContext.getCurrentInstance()
                 .getExternalContext()
@@ -77,7 +78,7 @@ public class LoginController implements Serializable {
                         .getUser(session.getCryptor().decrypt(t));
 
                 if (user != null) {
-                    session.setCurrentUser(user);                                                            
+                    session.setCurrentUser(user);
                     session.getFacesContext()
                             .getExternalContext()
                             .redirect(p + ".html");
@@ -139,6 +140,17 @@ public class LoginController implements Serializable {
         }
 
         return "login.html";
+    }
+
+    public String getDBStatus() {
+        DBVersionController dbvc = new DBVersionController();
+        int migrations = dbvc.migrateToLatest();
+        if (migrations > 0) {
+            this.dbStatus = "# of database migrations performed: "
+                    + migrations;
+            return dbStatus;
+        }
+        return this.dbStatus;
     }
 
 }
