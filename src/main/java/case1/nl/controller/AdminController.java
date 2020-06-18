@@ -1,6 +1,7 @@
 package case1.nl.controller;
 
 import case1.nl.entities.User;
+import case1.nl.util.DBVersionController;
 import case1.nl.util.FMessage;
 import java.io.IOException;
 import java.io.Serializable;
@@ -70,6 +71,11 @@ public class AdminController implements Serializable {
     @PostConstruct
     private void init() {
         this.loadUsers();
+    }
+
+    public void updateDB() {
+        DBVersionController dbvc = new DBVersionController();
+        dbvc.migrateToLatest();
     }
 
     public void loadUsers() {

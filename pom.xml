@@ -15,7 +15,13 @@
     </properties>
     
     <dependencies>
-        
+       
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>6.4.4</version>
+        </dependency>
+         
         <!-- https://mvnrepository.com/artifact/org.xhtmlrenderer/flying-saucer-pdf -->
         <dependency>
             <groupId>org.xhtmlrenderer</groupId>
@@ -139,6 +145,13 @@
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>*.*</include>
+                    <include>db/migration/*</include>
                 </includes>
             </resource>
         </resources>

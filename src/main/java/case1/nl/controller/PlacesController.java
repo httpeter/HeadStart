@@ -200,15 +200,16 @@ public class PlacesController implements Serializable {
 
     private void loadDasboards() {
         dashboardModel = new DefaultDashboardModel();
-        DashboardColumn columnn1 = new DefaultDashboardColumn();
-        columnn1.addWidget("trips");
+
+        DashboardColumn column1 = new DefaultDashboardColumn();
         DashboardColumn column2 = new DefaultDashboardColumn();
-        column2.addWidget("timeLine");
 
-        columnn1.addWidget("map");
-        dashboardModel.addColumn(columnn1);
+        column1.addWidget("trips");
+        column2.addWidget("map");
+//        column1.addWidget("timeLine");
+//        column1.addWidget("places");
 
-        column2.addWidget("places");
+        dashboardModel.addColumn(column1);
         dashboardModel.addColumn(column2);
     }
 

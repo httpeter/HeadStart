@@ -77,7 +77,7 @@ public class LoginController implements Serializable {
                         .getUser(session.getCryptor().decrypt(t));
 
                 if (user != null) {
-                    session.setCurrentUser(user);
+                    session.setCurrentUser(user);                                                            
                     session.getFacesContext()
                             .getExternalContext()
                             .redirect(p + ".html");
