@@ -32,7 +32,9 @@
                     <p:outputLabel value="Moment Type"/>                    
                     <p:selectOneRadio label="Moment Type" 
                                       value="#{foodMomentController.newFoodMoment.momenttype}"
-                                      required="yes" requiredMessage="Select a food moment">
+                                      required="yes" 
+                                      requiredMessage="Select a food moment"
+                                      layout="pageDirection">
                         <f:selectItem itemLabel="Breakfast" itemValue="breakfast"/>
                         <f:selectItem itemLabel="Lunch" itemValue="lunch"/>
                         <f:selectItem itemLabel="Dinner" itemValue="dinner"/>
