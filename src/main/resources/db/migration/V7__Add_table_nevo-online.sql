@@ -1,10 +1,10 @@
-CREATE DATABASE  IF NOT EXISTS `example` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE  IF NOT EXISTS `example`  /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `example`;
 -- MySQL dump 10.13  Distrib 8.0.19, for macos10.15 (x86_64)
 --
 -- Host: localhost    Database: example
 -- ------------------------------------------------------
--- Server version	8.0.17
+-- Server version 8.0.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -37,7 +37,7 @@ CREATE TABLE `NEVO201960` (
   `KJ` int(11) DEFAULT NULL,
   `KCAL` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2153 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2153;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
