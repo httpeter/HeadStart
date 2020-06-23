@@ -42,11 +42,17 @@
                     </p:selectOneRadio>
 
                     <p:outputLabel value="Food Taken"/>
-                    <p:inputText value="#{foodMomentController.newFoodMoment.intake}"
-                                 required="true" requiredMessage="Input Required"/>
+                    <p:autoComplete value="#{foodMomentController.newFoodMoment.product}"
+                                    completeMethod="#{foodMomentController.completeProducts}"
+                                    minQueryLength="3"
+                                    dropdown="true"
+                                    required="true" 
+                                    requiredMessage="Input Required">
+                        <p:ajax/>
+                    </p:autoComplete>
 
                     <h:outputText/>
-                    <p:commandButton value="save" 
+                    <p:commandButton value="#{labels.save}" 
                                      action="#{foodMomentController.save()}"
                                      update="@form"/>
 
@@ -70,6 +76,8 @@
                              reflow="true"
                              paginator="true"
                              rows="18"                                
+                             sortBy="#{item.moment}"
+                             sortOrder="descending"
                              filterBy="#{item.moment}">                           >                    
 
                     <f:facet name="header">
@@ -80,8 +88,7 @@
                         </p:outputPanel>
                     </f:facet>
 
-                    <p:column groupRow="true" 
-                              sortBy="#{item.moment}" 
+                    <p:column groupRow="true"                              
                               filterBy="#{item.moment}" 
                               filterMatchMode="contains">
                         <f:facet name="header">
@@ -90,7 +97,7 @@
                         <h:outputText value="#{item.moment}">
                             <f:convertDateTime pattern="dd-MM-yyyy" 
                                                timeZone="CET"/>
-                        </h:outputText>
+                        </h:outputText>                        
                     </p:column>                                        
 
                     <p:column sortBy="#{item.momenttype}" 
@@ -102,18 +109,25 @@
                         <h:outputText value="#{item.momenttype}"/>
                     </p:column>
 
-                    <p:column sortBy="#{item.intake}" 
-                              filterBy="#{item.intake}" 
+                    <p:column sortBy="#{item.product}" 
+                              filterBy="#{item.product}" 
                               filterMatchMode="contains">
                         <f:facet name="header">
-                            <h:outputText value="Intake"/>
+                            <h:outputText value="Product"/>
                         </f:facet>
-                        <h:outputText value="#{item.intake}"/>
+                        <h:outputText value="#{item.product}"/>
                     </p:column>
 
-                    <p:column>                        
-                        <p:commandLink value="delete"/>
-                    </p:column>
+                    <p:column sortBy="#{item.kcal}" 
+                              filterBy="#{item.kcal}" 
+                              filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="KCal"/>
+                        </f:facet>
+                        <h:outputText value="#{item.kcal}"/>
+                    </p:column>                                       
+
+
 
                 </p:dataTable>
 

@@ -32,15 +32,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Foodmoment.findAll", query = "SELECT f FROM Foodmoment f"),
     @NamedQuery(name = "Foodmoment.findById", query = "SELECT f FROM Foodmoment f WHERE f.id = :id"),
+    @NamedQuery(name = "Foodmoment.findByUserid", query = "SELECT f FROM Foodmoment f WHERE f.userid = :userid"),
     @NamedQuery(name = "Foodmoment.findByMoment", query = "SELECT f FROM Foodmoment f WHERE f.moment = :moment"),
     @NamedQuery(name = "Foodmoment.findByMomenttype", query = "SELECT f FROM Foodmoment f WHERE f.momenttype = :momenttype"),
-    @NamedQuery(name = "Foodmoment.findByIntake", query = "SELECT f FROM Foodmoment f WHERE f.intake = :intake")})
+    @NamedQuery(name = "Foodmoment.findByProduct", query = "SELECT f FROM Foodmoment f WHERE f.product = :product"),
+    @NamedQuery(name = "Foodmoment.findByKcal", query = "SELECT f FROM Foodmoment f WHERE f.kcal = :kcal")})
 public class Foodmoment implements Serializable {
-
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "USERID")
-    private int userid;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,6 +45,10 @@ public class Foodmoment implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "USERID")
+    private int userid;
     @Column(name = "MOMENT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date moment;
@@ -55,8 +56,10 @@ public class Foodmoment implements Serializable {
     @Column(name = "MOMENTTYPE")
     private String momenttype;
     @Size(max = 255)
-    @Column(name = "INTAKE")
-    private String intake;
+    @Column(name = "PRODUCT")
+    private String product;
+    @Column(name = "KCAL")
+    private Integer kcal;
 
     public Foodmoment() {
     }
@@ -65,12 +68,25 @@ public class Foodmoment implements Serializable {
         this.id = id;
     }
 
+    public Foodmoment(Integer id, int userid) {
+        this.id = id;
+        this.userid = userid;
+    }
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
     }
 
     public Date getMoment() {
@@ -89,12 +105,20 @@ public class Foodmoment implements Serializable {
         this.momenttype = momenttype;
     }
 
-    public String getIntake() {
-        return intake;
+    public String getProduct() {
+        return product;
     }
 
-    public void setIntake(String intake) {
-        this.intake = intake;
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public Integer getKcal() {
+        return kcal;
+    }
+
+    public void setKcal(Integer kcal) {
+        this.kcal = kcal;
     }
 
     @Override
@@ -120,14 +144,6 @@ public class Foodmoment implements Serializable {
     @Override
     public String toString() {
         return "case1.nl.entities.Foodmoment[ id=" + id + " ]";
-    }
-
-    public int getUserid() {
-        return userid;
-    }
-
-    public void setUserid(int userid) {
-        this.userid = userid;
     }
     
 }

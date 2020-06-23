@@ -60,7 +60,7 @@ public class LoginController implements Serializable {
 //</editor-fold>
     @PostConstruct
     public void init() {
-        logout();               
+        session.setCurrentUser(null);
 
         request = (HttpServletRequest) FacesContext.getCurrentInstance()
                 .getExternalContext()
@@ -143,12 +143,18 @@ public class LoginController implements Serializable {
     }
 
     public String getDBStatus() {
-        DBVersionController dbvc = new DBVersionController();
-        int migrations = dbvc.migrateToLatest();
-        if (migrations > 0) {
-            this.dbStatus = "# of database migrations performed: "
-                    + migrations;
-            return dbStatus;
+
+        try {
+            DBVersionController dbvc = new DBVersionController();
+            int migrations = dbvc.migrateToLatest();
+            if (migrations > 0) {
+                this.dbStatus = "# of database migrations performed: "
+                        + migrations;
+                return dbStatus;
+            }
+        } catch (Exception e) {
+            FMessage.fatal(e.getMessage());
+            this.dbStatus = e.getMessage();
         }
         return this.dbStatus;
     }
