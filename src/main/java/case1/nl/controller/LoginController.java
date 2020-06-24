@@ -119,14 +119,16 @@ public class LoginController implements Serializable {
             if (p != null) {
                 return p + ".html";
             } else {
-                return session.getCurrentUser().getLandingpage() + ".html";
+                return session.getCurrentUser().getLandingpage()
+                        + ".html"
+                        + "?faces-redirect=true";
             }
 
         } else {
             FMessage.warn("Problem logging in user '"
                     + mail
                     + "'.");
-            return null;
+            return "login.html";
         }
     }
 

@@ -8,7 +8,8 @@
     </p:growl>
 
 
-    <p:megaMenu autoDisplay="false">
+    <p:megaMenu autoDisplay="false" 
+                rendered="#{sessionController.currentUser.role == 'admin'}">
 
         <p:submenu label="Experiments" icon="fa fa-flask">
             <p:column>
@@ -37,7 +38,7 @@
                     <p:menuitem value="#{labels.menuItemRemarkable}" 
                                 icon="pi pi-table"
                                 url="remarkable.html"/>
-                    
+
                     <p:menuitem value="#{labels.menuItemCRM}" 
                                 icon="pi pi-users"
                                 url="index.html"/>

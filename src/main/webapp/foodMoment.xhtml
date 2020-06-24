@@ -127,7 +127,17 @@
                         <h:outputText value="#{item.kcal}"/>
                     </p:column>                                       
 
+                    <p:summaryRow>
+                        <p:column colspan="3" style="text-align:right">
+                            <h:outputText value="Total:" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{dtSummaryRowView.randomPrice}">
+                                <f:convertNumber type="currency" currencySymbol="$" />
+                            </h:outputText>
+                        </p:column>
 
+                    </p:summaryRow>
 
                 </p:dataTable>
 
