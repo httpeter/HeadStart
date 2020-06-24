@@ -148,15 +148,22 @@
                 <p:panelGrid layout="grid" columns="2">
 
                     <h:outputText value="First name"/>
-                    <p:inputText value="#{adminController.newUser.firstname}" required="true"/>
+                    <p:inputText value="#{adminController.newUser.firstname}" 
+                                 required="true"/>
                     <h:outputText value="Last name"/>
-                    <p:inputText value="#{adminController.newUser.lastname}" required="true"/>
+                    <p:inputText value="#{adminController.newUser.lastname}" 
+                                 required="true"/>
                     <h:outputText value="Email"/>
-                    <p:inputText value="#{adminController.newUser.email}" required="true"/>
+                    <p:inputText value="#{adminController.newUser.email}" 
+                                 required="true"/>
                     <h:outputText value="Role"/>
-                    <p:inputText value="#{adminController.newUser.role}" required="true"/>
+                    <p:inputText value="#{adminController.newUser.role}" 
+                                 required="true"/>
                     <h:outputText value="Password"/>
-                    <p:password value="#{adminController.newUser.pwdhash}"  required="true"/>                    
+                    <p:password value="#{adminController.newUser.pwdhash}"  
+                                required="true"/>                    
+                    <h:outputText value="Landing Page"/> 
+                    <p:inputText value="#{adminController.newUser.landingpage}"/>
                     <p:commandButton value="Save" 
                                      action="#{adminController.saveNewUser()}"
                                      oncomplete="PF('newDialog').close" 
@@ -173,7 +180,8 @@
                       widgetVar="dlgDelete"
                       styleClass="dlgDelete"
                       header="Delete #{adminController.selectedUser.firstname} #{adminController.selectedUser.lastname}?"
-                      closeOnEscape="true">                
+                      closeOnEscape="true"
+                      modal="true">                
 
                 <h:panelGrid columns="2">
                     <p:commandButton value="Yes" 
