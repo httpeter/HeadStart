@@ -48,8 +48,9 @@
 
 body{   
     background-color: whitesmoke;
-    background-image: url('https://picsum.photos/1024'); 
-    background-repeat: no-repeat;    
+    background-image: url('https://picsum.photos/1280'); 
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
 
@@ -61,7 +62,9 @@ body .ui-panel .ui-panel-content {
     padding: .571em 1em;
     border-top: 0 none;
     line-height: 1.5;
-    font-size: 16px; 
+    font-size: 16px;
+    min-width: 100%;
+    max-width: 1024px;
 }
 
 body .ui-datatable thead th .ui-column-title {
