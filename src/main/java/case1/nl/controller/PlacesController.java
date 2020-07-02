@@ -6,6 +6,8 @@ import case1.nl.util.FMessage;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -181,24 +183,36 @@ public class PlacesController implements Serializable {
     @PostConstruct
     public void init() {
 
-        loadDasboards();
+        try {
+            loadDasboards();
+        } catch (Exception ex) {
+            Logger.getLogger(PlacesController.class.getName()).log(Level.SEVERE, null, ex);
+            FMessage.error(ex.getMessage());
+        }
 
-        loadTripsAndPlaces();
+        try {
+            loadTripsAndPlaces();
+        } catch (Exception ex) {
+            Logger.getLogger(PlacesController.class.getName()).log(Level.SEVERE, null, ex);
+            FMessage.error(ex.getMessage());
+        }
 
-        timelineModel = new TimelineModel();
-
-        loadTripsAndPlaces();
-
-        places.forEach(place -> {
-            timelineModel.add(TimelineEvent.<String>builder()
-                    .data(place.getName())
-                    .startDate(LocalDate.of(2014, 6, 12))
-                    .build());
-        });
+        if (places != null) {
+            timelineModel = new TimelineModel();
+            
+            places.forEach(place -> {
+                timelineModel.add(TimelineEvent.<String>builder()
+                        .data(place.getName())
+                        .startDate(LocalDate.of(2014, 6, 12))
+                        .build());
+            });
+        } else {
+            FMessage.warn("No places found");
+        }
 
     }
 
-    private void loadDasboards() {
+    private void loadDasboards() throws Exception {
         dashboardModel = new DefaultDashboardModel();
 
         DashboardColumn column1 = new DefaultDashboardColumn();
@@ -206,14 +220,14 @@ public class PlacesController implements Serializable {
 
         column1.addWidget("trips");
         column2.addWidget("map");
-//        column1.addWidget("timeLine");
-//        column1.addWidget("places");
+        column1.addWidget("timeLine");
+        column1.addWidget("places");
 
         dashboardModel.addColumn(column1);
         dashboardModel.addColumn(column2);
     }
 
-    public void loadTripsAndPlaces() {
+    private void loadTripsAndPlaces() throws Exception {
         trips = session.getPlacesRepository().getResultList(Trip.class);
 
         places = session.getPlacesRepository().getResultList(Place.class);

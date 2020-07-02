@@ -52,71 +52,73 @@ public class BasicTimelineView {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
+    //<editor-fold defaultstate="collapsed" desc="getterssetters">
     public TimelineModel getModel() {
         return model;
     }
-
+    
     public boolean isSelectable() {
         return selectable;
     }
-
+    
     public void setSelectable(boolean selectable) {
         this.selectable = selectable;
     }
-
+    
     public boolean isZoomable() {
         return zoomable;
     }
-
+    
     public void setZoomable(boolean zoomable) {
         this.zoomable = zoomable;
     }
-
+    
     public boolean isMoveable() {
         return moveable;
     }
-
+    
     public void setMoveable(boolean moveable) {
         this.moveable = moveable;
     }
-
+    
     public boolean isStackEvents() {
         return stackEvents;
     }
-
+    
     public void setStackEvents(boolean stackEvents) {
         this.stackEvents = stackEvents;
     }
-
+    
     public String getEventStyle() {
         return eventStyle;
     }
-
+    
     public void setEventStyle(String eventStyle) {
         this.eventStyle = eventStyle;
     }
-
+    
     public boolean isAxisOnTop() {
         return axisOnTop;
     }
-
+    
     public void setAxisOnTop(boolean axisOnTop) {
         this.axisOnTop = axisOnTop;
     }
-
+    
     public boolean isShowCurrentTime() {
         return showCurrentTime;
     }
-
+    
     public void setShowCurrentTime(boolean showCurrentTime) {
         this.showCurrentTime = showCurrentTime;
     }
-
+    
     public boolean isShowNavigation() {
         return showNavigation;
     }
-
+    
     public void setShowNavigation(boolean showNavigation) {
         this.showNavigation = showNavigation;
     }
+//</editor-fold>
 }
