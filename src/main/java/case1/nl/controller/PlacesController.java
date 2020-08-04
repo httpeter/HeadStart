@@ -184,14 +184,12 @@ public class PlacesController implements Serializable {
     public void init() {
 
         try {
+            //Load Dashboards
             loadDasboards();
-        } catch (Exception ex) {
-            Logger.getLogger(PlacesController.class.getName()).log(Level.SEVERE, null, ex);
-            FMessage.error(ex.getMessage());
-        }
 
-        try {
-            loadTripsAndPlaces();
+            //Load Trips
+            loadTrips();
+
         } catch (Exception ex) {
             Logger.getLogger(PlacesController.class.getName()).log(Level.SEVERE, null, ex);
             FMessage.error(ex.getMessage());
@@ -199,7 +197,7 @@ public class PlacesController implements Serializable {
 
         if (places != null) {
             timelineModel = new TimelineModel();
-            
+
             places.forEach(place -> {
                 timelineModel.add(TimelineEvent.<String>builder()
                         .data(place.getName())
@@ -227,12 +225,16 @@ public class PlacesController implements Serializable {
         dashboardModel.addColumn(column2);
     }
 
-    private void loadTripsAndPlaces() throws Exception {
-        trips = session.getPlacesRepository().getResultList(Trip.class);
-
-        places = session.getPlacesRepository().getResultList(Place.class);
+    private void loadTrips() throws Exception {
+        trips = session.getPlacesRepository()
+                .getResultList(Trip.class);
 
         selectedTrip = trips.get(0);
+    }
+
+    public void loadPlaces() {
+        places = session.getPlacesRepository()
+                .getPlaces(selectedTrip.getId());
     }
 
     public void saveSelectedTrip() {

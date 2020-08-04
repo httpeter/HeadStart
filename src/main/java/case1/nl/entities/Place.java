@@ -6,6 +6,7 @@
 package case1.nl.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -34,6 +37,22 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Place.findByDescription", query = "SELECT p FROM Place p WHERE p.description = :description"),
     @NamedQuery(name = "Place.findByImgurls", query = "SELECT p FROM Place p WHERE p.imgurls = :imgurls")})
 public class Place implements Serializable {
+
+    @Column(name = "ARRIVALDATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date arrivaldate;
+    @Column(name = "DEPARTUREDATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date departuredate;
+    @Size(max = 255)
+    @Column(name = "ADDRESS")
+    private String address;
+    @Size(max = 45)
+    @Column(name = "COORDINATES")
+    private String coordinates;
+    @Size(max = 45)
+    @Column(name = "COUNTRY")
+    private String country;
 
     @Basic(optional = false)
     @NotNull
@@ -143,6 +162,46 @@ public class Place implements Serializable {
 
     public void setTripid(int tripid) {
         this.tripid = tripid;
+    }
+
+    public Date getArrivaldate() {
+        return arrivaldate;
+    }
+
+    public void setArrivaldate(Date arrivaldate) {
+        this.arrivaldate = arrivaldate;
+    }
+
+    public Date getDeparturedate() {
+        return departuredate;
+    }
+
+    public void setDeparturedate(Date departuredate) {
+        this.departuredate = departuredate;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(String coordinates) {
+        this.coordinates = coordinates;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
     
 }

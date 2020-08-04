@@ -1,6 +1,8 @@
 package case1.nl.data.repository;
 
+import case1.nl.entities.Place;
 import case1.nl.entities.Trip;
+import java.util.List;
 import javax.persistence.Query;
 
 /**
@@ -20,6 +22,13 @@ public class PlacesRepository extends DefaultRepository {
                 .setParameter("id", id);
 
         return (Trip) q.getSingleResult();
+    }
+
+    public List<Place> getPlaces(int tripID) {
+        Query q = this.getEm().createQuery("select p from Place p "
+                + "where p.tripid = :tripID")
+                .setParameter("tripID", tripID);
+        return q.getResultList();
     }
 
 }

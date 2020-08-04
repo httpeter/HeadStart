@@ -31,7 +31,8 @@
                                            var="trip" 
                                            itemValue="#{trip.id}" 
                                            itemLabel="#{trip.name}"/>
-                            <p:ajax update="@form"/>
+                            <p:ajax update="@form" 
+                                    listener="#{placesController.loadPlaces()}"/>
                         </p:selectOneMenu>          
 
                         <h4>Description</h4>
