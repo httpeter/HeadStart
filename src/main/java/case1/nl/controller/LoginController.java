@@ -16,6 +16,10 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import org.primefaces.model.DashboardColumn;
+import org.primefaces.model.DashboardModel;
+import org.primefaces.model.DefaultDashboardColumn;
+import org.primefaces.model.DefaultDashboardModel;
 
 /**
  *
@@ -32,7 +36,17 @@ public class LoginController implements Serializable {
 
     private String mail, pwd, p, t, dbStatus = "";
 
+    private DashboardModel dashboardModel;
+
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
+    public DashboardModel getDashboardModel() {
+        return dashboardModel;
+    }
+
+    public void setDashboardModel(DashboardModel dashboardModel) {
+        this.dashboardModel = dashboardModel;
+    }
+
     public SessionController getSession() {
         return session;
     }
@@ -91,8 +105,8 @@ public class LoginController implements Serializable {
                 Logger.getLogger(LoginController.class.getName())
                         .log(Level.SEVERE, null, ex);
             }
-
         }
+        loadDasboards();
     }
 
     public String login() {
@@ -159,6 +173,22 @@ public class LoginController implements Serializable {
             this.dbStatus = e.getMessage();
         }
         return this.dbStatus;
+    }
+
+    /**
+     * Helper function for setting the proper dashboard columns
+     */
+    private void loadDasboards() {
+        dashboardModel = new DefaultDashboardModel();
+
+        DashboardColumn column1 = new DefaultDashboardColumn();
+        DashboardColumn column2 = new DefaultDashboardColumn();
+
+        column1.addWidget("welcomePanel");
+        column2.addWidget("loginPanel");
+
+        dashboardModel.addColumn(column1);
+        dashboardModel.addColumn(column2);
     }
 
 }

@@ -13,7 +13,7 @@
     <h:body>              
 
         <h:form>             
-            
+
             <p:sidebar position="top" visible="#{loginController.DBStatus != ''}">
                 <h:outputText value="#{loginController.DBStatus}"/>
             </p:sidebar>
@@ -22,34 +22,48 @@
             <p:growl>
                 <p:autoUpdate/>
             </p:growl>
-                      
             
-            <p:panel id="welcomePanel" >            
-                <h:outputText value="#{labels.welcomeMSG}" escape="false"/>                 
-            </p:panel>
 
-            <p:panel>              
 
-                <h:panelGrid columns="2">
-                    <h:outputText value="username"/>
-                    <p:inputText value="#{loginController.mail}"
-                                 required="true"
-                                 requiredMessage="Username Required"/>
 
-                    <h:outputText value="password"/>
-                    <p:password value="#{loginController.pwd}" 
-                                required="true" 
-                                requiredMessage="Password Required"/>
+            <p:dashboard model="#{loginController.dashboardModel}">
+                                    
 
-                    <h:outputText/>
-                    <p:commandButton value="login" 
-                                     action="#{loginController.login()}"                              
-                                     icon="pi pi-unlock" 
-                                     ajax="false"/>      
+                <p:panel id="welcomePanel">                    
+                    <h:outputText value="#{labels.welcomeMSG}" escape="false"/>                 
+                </p:panel>
 
-                </h:panelGrid>
 
-            </p:panel>
+
+
+
+                <p:panel id="loginPanel">              
+                    <h:panelGrid columns="2">
+                        <h:outputText value="username"/>
+                        <p:inputText value="#{loginController.mail}"
+                                     required="true"
+                                     requiredMessage="Username Required"/>
+
+                        <h:outputText value="password"/>
+                        <p:password value="#{loginController.pwd}" 
+                                    required="true" 
+                                    requiredMessage="Password Required"/>
+
+                        <h:outputText/>
+                        <p:commandButton value="login" 
+                                         action="#{loginController.login()}"                              
+                                         icon="pi pi-unlock" 
+                                         ajax="false"/>      
+
+                    </h:panelGrid>
+                </p:panel>
+
+            </p:dashboard>
+
+
+
+
+
 
 
         </h:form>
