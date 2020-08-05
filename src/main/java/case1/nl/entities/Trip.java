@@ -34,6 +34,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Trip.findByDescription", query = "SELECT t FROM Trip t WHERE t.description = :description")})
 public class Trip implements Serializable {
 
+    @Size(max = 1024)
+    @Column(name = "NOTES")
+    private String notes;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -118,6 +122,14 @@ public class Trip implements Serializable {
     @Override
     public String toString() {
         return "case1.nl.entities.Trip[ id=" + id + " ]";
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
     
 }

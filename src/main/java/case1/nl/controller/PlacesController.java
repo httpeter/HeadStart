@@ -4,7 +4,10 @@ import case1.nl.entities.Place;
 import case1.nl.entities.Trip;
 import case1.nl.util.FMessage;
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,11 +50,21 @@ public class PlacesController implements Serializable {
 
     private Trip selectedTrip;
 
+    private int selectedTripDuration;
+
     private List<Place> places;
 
     private Place selectedPlace;
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    public int getSelectedTripDuration() {
+        return selectedTripDuration;
+    }
+
+    public void setSelectedTripDuration(int selectedTripDuration) {
+        this.selectedTripDuration = selectedTripDuration;
+    }
+
     public DashboardModel getDashboardModel() {
         return dashboardModel;
     }
@@ -190,22 +203,12 @@ public class PlacesController implements Serializable {
             //Load Trips
             loadTrips();
 
+            //Load Places;
+            loadPlaces();
+
         } catch (Exception ex) {
             Logger.getLogger(PlacesController.class.getName()).log(Level.SEVERE, null, ex);
             FMessage.error(ex.getMessage());
-        }
-
-        if (places != null) {
-            timelineModel = new TimelineModel();
-
-            places.forEach(place -> {
-                timelineModel.add(TimelineEvent.<String>builder()
-                        .data(place.getName())
-                        .startDate(LocalDate.of(2014, 6, 12))
-                        .build());
-            });
-        } else {
-            FMessage.warn("No places found");
         }
 
     }
@@ -233,8 +236,27 @@ public class PlacesController implements Serializable {
     }
 
     public void loadPlaces() {
-        places = session.getPlacesRepository()
-                .getPlaces(selectedTrip.getId());
+        if (selectedTrip.getId() != null) {
+            places = session.getPlacesRepository()
+                    .getPlaces(selectedTrip.getId());
+
+            timelineModel = new TimelineModel();
+
+            places.forEach(place -> {
+                timelineModel.add(TimelineEvent.<String>builder()
+                        .data(place.getName())
+                        .startDate(Instant.ofEpochMilli(place.getArrivaldate()
+                                .getTime())
+                                .atZone(ZoneId.systemDefault())
+                                .toLocalDate())
+                        .build());                
+            });
+            
+//            selectedTripDuration = places.get(places.size()).getDeparturedate().
+
+        } else {
+            FMessage.warn("No tip found!");
+        }
     }
 
     public void saveSelectedTrip() {

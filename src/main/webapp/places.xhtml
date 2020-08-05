@@ -10,92 +10,148 @@
         <title>#{labels.appTitle} - #{labels.organizationName}</title>
     </h:head>
 
-    <h:body>
+    <h:body styleClass="placesPage">
 
         <h:form>
 
+
+            <!--MAIN MENU-->
             <ui:include src="included/menu.xhtml"/>        
 
 
+
+            <!--WIDGETS ARE IMPLEMENTED USING PF DASBOARD COMPONENT-->
             <p:dashboard model="#{placesController.dashboardModel}">
 
-                <p:panel id="trips">
-
-                    <h2>Trips</h2>
-
-                    <p:panelGrid columns="2" layout="grid">
-
-                        <h4>Current Trip</h4>
-                        <p:selectOneMenu value="#{placesController.selectedTripID}">                    
-                            <f:selectItems value="#{placesController.trips}" 
-                                           var="trip" 
-                                           itemValue="#{trip.id}" 
-                                           itemLabel="#{trip.name}"/>
-                            <p:ajax update="@form" 
-                                    listener="#{placesController.loadPlaces()}"/>
-                        </p:selectOneMenu>          
-
-                        <h4>Description</h4>
-                        <p:inplace editor="true" >
-                            <p:inputTextarea value="#{placesController.selectedTrip.description}"/>
-                            <p:ajax event="save"
-                                    listener="#{placesController.saveSelectedTrip()}"
-                                    update="@form"/>
-                        </p:inplace>
-
-                    </p:panelGrid>
 
 
+
+                <!--TRIPS-->
+                <p:panel id="trips" style="min-width: 360px;max-width: 1200px; height: 520px">
+                    <h4>Trip</h4>                                           
+                    <p:selectOneMenu value="#{placesController.selectedTripID}" 
+                                     style="width:100%">
+                        <f:selectItems value="#{placesController.trips}" 
+                                       var="trip" 
+                                       itemValue="#{trip.id}" 
+                                       itemLabel="#{trip.name}"/>
+                        <p:ajax update="@form" 
+                                listener="#{placesController.loadPlaces()}"/>
+                    </p:selectOneMenu>          
+
+                    <h4>Description</h4>
+                    <p:inplace editor="true" >
+                        <p:inputTextarea value="#{placesController.selectedTrip.description}"/>
+                        <p:ajax event="save"
+                                listener="#{placesController.saveSelectedTrip()}"
+                                update="@form"/>
+                    </p:inplace> 
+                    
+                    <h4>Total duration</h4>
+                    <h:outputText value="#{placesController.selectedTripDuration} days"/>
+
+                    <h4>Notes</h4>
+                    <p:inputTextarea value="#{placesController.selectedTrip.notes}"
+                                     style="width:100%"/>
                     <br/>
+                    <p:commandButton icon="fa fa-save"
+                                     action="#{placesController.saveSelectedTrip()}"
+                                     update="@form"/>                    
                 </p:panel>
 
-                <p:panel id="map" style="width:600px">
 
-                    <h2>Map</h2>
+
+
+
+
+
+
+
+                <!--MAP-->
+                <p:panel id="map" style="width:400px; height: 400px;">
+                    <h4>Map</h4>
                     <p:gmap id="gmap" 
                             widgetVar="gmap" 
                             center="52.1601, 4.4970" 
                             zoom="14" 
                             type="map" 
-                            style="width:400px;height:250px" />         
+                            style="width:400px;height:400px" />         
                     <br/>
-
                 </p:panel>
 
 
-                <p:panel id="timeLine" style="width: 98%">
 
-                    <h2>Timeline</h2>
+
+
+
+
+                <!--TIMELINE-->
+                <p:panel id="timeLine">
+                    <h4>Timeline</h4>
                     <ui:include src="included/placesTimeline.xhtml"/>
-
                     <br/>
-
                 </p:panel>
 
 
-                <p:panel id="places" style="width: 98%">
 
+
+
+
+
+                <!--PLACES DETAILS-->
+                <p:panel id="places">
+                    <h4>Places</h4>
                     <p:dataScroller value="#{placesController.places}" 
                                     var="place"
                                     chunkSize="10">                    
 
                         <p:panelGrid columns="2"
                                      layout="grid">
+
                             <h3>#{place.name}</h3>                                                                                              
                             <p:rating value="#{place.rating}" readonly="true"/>
 
-                            <p:graphicImage url="#{place.imgurls}" width="300"/>                                                                                                                              
-                            <h:outputText value="#{place.description}"/>                        
+                            <p:graphicImage url="#{place.urls}" width="300"/>                                                                                                                              
+                            <h:outputText value="#{place.description}"/>                                                                               
+
+                            <h:outputText value="Arrival"/>
+                            <h:outputText value="#{place.arrivaldate}">
+                                <f:convertDateTime pattern="dd-MM-yyyy" timeZone="CET"/>
+                            </h:outputText>
+
+                            <h:outputText value="Departure"/>
+                            <h:outputText value="#{place.departuredate}">
+                                <f:convertDateTime pattern="dd-MM-yyyy" timeZone="CET"/>
+                            </h:outputText>
+
+                            <h:outputText value="Total stay"/>
+                            <h:outputText value="#{place.departuredate.date - place.arrivaldate.date}"/>
+
+                            <h:outputText value="Country"/>
+                            <h:outputText value="#{place.country}"/>
+
+                            <h:outputText value="Address"/>
+                            <h:outputText value="#{place.address}"/>
 
                         </p:panelGrid>
 
                     </p:dataScroller>
-
                 </p:panel>
 
 
 
+
+
+
+
             </p:dashboard>
+
+
+
+
+
+
+
 
 
             <!--This does not work yet-->

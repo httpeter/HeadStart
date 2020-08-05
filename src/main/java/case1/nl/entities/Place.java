@@ -32,12 +32,44 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Place.findAll", query = "SELECT p FROM Place p"),
     @NamedQuery(name = "Place.findById", query = "SELECT p FROM Place p WHERE p.id = :id"),
+    @NamedQuery(name = "Place.findByTripid", query = "SELECT p FROM Place p WHERE p.tripid = :tripid"),
     @NamedQuery(name = "Place.findByName", query = "SELECT p FROM Place p WHERE p.name = :name"),
     @NamedQuery(name = "Place.findByRating", query = "SELECT p FROM Place p WHERE p.rating = :rating"),
     @NamedQuery(name = "Place.findByDescription", query = "SELECT p FROM Place p WHERE p.description = :description"),
-    @NamedQuery(name = "Place.findByImgurls", query = "SELECT p FROM Place p WHERE p.imgurls = :imgurls")})
+    @NamedQuery(name = "Place.findByUrls", query = "SELECT p FROM Place p WHERE p.urls = :urls"),
+    @NamedQuery(name = "Place.findByArrivaldate", query = "SELECT p FROM Place p WHERE p.arrivaldate = :arrivaldate"),
+    @NamedQuery(name = "Place.findByDeparturedate", query = "SELECT p FROM Place p WHERE p.departuredate = :departuredate"),
+    @NamedQuery(name = "Place.findByAddress", query = "SELECT p FROM Place p WHERE p.address = :address"),
+    @NamedQuery(name = "Place.findByCoordinates", query = "SELECT p FROM Place p WHERE p.coordinates = :coordinates"),
+    @NamedQuery(name = "Place.findByCountry", query = "SELECT p FROM Place p WHERE p.country = :country"),
+    @NamedQuery(name = "Place.findByIsbooked", query = "SELECT p FROM Place p WHERE p.isbooked = :isbooked"),
+    @NamedQuery(name = "Place.findByFreecancellationdate", query = "SELECT p FROM Place p WHERE p.freecancellationdate = :freecancellationdate"),
+    @NamedQuery(name = "Place.findByIsoptional", query = "SELECT p FROM Place p WHERE p.isoptional = :isoptional")})
 public class Place implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "TRIPID")
+    private int tripid;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "NAME")
+    private String name;
+    @Column(name = "RATING")
+    private Integer rating;
+    @Size(max = 2500)
+    @Column(name = "DESCRIPTION")
+    private String description;
+    @Size(max = 1024)
+    @Column(name = "URLS")
+    private String urls;
     @Column(name = "ARRIVALDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date arrivaldate;
@@ -53,31 +85,13 @@ public class Place implements Serializable {
     @Size(max = 45)
     @Column(name = "COUNTRY")
     private String country;
-
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "TRIPID")
-    private int tripid;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "NAME")
-    private String name;
-    @Column(name = "RATING")
-    private Integer rating;
-    @Size(max = 512)
-    @Column(name = "DESCRIPTION")
-    private String description;
-    @Size(max = 1024)
-    @Column(name = "IMGURLS")
-    private String imgurls;
+    @Column(name = "ISBOOKED")
+    private Integer isbooked;
+    @Column(name = "FREECANCELLATIONDATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date freecancellationdate;
+    @Column(name = "ISOPTIONAL")
+    private Integer isoptional;
 
     public Place() {
     }
@@ -86,8 +100,9 @@ public class Place implements Serializable {
         this.id = id;
     }
 
-    public Place(Integer id, String name) {
+    public Place(Integer id, int tripid, String name) {
         this.id = id;
+        this.tripid = tripid;
         this.name = name;
     }
 
@@ -97,6 +112,14 @@ public class Place implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public int getTripid() {
+        return tripid;
+    }
+
+    public void setTripid(int tripid) {
+        this.tripid = tripid;
     }
 
     public String getName() {
@@ -123,45 +146,12 @@ public class Place implements Serializable {
         this.description = description;
     }
 
-    public String getImgurls() {
-        return imgurls;
+    public String getUrls() {
+        return urls;
     }
 
-    public void setImgurls(String imgurls) {
-        this.imgurls = imgurls;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Place)) {
-            return false;
-        }
-        Place other = (Place) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "case1.nl.entities.Place[ id=" + id + " ]";
-    }
-
-    public int getTripid() {
-        return tripid;
-    }
-
-    public void setTripid(int tripid) {
-        this.tripid = tripid;
+    public void setUrls(String urls) {
+        this.urls = urls;
     }
 
     public Date getArrivaldate() {
@@ -202,6 +192,55 @@ public class Place implements Serializable {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public Integer getIsbooked() {
+        return isbooked;
+    }
+
+    public void setIsbooked(Integer isbooked) {
+        this.isbooked = isbooked;
+    }
+
+    public Date getFreecancellationdate() {
+        return freecancellationdate;
+    }
+
+    public void setFreecancellationdate(Date freecancellationdate) {
+        this.freecancellationdate = freecancellationdate;
+    }
+
+    public Integer getIsoptional() {
+        return isoptional;
+    }
+
+    public void setIsoptional(Integer isoptional) {
+        this.isoptional = isoptional;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Place)) {
+            return false;
+        }
+        Place other = (Place) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "case1.nl.entities.Place[ id=" + id + " ]";
     }
     
 }

@@ -46,23 +46,20 @@
 
 }
 
-
-body, html {
-  height: 100%;
-
-  /* The image used */
-  background-image: url('https://picsum.photos/1280');
-
-  /* Full height */
-  height: 100%;
-  
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+.placesPage
+{
+    background-color: whitesmoke;
 }
 
-
+.loginPage
+{
+    /* The image used */
+    background-image: url('https://picsum.photos/1280');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
 body .ui-panel .ui-panel-content {
     /*border: 1px solid #c8c8c8;*/
