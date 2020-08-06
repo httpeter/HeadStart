@@ -12,12 +12,18 @@
 
     <h:body styleClass="placesPage">
 
+
+
         <h:form>
 
 
             <!--MAIN MENU-->
             <ui:include src="included/menu.xhtml"/>        
 
+
+            <!--DIALOGS-->
+            <ui:include src="included/tripEditDLG.xhtml"/>
+            <ui:include src="included/placesDLG.xhtml"/>
 
 
             <!--WIDGETS ARE IMPLEMENTED USING PF DASBOARD COMPONENT-->
@@ -27,36 +33,43 @@
 
 
                 <!--TRIPS-->
-                <p:panel id="trips" style="min-width: 360px;max-width: 1200px; height: 520px">
+                <p:panel id="trips" 
+                         style="min-width: 360px;max-width: 1200px; height: 520px"                         >
+
                     <h4>Trip</h4>                                           
-                    <p:selectOneMenu value="#{placesController.selectedTripID}" 
-                                     style="width:100%">
-                        <f:selectItems value="#{placesController.trips}" 
-                                       var="trip" 
-                                       itemValue="#{trip.id}" 
-                                       itemLabel="#{trip.name}"/>
-                        <p:ajax update="@form" 
-                                listener="#{placesController.loadPlaces()}"/>
-                    </p:selectOneMenu>          
 
-                    <h4>Description</h4>
-                    <p:inplace editor="true" >
-                        <p:inputTextarea value="#{placesController.selectedTrip.description}"/>
-                        <p:ajax event="save"
-                                listener="#{placesController.saveSelectedTrip()}"
-                                update="@form"/>
-                    </p:inplace> 
-                    
-                    <h4>Total duration</h4>
-                    <h:outputText value="#{placesController.selectedTripDuration} days"/>
+                    <p:panelGrid columns="2" layout="grid">
 
-                    <h4>Notes</h4>
-                    <p:inputTextarea value="#{placesController.selectedTrip.notes}"
-                                     style="width:100%"/>
-                    <br/>
-                    <p:commandButton icon="fa fa-save"
-                                     action="#{placesController.saveSelectedTrip()}"
-                                     update="@form"/>                    
+                        <h4>Selected</h4>                                           
+                        <p:selectOneMenu value="#{placesController.selectedTripID}" 
+                                         style="width:100%">
+                            <f:selectItems value="#{placesController.trips}" 
+                                           var="trip" 
+                                           itemValue="#{trip.id}" 
+                                           itemLabel="#{trip.name}"/>
+                            <p:ajax update="@form" 
+                                    listener="#{placesController.loadPlaces()}"/>
+                        </p:selectOneMenu>          
+
+                        <h4>Description</h4>
+                        <h:outputText value="#{placesController.selectedTrip.description}"/>
+
+                        <h4>Total duration</h4>
+                        <h:outputText value="#{placesController.selectedTripDuration} days"/>
+
+                        <h4>Notes</h4>
+                        <p:inputTextarea value="#{placesController.selectedTrip.notes}" 
+                                         disabled="true"
+                                         style="width:100%"/>
+
+                        <h:outputText/>
+                        <p:commandButton icon="fa fa-gear" 
+                                         value="Edit"
+                                         onclick="PF('tripEditDLG').show();"/>                    
+
+
+                    </p:panelGrid>                   
+
                 </p:panel>
 
 
@@ -75,7 +88,7 @@
                             center="52.1601, 4.4970" 
                             zoom="14" 
                             type="map" 
-                            style="width:400px;height:400px" />         
+                            style="width:400px;height:400px"/>         
                     <br/>
                 </p:panel>
 
@@ -88,58 +101,16 @@
                 <!--TIMELINE-->
                 <p:panel id="timeLine">
                     <h4>Timeline</h4>
-                    <ui:include src="included/placesTimeline.xhtml"/>
+                    <p:timeline id="timeline" 
+                                value="#{placesController.timelineModel}">
+
+                        <p:ajax event="select" 
+                                listener="#{placesController.selectTimeline}"
+                                update="@form"/>
+
+                    </p:timeline>
                     <br/>
                 </p:panel>
-
-
-
-
-
-
-
-                <!--PLACES DETAILS-->
-                <p:panel id="places">
-                    <h4>Places</h4>
-                    <p:dataScroller value="#{placesController.places}" 
-                                    var="place"
-                                    chunkSize="10">                    
-
-                        <p:panelGrid columns="2"
-                                     layout="grid">
-
-                            <h3>#{place.name}</h3>                                                                                              
-                            <p:rating value="#{place.rating}" readonly="true"/>
-
-                            <p:graphicImage url="#{place.urls}" width="300"/>                                                                                                                              
-                            <h:outputText value="#{place.description}"/>                                                                               
-
-                            <h:outputText value="Arrival"/>
-                            <h:outputText value="#{place.arrivaldate}">
-                                <f:convertDateTime pattern="dd-MM-yyyy" timeZone="CET"/>
-                            </h:outputText>
-
-                            <h:outputText value="Departure"/>
-                            <h:outputText value="#{place.departuredate}">
-                                <f:convertDateTime pattern="dd-MM-yyyy" timeZone="CET"/>
-                            </h:outputText>
-
-                            <h:outputText value="Total stay"/>
-                            <h:outputText value="#{place.departuredate.date - place.arrivaldate.date}"/>
-
-                            <h:outputText value="Country"/>
-                            <h:outputText value="#{place.country}"/>
-
-                            <h:outputText value="Address"/>
-                            <h:outputText value="#{place.address}"/>
-
-                        </p:panelGrid>
-
-                    </p:dataScroller>
-                </p:panel>
-
-
-
 
 
 
@@ -182,6 +153,12 @@
 
 
         </h:form>
+
+
+
+
+
+
 
     </h:body>
 

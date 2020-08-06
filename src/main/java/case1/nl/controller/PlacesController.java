@@ -5,8 +5,6 @@ import case1.nl.entities.Trip;
 import case1.nl.util.FMessage;
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.Month;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.logging.Level;
@@ -15,6 +13,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.PrimeFaces;
+import org.primefaces.event.timeline.TimelineSelectEvent;
 import org.primefaces.model.DashboardColumn;
 import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
@@ -37,15 +37,6 @@ public class PlacesController implements Serializable {
 
     private DashboardModel dashboardModel;
 
-    private boolean selectable = true;
-    private boolean zoomable = true;
-    private boolean moveable = true;
-    private boolean stackEvents = true;
-    private String eventStyle = "box";
-    private boolean axisOnTop;
-    private boolean showCurrentTime = true;
-    private boolean showNavigation = false;
-
     private List<Trip> trips;
 
     private Trip selectedTrip;
@@ -56,34 +47,62 @@ public class PlacesController implements Serializable {
 
     private Place selectedPlace;
 
+
+
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    public TimelineModel getTimelineModel() {
+        return timelineModel;
+    }
+
+
+
+    public void setTimelineModel(TimelineModel timelineModel) {
+        this.timelineModel = timelineModel;
+    }
+
+
+
     public int getSelectedTripDuration() {
         return selectedTripDuration;
     }
+
+
 
     public void setSelectedTripDuration(int selectedTripDuration) {
         this.selectedTripDuration = selectedTripDuration;
     }
 
+
+
     public DashboardModel getDashboardModel() {
         return dashboardModel;
     }
+
+
 
     public void setDashboardModel(DashboardModel dashboardModel) {
         this.dashboardModel = dashboardModel;
     }
 
+
+
     public List<Trip> getTrips() {
         return trips;
     }
+
+
 
     public void setTrips(List<Trip> trips) {
         this.trips = trips;
     }
 
+
+
     public int getSelectedTripID() {
         return selectedTrip.getId();
     }
+
+
 
     public void setSelectedTripID(int id) {
         this.selectedTrip = trips.stream()
@@ -92,105 +111,49 @@ public class PlacesController implements Serializable {
                 .get();
     }
 
+
+
     public Trip getSelectedTrip() {
         return selectedTrip;
     }
+
+
 
     public Place getSelectedPlace() {
         return selectedPlace;
     }
 
+
+
     public void setSelectedPlace(Place selectedPlace) {
         this.selectedPlace = selectedPlace;
     }
 
-    public boolean isSelectable() {
-        return selectable;
-    }
 
-    public void setSelectable(boolean selectable) {
-        this.selectable = selectable;
-    }
-
-    public boolean isStackEvents() {
-        return stackEvents;
-    }
-
-    public void setStackEvents(boolean stackEvents) {
-        this.stackEvents = stackEvents;
-    }
-
-    public boolean isShowCurrentTime() {
-        return showCurrentTime;
-    }
-
-    public void setShowCurrentTime(boolean showCurrentTime) {
-        this.showCurrentTime = showCurrentTime;
-    }
-
-    public boolean isShowNavigation() {
-        return showNavigation;
-    }
-
-    public void setShowNavigation(boolean showNavigation) {
-        this.showNavigation = showNavigation;
-    }
-
-    public boolean isZoomable() {
-        return zoomable;
-    }
-
-    public void setZoomable(boolean zoomable) {
-        this.zoomable = zoomable;
-    }
-
-    public boolean isAxisOnTop() {
-        return axisOnTop;
-    }
-
-    public void setAxisOnTop(boolean axisOnTop) {
-        this.axisOnTop = axisOnTop;
-    }
-
-    public TimelineModel getTimelineModel() {
-        return timelineModel;
-    }
-
-    public void setTimelineModel(TimelineModel timelineModel) {
-        this.timelineModel = timelineModel;
-    }
-
-    public boolean isMoveable() {
-        return moveable;
-    }
-
-    public void setMoveable(boolean moveable) {
-        this.moveable = moveable;
-    }
-
-    public String getEventStyle() {
-        return eventStyle;
-    }
-
-    public void setEventStyle(String eventStyle) {
-        this.eventStyle = eventStyle;
-    }
 
     public List<Place> getPlaces() {
         return places;
     }
 
+
+
     public void setPlaces(List<Place> places) {
         this.places = places;
     }
+
+
 
     public SessionController getSession() {
         return session;
     }
 
+
+
     public void setSession(SessionController session) {
         this.session = session;
     }
+
+
 
     //</editor-fold>
     @PostConstruct
@@ -207,11 +170,14 @@ public class PlacesController implements Serializable {
             loadPlaces();
 
         } catch (Exception ex) {
-            Logger.getLogger(PlacesController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PlacesController.class.getName())
+                    .log(Level.SEVERE, null, ex);
             FMessage.error(ex.getMessage());
         }
 
     }
+
+
 
     private void loadDasboards() throws Exception {
         dashboardModel = new DefaultDashboardModel();
@@ -228,12 +194,16 @@ public class PlacesController implements Serializable {
         dashboardModel.addColumn(column2);
     }
 
+
+
     private void loadTrips() throws Exception {
         trips = session.getPlacesRepository()
                 .getResultList(Trip.class);
 
         selectedTrip = trips.get(0);
     }
+
+
 
     public void loadPlaces() {
         if (selectedTrip.getId() != null) {
@@ -242,6 +212,7 @@ public class PlacesController implements Serializable {
 
             timelineModel = new TimelineModel();
 
+            //Filling the timeline
             places.forEach(place -> {
                 timelineModel.add(TimelineEvent.<String>builder()
                         .data(place.getName())
@@ -249,15 +220,16 @@ public class PlacesController implements Serializable {
                                 .getTime())
                                 .atZone(ZoneId.systemDefault())
                                 .toLocalDate())
-                        .build());                
+                        .build());
             });
-            
-//            selectedTripDuration = places.get(places.size()).getDeparturedate().
 
+//            selectedTripDuration = places.get(places.size()).getDeparturedate().
         } else {
             FMessage.warn("No tip found!");
         }
     }
+
+
 
     public void saveSelectedTrip() {
         if (selectedTrip != null
@@ -267,6 +239,37 @@ public class PlacesController implements Serializable {
         } else {
             FMessage.error("Could not save trip");
         }
+    }
+
+
+
+    public void saveSelectedPlace() {
+        if (selectedPlace != null
+                && session.getPlacesRepository()
+                        .merged(selectedPlace)) {
+            FMessage.info("Place '"
+                    + selectedPlace.getName()
+                    + "' Saved");
+        } else {
+            FMessage.error("Could not save place");
+        }
+    }
+
+
+
+    public void selectTimeline(TimelineSelectEvent<String> e) {
+
+        TimelineEvent<String> timelineEvent = e.getTimelineEvent();
+
+        places.forEach(place -> {
+            if (place.getName().equals(timelineEvent.getData())) {
+                selectedPlace = place;
+            }
+        });
+
+        PrimeFaces current = PrimeFaces.current();
+        current.executeScript("PF('placesDLG').show();");
+
     }
 
 }
