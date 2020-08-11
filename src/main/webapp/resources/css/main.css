@@ -1,4 +1,8 @@
 
+.headerText
+{
+    font-weight: bold;
+}
 
 .ui-datatable .ui-column-filter {
     visibility: hidden;

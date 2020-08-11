@@ -99,7 +99,10 @@ public class PlacesController implements Serializable {
 
 
     public int getSelectedTripID() {
-        return selectedTrip.getId();
+        if (selectedTrip.getId() != null) {
+            return selectedTrip.getId();
+        }
+        return 0;
     }
 
 
@@ -185,9 +188,8 @@ public class PlacesController implements Serializable {
         DashboardColumn column1 = new DefaultDashboardColumn();
         DashboardColumn column2 = new DefaultDashboardColumn();
 
-        column1.addWidget("trips");
-        column2.addWidget("map");
         column1.addWidget("timeLine");
+        column1.addWidget("trips");
         column1.addWidget("places");
 
         dashboardModel.addColumn(column1);
@@ -200,7 +202,8 @@ public class PlacesController implements Serializable {
         trips = session.getPlacesRepository()
                 .getResultList(Trip.class);
 
-        selectedTrip = trips.get(0);
+//        selectedTrip = trips.get(0);
+        selectedTrip = new Trip();
     }
 
 

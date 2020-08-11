@@ -22,20 +22,15 @@
             <p:growl>
                 <p:autoUpdate/>
             </p:growl>
-            
+
 
 
 
             <p:dashboard model="#{loginController.dashboardModel}">
-                                    
 
                 <p:panel id="welcomePanel">                    
                     <h:outputText value="#{labels.welcomeMSG}" escape="false"/>                 
                 </p:panel>
-
-
-
-
 
                 <p:panel id="loginPanel">              
                     <h:panelGrid columns="2">
@@ -48,13 +43,14 @@
                         <p:password value="#{loginController.pwd}" 
                                     required="true" 
                                     requiredMessage="Password Required"/>
+                        
+                        <p:spacer/>                        
 
                         <h:outputText/>
                         <p:commandButton value="login" 
                                          action="#{loginController.login()}"                              
                                          icon="pi pi-unlock" 
                                          ajax="false"/>      
-
                     </h:panelGrid>
                 </p:panel>
 

@@ -6,8 +6,10 @@
 
 
     <p:dialog id="placesDLG"
-              header="Edit Place: '#{placesController.selectedPlace.name}'"
-              modal="true" 
+              header="Edit Place: '#{placesController.selectedPlace.name}'"              
+              modal="true"
+              blockScroll="true"
+              fitViewport="true"
               widgetVar="placesDLG"
               width="80%"
               height="80%"
@@ -16,17 +18,27 @@
 
 
 
-        <p:panelGrid columns="2" layout="grid">
+        <p:panelGrid columns="2" 
+                     layout="grid">
 
-            <h3>#{placesController.selectedPlace.name}</h3>                                                                                              
-            <p:rating value="#{placesController.selectedPlace.rating}" readonly="true"/>
-
-            <p:graphicImage url="#{placesController.selectedPlace.urls}" width="300"/>                                                                                                                              
-            <p:inputTextarea value="#{placesController.selectedPlace.description}"
-                             style="width:100%"/>                                                                               
-            
             <h:outputText value="Name"/>
             <p:inputText value="#{placesController.selectedPlace.name}"/>
+
+            <h:outputText value="Rating"/>
+            <p:rating value="#{placesController.selectedPlace.rating}" />
+
+
+            <h:outputText value="Image URL:"/>
+            <p:inputText  value="#{placesController.selectedPlace.urls}"/>
+            
+            <h:outputText value="Image:"/>
+            <p:graphicImage url="#{placesController.selectedPlace.urls}" 
+                            width="300"/>                                                                                                                              
+
+
+            <h:outputText value="Description"/>
+                          <p:inputTextarea value="#{placesController.selectedPlace.description}"
+                          style="width:100%"/>                                                                                                     
 
             <h:outputText value="Arrival"/>
             <p:calendar value="#{placesController.selectedPlace.arrivaldate}" 
@@ -54,7 +66,7 @@
                              value="Save"
                              action="#{placesController.saveSelectedPlace()}" 
                              oncomplete="PF('placesDLG').hide();"
-                             update="@form"/>                    
+                             ajax="false"/>                    
 
             <p:commandButton icon="fa fa-ban" 
                              value="Cancel"
