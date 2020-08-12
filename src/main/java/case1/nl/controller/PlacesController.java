@@ -47,9 +47,23 @@ public class PlacesController implements Serializable {
 
     private Place selectedPlace;
 
+    private int tabIndex = 0;
+
 
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    public int getTabIndex() {
+        return tabIndex;
+    }
+
+
+
+    public void setTabIndex(int tabIndex) {
+        this.tabIndex = tabIndex;
+    }
+
+
+
     public TimelineModel getTimelineModel() {
         return timelineModel;
     }
@@ -99,10 +113,7 @@ public class PlacesController implements Serializable {
 
 
     public int getSelectedTripID() {
-        if (selectedTrip.getId() != null) {
-            return selectedTrip.getId();
-        }
-        return 0;
+        return selectedTrip.getId();
     }
 
 
@@ -202,8 +213,9 @@ public class PlacesController implements Serializable {
         trips = session.getPlacesRepository()
                 .getResultList(Trip.class);
 
-//        selectedTrip = trips.get(0);
+        //selectedTrip = trips.get(0);
         selectedTrip = new Trip();
+        selectedTrip.setId(0);
     }
 
 
@@ -270,9 +282,15 @@ public class PlacesController implements Serializable {
             }
         });
 
+        tabIndex = 1;
+
+    }
+
+
+
+    public void editPlace() {
         PrimeFaces current = PrimeFaces.current();
         current.executeScript("PF('placesDLG').show();");
-
     }
 
 }
