@@ -23,6 +23,7 @@
             <!--DIALOGS-->
             <ui:include src="included/tripEditDLG.xhtml"/>
             <ui:include src="included/placesDLG.xhtml"/>
+            <ui:include src="included/addPlaceDLG.xhtml"/>
 
             <!--WIDGETS ARE IMPLEMENTED USING PF DASBOARD COMPONENT-->
             <p:dashboard model="#{placesController.dashboardModel}">
@@ -34,6 +35,14 @@
                 <p:panel id="timeLine" rendered="#{placesController.selectedTripID!=0}">
                     <p:accordionPanel>
                         <p:tab title="Timeline: #{placesController.selectedTrip.name}">
+
+                            <p:gmap id="gmap" 
+                                    widgetVar="gmap" 
+                                    center="52.1601, 4.4970" 
+                                    zoom="14" 
+                                    type="map" 
+                                    style="width:360px;height:400px"/>
+
                             <p:timeline id="timeline" 
                                         value="#{placesController.timelineModel}">
 
@@ -42,6 +51,12 @@
                                         update="@form"/>
 
                             </p:timeline>                    
+                            <br/>
+                            <p:commandButton value="Add place" 
+                                             icon="fa fa-plus"
+                                             oncomplete="PF('addPlaceDLG').show();" 
+                                             rendered="#{placesController.selectedTripID!=0}"                                             
+                                             action="#{placesController.makeNewPlace()}"/>                            
                         </p:tab>
                     </p:accordionPanel>                    
                 </p:panel>
@@ -56,14 +71,6 @@
                     <p:accordionPanel activeIndex="#{placesController.tabIndex}" >
 
                         <p:tab title="Trip: #{placesController.selectedTrip.name}">
-
-                            <!--                            <p:gmap id="gmap" 
-                                                                widgetVar="gmap" 
-                                                                center="52.1601, 4.4970" 
-                                                                zoom="14" 
-                                                                type="map" 
-                                                                style="width:300px;height:300px"/>-->
-
 
 
                             <p:panelGrid columns="2" layout="grid">
@@ -82,7 +89,8 @@
                                     </p:selectOneMenu>
                                     <p:commandButton icon="fa fa-gear"                                                  
                                                      onclick="PF('tripEditDLG').show();" 
-                                                     rendered="#{placesController.selectedTripID!=0}"/>                    
+                                                     rendered="#{placesController.selectedTripID!=0}"
+                                                     value="edit"/>                    
                                 </h:panelGrid>
 
                                 <h:outputText value="Description"/>
@@ -102,45 +110,48 @@
                         <p:tab title="Selected place: #{placesController.selectedPlace.name}" 
                                rendered="#{placesController.selectedPlace!=null}">
 
-                            <p:panelGrid columns="2" layout="grid" style="min-width: 400px">
+
+                            <p:panelGrid columns="2" layout="grid" style="min-width: 360px;max-width: 1200px;">
+
+                                <p:graphicImage url="#{placesController.selectedPlace.urls}"
+                                                width="360"/>
+
+                                <p:commandButton icon="fa fa-gear"                                                  
+                                                 onclick="PF('placesDLG').show();"                                                  
+                                                 value="edit"/>
 
                                 <h:outputText value="Name" styleClass="headerText"/>
-                                <p:inputText value="#{placesController.selectedPlace.name}"/>
+                                <h:outputText value="#{placesController.selectedPlace.name}"/>
 
                                 <h:outputText value="Rating" styleClass="headerText"/>
-                                <p:rating value="#{placesController.selectedPlace.rating}" />
-
-
-                                <h:outputText value="Image URL:" styleClass="headerText"/>
-                                <p:inputText  value="#{placesController.selectedPlace.urls}"/>
-
-                                <h:outputText value="Image:" styleClass="headerText"/>
-                                <p:graphicImage url="#{placesController.selectedPlace.urls}"
-                                                width="165"/>                                                                                                                              
+                                <p:rating value="#{placesController.selectedPlace.rating}"
+                                          readonly="true"/>
 
 
                                 <h:outputText value="Description" styleClass="headerText"/>
-                                <p:inputTextarea value="#{placesController.selectedPlace.description}"/>                                                                                                     
+                                <h:outputText value="#{placesController.selectedPlace.description}"/>                                                                                                     
 
                                 <h:outputText value="Arrival" styleClass="headerText"/>
-                                <p:calendar value="#{placesController.selectedPlace.arrivaldate}" 
-                                            pattern="dd-MM-yyyy" 
-                                            timeZone="CET"/>
+                                <h:outputText value="#{placesController.selectedPlace.arrivaldate}">
+                                    <f:convertDateTime pattern="dd-MM-yyyy" timeZone="CET"/>
+                                </h:outputText>
 
 
                                 <h:outputText value="Departure" styleClass="headerText"/>
-                                <p:calendar value="#{placesController.selectedPlace.departuredate}" 
-                                            pattern="dd-MM-yyyy" 
-                                            timeZone="CET"/>
+                                <h:outputText value="#{placesController.selectedPlace.departuredate}">
+                                    <f:convertDateTime pattern="dd-MM-yyyy" timeZone="CET"/>
+                                </h:outputText>
 
                                 <h:outputText value="Total stay" styleClass="headerText"/>
                                 <h:outputText value="#{placesController.selectedPlace.departuredate.date - placesController.selectedPlace.arrivaldate.date} days"/>
 
                                 <h:outputText value="Country" styleClass="headerText"/>
-                                <p:inputText value="#{placesController.selectedPlace.country}"/>
+                                <h:outputText value="#{placesController.selectedPlace.country}"/>
 
                                 <h:outputText value="Address" styleClass="headerText"/>
-                                <p:inputTextarea value="#{placesController.selectedPlace.address}"/>
+                                <h:outputText value="#{placesController.selectedPlace.address}"/>
+
+
 
 
                             </p:panelGrid>
@@ -158,39 +169,6 @@
 
             </p:dashboard>
 
-
-
-
-
-
-
-
-
-            <!--This does not work yet-->
-            <p:outputPanel id="adminPanel" 
-                           rendered="#{sessionController.currentUser.role=='admin'}"
-                           styleClass="myMobileMenuButton">
-
-                <p:commandButton id="addButton" value="Add"/>
-
-                <p:overlayPanel for="addButton">
-
-                    <h:panelGrid columns="2">
-
-                        <p:outputLabel value="Name"/> 
-                        <p:inputText id="name"/>
-
-                        <p:outputLabel for="msg" value="Message" /> 
-                        <p:inputTextarea id="msg" />
-
-                        <h:outputText/>
-                        <p:commandButton value="Send" />
-
-                    </h:panelGrid>        
-
-                </p:overlayPanel> 
-
-            </p:outputPanel>
 
 
         </h:form>

@@ -6,6 +6,7 @@ import case1.nl.util.FMessage;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,11 +48,25 @@ public class PlacesController implements Serializable {
 
     private Place selectedPlace;
 
+    private Place newPlace;
+
     private int tabIndex = 0;
 
 
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    public Place getNewPlace() {
+        return newPlace;
+    }
+
+
+
+    public void setNewPlace(Place newPlace) {
+        this.newPlace = newPlace;
+    }
+
+
+
     public int getTabIndex() {
         return tabIndex;
     }
@@ -178,10 +193,7 @@ public class PlacesController implements Serializable {
             loadDasboards();
 
             //Load Trips
-            loadTrips();
-
-            //Load Places;
-            loadPlaces();
+            loadTrips();                           
 
         } catch (Exception ex) {
             Logger.getLogger(PlacesController.class.getName())
@@ -264,10 +276,45 @@ public class PlacesController implements Serializable {
                         .merged(selectedPlace)) {
             FMessage.info("Place '"
                     + selectedPlace.getName()
-                    + "' Saved");
+                    + "' Saved");            
         } else {
             FMessage.error("Could not save place");
         }
+    }
+    
+    public void deleteSelectedPlace() {
+        if (selectedPlace != null
+                && session.getPlacesRepository()
+                        .deleted(selectedPlace)) {
+            FMessage.info("Place '"
+                    + selectedPlace.getName()
+                    + "' deleted");
+        } else {
+            FMessage.error("Could not delete place");
+        }
+    }
+
+
+
+    public void saveNewPlace() {
+        if (newPlace != null
+                && session.getPlacesRepository()
+                        .persisted(newPlace)) {
+            FMessage.info("Place '"
+                    + newPlace.getName()
+                    + "' Saved");
+           loadPlaces();
+        } else {
+            FMessage.error("Could not save place");
+        }
+    }
+    
+    public void makeNewPlace()
+    {
+        newPlace = new Place();
+        newPlace.setName("");
+        newPlace.setArrivaldate(new Date());
+        newPlace.setTripid(selectedTrip.getId());
     }
 
 
