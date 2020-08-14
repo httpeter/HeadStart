@@ -22,26 +22,82 @@
 
             <!--DIALOGS-->
             <ui:include src="included/tripEditDLG.xhtml"/>
-            <ui:include src="included/placesDLG.xhtml"/>
+            <ui:include src="included/placeEditDLG.xhtml"/>
             <ui:include src="included/addPlaceDLG.xhtml"/>
 
-            <!--WIDGETS ARE IMPLEMENTED USING PF DASBOARD COMPONENT-->
-            <p:dashboard model="#{placesController.dashboardModel}">
 
 
 
 
-                <!--TIMELINE-->
-                <p:panel id="timeLine" rendered="#{placesController.selectedTripID!=0}">
-                    <p:accordionPanel>
-                        <p:tab title="Timeline: #{placesController.selectedTrip.name}">
+
+
+            <p:panel id="trips" 
+                     style="min-width: 360px;max-width: 100%;">
+
+                <p:accordionPanel>
+
+                    <p:tab title="Trip: #{placesController.selectedTrip.name}" closable="false">
+
+
+                        <p:panelGrid columns="2" 
+                                     layout="grid">
+
+                            <h:outputText value="Selected" styleClass="headerText"/>
+                            <h:panelGrid columns="2">
+                                <p:selectOneMenu value="#{placesController.selectedTripID}" 
+                                                 style="width:100%">
+                                    <f:selectItem itemLabel="select..." rendered="#{placesController.selectedTripID==0}"/>
+                                    <f:selectItems value="#{placesController.trips}" 
+                                                   var="trip" 
+                                                   itemValue="#{trip.id}" 
+                                                   itemLabel="#{trip.name}"/>
+                                    <p:ajax update="@form" 
+                                            listener="#{placesController.loadPlaces()}"/>                                        
+                                </p:selectOneMenu>
+                                <p:commandButton icon="fa fa-gear"                                                  
+                                                 onclick="PF('tripEditDLG').show();" 
+                                                 rendered="#{placesController.selectedTripID!=0}"
+                                                 value="edit"/>                    
+                            </h:panelGrid>
+
+                            <h:outputText value="Description" 
+                                          rendered="#{placesController.selectedTripID!=0}"
+                                          styleClass="headerText"/>
+                            <h:outputText value="#{placesController.selectedTrip.description}" 
+                                          rendered="#{placesController.selectedTripID!=0}"/>
+
+                            <h:outputText value="Duration"
+                                          rendered="#{placesController.selectedTripID!=0}"
+                                          styleClass="headerText"/>
+                            <h:outputText value="#{placesController.selectedTripDuration} days" 
+                                          rendered="#{placesController.selectedTripID!=0}"/>
+
+                            <h:outputText value="Notes" 
+                                          rendered="#{placesController.selectedTripID!=0}"
+                                          styleClass="headerText"/>
+                            <p:inputTextarea value="#{placesController.selectedTrip.notes}"                                         
+                                             style="width:100%; border: none;"
+                                             disabled="true" 
+                                             rendered="#{placesController.selectedTripID!=0}"/>   
+
+                        </p:panelGrid>                         
+
+                        <br/>
+
+                        <p:panelGrid layout="grid" 
+                                     columns="1"
+                                     rendered="#{placesController.selectedTripID!=0}">
+
 
                             <p:gmap id="gmap" 
                                     widgetVar="gmap" 
-                                    center="52.1601, 4.4970" 
-                                    zoom="14" 
+                                    center="46.1848764, 7.8171154" 
+                                    zoom="5.46" 
                                     type="map" 
-                                    style="width:360px;height:400px"/>
+                                    style="width:360px;height:400px"
+                                    model="#{placesController.mapModel}">                             
+                                <p:ajax event="pointSelect" listener="#{placesController.mapSelect}" update="@form" />
+                            </p:gmap>
 
                             <p:timeline id="timeline" 
                                         value="#{placesController.timelineModel}">
@@ -51,131 +107,71 @@
                                         update="@form"/>
 
                             </p:timeline>                    
-                            <br/>
+
                             <p:commandButton value="Add place" 
                                              icon="fa fa-plus"
-                                             oncomplete="PF('addPlaceDLG').show();" 
-                                             rendered="#{placesController.selectedTripID!=0}"                                             
-                                             action="#{placesController.makeNewPlace()}"/>                            
-                        </p:tab>
-                    </p:accordionPanel>                    
-                </p:panel>
+                                             oncomplete="PF('addPlaceDLG').show();"                                              
+                                             action="#{placesController.makeNewPlace()}"/>
+
+                        </p:panelGrid>
+
+                        <br/>
+
+                        <p:panelGrid columns="2" 
+                                     layout="grid"                                      
+                                     rendered="#{placesController.selectedPlace!=null}">
+
+                            <p:graphicImage url="#{placesController.selectedPlace.urls}"
+                                            width="360"/>
+
+                            <p:commandButton icon="fa fa-gear"                                                  
+                                             onclick="PF('placeEditDLG').show();"                                                  
+                                             value="edit"/>
+
+                            <h:outputText value="Name" styleClass="headerText"/>
+                            <h:outputText value="#{placesController.selectedPlace.name}"/>
+
+                            <h:outputText value="Rating" styleClass="headerText"/>
+                            <p:rating value="#{placesController.selectedPlace.rating}"
+                                      readonly="true"/>
 
 
+                            <h:outputText value="Description" styleClass="headerText"/>
+                            <h:outputText value="#{placesController.selectedPlace.description}"/>                                                                                                     
+
+                            <h:outputText value="Arrival" styleClass="headerText"/>
+                            <h:outputText value="#{placesController.selectedPlace.arrivaldate}">
+                                <f:convertDateTime pattern="dd-MM-yyyy" timeZone="CET"/>
+                            </h:outputText>
 
 
-                <!--TRIPS-->
-                <p:panel id="trips" 
-                         style="min-width: 360px;max-width: 1200px;">
+                            <h:outputText value="Departure" styleClass="headerText"/>
+                            <h:outputText value="#{placesController.selectedPlace.departuredate}">
+                                <f:convertDateTime pattern="dd-MM-yyyy" timeZone="CET"/>
+                            </h:outputText>
 
-                    <p:accordionPanel activeIndex="#{placesController.tabIndex}" >
+                            <h:outputText value="Total stay" styleClass="headerText"/>
+                            <h:outputText value="#{placesController.selectedPlace.departuredate.date - placesController.selectedPlace.arrivaldate.date} days"/>
 
-                        <p:tab title="Trip: #{placesController.selectedTrip.name}">
+                            <h:outputText value="Country" styleClass="headerText"/>
+                            <h:outputText value="#{placesController.selectedPlace.country}"/>
 
+                            <h:outputText value="Address" styleClass="headerText"/>
+                            <h:outputText value="#{placesController.selectedPlace.address}"/>
 
-                            <p:panelGrid columns="2" layout="grid">
+                        </p:panelGrid>
 
-                                <h:outputText value="Selected"/>
-                                <h:panelGrid columns="2">
-                                    <p:selectOneMenu value="#{placesController.selectedTripID}" 
-                                                     style="width:100%">
-                                        <f:selectItem itemLabel="select..." rendered="#{placesController.selectedTripID==0}"/>
-                                        <f:selectItems value="#{placesController.trips}" 
-                                                       var="trip" 
-                                                       itemValue="#{trip.id}" 
-                                                       itemLabel="#{trip.name}"/>
-                                        <p:ajax update="@form" 
-                                                listener="#{placesController.loadPlaces()}"/>                                        
-                                    </p:selectOneMenu>
-                                    <p:commandButton icon="fa fa-gear"                                                  
-                                                     onclick="PF('tripEditDLG').show();" 
-                                                     rendered="#{placesController.selectedTripID!=0}"
-                                                     value="edit"/>                    
-                                </h:panelGrid>
-
-                                <h:outputText value="Description"/>
-                                <h:outputText value="#{placesController.selectedTrip.description}"/>
-
-                                <h:outputText value="Duration"/>
-                                <h:outputText value="#{placesController.selectedTripDuration} days"/>
-
-                                <h:outputText value="Notes"/>
-                                <p:inputTextarea value="#{placesController.selectedTrip.notes}"                                         
-                                                 style="width:100%; border: none;"
-                                                 disabled="true"/>                                                               
-                            </p:panelGrid>                                                                          
-
-                        </p:tab>
-
-                        <p:tab title="Selected place: #{placesController.selectedPlace.name}" 
-                               rendered="#{placesController.selectedPlace!=null}">
+                    </p:tab>
 
 
-                            <p:panelGrid columns="2" layout="grid" style="min-width: 360px;max-width: 1200px;">
+                </p:accordionPanel>
 
-                                <p:graphicImage url="#{placesController.selectedPlace.urls}"
-                                                width="360"/>
+            </p:panel>
 
-                                <p:commandButton icon="fa fa-gear"                                                  
-                                                 onclick="PF('placesDLG').show();"                                                  
-                                                 value="edit"/>
-
-                                <h:outputText value="Name" styleClass="headerText"/>
-                                <h:outputText value="#{placesController.selectedPlace.name}"/>
-
-                                <h:outputText value="Rating" styleClass="headerText"/>
-                                <p:rating value="#{placesController.selectedPlace.rating}"
-                                          readonly="true"/>
-
-
-                                <h:outputText value="Description" styleClass="headerText"/>
-                                <h:outputText value="#{placesController.selectedPlace.description}"/>                                                                                                     
-
-                                <h:outputText value="Arrival" styleClass="headerText"/>
-                                <h:outputText value="#{placesController.selectedPlace.arrivaldate}">
-                                    <f:convertDateTime pattern="dd-MM-yyyy" timeZone="CET"/>
-                                </h:outputText>
-
-
-                                <h:outputText value="Departure" styleClass="headerText"/>
-                                <h:outputText value="#{placesController.selectedPlace.departuredate}">
-                                    <f:convertDateTime pattern="dd-MM-yyyy" timeZone="CET"/>
-                                </h:outputText>
-
-                                <h:outputText value="Total stay" styleClass="headerText"/>
-                                <h:outputText value="#{placesController.selectedPlace.departuredate.date - placesController.selectedPlace.arrivaldate.date} days"/>
-
-                                <h:outputText value="Country" styleClass="headerText"/>
-                                <h:outputText value="#{placesController.selectedPlace.country}"/>
-
-                                <h:outputText value="Address" styleClass="headerText"/>
-                                <h:outputText value="#{placesController.selectedPlace.address}"/>
-
-
-
-
-                            </p:panelGrid>
-
-                        </p:tab>
-
-
-                    </p:accordionPanel>
-
-                </p:panel>
-
-
-
-
-
-            </p:dashboard>
 
 
 
         </h:form>
-
-
-
-
 
 
 

@@ -15,6 +15,7 @@ import case1.nl.util.FMessage;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 
 /**
  *
@@ -36,12 +37,16 @@ public class SessionController implements Serializable {
 
     private DefaultRepository defaultRepository;
 
+
+
     public FoodMomentRepository getFoodMomentRepository() {
         if (foodMomentRepository == null) {
             foodMomentRepository = new FoodMomentRepository("PU");
         }
         return foodMomentRepository;
     }
+
+
 
     public PlacesRepository getPlacesRepository() {
         if (placesRepository == null) {
@@ -50,12 +55,16 @@ public class SessionController implements Serializable {
         return placesRepository;
     }
 
+
+
     public UserRepository getUserRepository() {
         if (userRepository == null) {
             userRepository = new UserRepository("PU");
         }
         return userRepository;
     }
+
+
 
     public DefaultRepository getDefaultRepository() {
         if (defaultRepository == null) {
@@ -64,10 +73,14 @@ public class SessionController implements Serializable {
         return defaultRepository;
     }
 
+
+
     public FacesContext getFacesContext() {
 
         return FacesContext.getCurrentInstance();
     }
+
+
 
     public boolean isDevelopmentStage() {
         return getFacesContext().getApplication()
@@ -76,10 +89,14 @@ public class SessionController implements Serializable {
                 .equalsIgnoreCase("development");
     }
 
+
+
     public String getLabelFile() {
         return getFacesContext().getExternalContext()
                 .getInitParameter("labelFile");
     }
+
+
 
     public Properties getLabels() {
         Properties p = new Properties();
@@ -95,16 +112,23 @@ public class SessionController implements Serializable {
         return p;
     }
 
+
+
     public User getCurrentUser() {
         return currentUser;
     }
+
+
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
 
+
+
     public String getRedirectToLogin() {
-        if (currentUser == null || currentUser.getFirstname() == null) {
+
+        if (currentUser.getFirstname() == null) {
             FacesContext.getCurrentInstance()
                     .getApplication()
                     .getNavigationHandler()
@@ -113,13 +137,19 @@ public class SessionController implements Serializable {
         return null;
     }
 
+
+
     public AESEncryptor getCryptor() {
         return cryptor;
     }
 
+
+
     public void setCryptor(AESEncryptor cryptor) {
         this.cryptor = cryptor;
     }
+
+
 
     public SessionController() {
 

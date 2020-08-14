@@ -40,7 +40,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Place.findByArrivaldate", query = "SELECT p FROM Place p WHERE p.arrivaldate = :arrivaldate"),
     @NamedQuery(name = "Place.findByDeparturedate", query = "SELECT p FROM Place p WHERE p.departuredate = :departuredate"),
     @NamedQuery(name = "Place.findByAddress", query = "SELECT p FROM Place p WHERE p.address = :address"),
-    @NamedQuery(name = "Place.findByCoordinates", query = "SELECT p FROM Place p WHERE p.coordinates = :coordinates"),
+    @NamedQuery(name = "Place.findByLat", query = "SELECT p FROM Place p WHERE p.lat = :lat"),
+    @NamedQuery(name = "Place.findByLng", query = "SELECT p FROM Place p WHERE p.lng = :lng"),
     @NamedQuery(name = "Place.findByCountry", query = "SELECT p FROM Place p WHERE p.country = :country"),
     @NamedQuery(name = "Place.findByIsbooked", query = "SELECT p FROM Place p WHERE p.isbooked = :isbooked"),
     @NamedQuery(name = "Place.findByFreecancellationdate", query = "SELECT p FROM Place p WHERE p.freecancellationdate = :freecancellationdate"),
@@ -80,8 +81,11 @@ public class Place implements Serializable {
     @Column(name = "ADDRESS")
     private String address;
     @Size(max = 45)
-    @Column(name = "COORDINATES")
-    private String coordinates;
+    @Column(name = "LAT")
+    private String lat;
+    @Size(max = 45)
+    @Column(name = "LNG")
+    private String lng;
     @Size(max = 45)
     @Column(name = "COUNTRY")
     private String country;
@@ -93,12 +97,18 @@ public class Place implements Serializable {
     @Column(name = "ISOPTIONAL")
     private Integer isoptional;
 
+
+
     public Place() {
     }
+
+
 
     public Place(Integer id) {
         this.id = id;
     }
+
+
 
     public Place(Integer id, int tripid, String name) {
         this.id = id;
@@ -106,117 +116,187 @@ public class Place implements Serializable {
         this.name = name;
     }
 
+
+
     public Integer getId() {
         return id;
     }
+
+
 
     public void setId(Integer id) {
         this.id = id;
     }
 
+
+
     public int getTripid() {
         return tripid;
     }
+
+
 
     public void setTripid(int tripid) {
         this.tripid = tripid;
     }
 
+
+
     public String getName() {
         return name;
     }
+
+
 
     public void setName(String name) {
         this.name = name;
     }
 
+
+
     public Integer getRating() {
         return rating;
     }
+
+
 
     public void setRating(Integer rating) {
         this.rating = rating;
     }
 
+
+
     public String getDescription() {
         return description;
     }
+
+
 
     public void setDescription(String description) {
         this.description = description;
     }
 
+
+
     public String getUrls() {
         return urls;
     }
+
+
 
     public void setUrls(String urls) {
         this.urls = urls;
     }
 
+
+
     public Date getArrivaldate() {
         return arrivaldate;
     }
+
+
 
     public void setArrivaldate(Date arrivaldate) {
         this.arrivaldate = arrivaldate;
     }
 
+
+
     public Date getDeparturedate() {
         return departuredate;
     }
+
+
 
     public void setDeparturedate(Date departuredate) {
         this.departuredate = departuredate;
     }
 
+
+
     public String getAddress() {
         return address;
     }
+
+
 
     public void setAddress(String address) {
         this.address = address;
     }
 
-    public String getCoordinates() {
-        return coordinates;
+
+
+    public String getLat() {
+        return lat;
     }
 
-    public void setCoordinates(String coordinates) {
-        this.coordinates = coordinates;
+
+
+    public void setLat(String lat) {
+        this.lat = lat;
     }
+
+
+
+    public String getLng() {
+        return lng;
+    }
+
+
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
+
+
 
     public String getCountry() {
         return country;
     }
 
+
+
     public void setCountry(String country) {
         this.country = country;
     }
+
+
 
     public Integer getIsbooked() {
         return isbooked;
     }
 
+
+
     public void setIsbooked(Integer isbooked) {
         this.isbooked = isbooked;
     }
+
+
 
     public Date getFreecancellationdate() {
         return freecancellationdate;
     }
 
+
+
     public void setFreecancellationdate(Date freecancellationdate) {
         this.freecancellationdate = freecancellationdate;
     }
+
+
 
     public Integer getIsoptional() {
         return isoptional;
     }
 
+
+
     public void setIsoptional(Integer isoptional) {
         this.isoptional = isoptional;
     }
+
+
 
     @Override
     public int hashCode() {
@@ -224,6 +304,8 @@ public class Place implements Serializable {
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
+
+
 
     @Override
     public boolean equals(Object object) {
@@ -237,6 +319,8 @@ public class Place implements Serializable {
         }
         return true;
     }
+
+
 
     @Override
     public String toString() {
