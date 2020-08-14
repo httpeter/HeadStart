@@ -51,11 +51,18 @@
             <h:outputText value="#{placesController.selectedPlace.departuredate.date - placesController.selectedPlace.arrivaldate.date} days"/>
 
             <h:outputText value="Country" styleClass="headerText"/>
-            <p:inputText value="#{placesController.selectedPlace.country}"/>
+            <p:inputText value="#{placesController.selectedPlace.country}"/>            
 
             <h:outputText value="Address" styleClass="headerText"/>
             <p:inputTextarea value="#{placesController.selectedPlace.address}"/>
-                                        
+
+            <h:outputText value="Lattitude" styleClass="headerText"/>
+            <p:inputText value="#{placesController.selectedPlace.lat}"/>
+
+            <h:outputText value="Longitude" styleClass="headerText"/>
+            <p:inputText value="#{placesController.selectedPlace.lng}"/>
+
+
             <p:commandButton icon="fa fa-save"
                              value="Save"
                              action="#{placesController.saveSelectedPlace()}" 
@@ -73,22 +80,22 @@
         </p:panelGrid>                
 
     </p:dialog>
-    
-    
-    
+
+
+
     <p:dialog id="sureDLG" widgetVar="sureDLG">
-        
+
         <h:outputText value="Are you sure?"/>
-        
+
         <br/>
         <p:commandButton value="Yes"
                          action="#{placesController.deleteSelectedPlace()}"  
                          oncomplete="PF('sureDLG').hide();"
                          ajax="false"/>
-        
+
         <p:commandButton value="Cancel"
                          oncomplete="PF('sureDLG').hide();"/>
-        
+
     </p:dialog>
 
 </ui:composition>
