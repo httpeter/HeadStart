@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Place.findByName", query = "SELECT p FROM Place p WHERE p.name = :name"),
     @NamedQuery(name = "Place.findByRating", query = "SELECT p FROM Place p WHERE p.rating = :rating"),
     @NamedQuery(name = "Place.findByDescription", query = "SELECT p FROM Place p WHERE p.description = :description"),
-    @NamedQuery(name = "Place.findByUrls", query = "SELECT p FROM Place p WHERE p.urls = :urls"),
+    @NamedQuery(name = "Place.findByImgurls", query = "SELECT p FROM Place p WHERE p.imgurls = :imgurls"),
     @NamedQuery(name = "Place.findByArrivaldate", query = "SELECT p FROM Place p WHERE p.arrivaldate = :arrivaldate"),
     @NamedQuery(name = "Place.findByDeparturedate", query = "SELECT p FROM Place p WHERE p.departuredate = :departuredate"),
     @NamedQuery(name = "Place.findByAddress", query = "SELECT p FROM Place p WHERE p.address = :address"),
@@ -45,7 +45,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Place.findByCountry", query = "SELECT p FROM Place p WHERE p.country = :country"),
     @NamedQuery(name = "Place.findByIsbooked", query = "SELECT p FROM Place p WHERE p.isbooked = :isbooked"),
     @NamedQuery(name = "Place.findByFreecancellationdate", query = "SELECT p FROM Place p WHERE p.freecancellationdate = :freecancellationdate"),
-    @NamedQuery(name = "Place.findByIsoptional", query = "SELECT p FROM Place p WHERE p.isoptional = :isoptional")})
+    @NamedQuery(name = "Place.findByIsoptional", query = "SELECT p FROM Place p WHERE p.isoptional = :isoptional"),
+    @NamedQuery(name = "Place.findByPayedbyuserid", query = "SELECT p FROM Place p WHERE p.payedbyuserid = :payedbyuserid"),
+    @NamedQuery(name = "Place.findByUrls", query = "SELECT p FROM Place p WHERE p.urls = :urls"),
+    @NamedQuery(name = "Place.findByPrice", query = "SELECT p FROM Place p WHERE p.price = :price"),
+    @NamedQuery(name = "Place.findByIspayed", query = "SELECT p FROM Place p WHERE p.ispayed = :ispayed")})
 public class Place implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -65,12 +69,12 @@ public class Place implements Serializable {
     private String name;
     @Column(name = "RATING")
     private Integer rating;
-    @Size(max = 2500)
+    @Size(max = 500)
     @Column(name = "DESCRIPTION")
     private String description;
-    @Size(max = 1024)
-    @Column(name = "URLS")
-    private String urls;
+    @Size(max = 500)
+    @Column(name = "IMGURLS")
+    private String imgurls;
     @Column(name = "ARRIVALDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date arrivaldate;
@@ -89,13 +93,27 @@ public class Place implements Serializable {
     @Size(max = 45)
     @Column(name = "COUNTRY")
     private String country;
+    @Size(max = 45)
     @Column(name = "ISBOOKED")
-    private Integer isbooked;
+    private String isbooked;
     @Column(name = "FREECANCELLATIONDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date freecancellationdate;
+    @Size(max = 45)
     @Column(name = "ISOPTIONAL")
-    private Integer isoptional;
+    private String isoptional;
+    @Size(max = 45)
+    @Column(name = "PAYEDBYUSERID")
+    private String payedbyuserid;
+    @Size(max = 500)
+    @Column(name = "URLS")
+    private String urls;
+    @Size(max = 45)
+    @Column(name = "PRICE")
+    private String price;
+    @Size(max = 45)
+    @Column(name = "ISPAYED")
+    private String ispayed;
 
 
 
@@ -178,14 +196,14 @@ public class Place implements Serializable {
 
 
 
-    public String getUrls() {
-        return urls;
+    public String getImgurls() {
+        return imgurls;
     }
 
 
 
-    public void setUrls(String urls) {
-        this.urls = urls;
+    public void setImgurls(String imgurls) {
+        this.imgurls = imgurls;
     }
 
 
@@ -262,13 +280,13 @@ public class Place implements Serializable {
 
 
 
-    public Integer getIsbooked() {
+    public String getIsbooked() {
         return isbooked;
     }
 
 
 
-    public void setIsbooked(Integer isbooked) {
+    public void setIsbooked(String isbooked) {
         this.isbooked = isbooked;
     }
 
@@ -286,14 +304,62 @@ public class Place implements Serializable {
 
 
 
-    public Integer getIsoptional() {
+    public String getIsoptional() {
         return isoptional;
     }
 
 
 
-    public void setIsoptional(Integer isoptional) {
+    public void setIsoptional(String isoptional) {
         this.isoptional = isoptional;
+    }
+
+
+
+    public String getPayedbyuserid() {
+        return payedbyuserid;
+    }
+
+
+
+    public void setPayedbyuserid(String payedbyuserid) {
+        this.payedbyuserid = payedbyuserid;
+    }
+
+
+
+    public String getUrls() {
+        return urls;
+    }
+
+
+
+    public void setUrls(String urls) {
+        this.urls = urls;
+    }
+
+
+
+    public String getPrice() {
+        return price;
+    }
+
+
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+
+
+    public String getIspayed() {
+        return ispayed;
+    }
+
+
+
+    public void setIspayed(String ispayed) {
+        this.ispayed = ispayed;
     }
 
 

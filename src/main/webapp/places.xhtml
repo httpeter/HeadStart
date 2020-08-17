@@ -35,17 +35,24 @@
                 <p:panelGrid columns="2" 
                              layout="grid">
 
-                    <h:outputText value="Selected" styleClass="headerText"/>                    
-                    <p:selectOneMenu value="#{placesController.selectedTripID}" 
-                                     style="width:100%">
-                        <f:selectItem itemLabel="select..." rendered="#{placesController.selectedTripID==0}"/>
-                        <f:selectItems value="#{placesController.trips}" 
-                                       var="trip" 
-                                       itemValue="#{trip.id}" 
-                                       itemLabel="#{trip.name}"/>
-                        <p:ajax update="@form" 
-                                listener="#{placesController.loadPlaces()}"/>                                        
-                    </p:selectOneMenu>                    
+                    <p:panelGrid columns="2">
+                        <h:outputText value="Selected" styleClass="headerText"/>                    
+                        <p:selectOneMenu value="#{placesController.selectedTripID}" 
+                                         style="width:100%">
+                            <f:selectItem itemLabel="select..." rendered="#{placesController.selectedTripID==0}"/>
+                            <f:selectItems value="#{placesController.trips}" 
+                                           var="trip" 
+                                           itemValue="#{trip.id}" 
+                                           itemLabel="#{trip.name}"/>
+                            <p:ajax update="@form" 
+                                    listener="#{placesController.loadPlaces()}"/>                                        
+                        </p:selectOneMenu> 
+                    </p:panelGrid>
+                    <p:imageSwitch effect="shuffle">
+                        <ui:repeat value="#{placesController.gallery}" var="image">
+                            <p:graphicImage url="#{image}" width="150px" />
+                        </ui:repeat>
+                    </p:imageSwitch>
 
 
                     <h:outputText value="Description" 
@@ -81,12 +88,7 @@
                                          value="edit"/>   
 
                     </h:panelGrid>
-
-                    <p:imageSwitch effect="shuffle">
-                        <ui:repeat value="#{placesController.gallery}" var="image">
-                            <p:graphicImage url="#{image}" width="150"/>
-                        </ui:repeat>
-                    </p:imageSwitch>
+                    <h:outputText/>                                        
 
                 </p:panelGrid>                         
 
@@ -124,53 +126,6 @@
 
                 </p:panelGrid>                                    
 
-
-                <!--                <p:panelGrid columns="2" 
-                                             layout="grid"                                      
-                                             rendered="#{placesController.selectedPlace!=null}">
-                
-                                    <h:outputText value="Place details" styleClass="headerText"/>
-                                    <h:outputText/>
-                
-                                    <p:graphicImage url="#{placesController.selectedPlace.urls}"
-                                                    width="360"/>
-                
-                                    <p:commandButton icon="fa fa-gear"                                                  
-                                                     onclick="PF('placeEditDLG').show();"                                                  
-                                                     value="edit"/>
-                
-                                    <h:outputText value="Name" styleClass="headerText"/>
-                                    <h:outputText value="#{placesController.selectedPlace.name}"/>
-                
-                                    <h:outputText value="Rating" styleClass="headerText"/>
-                                    <p:rating value="#{placesController.selectedPlace.rating}"
-                                              readonly="true"/>
-                
-                
-                                    <h:outputText value="Description" styleClass="headerText"/>
-                                    <h:outputText value="#{placesController.selectedPlace.description}"/>                                                                                                     
-                
-                                    <h:outputText value="Arrival" styleClass="headerText"/>
-                                    <h:outputText value="#{placesController.selectedPlace.arrivaldate}">
-                                        <f:convertDateTime pattern="dd-MM-yyyy" timeZone="CET"/>
-                                    </h:outputText>
-                
-                
-                                    <h:outputText value="Departure" styleClass="headerText"/>
-                                    <h:outputText value="#{placesController.selectedPlace.departuredate}">
-                                        <f:convertDateTime pattern="dd-MM-yyyy" timeZone="CET"/>
-                                    </h:outputText>
-                
-                                    <h:outputText value="Total stay" styleClass="headerText"/>
-                                    <h:outputText value="#{placesController.selectedPlace.departuredate.date - placesController.selectedPlace.arrivaldate.date} days"/>
-                
-                                    <h:outputText value="Country" styleClass="headerText"/>
-                                    <h:outputText value="#{placesController.selectedPlace.country}"/>
-                
-                                    <h:outputText value="Address" styleClass="headerText"/>
-                                    <h:outputText value="#{placesController.selectedPlace.address}"/>
-                
-                                </p:panelGrid>-->
 
 
             </p:panel>
