@@ -35,23 +35,18 @@
                 <p:panelGrid columns="2" 
                              layout="grid">
 
-                    <h:outputText value="Selected" styleClass="headerText"/>
-                    <h:panelGrid columns="2">
-                        <p:selectOneMenu value="#{placesController.selectedTripID}" 
-                                         style="width:100%">
-                            <f:selectItem itemLabel="select..." rendered="#{placesController.selectedTripID==0}"/>
-                            <f:selectItems value="#{placesController.trips}" 
-                                           var="trip" 
-                                           itemValue="#{trip.id}" 
-                                           itemLabel="#{trip.name}"/>
-                            <p:ajax update="@form" 
-                                    listener="#{placesController.loadPlaces()}"/>                                        
-                        </p:selectOneMenu>
-                        <p:commandButton icon="fa fa-gear"                                                  
-                                         onclick="PF('tripEditDLG').show();" 
-                                         rendered="#{placesController.selectedTripID!=0}"
-                                         value="edit"/>                    
-                    </h:panelGrid>
+                    <h:outputText value="Selected" styleClass="headerText"/>                    
+                    <p:selectOneMenu value="#{placesController.selectedTripID}" 
+                                     style="width:100%">
+                        <f:selectItem itemLabel="select..." rendered="#{placesController.selectedTripID==0}"/>
+                        <f:selectItems value="#{placesController.trips}" 
+                                       var="trip" 
+                                       itemValue="#{trip.id}" 
+                                       itemLabel="#{trip.name}"/>
+                        <p:ajax update="@form" 
+                                listener="#{placesController.loadPlaces()}"/>                                        
+                    </p:selectOneMenu>                    
+
 
                     <h:outputText value="Description" 
                                   rendered="#{placesController.selectedTripID!=0}"
@@ -73,24 +68,44 @@
                                      disabled="true" 
                                      rendered="#{placesController.selectedTripID!=0}"/>   
 
+
+                    <h:panelGrid columns="1">
+                        <p:commandButton icon="fa fa-plus"
+                                         action="#{placesController.makeNewTrip()}"
+                                         oncomplete="PF('addTripDLG').show();"                                          
+                                         value="add"/>                    
+
+                        <p:commandButton icon="fa fa-gear"                                                  
+                                         onclick="PF('tripEditDLG').show();" 
+                                         rendered="#{placesController.selectedTripID!=0}"
+                                         value="edit"/>   
+
+                    </h:panelGrid>
+
+                    <p:imageSwitch effect="shuffle">
+                        <ui:repeat value="#{placesController.gallery}" var="image">
+                            <p:graphicImage url="#{image}" width="150"/>
+                        </ui:repeat>
+                    </p:imageSwitch>
+
                 </p:panelGrid>                         
 
                 <br/>                
-                 <p:timeline id="timeline" 
-                                value="#{placesController.timelineModel}">
+                <p:timeline id="timeline" 
+                            value="#{placesController.timelineModel}">
 
-                        <p:ajax event="select" 
-                                listener="#{placesController.selectTimeline}"
-                                update="@form"/>
+                    <p:ajax event="select" 
+                            listener="#{placesController.selectTimeline}"
+                            update="@form"/>
 
-                    </p:timeline>
+                </p:timeline>
                 <br/>
 
                 <p:panelGrid layout="grid" 
                              columns="1"
                              rendered="#{placesController.selectedTripID!=0}"> 
 
-                   
+
 
                     <p:gmap id="gmap" 
                             widgetVar="gmap" 

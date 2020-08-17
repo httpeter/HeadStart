@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+    <p:dialog header="Add Trip"
+              modal="true" 
+              widgetVar="addTripDLG"
+              width="80%"
+              blockScroll="true"
+              fitViewport="true"
+              closeOnEscape="true"
+              dynamic="true">
+
+        <p:panelGrid columns="2" layout="grid">
+
+            <h:outputText value="Name"/>
+            <p:inputText value="#{placesController.newTrip.name}"
+                         style="width:100%"/>
+
+            <h:outputText value="Description"/>
+            <p:inputTextarea value="#{placesController.newTrip.description}"
+                             style="width:100%"/>
+
+            <h:outputText value="Notes"/>
+            <p:inputTextarea value="#{placesController.newTrip.notes}"
+                             style="width:100%"/>
+
+            <p:commandButton icon="fa fa-save"
+                             value="Save"
+                             action="#{placesController.saveNewTrip()}" 
+                             oncomplete="PF('addTripDLG').hide();"
+                             update="@form"/>                    
+            
+            <p:commandButton icon="fa fa-ban" 
+                             value="Cancel"
+                             onclick="PF('addTripDLG').hide();"/>                    
+
+        </p:panelGrid>
+
+
+
+    </p:dialog>
+
+</ui:composition>
