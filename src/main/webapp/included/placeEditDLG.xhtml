@@ -12,7 +12,23 @@
               closeOnEscape="true"              
               responsive="true"
               dynamic="true"
-              fitViewport="true">                       
+              fitViewport="true">    
+
+        <p:gmap id="gmapDetail" 
+                widgetVar="gmapDetail" 
+                center="#{placesController.selectedPlace.lat}, #{placesController.selectedPlace.lng}" 
+                zoom="13" 
+                type="map" 
+                style="width:360px;height:400px"
+                model="#{placesController.mapModelDetail}">                             
+            <p:ajax event="pointSelect" listener="#{placesController.mapSelect}" update="@form" />
+        </p:gmap>
+
+        <br/>
+
+        <p:graphicImage url="#{placesController.selectedPlace.urls}"/>                                                                                                                              
+
+        <br/>
 
         <p:panelGrid columns="2" 
                      layout="grid"
@@ -22,16 +38,7 @@
             <p:inputText value="#{placesController.selectedPlace.name}"/>
 
             <h:outputText value="Rating" styleClass="headerText"/>
-            <p:rating value="#{placesController.selectedPlace.rating}" />
-
-
-            <h:outputText value="Image URL:" styleClass="headerText"/>
-            <p:inputText  value="#{placesController.selectedPlace.urls}"/>
-
-            <h:outputText value="Image:" styleClass="headerText"/>
-            <p:graphicImage url="#{placesController.selectedPlace.urls}"
-                            width="165"/>                                                                                                                              
-
+            <p:rating value="#{placesController.selectedPlace.rating}" />                       
 
             <h:outputText value="Description" styleClass="headerText"/>
             <p:inputTextarea value="#{placesController.selectedPlace.description}"/>                                                                                                     
@@ -61,6 +68,9 @@
 
             <h:outputText value="Longitude" styleClass="headerText"/>
             <p:inputText value="#{placesController.selectedPlace.lng}"/>
+
+            <h:outputText value="Image URL:" styleClass="headerText"/>
+            <p:inputText  value="#{placesController.selectedPlace.urls}"/>
 
 
             <p:commandButton icon="fa fa-save"

@@ -49,13 +49,25 @@ public class PlacesController implements Serializable {
 
     private Place newPlace;
 
-    private int tabIndex = 0;
-
     private MapModel mapModel;
+
+    private MapModel mapModelDetail;
 
 
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    public MapModel getMapModelDetail() {
+        return mapModelDetail;
+    }
+
+
+
+    public void setMapModelDetail(MapModel mapModelDetail) {
+        this.mapModelDetail = mapModelDetail;
+    }
+
+
+
     public MapModel getMapModel() {
         return mapModel;
     }
@@ -76,18 +88,6 @@ public class PlacesController implements Serializable {
 
     public void setNewPlace(Place newPlace) {
         this.newPlace = newPlace;
-    }
-
-
-
-    public int getTabIndex() {
-        return tabIndex;
-    }
-
-
-
-    public void setTabIndex(int tabIndex) {
-        this.tabIndex = tabIndex;
     }
 
 
@@ -239,8 +239,8 @@ public class PlacesController implements Serializable {
                 if (place.getLat() != null && place.getLng() != null) {
                     try {
                         LatLng coord = new LatLng(Double.parseDouble(place.getLat()),
-                                Double.parseDouble(place.getLng()));                        
-                        
+                                Double.parseDouble(place.getLng()));
+
                         mapModel.addOverlay(new Marker(coord, place.getName()));
                     } catch (NumberFormatException e) {
                         FMessage.info("Could not parse coordinates to the map "
@@ -341,15 +341,23 @@ public class PlacesController implements Serializable {
             }
         });
 
-        tabIndex = 1;
+        editPlace();
 
     }
 
 
 
     public void editPlace() {
+
+        mapModelDetail = new DefaultMapModel();
+
+        LatLng coord = new LatLng(Double.parseDouble(selectedPlace.getLat()),
+                Double.parseDouble(selectedPlace.getLng()));
+
+        mapModelDetail.addOverlay(new Marker(coord, selectedPlace.getName()));
+
         PrimeFaces current = PrimeFaces.current();
-        current.executeScript("PF('placesDLG').show();");
+        current.executeScript("PF('placeEditDLG').show();");
     }
 
 }

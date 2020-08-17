@@ -34,6 +34,7 @@
 
                 <p:panel id="loginPanel">              
                     <h:panelGrid columns="2">
+
                         <h:outputText value="username"/>
                         <p:inputText value="#{loginController.mail}"
                                      required="true"
@@ -43,7 +44,8 @@
                         <p:password value="#{loginController.pwd}" 
                                     required="true" 
                                     requiredMessage="Password Required"/>
-                        
+
+                        <p:spacer/>                        
                         <p:spacer/>                        
 
                         <h:outputText/>
