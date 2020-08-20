@@ -96,14 +96,13 @@
                     <h:outputText/> 
                     <h:panelGrid columns="1">
                         <p:commandButton icon="fa fa-plus"
-                                         action="#{placesController.makeNewTrip()}"
-                                         oncomplete="PF('addTripDLG').show();"                                          
-                                         value="add"/>                    
+                                         oncomplete="PF('addTripDLG').show();"
+                                         value="Add trip"/>                    
 
                         <p:commandButton icon="fa fa-gear"                                                  
                                          onclick="PF('tripEditDLG').show();" 
                                          rendered="#{placesController.selectedTripID!=0}"
-                                         value="edit"/>   
+                                         value="Edit trip"/>   
 
                     </h:panelGrid>                                                           
 

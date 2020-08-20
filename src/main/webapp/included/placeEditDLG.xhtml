@@ -21,12 +21,15 @@
                 type="map" 
                 style="width:420px;height:400px"
                 model="#{placesController.mapModelDetail}">                             
-            <p:ajax event="pointSelect" listener="#{placesController.mapSelect}" update="@form" />
+            <p:ajax event="pointSelect" 
+                    listener="#{placesController.mapSelect}" 
+                    update="@form" />
         </p:gmap>
 
         <br/>
 
-        <p:graphicImage url="#{placesController.selectedPlace.urls}" width="420px"/>                                                                                                                              
+        <p:graphicImage url="#{placesController.selectedPlace.imgurls}" 
+                        width="420px"/>                                                                                                                              
 
         <br/>
 
@@ -67,7 +70,6 @@
             <p:toggleSwitch value="#{placesController.selectedPlace.ispayed}" />
 
 
-
             <h:outputText value="Address" styleClass="headerText"/>
             <p:inputTextarea value="#{placesController.selectedPlace.address}"/>
 
@@ -81,6 +83,9 @@
             <p:inputText value="#{placesController.selectedPlace.lng}"/>
 
             <h:outputText value="Image URL:" styleClass="headerText"/>
+            <p:inputText  value="#{placesController.selectedPlace.imgurls}"/>
+            
+            <h:outputText value="Venue URL:" styleClass="headerText"/>
             <p:inputText  value="#{placesController.selectedPlace.urls}"/>
 
 

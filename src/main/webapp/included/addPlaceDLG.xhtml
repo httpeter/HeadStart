@@ -11,26 +11,18 @@
               widgetVar="addPlaceDLG"              
               closeOnEscape="true"              
               responsive="true"
-              dynamic="true">
+              dynamic="true"
+              fitViewport="true">
 
         <p:panelGrid columns="2" 
                      layout="grid" 
-                     style="min-width:400px; max-width: fit-content;max-height: fit-content">
+                     style="width:420px">
 
             <h:outputText value="Name" styleClass="headerText"/>
             <p:inputText value="#{placesController.newPlace.name}" required="true"/>
 
             <h:outputText value="Rating" styleClass="headerText"/>
-            <p:rating value="#{placesController.newPlace.rating}"/>
-
-
-            <h:outputText value="Image URL:" styleClass="headerText"/>
-            <p:inputText  value="#{placesController.newPlace.urls}"/>
-
-            <h:outputText value="Image:" styleClass="headerText"/>
-            <p:graphicImage url="#{placesController.newPlace.urls}"
-                            width="165"/>                                                                                                                              
-
+            <p:rating value="#{placesController.newPlace.rating}"/>          
 
             <h:outputText value="Description" styleClass="headerText"/>
             <p:inputTextarea value="#{placesController.newPlace.description}"/>                                                                                                     
@@ -40,23 +32,40 @@
                         pattern="dd-MM-yyyy" 
                         timeZone="CET" required="true"/>
 
-
             <h:outputText value="Departure" styleClass="headerText"/>
             <p:calendar value="#{placesController.newPlace.departuredate}" 
                         pattern="dd-MM-yyyy" 
                         timeZone="CET"/>                
 
-            <h:outputText value="Country" styleClass="headerText"/>
-            <p:inputText value="#{placesController.newPlace.country}"/>
+            <h:outputText value="Total price" styleClass="headerText"/>
+            <p:inputText value="#{placesController.selectedPlace.price}"/> 
+
+            <h:outputText value="Already booked" styleClass="headerText"/>
+            <p:toggleSwitch value="#{placesController.selectedPlace.isbooked}" />
+
+
+            <h:outputText value="Already payed" styleClass="headerText"/>
+            <p:toggleSwitch value="#{placesController.selectedPlace.ispayed}" />
+
 
             <h:outputText value="Address" styleClass="headerText"/>
             <p:inputTextarea value="#{placesController.newPlace.address}"/>
+
+            <h:outputText value="Country" styleClass="headerText"/>
+            <p:inputText value="#{placesController.newPlace.country}"/>
 
             <h:outputText value="Lattitude" styleClass="headerText"/>
             <p:inputText value="#{placesController.newPlace.lat}"/>
 
             <h:outputText value="Longitude" styleClass="headerText"/>
             <p:inputText value="#{placesController.newPlace.lng}"/>
+
+            <h:outputText value="Image URL:" styleClass="headerText"/>
+            <p:inputText  value="#{placesController.newPlace.imgurls}"/>
+
+            <h:outputText value="Venue URL:" styleClass="headerText"/>
+            <p:inputText  value="#{placesController.newPlace.urls}"/>
+
 
             <p:commandButton icon="fa fa-save"
                              value="Save"

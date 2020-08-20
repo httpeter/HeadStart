@@ -265,7 +265,6 @@ public class PlacesController implements Serializable {
         trips = session.getPlacesRepository()
                 .getResultList(Trip.class);
 
-        //selectedTrip = trips.get(0);
         selectedTrip = new Trip();
         selectedTrip.setId(0);
 
@@ -292,10 +291,6 @@ public class PlacesController implements Serializable {
 
                 if (place.getArrivaldate() != null || place.getDeparturedate() != null) {
 
-//                    model.add(TimelineEvent.<Booking>builder()
-//                .data(new Booking(211, RoomCategory.DELUXE, "(0034) 987-111", "One day booking"))
-//                .startDate(LocalDateTime.of(2019, Month.JANUARY, 2, 0, 0))
-//                .build());
                     //Filling the timeline model
                     timelineModel.add(TimelineEvent.<Place>builder()
                             .data(place)
@@ -421,12 +416,6 @@ public class PlacesController implements Serializable {
         newPlace.setName("");
         newPlace.setArrivaldate(new Date());
         newPlace.setTripid(selectedTrip.getId());
-    }
-
-
-
-    public void makeNewTrip() {
-        newTrip = new Trip();
     }
 
 
