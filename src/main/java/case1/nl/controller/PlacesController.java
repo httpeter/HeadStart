@@ -58,9 +58,35 @@ public class PlacesController implements Serializable {
 
     private MapModel mapModelDetail;
 
+    private int totalPrice, stillToPay;
+
 
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    public int getStillToPay() {
+        return stillToPay;
+    }
+
+
+
+    public void setStillToPay(int stillToPay) {
+        this.stillToPay = stillToPay;
+    }
+
+
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+
+
     public Trip getNewTrip() {
         return newTrip;
     }
@@ -168,6 +194,9 @@ public class PlacesController implements Serializable {
                 .filter(trip -> trip.getId() == id)
                 .findFirst()
                 .get();
+
+        totalPrice = 0;
+        stillToPay = 0;
     }
 
 
@@ -239,11 +268,16 @@ public class PlacesController implements Serializable {
         //selectedTrip = trips.get(0);
         selectedTrip = new Trip();
         selectedTrip.setId(0);
+
     }
 
 
 
     public void loadPlaces() {
+
+        totalPrice = 0;
+        stillToPay = 0;
+
         if (selectedTrip.getId() != null) {
             places = session.getPlacesRepository()
                     .getPlaces(selectedTrip.getId());
@@ -256,14 +290,29 @@ public class PlacesController implements Serializable {
 
             places.forEach(place -> {
 
-                //Filling the timeline model
-                timelineModel.add(TimelineEvent.<String>builder()
-                        .data(place.getName())
-                        .startDate(Instant.ofEpochMilli(place.getArrivaldate()
-                                .getTime())
-                                .atZone(ZoneId.systemDefault())
-                                .toLocalDate())
-                        .build());
+                if (place.getArrivaldate() != null || place.getDeparturedate() != null) {
+
+//                    model.add(TimelineEvent.<Booking>builder()
+//                .data(new Booking(211, RoomCategory.DELUXE, "(0034) 987-111", "One day booking"))
+//                .startDate(LocalDateTime.of(2019, Month.JANUARY, 2, 0, 0))
+//                .build());
+                    //Filling the timeline model
+                    timelineModel.add(TimelineEvent.<Place>builder()
+                            .data(place)
+                            .startDate(Instant.ofEpochMilli(place.getArrivaldate()
+                                    .getTime())
+                                    .atZone(ZoneId.systemDefault())
+                                    .toLocalDate())
+                            .endDate(Instant.ofEpochMilli(place.getDeparturedate()
+                                    .getTime())
+                                    .atZone(ZoneId.systemDefault())
+                                    .toLocalDate())
+                            .build());
+                } else {
+                    FMessage.warn("Could not load place '"
+                            + place.getName()
+                            + "' to timeline");
+                }
 
                 //Filling the map model
                 if (place.getLat() != null && place.getLng() != null) {
@@ -273,13 +322,24 @@ public class PlacesController implements Serializable {
 
                         mapModel.addOverlay(new Marker(coord, place.getName()));
                     } catch (NumberFormatException e) {
-                        FMessage.info("Could not parse coordinates to the map "
+                        FMessage.warn("Could not parse coordinates to the map "
                                 + e.getMessage());
                     }
                 }
 
                 //Filling the gallery images
                 gallery.add(place.getImgurls());
+
+                //Filling the total price and still to pay 
+                String price = place.getPrice();
+                if (price != null && place.getIspayed() != null) {
+                    totalPrice += Integer.parseInt(price);
+                    if (!place.getIspayed().equals("true")) {
+                        stillToPay += Integer.parseInt(price);
+                    }
+                } else {
+                    FMessage.warn("Prices cannot be calculated correctly, please enter prices");
+                }
 
             });
 
@@ -394,15 +454,9 @@ public class PlacesController implements Serializable {
 
 
 
-    public void selectTimeline(TimelineSelectEvent<String> e) {
+    public void selectTimeline(TimelineSelectEvent<Place> e) {
 
-        TimelineEvent<String> timelineEvent = e.getTimelineEvent();
-
-        places.forEach(place -> {
-            if (place.getName().equals(timelineEvent.getData())) {
-                selectedPlace = place;
-            }
-        });
+        selectedPlace = (Place) e.getTimelineEvent().getData();
 
         editPlace();
 

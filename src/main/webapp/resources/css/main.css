@@ -1,7 +1,14 @@
 
+
+/*Timeline style*/
+div.vis-item-overflow{        
+    background-color: khaki;
+}
+
+
 .headerText
 {
- font-size: larger;    
+    font-size: larger;    
 }
 
 .ui-datatable .ui-column-filter {

@@ -19,20 +19,20 @@
                 center="#{placesController.selectedPlace.lat}, #{placesController.selectedPlace.lng}" 
                 zoom="13" 
                 type="map" 
-                style="width:360px;height:400px"
+                style="width:420px;height:400px"
                 model="#{placesController.mapModelDetail}">                             
             <p:ajax event="pointSelect" listener="#{placesController.mapSelect}" update="@form" />
         </p:gmap>
 
         <br/>
 
-        <p:graphicImage url="#{placesController.selectedPlace.urls}" width="400px"/>                                                                                                                              
+        <p:graphicImage url="#{placesController.selectedPlace.urls}" width="420px"/>                                                                                                                              
 
         <br/>
 
         <p:panelGrid columns="2" 
                      layout="grid"
-                     style="width:400px">
+                     style="width:420px">
 
             <h:outputText value="Name" styleClass="headerText"/>
             <p:inputText value="#{placesController.selectedPlace.name}"/>
@@ -56,7 +56,7 @@
             <h:outputText value="Total stay" styleClass="headerText"/>
             <h:outputText value="#{placesController.selectedPlace.departuredate.date - placesController.selectedPlace.arrivaldate.date} days"/>                                               
 
-            <h:outputText value="Price" styleClass="headerText"/>
+            <h:outputText value="Total price" styleClass="headerText"/>
             <p:inputText value="#{placesController.selectedPlace.price}"/>            
 
             <h:outputText value="Already booked" styleClass="headerText"/>
@@ -104,7 +104,9 @@
 
 
 
-    <p:dialog id="sureDLG" widgetVar="sureDLG">
+    <p:dialog id="sureDLG" 
+              widgetVar="sureDLG"
+              modal="true">
 
         <h:outputText value="Are you sure?"/>
 
