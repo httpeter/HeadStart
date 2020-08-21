@@ -9,6 +9,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -42,17 +43,17 @@ public class PlacesController implements Serializable {
 
     private List<String> gallery;
 
-    private Trip selectedTrip;
+    private Trip selectedTrip = new Trip();
 
-    private Trip newTrip;
+    private Trip newTrip = new Trip();
 
     private int selectedTripDuration;
 
     private List<Place> places;
 
-    private Place selectedPlace;
+    private Place selectedPlace = new Place();
 
-    private Place newPlace;
+    private Place newPlace = new Place();
 
     private MapModel mapModel;
 
@@ -276,6 +277,7 @@ public class PlacesController implements Serializable {
 
         totalPrice = 0;
         stillToPay = 0;
+        selectedTripDuration = 0;
 
         if (selectedTrip.getId() != null) {
             places = session.getPlacesRepository()
@@ -336,13 +338,18 @@ public class PlacesController implements Serializable {
                     FMessage.warn("Prices cannot be calculated correctly, please enter prices");
                 }
 
+                //Calculating total duration
+                try {
+                    long duration = place.getDeparturedate().getTime() - place.getArrivaldate().getTime();
+                    selectedTripDuration += TimeUnit.MILLISECONDS.toDays(duration);
+                } catch (Exception e) {
+                    FMessage.warn("Clould not calculate total stay");
+                }
+
             });
 
-            PrimeFaces.current().executeScript("initialize");
-
-//            selectedTripDuration = places.get(places.size()).getDeparturedate().
         } else {
-            FMessage.warn("No tip found!");
+            FMessage.warn("No trip found!");
         }
     }
 
