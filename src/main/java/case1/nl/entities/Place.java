@@ -5,6 +5,7 @@
  */
 package case1.nl.entities;
 
+import case1.nl.util.FMessage;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -43,14 +44,17 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Place.findByLat", query = "SELECT p FROM Place p WHERE p.lat = :lat"),
     @NamedQuery(name = "Place.findByLng", query = "SELECT p FROM Place p WHERE p.lng = :lng"),
     @NamedQuery(name = "Place.findByCountry", query = "SELECT p FROM Place p WHERE p.country = :country"),
-    @NamedQuery(name = "Place.findByIsbooked", query = "SELECT p FROM Place p WHERE p.isbooked = :isbooked"),
+    @NamedQuery(name = "Place.findByBooked", query = "SELECT p FROM Place p WHERE p.booked = :booked"),
     @NamedQuery(name = "Place.findByFreecancellationdate", query = "SELECT p FROM Place p WHERE p.freecancellationdate = :freecancellationdate"),
-    @NamedQuery(name = "Place.findByIsoptional", query = "SELECT p FROM Place p WHERE p.isoptional = :isoptional"),
+    @NamedQuery(name = "Place.findByOptional", query = "SELECT p FROM Place p WHERE p.optional = :optional"),
     @NamedQuery(name = "Place.findByPayedbyuserid", query = "SELECT p FROM Place p WHERE p.payedbyuserid = :payedbyuserid"),
     @NamedQuery(name = "Place.findByUrls", query = "SELECT p FROM Place p WHERE p.urls = :urls"),
     @NamedQuery(name = "Place.findByPrice", query = "SELECT p FROM Place p WHERE p.price = :price"),
-    @NamedQuery(name = "Place.findByIspayed", query = "SELECT p FROM Place p WHERE p.ispayed = :ispayed")})
+    @NamedQuery(name = "Place.findByPayed", query = "SELECT p FROM Place p WHERE p.payed = :payed")})
 public class Place implements Serializable {
+
+    @Column(name = "BOOKED")
+    private Boolean booked;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -93,15 +97,11 @@ public class Place implements Serializable {
     @Size(max = 45)
     @Column(name = "COUNTRY")
     private String country;
-    @Size(max = 45)
-    @Column(name = "ISBOOKED")
-    private String isbooked;
     @Column(name = "FREECANCELLATIONDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date freecancellationdate;
-    @Size(max = 45)
-    @Column(name = "ISOPTIONAL")
-    private String isoptional;
+    @Column(name = "OPTIONAL")
+    private Boolean optional;
     @Size(max = 45)
     @Column(name = "PAYEDBYUSERID")
     private String payedbyuserid;
@@ -111,9 +111,8 @@ public class Place implements Serializable {
     @Size(max = 45)
     @Column(name = "PRICE")
     private String price;
-    @Size(max = 45)
-    @Column(name = "ISPAYED")
-    private String ispayed;
+    @Column(name = "PAYED")
+    private Boolean payed;
 
 
 
@@ -280,15 +279,6 @@ public class Place implements Serializable {
 
 
 
-    public String getIsbooked() {
-        return isbooked;
-    }
-
-
-
-    public void setIsbooked(String isbooked) {
-        this.isbooked = isbooked;
-    }
 
 
 
@@ -304,14 +294,14 @@ public class Place implements Serializable {
 
 
 
-    public String getIsoptional() {
-        return isoptional;
+    public Boolean getOptional() {
+        return optional;
     }
 
 
 
-    public void setIsoptional(String isoptional) {
-        this.isoptional = isoptional;
+    public void setOptional(Boolean optional) {
+        this.optional = optional;
     }
 
 
@@ -352,14 +342,14 @@ public class Place implements Serializable {
 
 
 
-    public String getIspayed() {
-        return ispayed;
+    public Boolean getPayed() {
+        return payed;
     }
 
 
 
-    public void setIspayed(String ispayed) {
-        this.ispayed = ispayed;
+    public void setPayed(Boolean payed) {
+        this.payed = payed;
     }
 
 
@@ -391,6 +381,19 @@ public class Place implements Serializable {
     @Override
     public String toString() {
         return "case1.nl.entities.Place[ id=" + id + " ]";
+    }
+
+
+
+    public Boolean getBooked() {
+        return booked;
+    }
+
+
+
+    public void setBooked(Boolean booked) {
+        FMessage.info("Status of booked: " +booked);
+        this.booked = booked;
     }
     
 }

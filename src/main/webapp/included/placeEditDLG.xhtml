@@ -1,7 +1,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://primefaces.org/ui"
+                xmlns:p="http://primefaces.org/ui"                
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 
@@ -10,20 +10,18 @@
               modal="true"
               widgetVar="placeEditDLG"              
               closeOnEscape="true"              
-              responsive="true"
-              dynamic="true"
-              fitViewport="true">    
+              responsive="true"              
+              fitViewport="true"
+              dynamic="true">    
 
         <p:gmap id="gmapDetail" 
                 widgetVar="gmapDetail" 
-                center="#{placesController.selectedPlace.lat}, #{placesController.selectedPlace.lng}" 
+                center="#{placesController.selectedPlace.lat}, 
+                #{placesController.selectedPlace.lng}" 
                 zoom="13" 
                 type="map" 
                 style="width:420px;height:400px"
                 model="#{placesController.mapModelDetail}">                             
-            <p:ajax event="pointSelect" 
-                    listener="#{placesController.mapSelect}" 
-                    update="@form" />
         </p:gmap>
 
         <br/>
@@ -62,13 +60,12 @@
             <h:outputText value="Total price" styleClass="headerText"/>
             <p:inputText value="#{placesController.selectedPlace.price}"/>            
 
+
             <h:outputText value="Already booked" styleClass="headerText"/>
-            <p:toggleSwitch value="#{placesController.selectedPlace.isbooked}" />
-                
+            <p:selectBooleanCheckbox value="#{placesController.selectedPlace.booked}"/>           
 
             <h:outputText value="Already payed" styleClass="headerText"/>
-            <p:toggleSwitch value="#{placesController.selectedPlace.ispayed}" />
-
+            <p:selectBooleanCheckbox value="#{placesController.selectedPlace.payed}"/>          
 
             <h:outputText value="Address" styleClass="headerText"/>
             <p:inputTextarea value="#{placesController.selectedPlace.address}"/>
@@ -84,7 +81,7 @@
 
             <h:outputText value="Image URL:" styleClass="headerText"/>
             <p:inputText  value="#{placesController.selectedPlace.imgurls}"/>
-            
+
             <h:outputText value="Venue URL:" styleClass="headerText"/>
             <p:inputText  value="#{placesController.selectedPlace.urls}"/>
 
@@ -94,6 +91,7 @@
                              action="#{placesController.saveSelectedPlace()}" 
                              oncomplete="PF('placeEditDLG').hide();"
                              update="@form"/>                                
+
             <p:commandButton icon="fa fa-ban" 
                              value="Cancel"
                              onclick="PF('placeEditDLG').hide();"/>  
@@ -101,7 +99,7 @@
             <h:outputText/>
             <p:commandButton icon="fa fa-delete"
                              value="Delete"
-                             onclick="PF('sureDLG').show();"/> 
+                             onclick="PF('sureDLG').hide();"/> 
 
         </p:panelGrid>                
 
