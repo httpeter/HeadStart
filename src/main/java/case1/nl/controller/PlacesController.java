@@ -275,6 +275,7 @@ public class PlacesController implements Serializable {
 
     public void loadPlaces() {
 
+        newPlace = new Place();
         totalPrice = 0;
         stillToPay = 0;
         selectedTripDuration = 0;
