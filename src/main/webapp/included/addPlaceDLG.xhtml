@@ -38,15 +38,14 @@
                         timeZone="CET"/>                
 
             <h:outputText value="Total price" styleClass="headerText"/>
-            <p:inputText value="#{placesController.selectedPlace.price}"/> 
+            <p:inputText value="#{placesController.newPlace.price}"/> 
 
             <h:outputText value="Already booked" styleClass="headerText"/>
-            <p:toggleSwitch value="#{placesController.selectedPlace.booked}" />
+            <p:selectBooleanCheckbox value="#{placesController.newPlace.booked}" />
 
 
             <h:outputText value="Already payed" styleClass="headerText"/>
-            <p:toggleSwitch value="#{placesController.selectedPlace.payed}" />
-
+            <p:selectBooleanCheckbox value="#{placesController.newPlace.payed}"/>
 
             <h:outputText value="Address" styleClass="headerText"/>
             <p:inputTextarea value="#{placesController.newPlace.address}"/>

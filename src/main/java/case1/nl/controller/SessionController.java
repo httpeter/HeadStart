@@ -127,15 +127,12 @@ public class SessionController implements Serializable {
 
 
     public String getRedirectToLogin() {
-        try {
-            if (currentUser.getFirstname() == null) {
-                FacesContext.getCurrentInstance()
-                        .getApplication()
-                        .getNavigationHandler()
-                        .handleNavigation(FacesContext.getCurrentInstance(), null, "login.htm");
-            }
-        } catch (Exception e) {
-            System.out.println("SESSION EXPIRED, REDIRECTING TO LOGIN...");
+
+        if (currentUser.getFirstname() == null) {
+            FacesContext.getCurrentInstance()
+                    .getApplication()
+                    .getNavigationHandler()
+                    .handleNavigation(FacesContext.getCurrentInstance(), null, "login.htm");
         }
 
         return null;

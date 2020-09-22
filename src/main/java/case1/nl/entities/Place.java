@@ -31,11 +31,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Place.findAll", query = "SELECT p FROM Place p"),
-    @NamedQuery(name = "Place.findByBanaan", query = "SELECT p FROM Place p WHERE p.banaan = :banaan"),
-    @NamedQuery(name = "Place.findByCow", query = "SELECT p FROM Place p WHERE p.cow = :cow"),
     @NamedQuery(name = "Place.findById", query = "SELECT p FROM Place p WHERE p.id = :id"),
     @NamedQuery(name = "Place.findByTripid", query = "SELECT p FROM Place p WHERE p.tripid = :tripid"),
     @NamedQuery(name = "Place.findByName", query = "SELECT p FROM Place p WHERE p.name = :name"),
+    @NamedQuery(name = "Place.findByBooked", query = "SELECT p FROM Place p WHERE p.booked = :booked"),
+    @NamedQuery(name = "Place.findByPayed", query = "SELECT p FROM Place p WHERE p.payed = :payed"),
     @NamedQuery(name = "Place.findByRating", query = "SELECT p FROM Place p WHERE p.rating = :rating"),
     @NamedQuery(name = "Place.findByDescription", query = "SELECT p FROM Place p WHERE p.description = :description"),
     @NamedQuery(name = "Place.findByImgurls", query = "SELECT p FROM Place p WHERE p.imgurls = :imgurls"),
@@ -45,23 +45,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Place.findByLat", query = "SELECT p FROM Place p WHERE p.lat = :lat"),
     @NamedQuery(name = "Place.findByLng", query = "SELECT p FROM Place p WHERE p.lng = :lng"),
     @NamedQuery(name = "Place.findByCountry", query = "SELECT p FROM Place p WHERE p.country = :country"),
-    @NamedQuery(name = "Place.findByBooked", query = "SELECT p FROM Place p WHERE p.booked = :booked"),
     @NamedQuery(name = "Place.findByFreecancellationdate", query = "SELECT p FROM Place p WHERE p.freecancellationdate = :freecancellationdate"),
     @NamedQuery(name = "Place.findByOptional", query = "SELECT p FROM Place p WHERE p.optional = :optional"),
     @NamedQuery(name = "Place.findByPayedbyuserid", query = "SELECT p FROM Place p WHERE p.payedbyuserid = :payedbyuserid"),
     @NamedQuery(name = "Place.findByUrls", query = "SELECT p FROM Place p WHERE p.urls = :urls"),
-    @NamedQuery(name = "Place.findByPrice", query = "SELECT p FROM Place p WHERE p.price = :price"),
-    @NamedQuery(name = "Place.findByPayed", query = "SELECT p FROM Place p WHERE p.payed = :payed")})
+    @NamedQuery(name = "Place.findByPrice", query = "SELECT p FROM Place p WHERE p.price = :price")})
 public class Place implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Size(max = 45)
-    @Column(name = "BANAAN")
-    private String banaan;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "COW")
-    private boolean cow;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -76,6 +67,14 @@ public class Place implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "NAME")
     private String name;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "BOOKED")
+    private boolean booked;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "PAYED")
+    private boolean payed;
     @Column(name = "RATING")
     private Integer rating;
     @Size(max = 500)
@@ -102,9 +101,6 @@ public class Place implements Serializable {
     @Size(max = 45)
     @Column(name = "COUNTRY")
     private String country;
-    @Size(max = 45)
-    @Column(name = "BOOKED")
-    private String booked;
     @Column(name = "FREECANCELLATIONDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date freecancellationdate;
@@ -120,9 +116,6 @@ public class Place implements Serializable {
     @Size(max = 45)
     @Column(name = "PRICE")
     private String price;
-    @Size(max = 45)
-    @Column(name = "PAYED")
-    private String payed;
 
 
 
@@ -137,35 +130,12 @@ public class Place implements Serializable {
 
 
 
-    public Place(Integer id, boolean cow, int tripid, String name) {
+    public Place(Integer id, int tripid, String name, boolean booked, boolean payed) {
         this.id = id;
-        this.cow = cow;
         this.tripid = tripid;
         this.name = name;
-    }
-
-
-
-    public String getBanaan() {
-        return banaan;
-    }
-
-
-
-    public void setBanaan(String banaan) {
-        this.banaan = banaan;
-    }
-
-
-
-    public boolean getCow() {
-        return cow;
-    }
-
-
-
-    public void setCow(boolean cow) {
-        this.cow = cow;
+        this.booked = booked;
+        this.payed = payed;
     }
 
 
@@ -202,6 +172,30 @@ public class Place implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+
+    public boolean getBooked() {
+        return booked;
+    }
+
+
+
+    public void setBooked(boolean booked) {
+        this.booked = booked;
+    }
+
+
+
+    public boolean getPayed() {
+        return payed;
+    }
+
+
+
+    public void setPayed(boolean payed) {
+        this.payed = payed;
     }
 
 
@@ -314,18 +308,6 @@ public class Place implements Serializable {
 
 
 
-    public String getBooked() {
-        return booked;
-    }
-
-
-
-    public void setBooked(String booked) {
-        this.booked = booked;
-    }
-
-
-
     public Date getFreecancellationdate() {
         return freecancellationdate;
     }
@@ -382,18 +364,6 @@ public class Place implements Serializable {
 
     public void setPrice(String price) {
         this.price = price;
-    }
-
-
-
-    public String getPayed() {
-        return payed;
-    }
-
-
-
-    public void setPayed(String payed) {
-        this.payed = payed;
     }
 
 

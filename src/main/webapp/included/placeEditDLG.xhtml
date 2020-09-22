@@ -13,10 +13,8 @@
               responsive="true"              
               fitViewport="true"
               dynamic="true">
-        
-        <!--TESTING123-->
-        <p:inputText value="#{placesController.selectedPlace.banaan}"/>
-        <p:selectBooleanCheckbox value="#{placesController.selectedPlace.cow}"/>
+
+
 
         <p:gmap id="gmapDetail" 
                 widgetVar="gmapDetail" 
@@ -45,6 +43,12 @@
             <h:outputText value="Rating" styleClass="headerText"/>
             <p:rating value="#{placesController.selectedPlace.rating}" />                       
 
+            <h:outputText value="Already payed" styleClass="headerText"/>
+            <p:selectBooleanCheckbox value="#{placesController.selectedPlace.payed}"/>
+
+            <h:outputText value="Booked" styleClass="headerText"/>
+            <p:selectBooleanCheckbox value="#{placesController.selectedPlace.booked}"/> 
+
             <h:outputText value="Description" styleClass="headerText"/>
             <p:inputTextarea value="#{placesController.selectedPlace.description}"/>                                                                                                     
 
@@ -62,14 +66,7 @@
             <h:outputText value="#{placesController.selectedPlace.departuredate.date - placesController.selectedPlace.arrivaldate.date} days"/>                                               
 
             <h:outputText value="Total price" styleClass="headerText"/>
-            <p:inputText value="#{placesController.selectedPlace.price}"/>            
-
-
-<!--            <h:outputText value="Already booked" styleClass="headerText"/>
-            <p:inputText value="#{placesController.selectedPlace.booked}"/>           
-
-            <h:outputText value="Already payed" styleClass="headerText"/>
-            <p:inputText value="#{placesController.selectedPlace.payed}"/>          -->
+            <p:inputText value="#{placesController.selectedPlace.price}"/>                                 
 
             <h:outputText value="Address" styleClass="headerText"/>
             <p:inputTextarea value="#{placesController.selectedPlace.address}"/>

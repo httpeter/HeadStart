@@ -332,7 +332,7 @@ public class PlacesController implements Serializable {
                     String price = place.getPrice();
                     if (price != null) {
                         totalPrice += Integer.parseInt(price);
-                        if (place.getPayed().equals("false")) {
+                        if (!place.getPayed()) {
                             stillToPay += Integer.parseInt(price);
                         }
                     } else {
@@ -376,8 +376,6 @@ public class PlacesController implements Serializable {
     public void saveSelectedPlace() {
 
         if (selectedPlace != null) {
-
-            FMessage.info(selectedPlace.getPayed());
 
             session.getPlacesRepository()
                     .merged(selectedPlace);
@@ -426,8 +424,12 @@ public class PlacesController implements Serializable {
     public void makeNewPlace() {
         newPlace = new Place();
         newPlace.setName("");
+        newPlace.setBooked(false);
+        newPlace.setPayed(false);
         newPlace.setArrivaldate(new Date());
         newPlace.setTripid(selectedTrip.getId());
+
+        PrimeFaces.current().executeScript("PF('addPlaceDLG').show();");
     }
 
 
