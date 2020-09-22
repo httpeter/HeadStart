@@ -214,7 +214,7 @@ public class PlacesController implements Serializable {
 
 
 
-    public void setSelectedPlace(Place selectedPlace) {                
+    public void setSelectedPlace(Place selectedPlace) {
         this.selectedPlace = selectedPlace;
     }
 
@@ -327,24 +327,23 @@ public class PlacesController implements Serializable {
 
                 //Filling the gallery images
                 gallery.add(place.getImgurls());
-
-                //Filling the total price and still to pay 
-                String price = place.getPrice();
-                if (price != null && place.getPayed() != null) {
-                    totalPrice += Integer.parseInt(price);
-                    if (!place.getPayed()) {
-                        stillToPay += Integer.parseInt(price);
-                    }
-                } else {
-                    FMessage.warn("Prices cannot be calculated correctly, please enter prices");
-                }
-
-                //Calculating total duration
                 try {
+                    //Filling the total price and still to pay 
+                    String price = place.getPrice();
+                    if (price != null) {
+                        totalPrice += Integer.parseInt(price);
+                        if (place.getPayed().equals("false")) {
+                            stillToPay += Integer.parseInt(price);
+                        }
+                    } else {
+                        FMessage.warn("Prices cannot be calculated correctly, please enter prices");
+                    }
+
+                    //Calculating total duration
                     long duration = place.getDeparturedate().getTime() - place.getArrivaldate().getTime();
                     selectedTripDuration += TimeUnit.MILLISECONDS.toDays(duration);
                 } catch (Exception e) {
-                    FMessage.warn("Clould not calculate total stay");
+                    FMessage.warn(e.getMessage());
                 }
 
             });
@@ -377,14 +376,8 @@ public class PlacesController implements Serializable {
     public void saveSelectedPlace() {
 
         if (selectedPlace != null) {
-            
-            //BUG! Need to figure out why
-            //FMessage.info("Payed: "+selectedPlace.getPayed());
-            
-            //selectedPlace.setPayed(boolSwitch(selectedPlace.getPayed()));
-            
-           // FMessage.info("Booked: "+selectedPlace.getBooked());
-            //selectedPlace.setBooked(boolSwitch(selectedPlace.getBooked()));
+
+            FMessage.info(selectedPlace.getPayed());
 
             session.getPlacesRepository()
                     .merged(selectedPlace);
@@ -463,7 +456,7 @@ public class PlacesController implements Serializable {
 
 
 
-    public void selectTimeline(TimelineSelectEvent<Place> e) {
+    public void timelineSelect(TimelineSelectEvent<Place> e) {
 
         selectedPlace = (Place) e.getTimelineEvent().getData();
 
@@ -482,23 +475,7 @@ public class PlacesController implements Serializable {
 
         mapModelDetail.addOverlay(new Marker(coord, selectedPlace.getName()));
 
-        PrimeFaces current = PrimeFaces.current();
-        current.executeScript("PF('placeEditDLG').show();");
-    }
-
-
-
-    private boolean boolSwitch(boolean b) {
-        if(b)
-        {
-            b = false;            
-        }
-        if(!b)
-        {
-            b = true;
-        }
-        FMessage.info("B set to: " +b);
-        return b;
+        PrimeFaces.current().executeScript("PF('placeEditDLG').show();");
     }
 
 }

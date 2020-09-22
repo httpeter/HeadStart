@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"      
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:pe="http://primefaces.org/ui/extensions" 
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
 
     <h:head>               
         <ui:include src="included/head.xhtml"/>
@@ -17,7 +17,10 @@
 
         <h:form id="mainForm">
 
-
+            <!--testing123-->
+            <p:inputText value="#{placesController.selectedPlace.banaan}"/>
+            <p:selectBooleanCheckbox value="#{placesController.selectedPlace.cow}"/>
+            
             <!--MAIN MENU-->
             <ui:include src="included/menu.xhtml"/>            
 
@@ -130,32 +133,33 @@
 
 
                 <!--Timeline-->
-                <p:outputPanel rendered="#{placesController.selectedTrip.id!=0}">
 
-                    <p:timeline id="timeline" 
-                                value="#{placesController.timelineModel}"
-                                var="place">
 
-                        <h:outputText value="#{place.name}" style="font-weight: bold"/>
-                        <br/>
-                        <h:outputText value="#{place.country}"/>
-                        <br/>
-                        <h:outputText value="#{place.departuredate.date - place.arrivaldate.date} days"/>
-                        <br/>
-                        <h:panelGrid columns="2">
-                            <h:outputText value="Booked"/>
-                            <p:selectBooleanCheckbox value="#{place.booked}" disabled="true"/>                                                
-                            <h:outputText value="Payed"/>
-                            <p:selectBooleanCheckbox value="#{place.payed}" disabled="true"/>                        
-                        </h:panelGrid>
+                <p:timeline id="timeline" 
+                            value="#{placesController.timelineModel}"
+                            var="timelinePlace">
 
-                        <p:ajax event="select" 
-                                listener="#{placesController.selectTimeline}"
-                                update="@form"/>
+                    <h:outputText value="#{timelinePlace.name}" style="font-weight: bold"/>
+                    <br/>
+                    <h:outputText value="#{timelinePlace.country}"/>
+                    <br/>
+                    <h:outputText value="#{timelinePlace.departuredate.date - timelinePlace.arrivaldate.date} days"/>
+                    <br/>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Booked"/>
+                        <h:outputText value="#{timelinePlace.booked}"/>                                                
+                        <h:outputText value="Payed"/>
+                        <h:outputText value="#{timelinePlace.payed}"/> 
+                        <p:selectBooleanCheckbox value="#{timelinePlace.cow}" disabled="true"/>
+                        <h:outputText value="#{timelinePlace.cow}"/>
+                    </h:panelGrid>
 
-                    </p:timeline>
+                    <p:ajax event="select" 
+                            listener="#{placesController.timelineSelect}"/>
 
-                </p:outputPanel>
+                </p:timeline>
+
+
 
 
 

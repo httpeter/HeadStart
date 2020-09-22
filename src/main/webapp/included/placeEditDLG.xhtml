@@ -12,7 +12,11 @@
               closeOnEscape="true"              
               responsive="true"              
               fitViewport="true"
-              dynamic="true">    
+              dynamic="true">
+        
+        <!--TESTING123-->
+        <p:inputText value="#{placesController.selectedPlace.banaan}"/>
+        <p:selectBooleanCheckbox value="#{placesController.selectedPlace.cow}"/>
 
         <p:gmap id="gmapDetail" 
                 widgetVar="gmapDetail" 
@@ -61,11 +65,11 @@
             <p:inputText value="#{placesController.selectedPlace.price}"/>            
 
 
-            <h:outputText value="Already booked" styleClass="headerText"/>
-            <p:selectBooleanCheckbox value="#{placesController.selectedPlace.booked}"/>           
+<!--            <h:outputText value="Already booked" styleClass="headerText"/>
+            <p:inputText value="#{placesController.selectedPlace.booked}"/>           
 
             <h:outputText value="Already payed" styleClass="headerText"/>
-            <p:selectBooleanCheckbox value="#{placesController.selectedPlace.payed}"/>          
+            <p:inputText value="#{placesController.selectedPlace.payed}"/>          -->
 
             <h:outputText value="Address" styleClass="headerText"/>
             <p:inputTextarea value="#{placesController.selectedPlace.address}"/>
