@@ -51,9 +51,10 @@ public class PlacesController implements Serializable {
 
     private List<Place> places;
 
-    private Place selectedPlace;
+    private Place selectedPlace = new Place();
 
-    private Place newPlace;
+    //New instance required
+    private Place newPlace = new Place();
 
     private MapModel mapModel;
 
@@ -290,10 +291,11 @@ public class PlacesController implements Serializable {
 
             gallery = new ArrayList(places.size());
 
-            places.forEach(place -> {
+            places.forEach((place) -> {
 
-                if (place.getArrivaldate() != null
-                        || place.getDeparturedate() != null) {
+                if (place != null
+                        && place.getArrivaldate() != null
+                        && place.getDeparturedate() != null) {
 
                     //Filling the timeline model
                     timelineModel.add(TimelineEvent.<Place>builder()
@@ -308,9 +310,8 @@ public class PlacesController implements Serializable {
                                     .toLocalDate())
                             .build());
                 } else {
-                    FMessage.warn("Could not load place '"
-                            + place.getName()
-                            + "' to timeline");
+                    FMessage.fatal("A PLACE COULD NOT BE LOADED!");
+                    return;
                 }
 
                 //Filling the map model
@@ -337,11 +338,13 @@ public class PlacesController implements Serializable {
                             stillToPay += Integer.parseInt(price);
                         }
                     } else {
-                        FMessage.warn("Prices cannot be calculated correctly, please enter prices");
+                        FMessage.warn("Prices cannot be calculated correctly, "
+                                + "please enter prices");
                     }
 
                     //Calculating total duration
-                    long duration = place.getDeparturedate().getTime() - place.getArrivaldate().getTime();
+                    long duration = place.getDeparturedate().getTime()
+                            - place.getArrivaldate().getTime();
                     selectedTripDuration += TimeUnit.MILLISECONDS.toDays(duration);
                 } catch (Exception e) {
                     FMessage.warn(e.getMessage());
@@ -400,6 +403,7 @@ public class PlacesController implements Serializable {
             FMessage.info("Place '"
                     + selectedPlace.getName()
                     + "' deleted");
+            this.loadPlaces();
         } else {
             FMessage.error("Could not delete place");
         }

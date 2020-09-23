@@ -27,7 +27,7 @@
 
             <!--DIALOGS-->
             <ui:include src="included/tripEditDLG.xhtml"/>
-            <ui:include src="included/placeEditDLG.xhtml"/>
+            <ui:include src="included/placeEditDLG.xhtml"/>               
             <ui:include src="included/addPlaceDLG.xhtml" 
                         rendered="#{placesController.selectedTrip!=null}"/>                
             <ui:include src="included/addTripDLG.xhtml"/>
@@ -39,11 +39,6 @@
 
             <p:panel style="min-width: 360px;max-width: 100%;"
                      header="Trip: #{placesController.selectedTrip.name}">
-
-
-
-
-
 
 
 
@@ -67,14 +62,15 @@
                     </p:selectOneMenu> 
 
 
-
-                    <h:outputText/>    
-                    <p:imageSwitch effect="shuffle" style="height:150px">
-                        <ui:repeat value="#{placesController.gallery}" var="image">
+                    <h:outputText rendered="#{placesController.selectedTripID!=0}"/>    
+                    <p:imageSwitch effect="shuffle" 
+                                   style="height:150px"
+                                   rendered="#{placesController.selectedTripID!=0}">
+                        <ui:repeat value="#{placesController.gallery}" 
+                                   var="image">
                             <p:graphicImage url="#{image}" height="150"/>
                         </ui:repeat>
                     </p:imageSwitch>
-
 
 
                     <h:outputText value="Description" 
@@ -102,18 +98,16 @@
                                   rendered="#{placesController.selectedTripID!=0}"
                                   style="color:red; font-weight: bold"/>
 
-                    <h:outputText value="Notes" 
-                                  rendered="#{placesController.selectedTripID!=0}"
-                                  styleClass="headerText"/>
+                    <h:outputText value="Notes"                                   
+                                  styleClass="headerText"
+                                  rendered="#{placesController.selectedTrip.notes!=null}"/>
                     <p:inputTextarea value="#{placesController.selectedTrip.notes}"                                         
                                      style="width:100%; border: none;"
                                      disabled="true" 
-                                     rendered="#{placesController.selectedTripID!=0}"/>   
-
-
+                                     rendered="#{placesController.selectedTrip.notes!=null}"/>
 
                     <h:outputText/> 
-                    <h:panelGrid columns="1">
+                    <h:panelGrid columns="2">
                         <p:commandButton icon="fa fa-plus"
                                          oncomplete="PF('addTripDLG').show();"
                                          value="Add trip"/>                            
@@ -149,21 +143,30 @@
                 <!--Timeline-->
                 <p:timeline id="timeline" 
                             value="#{placesController.timelineModel}"
-                            var="timelinePlace">
+                            var="timelinePlace"
+                            zoomable="false">
 
-                    <h:outputText value="#{timelinePlace.name}" style="font-weight: bold"/>
+                    <h:outputText value="#{timelinePlace.name}" 
+                                  style="font-weight: bold"/>
+                    <h:outputText value=" (optional)" 
+                                  style="font-weight: bold; color: red"
+                                  rendered="#{timelinePlace.optional}"/>
                     <br/>
                     <h:outputText value="#{timelinePlace.country}"/>
                     <br/>
-                    <h:outputText value="#{timelinePlace.departuredate.date - timelinePlace.arrivaldate.date} days"/>
+                    <h:outputText value="#{timelinePlace.departuredate.date 
+                                           - timelinePlace.arrivaldate.date} days"/>
                     <br/>
                     <h:panelGrid columns="2">
+
                         <h:outputText value="Booked"/>
                         <p:selectBooleanCheckbox value="#{timelinePlace.booked}" 
                                                  disabled="true"/>                                                
-                        <h:outputText value="Payed"/>
+                        <h:outputText value="Payed"
+                                      rendered="#{timelinePlace.booked}"/>
                         <p:selectBooleanCheckbox value="#{timelinePlace.payed}"
-                                                 disabled="true"/>
+                                                 disabled="true"
+                                                 rendered="#{timelinePlace.booked}"/>
                     </h:panelGrid>
 
                     <p:ajax event="select" 
@@ -193,8 +196,6 @@
                              columns="1"
                              rendered="#{placesController.selectedTripID!=0}"> 
 
-
-
                     <p:gmap id="gmap" 
                             widgetVar="gmap" 
                             center="46.1848764, 7.8171154" 
@@ -206,7 +207,6 @@
                                 listener="#{placesController.mapSelect}" 
                                 update="@form" />
                     </p:gmap>
-
 
                     <p:panelGrid layout="grid"
                                  columns="2" >

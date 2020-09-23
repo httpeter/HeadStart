@@ -34,8 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Place.findById", query = "SELECT p FROM Place p WHERE p.id = :id"),
     @NamedQuery(name = "Place.findByTripid", query = "SELECT p FROM Place p WHERE p.tripid = :tripid"),
     @NamedQuery(name = "Place.findByName", query = "SELECT p FROM Place p WHERE p.name = :name"),
-    @NamedQuery(name = "Place.findByBooked", query = "SELECT p FROM Place p WHERE p.booked = :booked"),
     @NamedQuery(name = "Place.findByPayed", query = "SELECT p FROM Place p WHERE p.payed = :payed"),
+    @NamedQuery(name = "Place.findByBooked", query = "SELECT p FROM Place p WHERE p.booked = :booked"),
     @NamedQuery(name = "Place.findByRating", query = "SELECT p FROM Place p WHERE p.rating = :rating"),
     @NamedQuery(name = "Place.findByDescription", query = "SELECT p FROM Place p WHERE p.description = :description"),
     @NamedQuery(name = "Place.findByImgurls", query = "SELECT p FROM Place p WHERE p.imgurls = :imgurls"),
@@ -69,12 +69,12 @@ public class Place implements Serializable {
     private String name;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "BOOKED")
-    private boolean booked;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "PAYED")
     private boolean payed;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "BOOKED")
+    private boolean booked;
     @Column(name = "RATING")
     private Integer rating;
     @Size(max = 500)
@@ -104,9 +104,10 @@ public class Place implements Serializable {
     @Column(name = "FREECANCELLATIONDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date freecancellationdate;
-    @Size(max = 45)
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "OPTIONAL")
-    private String optional;
+    private boolean optional;
     @Size(max = 45)
     @Column(name = "PAYEDBYUSERID")
     private String payedbyuserid;
@@ -130,12 +131,13 @@ public class Place implements Serializable {
 
 
 
-    public Place(Integer id, int tripid, String name, boolean booked, boolean payed) {
+    public Place(Integer id, int tripid, String name, boolean payed, boolean booked, boolean optional) {
         this.id = id;
         this.tripid = tripid;
         this.name = name;
-        this.booked = booked;
         this.payed = payed;
+        this.booked = booked;
+        this.optional = optional;
     }
 
 
@@ -176,18 +178,6 @@ public class Place implements Serializable {
 
 
 
-    public boolean getBooked() {
-        return booked;
-    }
-
-
-
-    public void setBooked(boolean booked) {
-        this.booked = booked;
-    }
-
-
-
     public boolean getPayed() {
         return payed;
     }
@@ -196,6 +186,18 @@ public class Place implements Serializable {
 
     public void setPayed(boolean payed) {
         this.payed = payed;
+    }
+
+
+
+    public boolean getBooked() {
+        return booked;
+    }
+
+
+
+    public void setBooked(boolean booked) {
+        this.booked = booked;
     }
 
 
@@ -320,13 +322,13 @@ public class Place implements Serializable {
 
 
 
-    public String getOptional() {
+    public boolean getOptional() {
         return optional;
     }
 
 
 
-    public void setOptional(String optional) {
+    public void setOptional(boolean optional) {
         this.optional = optional;
     }
 

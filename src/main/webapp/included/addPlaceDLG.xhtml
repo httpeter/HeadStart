@@ -19,7 +19,8 @@
                      style="width:420px">
 
             <h:outputText value="Name" styleClass="headerText"/>
-            <p:inputText value="#{placesController.newPlace.name}" required="true"/>
+            <p:inputText value="#{placesController.newPlace.name}" 
+                         required="true"/>
 
             <h:outputText value="Rating" styleClass="headerText"/>
             <p:rating value="#{placesController.newPlace.rating}"/>          
@@ -30,28 +31,38 @@
             <h:outputText value="Arrival" styleClass="headerText"/>
             <p:calendar value="#{placesController.newPlace.arrivaldate}" 
                         pattern="dd-MM-yyyy" 
-                        timeZone="CET" required="true"/>
+                        timeZone="CET" 
+                        required="true"/>
 
             <h:outputText value="Departure" styleClass="headerText"/>
             <p:calendar value="#{placesController.newPlace.departuredate}" 
                         pattern="dd-MM-yyyy" 
-                        timeZone="CET"/>                
+                        timeZone="CET"
+                        required="true"/>                
 
-            <h:outputText value="Total price" styleClass="headerText"/>
-            <p:inputText value="#{placesController.newPlace.price}"/> 
+            <h:outputText value="Price" styleClass="headerText"/>
+            <h:panelGrid columns="2">
+                <h:outputText value="€"/>
+                <p:inputText value="#{placesController.newPlace.price}"
+                             required="true"/> 
+            </h:panelGrid>
 
             <h:outputText value="Already booked" styleClass="headerText"/>
             <p:selectBooleanCheckbox value="#{placesController.newPlace.booked}" />
 
-
-            <h:outputText value="Already payed" styleClass="headerText"/>
-            <p:selectBooleanCheckbox value="#{placesController.newPlace.payed}"/>
+            <h:outputText value="Already payed" 
+                          styleClass="headerText"
+                          rendered="#{placesController.newPlace.booked}"/>
+            <p:selectBooleanCheckbox 
+                value="#{placesController.newPlace.payed}"
+                rendered="#{placesController.newPlace.booked}"/>
 
             <h:outputText value="Address" styleClass="headerText"/>
             <p:inputTextarea value="#{placesController.newPlace.address}"/>
 
             <h:outputText value="Country" styleClass="headerText"/>
-            <p:inputText value="#{placesController.newPlace.country}"/>
+            <p:inputText value="#{placesController.newPlace.country}"
+                         required="true"/>
 
             <h:outputText value="Lattitude" styleClass="headerText"/>
             <p:inputText value="#{placesController.newPlace.lat}"/>
@@ -64,6 +75,9 @@
 
             <h:outputText value="Venue URL:" styleClass="headerText"/>
             <p:inputText  value="#{placesController.newPlace.urls}"/>
+
+            <h:outputText value="Optional" styleClass="headerText"/>
+            <p:selectBooleanCheckbox value="#{placesController.newPlace.optional}"/>  
 
 
             <p:commandButton icon="fa fa-save"
