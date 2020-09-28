@@ -31,12 +31,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Trip.findById", query = "SELECT t FROM Trip t WHERE t.id = :id"),
     @NamedQuery(name = "Trip.findByUserid", query = "SELECT t FROM Trip t WHERE t.userid = :userid"),
     @NamedQuery(name = "Trip.findByName", query = "SELECT t FROM Trip t WHERE t.name = :name"),
-    @NamedQuery(name = "Trip.findByDescription", query = "SELECT t FROM Trip t WHERE t.description = :description")})
+    @NamedQuery(name = "Trip.findByDescription", query = "SELECT t FROM Trip t WHERE t.description = :description"),
+    @NamedQuery(name = "Trip.findByNotes", query = "SELECT t FROM Trip t WHERE t.notes = :notes"),
+    @NamedQuery(name = "Trip.findByHomeaddress", query = "SELECT t FROM Trip t WHERE t.homeaddress = :homeaddress"),
+    @NamedQuery(name = "Trip.findByHomelat", query = "SELECT t FROM Trip t WHERE t.homelat = :homelat"),
+    @NamedQuery(name = "Trip.findByHomelng", query = "SELECT t FROM Trip t WHERE t.homelng = :homelng")})
 public class Trip implements Serializable {
-
-    @Size(max = 1024)
-    @Column(name = "NOTES")
-    private String notes;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -54,50 +54,134 @@ public class Trip implements Serializable {
     @Size(max = 1024)
     @Column(name = "DESCRIPTION")
     private String description;
+    @Size(max = 1024)
+    @Column(name = "NOTES")
+    private String notes;
+    @Size(max = 255)
+    @Column(name = "HOMEADDRESS")
+    private String homeaddress;
+    @Size(max = 45)
+    @Column(name = "HOMELAT")
+    private String homelat;
+    @Size(max = 45)
+    @Column(name = "HOMELNG")
+    private String homelng;
+
+
 
     public Trip() {
     }
 
+
+
     public Trip(Integer id) {
         this.id = id;
     }
+
+
 
     public Trip(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
 
+
+
     public Integer getId() {
         return id;
     }
+
+
 
     public void setId(Integer id) {
         this.id = id;
     }
 
+
+
     public Integer getUserid() {
         return userid;
     }
+
+
 
     public void setUserid(Integer userid) {
         this.userid = userid;
     }
 
+
+
     public String getName() {
         return name;
     }
+
+
 
     public void setName(String name) {
         this.name = name;
     }
 
+
+
     public String getDescription() {
         return description;
     }
 
+
+
     public void setDescription(String description) {
         this.description = description;
     }
+
+
+
+    public String getNotes() {
+        return notes;
+    }
+
+
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+
+
+    public String getHomeaddress() {
+        return homeaddress;
+    }
+
+
+
+    public void setHomeaddress(String homeaddress) {
+        this.homeaddress = homeaddress;
+    }
+
+
+
+    public String getHomelat() {
+        return homelat;
+    }
+
+
+
+    public void setHomelat(String homelat) {
+        this.homelat = homelat;
+    }
+
+
+
+    public String getHomelng() {
+        return homelng;
+    }
+
+
+
+    public void setHomelng(String homelng) {
+        this.homelng = homelng;
+    }
+
+
 
     @Override
     public int hashCode() {
@@ -105,6 +189,8 @@ public class Trip implements Serializable {
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
+
+
 
     @Override
     public boolean equals(Object object) {
@@ -119,17 +205,11 @@ public class Trip implements Serializable {
         return true;
     }
 
+
+
     @Override
     public String toString() {
         return "case1.nl.entities.Trip[ id=" + id + " ]";
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
     }
     
 }

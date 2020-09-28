@@ -11,6 +11,7 @@
               widgetVar="placeEditDLG"              
               closeOnEscape="true"              
               responsive="true"              
+              width="400"
               fitViewport="true"
               dynamic="true">
 
@@ -22,20 +23,19 @@
                 #{placesController.selectedPlace.lng}" 
                 zoom="13" 
                 type="map" 
-                style="width:420px;height:400px"
+                style="width:400px;height:400px"
                 model="#{placesController.mapModelDetail}">                             
         </p:gmap>
 
         <br/>
 
         <p:graphicImage url="#{placesController.selectedPlace.imgurls}" 
-                        width="420px"/>                                                                                                                              
+                        width="400"/>                                                                                                                              
 
         <br/>
 
         <p:panelGrid columns="2" 
-                     layout="grid"
-                     style="width:420px">
+                     layout="grid">
 
             <h:outputText value="Name" styleClass="headerText"/>
             <p:inputText value="#{placesController.selectedPlace.name}"/>
