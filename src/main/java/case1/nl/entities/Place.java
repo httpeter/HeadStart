@@ -39,8 +39,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Place.findByRating", query = "SELECT p FROM Place p WHERE p.rating = :rating"),
     @NamedQuery(name = "Place.findByDescription", query = "SELECT p FROM Place p WHERE p.description = :description"),
     @NamedQuery(name = "Place.findByImgurls", query = "SELECT p FROM Place p WHERE p.imgurls = :imgurls"),
-    @NamedQuery(name = "Place.findByArrivaldate", query = "SELECT p FROM Place p WHERE p.arrivaldate = :arrivaldate"),
     @NamedQuery(name = "Place.findByDeparturedate", query = "SELECT p FROM Place p WHERE p.departuredate = :departuredate"),
+    @NamedQuery(name = "Place.findByArrivaldate", query = "SELECT p FROM Place p WHERE p.arrivaldate = :arrivaldate"),
     @NamedQuery(name = "Place.findByAddress", query = "SELECT p FROM Place p WHERE p.address = :address"),
     @NamedQuery(name = "Place.findByLat", query = "SELECT p FROM Place p WHERE p.lat = :lat"),
     @NamedQuery(name = "Place.findByLng", query = "SELECT p FROM Place p WHERE p.lng = :lng"),
@@ -83,12 +83,12 @@ public class Place implements Serializable {
     @Size(max = 500)
     @Column(name = "IMGURLS")
     private String imgurls;
-    @Column(name = "ARRIVALDATE")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date arrivaldate;
     @Column(name = "DEPARTUREDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date departuredate;
+    @Column(name = "ARRIVALDATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date arrivaldate;
     @Size(max = 255)
     @Column(name = "ADDRESS")
     private String address;
@@ -108,9 +108,8 @@ public class Place implements Serializable {
     @NotNull
     @Column(name = "OPTIONAL")
     private boolean optional;
-    @Size(max = 45)
     @Column(name = "PAYEDBYUSERID")
-    private String payedbyuserid;
+    private Integer payedbyuserid;
     @Size(max = 500)
     @Column(name = "URLS")
     private String urls;
@@ -238,18 +237,6 @@ public class Place implements Serializable {
 
 
 
-    public Date getArrivaldate() {
-        return arrivaldate;
-    }
-
-
-
-    public void setArrivaldate(Date arrivaldate) {
-        this.arrivaldate = arrivaldate;
-    }
-
-
-
     public Date getDeparturedate() {
         return departuredate;
     }
@@ -258,6 +245,18 @@ public class Place implements Serializable {
 
     public void setDeparturedate(Date departuredate) {
         this.departuredate = departuredate;
+    }
+
+
+
+    public Date getArrivaldate() {
+        return arrivaldate;
+    }
+
+
+
+    public void setArrivaldate(Date arrivaldate) {
+        this.arrivaldate = arrivaldate;
     }
 
 
@@ -334,13 +333,13 @@ public class Place implements Serializable {
 
 
 
-    public String getPayedbyuserid() {
+    public Integer getPayedbyuserid() {
         return payedbyuserid;
     }
 
 
 
-    public void setPayedbyuserid(String payedbyuserid) {
+    public void setPayedbyuserid(Integer payedbyuserid) {
         this.payedbyuserid = payedbyuserid;
     }
 

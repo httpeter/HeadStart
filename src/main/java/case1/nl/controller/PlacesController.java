@@ -23,6 +23,7 @@ import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
+import org.primefaces.model.map.Polygon;
 import org.primefaces.model.timeline.TimelineEvent;
 import org.primefaces.model.timeline.TimelineModel;
 
@@ -291,6 +292,15 @@ public class PlacesController implements Serializable {
 
             gallery = new ArrayList(places.size());
 
+            //Adding home address to map                       
+            if (selectedTrip.getHomelat() != null && selectedTrip.getHomelng() != null) {
+                LatLng homeCoord = new LatLng(Double.parseDouble(selectedTrip.getHomelat()),
+                        Double.parseDouble(selectedTrip.getHomelng()));
+                mapModel.addOverlay(new Marker(homeCoord, selectedTrip.getHomeaddress()));
+            } else {
+                FMessage.warn("Could not plot home address on map");
+            }
+
             places.forEach((place) -> {
 
                 if (place != null
@@ -380,15 +390,18 @@ public class PlacesController implements Serializable {
     public void saveSelectedPlace() {
 
         if (selectedPlace != null) {
+            try {
+                selectedPlace.setPayedbyuserid(session.getCurrentUser().getId());
+                session.getPlacesRepository().merged(selectedPlace);
+                FMessage.info("Place '"
+                        + selectedPlace.getName()
+                        + "' Saved");
 
-            session.getPlacesRepository()
-                    .merged(selectedPlace);
+                loadPlaces();
+            } catch (Exception e) {
+                FMessage.error(e.getLocalizedMessage());
+            }
 
-            FMessage.info("Place '"
-                    + selectedPlace.getName()
-                    + "' Saved");
-
-            loadPlaces();
         } else {
             FMessage.error("Could not save place");
         }
@@ -412,13 +425,18 @@ public class PlacesController implements Serializable {
 
 
     public void saveNewPlace() {
-        if (newPlace != null
-                && session.getPlacesRepository()
-                        .persisted(newPlace)) {
-            FMessage.info("Place '"
-                    + newPlace.getName()
-                    + "' Saved");
-            loadPlaces();
+
+        if (newPlace != null) {
+            try {
+                newPlace.setPayedbyuserid(session.getCurrentUser().getId());
+                session.getPlacesRepository().persisted(newPlace);
+                FMessage.info("Place '"
+                        + newPlace.getName()
+                        + "' Saved");
+                loadPlaces();
+            } catch (Exception e) {
+                FMessage.error(e.getLocalizedMessage());
+            }
         } else {
             FMessage.error("Could not save place");
         }

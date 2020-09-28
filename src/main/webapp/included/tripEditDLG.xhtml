@@ -27,6 +27,18 @@
             <h:outputText value="Notes"/>
             <p:inputTextarea value="#{placesController.selectedTrip.notes}"
                              style="width:100%"/>
+            
+            <h:outputText value="Home address"/>
+            <p:inputTextarea value="#{placesController.selectedTrip.homeaddress}"
+                             style="width:100%"/>
+            
+            <h:outputText value="Home address lattitude"/>
+            <p:inputTextarea value="#{placesController.selectedTrip.homelat}"
+                             style="width:100%"/>
+            
+            <h:outputText value="Home address longitude"/>
+            <p:inputTextarea value="#{placesController.selectedTrip.homelng}"
+                             style="width:100%"/>
 
             <p:commandButton icon="fa fa-save"
                              value="Save"
