@@ -38,20 +38,20 @@
 
 
             <p:panel style="min-width: 360px;max-width: 100%;"
-                     header="Trip: #{placesController.selectedTrip.name}">
+                     header="Trips (#{placesController.trips.size()}) of 
+                     #{sessionController.currentUser.firstname} 
+                     #{sessionController.currentUser.lastname}">
 
 
+                <!--Trip overview-->                
 
-
-                <!--Trip overview-->
                 <p:panelGrid columns="2" 
                              layout="grid">
-
-
-                    <h:outputText value="Selected" styleClass="headerText"/>                    
+                   
                     <p:selectOneMenu value="#{placesController.selectedTripID}" 
                                      style="width:100%">
-                        <f:selectItem itemLabel="select..." 
+                        <f:selectItem itemLabel="select..."
+                                      itemValue="0"
                                       rendered="#{placesController.selectedTripID==0}"/>
                         <f:selectItems value="#{placesController.trips}" 
                                        var="trip" 
@@ -60,17 +60,14 @@
                         <p:ajax update="@form" 
                                 listener="#{placesController.loadPlaces()}"/>                                        
                     </p:selectOneMenu> 
-
-
-                    <h:outputText rendered="#{placesController.selectedTripID!=0}"/>    
-                    <p:imageSwitch effect="shuffle" 
-                                   style="height:150px"
-                                   rendered="#{placesController.selectedTripID!=0}">
-                        <ui:repeat value="#{placesController.gallery}" 
-                                   var="image">
-                            <p:graphicImage url="#{image}" height="150"/>
-                        </ui:repeat>
-                    </p:imageSwitch>
+                    <p:galleria value="#{placesController.gallery}" 
+                                var="image"  
+                                panelWidth="300"
+                                panelHeight="250"
+                                effectSpeed="5000"
+                                rendered="#{placesController.selectedTripID!=0}">
+                        <p:graphicImage url="#{image}" height="250"/>
+                    </p:galleria>                                   
 
 
                     <h:outputText value="Description" 
@@ -110,15 +107,14 @@
                     <h:panelGrid columns="2">
                         <p:commandButton icon="fa fa-plus"
                                          oncomplete="PF('addTripDLG').show();"
-                                         value="Add trip"/>                            
+                                         value="Add trip">
+                            <pe:badge content="#{placesController.trips.size()}"/>
+                        </p:commandButton>                            
 
                         <p:commandButton icon="fa fa-gear"                                                  
                                          onclick="PF('tripEditDLG').show();" 
                                          rendered="#{placesController.selectedTripID!=0}"
-                                         value="Edit trip">
-                            <pe:badge content="#{placesController.places.size()}"/>
-                        </p:commandButton>
-
+                                         value="Edit trip"/>                                                 
                     </h:panelGrid>                                                           
 
                 </p:panelGrid>                         
@@ -214,7 +210,9 @@
 
                         <p:commandButton value="Add place" 
                                          icon="fa fa-plus"                                         
-                                         action="#{placesController.makeNewPlace()}"/>
+                                         action="#{placesController.makeNewPlace()}">
+                            <pe:badge content="#{placesController.places.size()}"/>
+                        </p:commandButton>                        
                     </p:panelGrid>
 
                 </p:panelGrid>

@@ -58,13 +58,13 @@
             <h:outputText value="Description" styleClass="headerText"/>
             <p:inputTextarea value="#{placesController.selectedPlace.description}"/>                                                                                                     
 
-            <h:outputText value="Arrival" styleClass="headerText"/>
+            <h:outputText value="Arrival *" styleClass="headerText"/>
             <p:calendar value="#{placesController.selectedPlace.arrivaldate}" 
                         pattern="dd-MM-yyyy" 
                         timeZone="CET"
                         required="true"/>
 
-            <h:outputText value="Departure" styleClass="headerText"/>
+            <h:outputText value="Departure *" styleClass="headerText"/>
             <p:calendar value="#{placesController.selectedPlace.departuredate}" 
                         pattern="dd-MM-yyyy" 
                         timeZone="CET"
@@ -74,7 +74,7 @@
             <h:outputText value="#{placesController.selectedPlace.departuredate.date 
                                    - placesController.selectedPlace.arrivaldate.date} days"/>                                               
 
-            <h:outputText value="Total price" styleClass="headerText"/>
+            <h:outputText value="Price *" styleClass="headerText"/>
             <h:panelGrid columns="2">
                 <h:outputText value="€"/>
                 <p:inputText value="#{placesController.selectedPlace.price}"
@@ -84,7 +84,7 @@
             <h:outputText value="Address" styleClass="headerText"/>
             <p:inputTextarea value="#{placesController.selectedPlace.address}"/>
 
-            <h:outputText value="Country" styleClass="headerText"/>
+            <h:outputText value="Country *" styleClass="headerText"/>
             <p:inputText value="#{placesController.selectedPlace.country}"
                          required="true"/>
 

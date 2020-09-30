@@ -23,7 +23,6 @@ import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
-import org.primefaces.model.map.Polygon;
 import org.primefaces.model.timeline.TimelineEvent;
 import org.primefaces.model.timeline.TimelineModel;
 
@@ -44,17 +43,16 @@ public class PlacesController implements Serializable {
 
     private List<String> gallery;
 
-    private Trip selectedTrip;
+    private Trip selectedTrip = new Trip();
 
-    private Trip newTrip;
+    private Trip newTrip= new Trip();
 
     private int selectedTripDuration;
 
     private List<Place> places;
 
     private Place selectedPlace = new Place();
-
-    //New instance required
+    
     private Place newPlace = new Place();
 
     private MapModel mapModel;
@@ -252,7 +250,7 @@ public class PlacesController implements Serializable {
 
         try {
             //Load Trips
-            loadTrips();
+            loadTrips();            
 
         } catch (Exception ex) {
             Logger.getLogger(PlacesController.class.getName())
@@ -293,12 +291,13 @@ public class PlacesController implements Serializable {
             gallery = new ArrayList(places.size());
 
             //Adding home address to map                       
-            if (selectedTrip.getHomelat() != null && selectedTrip.getHomelng() != null) {
+            try {
                 LatLng homeCoord = new LatLng(Double.parseDouble(selectedTrip.getHomelat()),
                         Double.parseDouble(selectedTrip.getHomelng()));
                 mapModel.addOverlay(new Marker(homeCoord, selectedTrip.getHomeaddress()));
-            } else {
-                FMessage.warn("Could not plot home address on map");
+            } catch (NumberFormatException e) {
+                FMessage.warn("Could not plot home address on map \n\n"
+                        + e.getLocalizedMessage());
             }
 
             places.forEach((place) -> {

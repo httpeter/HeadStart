@@ -16,29 +16,34 @@
 
         <p:panelGrid columns="2" layout="grid">
 
-            <h:outputText value="Name"/>
+            <h:outputText value="Name *"/>
             <p:inputText value="#{placesController.selectedTrip.name}"
-                         style="width:100%"/>
+                         style="width:100%"
+                         required="true"/>
 
-            <h:outputText value="Description"/>
+            <h:outputText value="Description *"/>
             <p:inputTextarea value="#{placesController.selectedTrip.description}"
-                             style="width:100%"/>
+                             style="width:100%"
+                             required="true"/>
 
             <h:outputText value="Notes"/>
             <p:inputTextarea value="#{placesController.selectedTrip.notes}"
                              style="width:100%"/>
-            
-            <h:outputText value="Home address"/>
-            <p:inputTextarea value="#{placesController.selectedTrip.homeaddress}"
-                             style="width:100%"/>
-            
-            <h:outputText value="Home address lattitude"/>
-            <p:inputTextarea value="#{placesController.selectedTrip.homelat}"
-                             style="width:100%"/>
-            
-            <h:outputText value="Home address longitude"/>
+
+            <h:outputText value="Home address *"/>
+            <p:inputText value="#{placesController.selectedTrip.homeaddress}"
+                         style="width:100%"
+                         required="true"/>
+
+            <h:outputText value="Home address lattitude *"/>
+            <p:inputText value="#{placesController.selectedTrip.homelat}"
+                         style="width:100%"
+                         required="true"/>
+
+            <h:outputText value="Home address longitude *"/>
             <p:inputTextarea value="#{placesController.selectedTrip.homelng}"
-                             style="width:100%"/>
+                             style="width:100%"
+                             required="true"/>
 
             <p:commandButton icon="fa fa-save"
                              value="Save"
@@ -48,6 +53,12 @@
             <p:commandButton icon="fa fa-ban" 
                              value="Cancel"
                              onclick="PF('tripEditDLG').hide();"/>                    
+            
+            <h:outputText/>
+            <p:commandButton icon="fa fa-ban" 
+                             value="Delete"
+                             onclick="PF('tripEditDLG').hide();"
+                             disabled="true"/>                    
 
         </p:panelGrid>
 
