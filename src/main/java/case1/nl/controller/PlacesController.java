@@ -45,14 +45,14 @@ public class PlacesController implements Serializable {
 
     private Trip selectedTrip = new Trip();
 
-    private Trip newTrip= new Trip();
+    private Trip newTrip = new Trip();
 
     private int selectedTripDuration;
 
     private List<Place> places;
 
     private Place selectedPlace = new Place();
-    
+
     private Place newPlace = new Place();
 
     private MapModel mapModel;
@@ -250,7 +250,7 @@ public class PlacesController implements Serializable {
 
         try {
             //Load Trips
-            loadTrips();            
+            loadTrips();
 
         } catch (Exception ex) {
             Logger.getLogger(PlacesController.class.getName())
@@ -452,6 +452,15 @@ public class PlacesController implements Serializable {
         newPlace.setTripid(selectedTrip.getId());
 
         PrimeFaces.current().executeScript("PF('addPlaceDLG').show();");
+    }
+
+
+
+    public void makeNewTrip() {
+        newTrip = new Trip();
+        newTrip.setHomeaddress("Gerrit Doustraat 43\n2311XM Leiden\nNederland");
+        newTrip.setHomelat("52.1529984");
+        newTrip.setHomelng("52.1529984");
     }
 
 
