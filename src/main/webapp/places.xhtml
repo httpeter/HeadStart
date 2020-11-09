@@ -27,6 +27,7 @@
 
             <!--DIALOGS-->
             <ui:include src="included/tripEditDLG.xhtml"/>
+            <ui:include src="included/tripDeleteDLG.xhtml"/>
             <ui:include src="included/placeEditDLG.xhtml"/>               
             <ui:include src="included/addPlaceDLG.xhtml" 
                         rendered="#{placesController.selectedTrip!=null}"/>                
@@ -104,7 +105,7 @@
                                      rendered="#{placesController.selectedTrip.notes!=null}"/>
 
                     <h:outputText/> 
-                    <h:panelGrid columns="2">
+                    <h:panelGrid columns="3">
                         <p:commandButton icon="fa fa-plus"
                                          oncomplete="PF('addTripDLG').show();"
                                          value="Add trip"
@@ -115,7 +116,12 @@
                         <p:commandButton icon="fa fa-gear"                                                  
                                          onclick="PF('tripEditDLG').show();" 
                                          rendered="#{placesController.selectedTripID!=0}"
-                                         value="Edit trip"/>                                                 
+                                         value="Edit trip"/>    
+                        
+                        <p:commandButton icon="fa fa-trash"                                                  
+                                         onclick="PF('tripDeleteDLG').show();" 
+                                         rendered="#{sessionController.currentUser.role == 'admin'}"
+                                         value="Delete trip"/> 
                     </h:panelGrid>                                                           
 
                 </p:panelGrid>                         
