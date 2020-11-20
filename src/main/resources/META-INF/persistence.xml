@@ -10,6 +10,7 @@
     <class>case1.nl.entities.Trip</class>
     <class>case1.nl.entities.Nevo201960</class>
     <class>case1.nl.entities.FlywaySchemaHistory</class>
+    <class>case1.nl.entities.Tripparticipant</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/example?zeroDateTimeBehavior=convertToNull"/>

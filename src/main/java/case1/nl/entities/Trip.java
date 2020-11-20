@@ -29,13 +29,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Trip.findAll", query = "SELECT t FROM Trip t"),
     @NamedQuery(name = "Trip.findById", query = "SELECT t FROM Trip t WHERE t.id = :id"),
-    @NamedQuery(name = "Trip.findByUserid", query = "SELECT t FROM Trip t WHERE t.userid = :userid"),
     @NamedQuery(name = "Trip.findByName", query = "SELECT t FROM Trip t WHERE t.name = :name"),
     @NamedQuery(name = "Trip.findByDescription", query = "SELECT t FROM Trip t WHERE t.description = :description"),
     @NamedQuery(name = "Trip.findByNotes", query = "SELECT t FROM Trip t WHERE t.notes = :notes"),
     @NamedQuery(name = "Trip.findByHomeaddress", query = "SELECT t FROM Trip t WHERE t.homeaddress = :homeaddress"),
     @NamedQuery(name = "Trip.findByHomelat", query = "SELECT t FROM Trip t WHERE t.homelat = :homelat"),
-    @NamedQuery(name = "Trip.findByHomelng", query = "SELECT t FROM Trip t WHERE t.homelng = :homelng")})
+    @NamedQuery(name = "Trip.findByHomelng", query = "SELECT t FROM Trip t WHERE t.homelng = :homelng"),
+    @NamedQuery(name = "Trip.findByTripshareurl", query = "SELECT t FROM Trip t WHERE t.tripshareurl = :tripshareurl")})
 public class Trip implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,8 +44,6 @@ public class Trip implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "USERID")
-    private Integer userid;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -66,6 +64,9 @@ public class Trip implements Serializable {
     @Size(max = 45)
     @Column(name = "HOMELNG")
     private String homelng;
+    @Size(max = 255)
+    @Column(name = "TRIPSHAREURL")
+    private String tripshareurl;
 
 
 
@@ -95,18 +96,6 @@ public class Trip implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-
-
-    public Integer getUserid() {
-        return userid;
-    }
-
-
-
-    public void setUserid(Integer userid) {
-        this.userid = userid;
     }
 
 
@@ -179,6 +168,18 @@ public class Trip implements Serializable {
 
     public void setHomelng(String homelng) {
         this.homelng = homelng;
+    }
+
+
+
+    public String getTripshareurl() {
+        return tripshareurl;
+    }
+
+
+
+    public void setTripshareurl(String tripshareurl) {
+        this.tripshareurl = tripshareurl;
     }
 
 

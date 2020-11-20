@@ -57,60 +57,90 @@ public class Person implements Serializable {
     @Column(name = "NOTES")
     private String notes;
 
+
+
     public Person() {
     }
+
+
 
     public Person(Integer id) {
         this.id = id;
     }
 
+
+
     public Integer getId() {
         return id;
     }
+
+
 
     public void setId(Integer id) {
         this.id = id;
     }
 
+
+
     public String getAge() {
         return age;
     }
+
+
 
     public void setAge(String age) {
         this.age = age;
     }
 
+
+
     public String getFirstname() {
         return firstname;
     }
+
+
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
 
+
+
     public String getGender() {
         return gender;
     }
+
+
 
     public void setGender(String gender) {
         this.gender = gender;
     }
 
+
+
     public String getLastname() {
         return lastname;
     }
+
+
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
 
+
+
     public String getNotes() {
         return notes;
     }
 
+
+
     public void setNotes(String notes) {
         this.notes = notes;
     }
+
+
 
     @Override
     public int hashCode() {
@@ -118,6 +148,8 @@ public class Person implements Serializable {
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
+
+
 
     @Override
     public boolean equals(Object object) {
@@ -131,6 +163,8 @@ public class Person implements Serializable {
         }
         return true;
     }
+
+
 
     @Override
     public String toString() {

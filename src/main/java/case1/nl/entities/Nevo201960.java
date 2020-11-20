@@ -72,100 +72,150 @@ public class Nevo201960 implements Serializable {
     @Column(name = "KCAL")
     private Integer kcal;
 
+
+
     public Nevo201960() {
     }
+
+
 
     public Nevo201960(Integer id) {
         this.id = id;
     }
 
+
+
     public Integer getId() {
         return id;
     }
+
+
 
     public void setId(Integer id) {
         this.id = id;
     }
 
+
+
     public Integer getGroupcode() {
         return groupcode;
     }
+
+
 
     public void setGroupcode(Integer groupcode) {
         this.groupcode = groupcode;
     }
 
+
+
     public String getGroupdescriptionnl() {
         return groupdescriptionnl;
     }
+
+
 
     public void setGroupdescriptionnl(String groupdescriptionnl) {
         this.groupdescriptionnl = groupdescriptionnl;
     }
 
+
+
     public Integer getProdcode() {
         return prodcode;
     }
+
+
 
     public void setProdcode(Integer prodcode) {
         this.prodcode = prodcode;
     }
 
+
+
     public String getProddescnl() {
         return proddescnl;
     }
+
+
 
     public void setProddescnl(String proddescnl) {
         this.proddescnl = proddescnl;
     }
 
+
+
     public String getProddescen() {
         return proddescen;
     }
+
+
 
     public void setProddescen(String proddescen) {
         this.proddescen = proddescen;
     }
 
+
+
     public String getProdsysnonymsnl() {
         return prodsysnonymsnl;
     }
+
+
 
     public void setProdsysnonymsnl(String prodsysnonymsnl) {
         this.prodsysnonymsnl = prodsysnonymsnl;
     }
 
+
+
     public String getUom() {
         return uom;
     }
+
+
 
     public void setUom(String uom) {
         this.uom = uom;
     }
 
+
+
     public Integer getAmount() {
         return amount;
     }
+
+
 
     public void setAmount(Integer amount) {
         this.amount = amount;
     }
 
+
+
     public Integer getKj() {
         return kj;
     }
+
+
 
     public void setKj(Integer kj) {
         this.kj = kj;
     }
 
+
+
     public Integer getKcal() {
         return kcal;
     }
 
+
+
     public void setKcal(Integer kcal) {
         this.kcal = kcal;
     }
+
+
 
     @Override
     public int hashCode() {
@@ -173,6 +223,8 @@ public class Nevo201960 implements Serializable {
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
+
+
 
     @Override
     public boolean equals(Object object) {
@@ -186,6 +238,8 @@ public class Nevo201960 implements Serializable {
         }
         return true;
     }
+
+
 
     @Override
     public String toString() {

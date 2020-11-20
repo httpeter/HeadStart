@@ -32,15 +32,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "User.findByPwdhash", query = "SELECT u FROM User u WHERE u.pwdhash = :pwdhash"),
     @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role"),
     @NamedQuery(name = "User.findByFirstname", query = "SELECT u FROM User u WHERE u.firstname = :firstname"),
-    @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname")})
+    @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname"),
+    @NamedQuery(name = "User.findByUsetoken", query = "SELECT u FROM User u WHERE u.usetoken = :usetoken"),
+    @NamedQuery(name = "User.findByLandingpage", query = "SELECT u FROM User u WHERE u.landingpage = :landingpage")})
 public class User implements Serializable {
-
-    @Size(max = 45)
-    @Column(name = "LANDINGPAGE")
-    private String landingpage;
-
-    @Column(name = "USETOKEN")
-    private Integer usetoken;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -64,61 +59,120 @@ public class User implements Serializable {
     @Size(max = 45)
     @Column(name = "LASTNAME")
     private String lastname;
+    @Column(name = "USETOKEN")
+    private Integer usetoken;
+    @Size(max = 45)
+    @Column(name = "LANDINGPAGE")
+    private String landingpage;
+
+
 
     public User() {
     }
+
+
 
     public User(Integer id) {
         this.id = id;
     }
 
+
+
     public Integer getId() {
         return id;
     }
+
+
 
     public void setId(Integer id) {
         this.id = id;
     }
 
+
+
     public String getEmail() {
         return email;
     }
+
+
 
     public void setEmail(String email) {
         this.email = email;
     }
 
+
+
     public String getPwdhash() {
         return pwdhash;
     }
+
+
 
     public void setPwdhash(String pwdhash) {
         this.pwdhash = pwdhash;
     }
 
+
+
     public String getRole() {
         return role;
     }
+
+
 
     public void setRole(String role) {
         this.role = role;
     }
 
+
+
     public String getFirstname() {
         return firstname;
     }
+
+
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
 
+
+
     public String getLastname() {
         return lastname;
     }
 
+
+
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
+
+
+
+    public Integer getUsetoken() {
+        return usetoken;
+    }
+
+
+
+    public void setUsetoken(Integer usetoken) {
+        this.usetoken = usetoken;
+    }
+
+
+
+    public String getLandingpage() {
+        return landingpage;
+    }
+
+
+
+    public void setLandingpage(String landingpage) {
+        this.landingpage = landingpage;
+    }
+
+
 
     @Override
     public int hashCode() {
@@ -126,6 +180,8 @@ public class User implements Serializable {
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
+
+
 
     @Override
     public boolean equals(Object object) {
@@ -140,25 +196,11 @@ public class User implements Serializable {
         return true;
     }
 
+
+
     @Override
     public String toString() {
         return "case1.nl.entities.User[ id=" + id + " ]";
-    }
-
-    public Integer getUsetoken() {
-        return usetoken;
-    }
-
-    public void setUsetoken(Integer usetoken) {
-        this.usetoken = usetoken;
-    }
-
-    public String getLandingpage() {
-        return landingpage;
-    }
-
-    public void setLandingpage(String landingpage) {
-        this.landingpage = landingpage;
     }
     
 }
