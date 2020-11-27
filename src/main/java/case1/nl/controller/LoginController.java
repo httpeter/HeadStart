@@ -4,6 +4,7 @@ import java.io.Serializable;
 import case1.nl.entities.User;
 import case1.nl.util.DBVersionController;
 import case1.nl.util.FMessage;
+import case1.nl.util.Validator;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
@@ -33,7 +34,7 @@ public class LoginController implements Serializable {
     private SessionController session;
 
     private HttpServletRequest request;
-
+    
     private String mail, pwd, p, t, dbStatus = "";
 
     private DashboardModel dashboardModel;
@@ -112,6 +113,7 @@ public class LoginController implements Serializable {
     public String login() {
 
         User user = null;
+                
 
         try {
             user = session.getUserRepository()
@@ -124,7 +126,8 @@ public class LoginController implements Serializable {
                     .log(Level.SEVERE, null, ex);
         }
 
-        if (user != null) {
+        if (user != null
+                && Validator.isEmailAddress(mail)) {
             FMessage.info("User "
                     + mail
                     + " logged in.");
@@ -190,5 +193,7 @@ public class LoginController implements Serializable {
         dashboardModel.addColumn(column1);
         dashboardModel.addColumn(column2);
     }
+    
+    
 
 }

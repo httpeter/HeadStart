@@ -8,7 +8,7 @@
     <p:dialog header="Edit Trip: '#{placesController.selectedTrip.name}'"
               modal="true" 
               widgetVar="tripEditDLG"
-              width="80%"
+              width="90%"
               blockScroll="true"
               fitViewport="true"
               closeOnEscape="true"
@@ -17,33 +17,45 @@
         <p:panelGrid columns="2" layout="grid">
 
             <h:outputText value="Name *"/>
-            <p:inputText value="#{placesController.selectedTrip.name}"
-                         style="width:100%"
-                         required="true"/>
+            <p:inplace editor="true">
+                <p:inputText value="#{placesController.selectedTrip.name}"
+                             style="width:100%"
+                             required="true"/>
+            </p:inplace>
 
             <h:outputText value="Description *"/>
-            <p:inputTextarea value="#{placesController.selectedTrip.description}"
-                             style="width:100%"
-                             required="true"/>
+            <p:inplace editor="true">
+                <p:inputTextarea value="#{placesController.selectedTrip.description}"
+                                 style="width:100%"
+                                 required="true"/>
+            </p:inplace>
 
             <h:outputText value="Notes"/>
-            <p:inputTextarea value="#{placesController.selectedTrip.notes}"
-                             style="width:100%"/>
+            <p:inplace editor="true">
+                <p:inputTextarea value="#{placesController.selectedTrip.notes}"
+                                 style="width:100%"/>
+            </p:inplace>
 
             <h:outputText value="Home address *"/>
-            <p:inputText value="#{placesController.selectedTrip.homeaddress}"
-                         style="width:100%"
-                         required="true"/>
-
-            <h:outputText value="Home address lattitude *"/>
-            <p:inputText value="#{placesController.selectedTrip.homelat}"
-                         style="width:100%"
-                         required="true"/>
-
-            <h:outputText value="Home address longitude *"/>
-            <p:inputTextarea value="#{placesController.selectedTrip.homelng}"
+            <p:inplace editor="true">
+                <p:inputText value="#{placesController.selectedTrip.homeaddress}"
                              style="width:100%"
                              required="true"/>
+            </p:inplace>
+
+            <h:outputText value="Home address lattitude *"/>
+            <p:inplace editor="true">
+                <p:inputText value="#{placesController.selectedTrip.homelat}"
+                             style="width:100%"
+                             required="true"/>
+            </p:inplace>
+
+            <h:outputText value="Home address longitude *"/>
+            <p:inplace editor="true">
+                <p:inputTextarea value="#{placesController.selectedTrip.homelng}"
+                                 style="width:100%"
+                                 required="true"/>
+            </p:inplace>
 
             <p:commandButton icon="fa fa-save"
                              value="Save"
@@ -53,7 +65,7 @@
             <p:commandButton icon="fa fa-ban" 
                              value="Cancel"
                              onclick="PF('tripEditDLG').hide();"/>                    
-            
+
             <h:outputText/>
             <p:commandButton icon="fa fa-ban" 
                              value="Delete"

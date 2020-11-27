@@ -7,38 +7,47 @@
 
     <p:dialog id="placeEditDLG"
               header="Edit Place: '#{placesController.selectedPlace.name}'"              
-              modal="true"
-              widgetVar="placeEditDLG"              
-              closeOnEscape="true"              
-              responsive="true"              
-              width="400"
+              modal="true" 
+              widgetVar="placeEditDLG"
+              width="90%"
+              blockScroll="true"
               fitViewport="true"
+              closeOnEscape="true"
               dynamic="true">
 
 
 
-        <p:gmap id="gmapDetail" 
-                widgetVar="gmapDetail" 
-                center="#{placesController.selectedPlace.lat}, 
-                #{placesController.selectedPlace.lng}" 
-                zoom="13" 
-                type="map" 
-                style="width:400px;height:400px"
-                model="#{placesController.mapModelDetail}">                             
-        </p:gmap>
 
-        <br/>
 
-        <p:graphicImage url="#{placesController.selectedPlace.imgurls}" 
-                        width="400"/>                                                                                                                              
 
-        <br/>
+        <p:panelGrid columns="2"
+                     layout="grid">
+
+            <p:gmap id="gmapDetail" 
+                    widgetVar="gmapDetail" 
+                    center="#{placesController.selectedPlace.lat}, 
+                    #{placesController.selectedPlace.lng}" 
+                    zoom="13" 
+                    type="map" 
+                    style="width:400px;height:400px"
+                    model="#{placesController.mapModelDetail}"/>                                                    
+
+            <p:graphicImage url="#{placesController.selectedPlace.imgurls}" 
+                            height="400"/>   
+
+        </p:panelGrid>
+
+
+
+
 
         <p:panelGrid columns="2" 
                      layout="grid">
 
             <h:outputText value="Name" styleClass="headerText"/>
-            <p:inputText value="#{placesController.selectedPlace.name}"/>
+            <p:inplace editor="true">
+                <p:inputText value="#{placesController.selectedPlace.name}"/>
+            </p:inplace>
 
             <h:outputText value="Rating" styleClass="headerText"/>
             <p:rating value="#{placesController.selectedPlace.rating}" />      
@@ -56,50 +65,69 @@
                 rendered="#{placesController.selectedPlace.booked}"/>         
 
             <h:outputText value="Description" styleClass="headerText"/>
-            <p:inputTextarea value="#{placesController.selectedPlace.description}"/>                                                                                                     
+            <p:inplace editor="true">
+                <p:inputTextarea value="#{placesController.selectedPlace.description}"/>                                                                                                     
+            </p:inplace>
 
             <h:outputText value="Arrival *" styleClass="headerText"/>
-            <p:calendar value="#{placesController.selectedPlace.arrivaldate}" 
-                        pattern="dd-MM-yyyy" 
-                        timeZone="CET"
-                        required="true"/>
+            <p:inplace editor="true">
+                <p:calendar value="#{placesController.selectedPlace.arrivaldate}" 
+                            pattern="dd-MM-yyyy" 
+                            timeZone="CET"
+                            required="true"/>
+            </p:inplace>
 
             <h:outputText value="Departure *" styleClass="headerText"/>
-            <p:calendar value="#{placesController.selectedPlace.departuredate}" 
-                        pattern="dd-MM-yyyy" 
-                        timeZone="CET"
-                        required="true"/>
+            <p:inplace editor="true">
+                <p:calendar value="#{placesController.selectedPlace.departuredate}" 
+                            pattern="dd-MM-yyyy" 
+                            timeZone="CET"
+                            required="true"/>
+            </p:inplace>
 
             <h:outputText value="Total stay" styleClass="headerText"/>
             <h:outputText value="#{placesController.selectedPlace.departuredate.date 
                                    - placesController.selectedPlace.arrivaldate.date} days"/>                                               
 
-            <h:outputText value="Price *" styleClass="headerText"/>
-            <h:panelGrid columns="2">
-                <h:outputText value="€"/>
-                <p:inputText value="#{placesController.selectedPlace.price}"
-                             required="true"/>                                 
-            </h:panelGrid>
+            <h:outputText value="Price *" styleClass="headerText"/>            
+            <p:inplace editor="true">
+                <p:inputNumber value="#{placesController.selectedPlace.price}"
+                               required="true"
+                               symbol="€ "
+                               decimalPlaces="0"/>                                 
+            </p:inplace>
 
             <h:outputText value="Address" styleClass="headerText"/>
-            <p:inputTextarea value="#{placesController.selectedPlace.address}"/>
+            <p:inplace editor="true">
+                <p:inputTextarea value="#{placesController.selectedPlace.address}"/>
+            </p:inplace>
 
             <h:outputText value="Country *" styleClass="headerText"/>
-            <p:inputText value="#{placesController.selectedPlace.country}"
-                         required="true"/>
+            <p:inplace editor="true">
+                <p:inputText value="#{placesController.selectedPlace.country}"
+                             required="true"/>
+            </p:inplace>
 
             <h:outputText value="Lattitude" styleClass="headerText"/>
-            <p:inputText value="#{placesController.selectedPlace.lat}"/>
+            <p:inplace editor="true">
+                <p:inputText value="#{placesController.selectedPlace.lat}"/>
+            </p:inplace>
 
             <h:outputText value="Longitude" styleClass="headerText"/>
-            <p:inputText value="#{placesController.selectedPlace.lng}"/>
+            <p:inplace editor="true">
+                <p:inputText value="#{placesController.selectedPlace.lng}"/>
+            </p:inplace>
 
             <h:outputText value="Image URL:" styleClass="headerText"/>
-            <p:inputText  value="#{placesController.selectedPlace.imgurls}"/>
+            <p:inplace editor="true">
+                <p:inputText  value="#{placesController.selectedPlace.imgurls}"/>
+            </p:inplace>
 
             <h:outputText value="Venue URL:" styleClass="headerText"/>
-            <p:inputText  value="#{placesController.selectedPlace.urls}"/>
-            
+            <p:inplace editor="true">
+                <p:inputText  value="#{placesController.selectedPlace.urls}"/>
+            </p:inplace>
+
             <h:outputText value="Optional" styleClass="headerText"/>
             <p:selectBooleanCheckbox value="#{placesController.selectedPlace.optional}"/>                
 

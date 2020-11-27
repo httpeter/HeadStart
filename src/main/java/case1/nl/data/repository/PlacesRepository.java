@@ -15,6 +15,11 @@ public class PlacesRepository extends DefaultRepository {
         super(pu);
     }
 
+    /**
+     * Loading a trip based on it's id
+     * @param id
+     * @return 
+     */
     public Trip getTrip(int id) {
 
         Query q = this.getEm().createQuery("select t from Trip t "
@@ -24,6 +29,11 @@ public class PlacesRepository extends DefaultRepository {
         return (Trip) q.getSingleResult();
     }
 
+    /**
+     * Returning a list of Places based on the given tripID
+     * @param tripID
+     * @return 
+     */
     public List<Place> getPlaces(int tripID) {
         Query q = this.getEm().createQuery("select p from Place p "
                 + "where p.tripid = :tripID")
