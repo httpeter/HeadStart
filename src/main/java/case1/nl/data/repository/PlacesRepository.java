@@ -28,6 +28,15 @@ public class PlacesRepository extends DefaultRepository {
 
         return (Trip) q.getSingleResult();
     }
+    
+    /**
+     *
+     * @return
+     */
+    public List<Trip> getTripsByIdDesc() {
+        Query q = this.getEm().createQuery("select t from Trip t order by t.id desc");      
+        return q.getResultList();       
+    }
 
     /**
      * Returning a list of Places based on the given tripID
