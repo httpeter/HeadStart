@@ -4,7 +4,7 @@ Open the solution in Netbeans, setup a servlet server and mysql (or other) datab
 <br/>
 <br/>
 
-Feel free to try it out online: http://case1.nl/test
+Feel free to try it out online: http://case1.nl
 
 <br/>
 <br/>
