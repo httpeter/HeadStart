@@ -14,13 +14,23 @@
               closeOnEscape="true"
               dynamic="true">
 
-        <p:panelGrid columns="2" layout="grid">
+        <p:panelGrid columns="2" layout="grid">                                          
 
             <h:outputText value="Name *"/>
             <p:inplace editor="true">
                 <p:inputText value="#{placesController.selectedTrip.name}"
                              style="width:100%"
                              required="true"/>
+            </p:inplace>
+
+            <h:outputText value="Startdate *"/>
+            <p:inplace editor="true">
+                <p:calendar mode="full" 
+                            value="#{placesController.selectedTrip.startdate}"
+                            pattern="dd-MM-yyyy" 
+                            timeZone="CET">
+                    <f:convertDateTime pattern="dd-MM-yyyy" />
+                </p:calendar>
             </p:inplace>
 
             <h:outputText value="Description *"/>

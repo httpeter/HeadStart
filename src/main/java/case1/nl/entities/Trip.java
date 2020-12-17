@@ -6,6 +6,7 @@
 package case1.nl.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -35,7 +38,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Trip.findByHomeaddress", query = "SELECT t FROM Trip t WHERE t.homeaddress = :homeaddress"),
     @NamedQuery(name = "Trip.findByHomelat", query = "SELECT t FROM Trip t WHERE t.homelat = :homelat"),
     @NamedQuery(name = "Trip.findByHomelng", query = "SELECT t FROM Trip t WHERE t.homelng = :homelng"),
-    @NamedQuery(name = "Trip.findByTripshareurl", query = "SELECT t FROM Trip t WHERE t.tripshareurl = :tripshareurl")})
+    @NamedQuery(name = "Trip.findByTripshareurl", query = "SELECT t FROM Trip t WHERE t.tripshareurl = :tripshareurl"),
+    @NamedQuery(name = "Trip.findByStartdate", query = "SELECT t FROM Trip t WHERE t.startdate = :startdate")})
 public class Trip implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -67,6 +71,11 @@ public class Trip implements Serializable {
     @Size(max = 255)
     @Column(name = "TRIPSHAREURL")
     private String tripshareurl;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "STARTDATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date startdate;
 
 
 
@@ -81,9 +90,10 @@ public class Trip implements Serializable {
 
 
 
-    public Trip(Integer id, String name) {
+    public Trip(Integer id, String name, Date startdate) {
         this.id = id;
         this.name = name;
+        this.startdate = startdate;
     }
 
 
@@ -180,6 +190,18 @@ public class Trip implements Serializable {
 
     public void setTripshareurl(String tripshareurl) {
         this.tripshareurl = tripshareurl;
+    }
+
+
+
+    public Date getStartdate() {
+        return startdate;
+    }
+
+
+
+    public void setStartdate(Date startdate) {
+        this.startdate = startdate;
     }
 
 

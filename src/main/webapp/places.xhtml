@@ -70,6 +70,13 @@
                         <p:graphicImage url="#{image}" height="250"/>
                     </p:galleria>                                   
 
+                    <h:outputText value="Startdate"
+                                  rendered="#{placesController.selectedTripID!=0}"
+                                  styleClass="headerText"/>
+                    <h:outputText value="#{placesController.selectedTrip.startdate}"
+                                  rendered="#{placesController.selectedTripID!=0}">
+                        <f:convertDateTime pattern="dd-MM-yyyy" />
+                    </h:outputText>
 
                     <h:outputText value="Description" 
                                   rendered="#{placesController.selectedTripID!=0}"

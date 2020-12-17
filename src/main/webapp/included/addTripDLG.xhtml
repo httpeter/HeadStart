@@ -19,6 +19,15 @@
             <p:inputText value="#{placesController.newTrip.name}"
                          style="width:100%"/>
 
+            <h:outputText value="Startdate *"/>
+
+            <p:calendar value="#{placesController.newTrip.startdate}"
+                         pattern="dd-MM-yyyy" 
+                         timeZone="CET">
+                <f:convertDateTime pattern="dd-MM-yyyy" />
+            </p:calendar>
+
+
             <h:outputText value="Description *"/>
             <p:inputTextarea value="#{placesController.newTrip.description}"
                              style="width:100%"/>
@@ -26,21 +35,21 @@
             <h:outputText value="Notes"/>
             <p:inputTextarea value="#{placesController.newTrip.notes}"
                              style="width:100%"/>
-            
-             <h:outputText value="Home address *"/>
+
+            <h:outputText value="Home address *"/>
             <p:inputTextarea value="#{placesController.newTrip.homeaddress}"
                              style="width:100%"
                              required="true"/>
-            
+
             <h:outputText value="Home address lattitude *"/>
             <p:inputText value="#{placesController.newTrip.homelat}"
-                             style="width:100%"
-                             required="true"/>
-            
+                         style="width:100%"
+                         required="true"/>
+
             <h:outputText value="Home address longitude *"/>
             <p:inputText value="#{placesController.newTrip.homelng}"
-                             style="width:100%"
-                             required="true"/>
+                         style="width:100%"
+                         required="true"/>
 
             <p:commandButton icon="fa fa-save"
                              value="Save"
@@ -50,7 +59,7 @@
             <p:commandButton icon="fa fa-ban" 
                              value="Cancel"
                              onclick="PF('addTripDLG').hide();"/>  
-            
+
             <h:outputText/>
             <p:commandButton icon="fa fa-ban" 
                              value="Delete"
