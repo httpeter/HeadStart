@@ -35,7 +35,7 @@ public class PlacesRepository extends DefaultRepository {
      */
     public List<Trip> getTripsByStartdateDesc() {
         Query q = this.getEm().createQuery("select t from Trip t "
-                + "order by t.startdate desc");      
+                + "order by t.startdate asc");         
         return q.getResultList();       
     }
 
