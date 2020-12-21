@@ -2,9 +2,12 @@ package case1.nl.controller;
 
 import case1.nl.entities.Place;
 import case1.nl.entities.Trip;
+import case1.nl.util.DateHelper;
 import case1.nl.util.FMessage;
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Period;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -353,10 +356,11 @@ public class PlacesController implements Serializable {
                                 + "please enter prices");
                     }
 
-                    //Calculating total duration
-                    long duration = place.getDeparturedate().getTime()
-                            - place.getArrivaldate().getTime();
-                    selectedTripDuration += TimeUnit.MILLISECONDS.toDays(duration);
+                    //Calculating total duration                    
+                    selectedTripDuration += Period.between(DateHelper.convertDateToLocalDate(place.getArrivaldate()),
+                            DateHelper.convertDateToLocalDate(place.getDeparturedate()))
+                            .getDays();
+
                 } catch (Exception e) {
                     FMessage.warn(e.getMessage());
                 }
@@ -383,6 +387,18 @@ public class PlacesController implements Serializable {
             FMessage.error("Could not save trip");
         }
 
+    }
+
+
+
+    public int getSelectedPlaceTotalDays(Date arrivalDate, Date departureDate) {
+        int days = 0;
+        if (arrivalDate !=null && departureDate != null) {
+            days = Period.between(DateHelper.convertDateToLocalDate(arrivalDate),
+                    DateHelper.convertDateToLocalDate(departureDate))
+                    .getDays();
+        }
+        return days;
     }
 
 

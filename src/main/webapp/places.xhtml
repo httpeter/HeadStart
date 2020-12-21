@@ -164,8 +164,8 @@
                     <br/>
                     <h:outputText value="#{timelinePlace.country}"/>
                     <br/>
-                    <h:outputText value="#{timelinePlace.departuredate.date 
-                                           - timelinePlace.arrivaldate.date} days"/>
+                    <h:outputText value="#{placesController.getSelectedPlaceTotalDays(timelinePlace.arrivaldate, 
+                                           timelinePlace.departuredate)} days"/>
                     <br/>
                     <h:panelGrid columns="2">
 

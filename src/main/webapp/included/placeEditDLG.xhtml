@@ -75,7 +75,7 @@
                             pattern="dd-MM-yyyy" 
                             timeZone="CET"
                             required="true" >
-                    <f:convertDateTime pattern="dd-MM-yyyy" />
+                    <f:convertDateTime pattern="dd-MM-yyyy"/>
                 </p:calendar>
             </p:inplace>
 
@@ -90,8 +90,9 @@
             </p:inplace>
 
             <h:outputText value="Total stay" styleClass="headerText"/>
-            <h:outputText value="#{placesController.selectedPlace.departuredate.date 
-                                   - placesController.selectedPlace.arrivaldate.date} days"/>                                               
+            <h:outputText value="#{placesController.getSelectedPlaceTotalDays(placesController.selectedPlace.arrivaldate, 
+                                   placesController.selectedPlace.departuredate)}
+                           days"/>                                               
 
             <h:outputText value="Price *" styleClass="headerText"/>            
             <p:inplace editor="true">
