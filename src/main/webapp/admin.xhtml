@@ -3,7 +3,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"      
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
 
     <h:head>               
         <ui:include src="included/head.xhtml"/>
@@ -79,7 +80,8 @@
                         <f:facet name="header">
                             <h:outputText value="Landingpage"/>
                         </f:facet>
-                        <h:outputText value="#{user.landingpageid}"/>
+                        <!--Isn't this awesome!!-->
+                        <h:outputText value="#{sessionController.systemRepository.getSysPageById(user.landingpageid).label}"/>
                     </p:column>
 
                 </p:dataTable>                                    
@@ -100,7 +102,11 @@
                     <p:inputText value="#{adminController.selectedUser.email}" required="true"/>
 
                     <h:outputText value="Role"/>
-                    <p:inputText value="#{adminController.selectedUser.role}" required="true"/>
+                    <p:selectOneRadio value="#{adminController.selectedUser.role}" 
+                                      required="true">
+                        <f:selectItem itemLabel="User" itemValue="user"/>
+                        <f:selectItem itemLabel="Admin" itemValue="admin"/>
+                    </p:selectOneRadio>                    
 
                     <h:outputText value="Password"/>
                     <p:password value="#{adminController.selectedUser.pwdhash}"  required="true"/>
@@ -110,24 +116,25 @@
                     <p:selectOneMenu value="#{adminController.selectedUser.usetoken}">                        
                         <f:selectItem itemLabel="No" itemValue="0"/>
                         <f:selectItem itemLabel="Yes" itemValue="1"/>
-                        <p:ajax update="@form"/>
+                        <p:ajax update="@parent"/>
                     </p:selectOneMenu>                        
                     <h:outputText  value="Token" 
                                    rendered="#{adminController.selectedUser.usetoken == 1}"/>                        
                     <p:outputPanel rendered="#{adminController.selectedUser.usetoken == 1}">
-                        <h:outputText value="#{sessionController.cryptor.encrypt(adminController.selectedUser.email)}"/>
+                        <pe:clipboard trigger="copyBtn"
+                                      action="copy" 
+                                      target="tokenTxt"/>
+                        <h:outputText id="tokenTxt" value="#{sessionController.cryptor.encrypt(adminController.selectedUser.email)}"/>
+                        <p:commandButton id="copyBtn" icon="fa fa-copy"/>
                     </p:outputPanel>
 
                     <h:outputText value="Landingpage"/>
-                    <p:orderList value="#{adminController.sysPages}" 
-                                 var="page" 
-                                 controlsLocation="none" 
-                                 itemLabel="#{page.label}" 
-                                 itemValue="#{page.value}"/>
-                    
-                    <!--<p:inputText value="#{adminController.selectedUser.landingpage}" required="true"/>-->
-
-
+                    <p:selectOneListbox value="#{adminController.selectedUser.landingpageid}">                        
+                        <f:selectItems value="#{adminController.sysPages}" 
+                                       var="page" 
+                                       itemValue="#{page.id}" 
+                                       itemLabel="#{page.label}"/>
+                    </p:selectOneListbox>                                  
                     <h:outputText/>                                       
                     <p:commandButton value="Save" 
                                      action="#{adminController.saveUser()}"
@@ -163,8 +170,11 @@
                     <p:inputText value="#{adminController.newUser.email}" 
                                  required="true"/>
                     <h:outputText value="Role"/>
-                    <p:inputText value="#{adminController.newUser.role}" 
-                                 required="true"/>
+                    <p:selectOneRadio value="#{adminController.newUser.role}" 
+                                      required="true">
+                        <f:selectItem itemLabel="User" itemValue="user"/>
+                        <f:selectItem itemLabel="Admin" itemValue="admin"/>
+                    </p:selectOneRadio>                    
                     <h:outputText value="Password"/>
                     <p:password value="#{adminController.newUser.pwdhash}"  
                                 required="true"/>                    
