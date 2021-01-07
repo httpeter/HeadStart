@@ -79,7 +79,7 @@
                         <f:facet name="header">
                             <h:outputText value="Landingpage"/>
                         </f:facet>
-                        <h:outputText value="#{user.landingpage}"/>
+                        <h:outputText value="#{user.landingpageid}"/>
                     </p:column>
 
                 </p:dataTable>                                    
@@ -119,7 +119,13 @@
                     </p:outputPanel>
 
                     <h:outputText value="Landingpage"/>
-                    <p:inputText value="#{adminController.selectedUser.landingpage}" required="true"/>
+                    <p:orderList value="#{adminController.sysPages}" 
+                                 var="page" 
+                                 controlsLocation="none" 
+                                 itemLabel="#{page.label}" 
+                                 itemValue="#{page.value}"/>
+                    
+                    <!--<p:inputText value="#{adminController.selectedUser.landingpage}" required="true"/>-->
 
 
                     <h:outputText/>                                       

@@ -1,5 +1,6 @@
 package case1.nl.data.repository;
 
+import case1.nl.entities.SysPage;
 import case1.nl.entities.User;
 import javax.persistence.Query;
 
@@ -12,6 +13,8 @@ public class UserRepository extends DefaultRepository {
     public UserRepository(String pu) {
         super(pu);
     }
+
+
 
     public User getUser(String email, String pwdHash) {
         Query q = this.getEm().createQuery("select u from User u "
@@ -27,6 +30,8 @@ public class UserRepository extends DefaultRepository {
         }
         return u;
     }
+
+
 
     public User getUser(String email) {
         Query q = this.getEm().createQuery("select u from User u "

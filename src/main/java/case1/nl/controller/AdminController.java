@@ -1,5 +1,6 @@
 package case1.nl.controller;
 
+import case1.nl.entities.SysPage;
 import case1.nl.entities.User;
 import case1.nl.util.FMessage;
 import java.io.IOException;
@@ -33,52 +34,94 @@ public class AdminController implements Serializable {
 
     private User newUser;
 
+    private List<SysPage> sysPages;
+
+
+
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    public List<SysPage> getSysPages() {
+        return sysPages;
+    }
+
+
+
+    public void setSysPages(List<SysPage> sysPages) {
+        this.sysPages = sysPages;
+    }
+
+
+
     public User getNewUser() {
         return newUser;
     }
+
+
 
     public void setNewUser(User newUser) {
         this.newUser = newUser;
     }
 
+
+
     public User getSelectedUser() {
         return selectedUser;
     }
+
+
 
     public void setSelectedUser(User selectedUser) {
         this.selectedUser = selectedUser;
     }
 
+
+
     public SessionController getSession() {
         return session;
     }
+
+
 
     public void setSession(SessionController session) {
         this.session = session;
     }
 
+
+
     public List<User> getUsers() {
         return users;
     }
+
+
 
     public void setUsers(List<User> users) {
         this.users = users;
     }
 //</editor-fold>
 
+
+
     @PostConstruct
     private void init() {
-        this.loadUsers();
-    }    
-
-    public void loadUsers() {
-        users = session.getUserRepository().getResultList(User.class);
+        this.loadUsersAndSysPages();
     }
+
+
+
+    public void loadUsersAndSysPages() {
+        sysPages = session.getUserRepository()
+                .getResultList(SysPage.class);
+
+        users = session.getUserRepository()
+                .getResultList(User.class);
+    }
+
+
 
     public void makeNewUser() {
         newUser = new User();
     }
+
+
 
     public void saveNewUser() {
 
@@ -97,7 +140,7 @@ public class AdminController implements Serializable {
                         + " "
                         + newUser.getLastname());
             }
-            this.loadUsers();
+            this.loadUsersAndSysPages();
         } catch (UnsupportedEncodingException
                 | IllegalBlockSizeException
                 | BadPaddingException ex) {
@@ -107,6 +150,8 @@ public class AdminController implements Serializable {
         }
 
     }
+
+
 
     public void selectUser(SelectEvent selectEvent) {
         selectedUser = (User) selectEvent.getObject();
@@ -125,6 +170,8 @@ public class AdminController implements Serializable {
         }
     }
 
+
+
     public void saveUser() {
         try {
             selectedUser.setPwdhash(session.getCryptor()
@@ -142,7 +189,7 @@ public class AdminController implements Serializable {
                         + " "
                         + selectedUser.getLastname());
             }
-            this.loadUsers();
+            this.loadUsersAndSysPages();
         } catch (UnsupportedEncodingException
                 | IllegalBlockSizeException
                 | BadPaddingException ex) {
@@ -156,6 +203,8 @@ public class AdminController implements Serializable {
 
     }
 
+
+
     public void deleteUser() {
 
         if (session.getUserRepository().deleted(selectedUser)) {
@@ -166,7 +215,7 @@ public class AdminController implements Serializable {
         } else {
             FMessage.error(session.getLabels().getProperty("msgPersonDeleteError"));
         }
-        this.loadUsers();
+        this.loadUsersAndSysPages();
     }
 
 }

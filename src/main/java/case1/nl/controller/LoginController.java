@@ -34,45 +34,63 @@ public class LoginController implements Serializable {
     private SessionController session;
 
     private HttpServletRequest request;
-    
+
     private String mail, pwd, p, t, dbStatus = "";
 
     private DashboardModel dashboardModel;
+
+
 
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     public DashboardModel getDashboardModel() {
         return dashboardModel;
     }
 
+
+
     public void setDashboardModel(DashboardModel dashboardModel) {
         this.dashboardModel = dashboardModel;
     }
+
+
 
     public SessionController getSession() {
         return session;
     }
 
+
+
     public void setSession(SessionController session) {
         this.session = session;
     }
+
+
 
     public String getMail() {
         return mail;
     }
 
+
+
     public void setMail(String mail) {
         this.mail = mail;
     }
 
+
+
     public String getPwd() {
         return pwd;
     }
+
+
 
     public void setPwd(String pwd) {
         this.pwd = pwd;
     }
 
 //</editor-fold>
+
+
     @PostConstruct
     public void init() {
         session.setCurrentUser(null);
@@ -110,10 +128,11 @@ public class LoginController implements Serializable {
         loadDasboards();
     }
 
+
+
     public String login() {
 
         User user = null;
-                
 
         try {
             user = session.getUserRepository()
@@ -136,8 +155,9 @@ public class LoginController implements Serializable {
             if (p != null) {
                 return p + ".html";
             } else {
-                return session.getCurrentUser().getLandingpage()
-                        + ".html"
+                return session.getSystemRepository()
+                        .getSysPageById(session.getCurrentUser().getLandingpageid())
+                        .getValue()
                         + "?faces-redirect=true";
             }
 
@@ -148,6 +168,8 @@ public class LoginController implements Serializable {
             return "login.html";
         }
     }
+
+
 
     public String logout() {
         try {
@@ -160,6 +182,8 @@ public class LoginController implements Serializable {
 
         return "login.html";
     }
+
+
 
     public String getDBStatus() {
 
@@ -178,6 +202,8 @@ public class LoginController implements Serializable {
         return this.dbStatus;
     }
 
+
+
     /**
      * Helper function for setting the proper dashboard columns
      */
@@ -193,7 +219,5 @@ public class LoginController implements Serializable {
         dashboardModel.addColumn(column1);
         dashboardModel.addColumn(column2);
     }
-    
-    
 
 }

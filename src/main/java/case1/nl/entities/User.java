@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "User.findByFirstname", query = "SELECT u FROM User u WHERE u.firstname = :firstname"),
     @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname"),
     @NamedQuery(name = "User.findByUsetoken", query = "SELECT u FROM User u WHERE u.usetoken = :usetoken"),
-    @NamedQuery(name = "User.findByLandingpage", query = "SELECT u FROM User u WHERE u.landingpage = :landingpage")})
+    @NamedQuery(name = "User.findByLandingpageid", query = "SELECT u FROM User u WHERE u.landingpageid = :landingpageid")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -61,9 +61,8 @@ public class User implements Serializable {
     private String lastname;
     @Column(name = "USETOKEN")
     private Integer usetoken;
-    @Size(max = 45)
-    @Column(name = "LANDINGPAGE")
-    private String landingpage;
+    @Column(name = "LANDINGPAGEID")
+    private Integer landingpageid;
 
 
 
@@ -162,14 +161,14 @@ public class User implements Serializable {
 
 
 
-    public String getLandingpage() {
-        return landingpage;
+    public Integer getLandingpageid() {
+        return landingpageid;
     }
 
 
 
-    public void setLandingpage(String landingpage) {
-        this.landingpage = landingpage;
+    public void setLandingpageid(Integer landingpageid) {
+        this.landingpageid = landingpageid;
     }
 
 
