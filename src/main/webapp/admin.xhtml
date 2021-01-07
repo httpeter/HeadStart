@@ -156,30 +156,39 @@
                       dynamic="true"
                       width="400"
                       closeOnEscape="true"
-                      header="#{labels.dlgNewAdmin}">
+                      header="#{labels.dlgNewAdmin}"
+                      rendered="#{adminController.newUser!=null}">
 
                 <p:panelGrid layout="grid" columns="2">
 
                     <h:outputText value="First name"/>
-                    <p:inputText value="#{adminController.newUser.firstname}" 
+                    <p:inputText id="firstname" value="#{adminController.newUser.firstname}" 
                                  required="true"/>
+                    
                     <h:outputText value="Last name"/>
-                    <p:inputText value="#{adminController.newUser.lastname}" 
+                    <p:inputText id="lastname" value="#{adminController.newUser.lastname}" 
                                  required="true"/>
+                    
                     <h:outputText value="Email"/>
-                    <p:inputText value="#{adminController.newUser.email}" 
+                    <p:inputText id="email" value="#{adminController.newUser.email}" 
                                  required="true"/>
+                    
                     <h:outputText value="Role"/>
-                    <p:selectOneRadio value="#{adminController.newUser.role}" 
+                    <p:selectOneRadio id="role" value="#{adminController.newUser.role}" 
                                       required="true">
                         <f:selectItem itemLabel="User" itemValue="user"/>
                         <f:selectItem itemLabel="Admin" itemValue="admin"/>
                     </p:selectOneRadio>                    
+                    
                     <h:outputText value="Password"/>
-                    <p:password value="#{adminController.newUser.pwdhash}"  
-                                required="true"/>                    
-                    <h:outputText value="Landing Page"/> 
-                    <p:inputText value="#{adminController.newUser.landingpage}"/>
+                    <p:password id="pwd" value="#{adminController.newUser.pwdhash}"  
+                                required="true"/>           
+                    
+                    <h:outputText value="Landing Page ID"/> 
+                    <p:inputText id="landingpage" 
+                               value="#{adminController.newUser.landingpageid}" 
+                               required="true"/>
+                    
                     <p:commandButton value="Save" 
                                      action="#{adminController.saveNewUser()}"
                                      oncomplete="PF('newDialog').close" 

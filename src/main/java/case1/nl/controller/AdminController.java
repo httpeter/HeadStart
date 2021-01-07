@@ -102,7 +102,7 @@ public class AdminController implements Serializable {
 
     @PostConstruct
     private void init() {
-        this.loadUsersAndSysPages();
+        this.loadUsersAndSysPages();        
     }
 
 
@@ -119,6 +119,7 @@ public class AdminController implements Serializable {
 
     public void makeNewUser() {
         newUser = new User();
+        newUser.setRole("user");
     }
 
 
