@@ -15,140 +15,179 @@
 
         <h:form id="mainForm">
 
-
+            <!--Default Menu-->
             <ui:include src="included/menu.xhtml"/>                   
 
-            <p:panel>
-
-                <p:splitButton value="Action" icon="pi pi-user">
-                    <p:menuitem value="New user" 
-                                action="#{adminController.makeNewUser()}"
-                                oncomplete="PF('newDialog').show()"/>
-                    <p:menuitem value="Delete #{adminController.selectedUser.firstname} #{adminController.selectedUser.lastname}" 
-                                disabled="#{adminController.selectedUser == null}"
-                                oncomplete="PF('dlgDelete').show()"/>
-
-                </p:splitButton>
-
-                <p:dataTable value="#{adminController.users}" 
-                             var="user"  
-                             selectionMode="single" 
-                             selection="#{adminController.selectedUser}" 
-                             rowKey="#{user.id}"
-                             reflow="true">
-
-                    <p:ajax event="rowSelect" 
-                            listener="#{adminController.selectUser}" 
-                            update="@form"/>
-
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Id"/>
-                        </f:facet>
-                        <h:outputText value="#{user.id}"/>
-                    </p:column>
-
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Email"/>
-                        </f:facet>
-                        <h:outputText value="#{user.email}"/>
-                    </p:column>                                      
-
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Role"/>
-                        </f:facet>
-                        <h:outputText value="#{user.role}"/>
-                    </p:column>
-
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Firstname"/>
-                        </f:facet>
-                        <h:outputText value="#{user.firstname}"/>
-                    </p:column>
-
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Lastname"/>
-                        </f:facet>
-                        <h:outputText value="#{user.lastname}"/>
-                    </p:column>
-
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Landingpage"/>
-                        </f:facet>
-                        <!--Isn't this awesome!!-->
-                        <h:outputText value="#{sessionController.systemRepository.getSysPageById(user.landingpageid).label}"/>
-                    </p:column>
-
-                </p:dataTable>                                    
-
-            </p:panel>
-
-
-            <p:panel rendered="#{adminController.selectedUser.firstname!=null}">
-                <p:panelGrid layout="grid" columns="2">
-
-                    <h:outputText value="First name"/>
-                    <p:inputText value="#{adminController.selectedUser.firstname}" required="true"/>
-
-                    <h:outputText value="Last name"/>
-                    <p:inputText value="#{adminController.selectedUser.lastname}" required="true"/>
-
-                    <h:outputText value="Email"/>
-                    <p:inputText value="#{adminController.selectedUser.email}" required="true"/>
-
-                    <h:outputText value="Role"/>
-                    <p:selectOneRadio value="#{adminController.selectedUser.role}" 
-                                      required="true">
-                        <f:selectItem itemLabel="User" itemValue="user"/>
-                        <f:selectItem itemLabel="Admin" itemValue="admin"/>
-                    </p:selectOneRadio>                    
-
-                    <h:outputText value="Password"/>
-                    <p:password value="#{adminController.selectedUser.pwdhash}"  required="true"/>
-
-                    <h:outputText value="Use Token"/>
-
-                    <p:selectOneMenu value="#{adminController.selectedUser.usetoken}">                        
-                        <f:selectItem itemLabel="No" itemValue="0"/>
-                        <f:selectItem itemLabel="Yes" itemValue="1"/>
-                        <p:ajax update="@parent"/>
-                    </p:selectOneMenu>                        
-                    <h:outputText  value="Token" 
-                                   rendered="#{adminController.selectedUser.usetoken == 1}"/>                        
-                    <p:outputPanel rendered="#{adminController.selectedUser.usetoken == 1}">
-                        <pe:clipboard trigger="copyBtn"
-                                      action="copy" 
-                                      target="tokenTxt"/>
-                        <h:outputText id="tokenTxt" value="#{sessionController.cryptor.encrypt(adminController.selectedUser.email)}"/>
-                        <p:commandButton id="copyBtn" icon="fa fa-copy"/>
-                    </p:outputPanel>
-
-                    <h:outputText value="Landingpage"/>
-                    <p:selectOneListbox value="#{adminController.selectedUser.landingpageid}">                        
-                        <f:selectItems value="#{adminController.sysPages}" 
-                                       var="page" 
-                                       itemValue="#{page.id}" 
-                                       itemLabel="#{page.label}"/>
-                    </p:selectOneListbox>                                  
-                    <h:outputText/>                                       
-                    <p:commandButton value="Save" 
-                                     action="#{adminController.saveUser()}"
-                                     update="@form"/>
-
-                </p:panelGrid>                              
-            </p:panel>
 
 
 
 
 
+            <p:tabView id="userTab" 
+                       orientation="left" 
+                       activeIndex="#{adminController.userTabIndex}">
+
+                <p:tab title="User List">
+
+                    <p:splitButton value="Action" icon="pi pi-user">
+                        <p:menuitem value="New user" 
+                                    action="#{adminController.makeNewUser()}"
+                                    oncomplete="PF('newDialog').show()"/>
+                        <p:menuitem value="Delete #{adminController.selectedUser.firstname} 
+                                    #{adminController.selectedUser.lastname}" 
+                                    disabled="#{adminController.selectedUser == null}"
+                                    oncomplete="PF('dlgDelete').show()"/>
+
+                    </p:splitButton>
 
 
+
+                    <p:dataTable value="#{adminController.users}" 
+                                 var="user"  
+                                 selectionMode="single" 
+                                 selection="#{adminController.selectedUser}" 
+                                 rowKey="#{user.id}"
+                                 reflow="true">
+
+                        <p:ajax event="rowSelect" 
+                                listener="#{adminController.selectUser}" 
+                                update="mainForm:userTab"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{user.id}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Email"/>
+                            </f:facet>
+                            <h:outputText value="#{user.email}"/>
+                        </p:column>                                      
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Role"/>
+                            </f:facet>
+                            <h:outputText value="#{user.role}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Firstname"/>
+                            </f:facet>
+                            <h:outputText value="#{user.firstname}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Lastname"/>
+                            </f:facet>
+                            <h:outputText value="#{user.lastname}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Landingpage"/>
+                            </f:facet>
+                            <!--Isn't this awesome!!-->
+                            <h:outputText value="#{sessionController.systemRepository.getSysPageById(user.landingpageid).label}"/>
+                        </p:column>
+
+                    </p:dataTable>                                    
+
+                </p:tab>
+
+
+
+                <p:tab title="User #{adminController.selectedUser.firstname} 
+                       #{adminController.selectedUser.lastname} Details"
+                       rendered="#{adminController.selectedUser.firstname!=null}">
+
+                    <p:panelGrid layout="grid" columns="2">
+
+                        <h:outputText value="First name"/>
+                        <p:inputText value="#{adminController.selectedUser.firstname}" required="true"/>
+
+                        <h:outputText value="Last name"/>
+                        <p:inputText value="#{adminController.selectedUser.lastname}" required="true"/>
+
+                        <h:outputText value="Email"/>
+                        <p:inputText value="#{adminController.selectedUser.email}" required="true"/>
+                        
+                        <h:outputText value="Vacation days initial"/>
+                        <p:spinner value="#{adminController.selectedUser.vacationdaysinitial}"/>
+                        
+                        <h:outputText value="Vacation days left"/>
+                        <p:spinner value="#{adminController.selectedUser.vacationdaysleft}"/>
+
+                        <h:outputText value="Role"/>
+                        <p:selectOneRadio value="#{adminController.selectedUser.role}" 
+                                          required="true">
+                            <f:selectItem itemLabel="User" itemValue="user"/>
+                            <f:selectItem itemLabel="Admin" itemValue="admin"/>
+                        </p:selectOneRadio>                    
+
+                        <h:outputText value="Password"/>
+                        <p:inplace editor="true" label="******************">
+                            <p:password value="#{adminController.selectedUser.pwdhash}"  required="true"/>
+                        </p:inplace>
+
+                        <h:outputText value="Use Token"/>
+
+                        <p:selectOneMenu value="#{adminController.selectedUser.usetoken}">                        
+                            <f:selectItem itemLabel="No" itemValue="0"/>
+                            <f:selectItem itemLabel="Yes" itemValue="1"/>
+                            <p:ajax update="@parent"/>
+                        </p:selectOneMenu>                        
+                        <h:outputText  value="Token" 
+                                       rendered="#{adminController.selectedUser.usetoken == 1}"/>                        
+                        <p:outputPanel rendered="#{adminController.selectedUser.usetoken == 1}">
+                            <pe:clipboard trigger="copyBtn"
+                                          action="copy" 
+                                          target="tokenTxt"/>
+                            <h:outputText id="tokenTxt" value="http://case1.nl/?t=
+                                          #{sessionController.cryptor.encrypt(adminController.selectedUser.email)}"/>
+                            <p:commandButton id="copyBtn" icon="fa fa-copy"/>
+                        </p:outputPanel>
+
+                        <h:outputText value="Landingpage"/>
+                        <p:selectOneListbox value="#{adminController.selectedUser.landingpageid}">                        
+                            <f:selectItems value="#{adminController.sysPages}" 
+                                           var="page" 
+                                           itemValue="#{page.id}" 
+                                           itemLabel="#{page.label}"/>
+                        </p:selectOneListbox>                                  
+                        <h:outputText/>                                       
+                        <p:commandButton value="Save" 
+                                         action="#{adminController.saveUser()}"
+                                         update="@form"/>
+
+                    </p:panelGrid>                                                  
+
+                </p:tab>
+
+
+
+            </p:tabView>
+
+
+
+
+
+
+
+            <!--=====================================Dialogs===================================-->
+
+
+
+
+
+
+
+            <!--New User dialog-->
             <p:dialog id="newDialog" 
                       widgetVar="newDialog"
                       modal="true"
@@ -164,31 +203,31 @@
                     <h:outputText value="First name"/>
                     <p:inputText id="firstname" value="#{adminController.newUser.firstname}" 
                                  required="true"/>
-                    
+
                     <h:outputText value="Last name"/>
                     <p:inputText id="lastname" value="#{adminController.newUser.lastname}" 
                                  required="true"/>
-                    
+
                     <h:outputText value="Email"/>
                     <p:inputText id="email" value="#{adminController.newUser.email}" 
                                  required="true"/>
-                    
+
                     <h:outputText value="Role"/>
                     <p:selectOneRadio id="role" value="#{adminController.newUser.role}" 
                                       required="true">
                         <f:selectItem itemLabel="User" itemValue="user"/>
                         <f:selectItem itemLabel="Admin" itemValue="admin"/>
                     </p:selectOneRadio>                    
-                    
+
                     <h:outputText value="Password"/>
                     <p:password id="pwd" value="#{adminController.newUser.pwdhash}"  
                                 required="true"/>           
-                    
+
                     <h:outputText value="Landing Page ID"/> 
                     <p:inputText id="landingpage" 
-                               value="#{adminController.newUser.landingpageid}" 
-                               required="true"/>
-                    
+                                 value="#{adminController.newUser.landingpageid}" 
+                                 required="true"/>
+
                     <p:commandButton value="Save" 
                                      action="#{adminController.saveNewUser()}"
                                      oncomplete="PF('newDialog').close" 
@@ -201,6 +240,11 @@
 
 
 
+
+
+
+
+            <!--Delete User dialog-->
             <p:dialog id="dlgDelete" 
                       widgetVar="dlgDelete"
                       styleClass="dlgDelete"
@@ -216,6 +260,9 @@
                 </h:panelGrid>
 
             </p:dialog>
+
+
+
 
 
 

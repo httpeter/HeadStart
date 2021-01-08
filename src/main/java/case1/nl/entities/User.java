@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -34,7 +35,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "User.findByFirstname", query = "SELECT u FROM User u WHERE u.firstname = :firstname"),
     @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname"),
     @NamedQuery(name = "User.findByUsetoken", query = "SELECT u FROM User u WHERE u.usetoken = :usetoken"),
-    @NamedQuery(name = "User.findByLandingpageid", query = "SELECT u FROM User u WHERE u.landingpageid = :landingpageid")})
+    @NamedQuery(name = "User.findByLandingpageid", query = "SELECT u FROM User u WHERE u.landingpageid = :landingpageid"),
+    @NamedQuery(name = "User.findByVacationdaysinitial", query = "SELECT u FROM User u WHERE u.vacationdaysinitial = :vacationdaysinitial"),
+    @NamedQuery(name = "User.findByVacationdaysleft", query = "SELECT u FROM User u WHERE u.vacationdaysleft = :vacationdaysleft")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -61,8 +64,14 @@ public class User implements Serializable {
     private String lastname;
     @Column(name = "USETOKEN")
     private Integer usetoken;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "LANDINGPAGEID")
-    private Integer landingpageid;
+    private int landingpageid;
+    @Column(name = "VACATIONDAYSINITIAL")
+    private Integer vacationdaysinitial;
+    @Column(name = "VACATIONDAYSLEFT")
+    private Integer vacationdaysleft;
 
 
 
@@ -73,6 +82,13 @@ public class User implements Serializable {
 
     public User(Integer id) {
         this.id = id;
+    }
+
+
+
+    public User(Integer id, int landingpageid) {
+        this.id = id;
+        this.landingpageid = landingpageid;
     }
 
 
@@ -161,14 +177,38 @@ public class User implements Serializable {
 
 
 
-    public Integer getLandingpageid() {
+    public int getLandingpageid() {
         return landingpageid;
     }
 
 
 
-    public void setLandingpageid(Integer landingpageid) {
+    public void setLandingpageid(int landingpageid) {
         this.landingpageid = landingpageid;
+    }
+
+
+
+    public Integer getVacationdaysinitial() {
+        return vacationdaysinitial;
+    }
+
+
+
+    public void setVacationdaysinitial(Integer vacationdaysinitial) {
+        this.vacationdaysinitial = vacationdaysinitial;
+    }
+
+
+
+    public Integer getVacationdaysleft() {
+        return vacationdaysleft;
+    }
+
+
+
+    public void setVacationdaysleft(Integer vacationdaysleft) {
+        this.vacationdaysleft = vacationdaysleft;
     }
 
 

@@ -36,9 +36,23 @@ public class AdminController implements Serializable {
 
     private List<SysPage> sysPages;
 
+    private int userTabIndex = 0;
 
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+
+    public int getUserTabIndex() {
+        return userTabIndex;
+    }
+
+
+
+    public void setUserTabIndex(int userTabIndex) {
+        this.userTabIndex = userTabIndex;
+    }
+
+
+
     public List<SysPage> getSysPages() {
         return sysPages;
     }
@@ -102,7 +116,7 @@ public class AdminController implements Serializable {
 
     @PostConstruct
     private void init() {
-        this.loadUsersAndSysPages();        
+        this.loadUsersAndSysPages();
     }
 
 
@@ -162,12 +176,14 @@ public class AdminController implements Serializable {
                         .decrypt(selectedUser
                                 .getPwdhash()));
             }
+            userTabIndex = 1;
         } catch (IOException
                 | IllegalBlockSizeException
                 | BadPaddingException ex) {
             Logger.getLogger(AdminController.class.getName())
                     .log(Level.SEVERE, null, ex);
             FMessage.error(ex.getMessage());
+            userTabIndex = 0;
         }
     }
 

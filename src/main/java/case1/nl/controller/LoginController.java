@@ -35,7 +35,7 @@ public class LoginController implements Serializable {
 
     private HttpServletRequest request;
 
-    private String mail, pwd, p, t, dbStatus = "";
+    private String mail, pwd, t, dbStatus = "";
 
     private DashboardModel dashboardModel;
 
@@ -99,9 +99,6 @@ public class LoginController implements Serializable {
                 .getExternalContext()
                 .getRequest();
 
-        //Needs to be done at bean creation time since we are using viewscoped scope
-        p = request.getParameter("p");
-
         t = request.getParameter("t");
 
         if (t != null) {
@@ -114,7 +111,9 @@ public class LoginController implements Serializable {
                     session.setCurrentUser(user);
                     session.getFacesContext()
                             .getExternalContext()
-                            .redirect(p + ".html");
+                            .redirect(session.getSystemRepository()
+                                    .getSysPageById(session.getCurrentUser()
+                                            .getLandingpageid()).getValue());
                 } else {
                     FMessage.warn("Token not valid");
                 }
@@ -152,14 +151,10 @@ public class LoginController implements Serializable {
                     + " logged in.");
             session.setCurrentUser(user);
 
-            if (p != null) {
-                return p + ".html";
-            } else {
-                return session.getSystemRepository()
-                        .getSysPageById(session.getCurrentUser().getLandingpageid())
-                        .getValue()
-                        + "?faces-redirect=true";
-            }
+            return session.getSystemRepository()
+                    .getSysPageById(session.getCurrentUser().getLandingpageid())
+                    .getValue()
+                    + "?faces-redirect=true";
 
         } else {
             FMessage.warn("Problem logging in user '"
