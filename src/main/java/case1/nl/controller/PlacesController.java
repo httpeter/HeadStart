@@ -554,7 +554,7 @@ public class PlacesController implements Serializable {
 
     public void downloadIcal() {
         try {
-FMessage.info(DateHelper.getIcalEvent(selectedPlace));
+
             // Prepare.
             byte[] icalData = DateHelper.getIcalEvent(selectedPlace)
                     .getBytes();
