@@ -4,21 +4,23 @@ import case1.nl.entities.Place;
 import case1.nl.entities.Trip;
 import case1.nl.util.DateHelper;
 import case1.nl.util.FMessage;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.map.PointSelectEvent;
 import org.primefaces.event.timeline.TimelineSelectEvent;
@@ -393,7 +395,7 @@ public class PlacesController implements Serializable {
 
     public int getSelectedPlaceTotalDays(Date arrivalDate, Date departureDate) {
         int days = 0;
-        if (arrivalDate !=null && departureDate != null) {
+        if (arrivalDate != null && departureDate != null) {
             days = Period.between(DateHelper.convertDateToLocalDate(arrivalDate),
                     DateHelper.convertDateToLocalDate(departureDate))
                     .getDays();
@@ -546,6 +548,41 @@ public class PlacesController implements Serializable {
         mapModelDetail.addOverlay(new Marker(coord, selectedPlace.getName()));
 
         PrimeFaces.current().executeScript("PF('placeEditDLG').show();");
+    }
+
+
+
+    public void downloadIcal() {
+        try {
+FMessage.info(DateHelper.getIcalEvent(selectedPlace));
+            // Prepare.
+            byte[] icalData = DateHelper.getIcalEvent(selectedPlace)
+                    .getBytes();
+
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            ExternalContext externalContext = facesContext.getExternalContext();
+            HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
+
+            // Initialize response.
+            response.reset();
+            response.setContentType("text/html");
+            response.setHeader("Content-disposition", "attachment; filename=\""
+                    + selectedPlace.getName()
+                    + ".ics\"");
+
+            // Write file to response.
+            OutputStream output = response.getOutputStream();
+            output.write(icalData);
+            output.close();
+
+            // Inform JSF to not take the response in hands.
+            facesContext.responseComplete();
+
+        } catch (Exception ex) {
+            FMessage.error(ex.getLocalizedMessage());
+            Logger.getLogger(PlacesController.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
     }
 
 }

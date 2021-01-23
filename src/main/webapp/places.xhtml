@@ -21,7 +21,6 @@
 
 
 
-
             <!--MAIN MENU-->
             <ui:include src="included/menu.xhtml"/>            
 
@@ -48,7 +47,7 @@
 
                 <p:panelGrid columns="2" 
                              layout="grid">
-                   
+
                     <p:selectOneMenu value="#{placesController.selectedTripID}" 
                                      style="width:100%">
                         <f:selectItem itemLabel="select..."
@@ -124,7 +123,7 @@
                                          onclick="PF('tripEditDLG').show();" 
                                          rendered="#{placesController.selectedTripID!=0}"
                                          value="Edit trip"/>    
-                        
+
                         <p:commandButton icon="fa fa-trash"                                                  
                                          onclick="PF('tripDeleteDLG').show();" 
                                          rendered="#{sessionController.currentUser.role == 'admin'}"
@@ -176,7 +175,8 @@
                                       rendered="#{timelinePlace.booked}"/>
                         <p:selectBooleanCheckbox value="#{timelinePlace.payed}"
                                                  disabled="true"
-                                                 rendered="#{timelinePlace.booked}"/>
+                                                 rendered="#{timelinePlace.booked}"/>                        
+
                     </h:panelGrid>
 
                     <p:ajax event="select" 
