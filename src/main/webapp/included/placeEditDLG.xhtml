@@ -51,7 +51,7 @@
 
             <h:outputText value="Add to Calendar" styleClass="headerText"/>
             <h:commandLink value="#{placesController.selectedPlace.name}.ics"
-                           action="#{placesController.downloadIcal()}"/>
+                           action="#{placesController.downloadIcal(place)}"/>
 
             <h:outputText value="Rating" styleClass="headerText"/>
             <p:rating value="#{placesController.selectedPlace.rating}" />      

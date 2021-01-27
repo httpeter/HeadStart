@@ -65,6 +65,8 @@ public class PlacesController implements Serializable {
 
     private int totalPrice,
             stillToPay;
+    
+    private String selectedTripIcal;
 
 
 
@@ -325,6 +327,10 @@ public class PlacesController implements Serializable {
                                     .atZone(ZoneId.systemDefault())
                                     .toLocalDate())
                             .build());
+                    
+                    //Filling the ical
+                    //selectedTripIcal+=
+                    
                 } else {
                     FMessage.fatal("A PLACE COULD NOT BE LOADED!");
                     return;
@@ -552,11 +558,15 @@ public class PlacesController implements Serializable {
 
 
 
-    public void downloadIcal() {
+    public void downloadIcal(Place place) {
         try {
 
+            if (place == null) {
+                place = selectedPlace;
+            }
+
             // Prepare.
-            byte[] icalData = DateHelper.getIcalEvent(selectedPlace)
+            byte[] icalData = DateHelper.getIcalEvent(place)
                     .getBytes();
 
             FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -567,7 +577,7 @@ public class PlacesController implements Serializable {
             response.reset();
             response.setContentType("text/html");
             response.setHeader("Content-disposition", "attachment; filename=\""
-                    + selectedPlace.getName()
+                    + place.getName()
                     + ".ics\"");
 
             // Write file to response.
