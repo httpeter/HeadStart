@@ -9,7 +9,7 @@
               header="Edit Place: '#{placesController.selectedPlace.name}'"              
               modal="true" 
               widgetVar="placeEditDLG"
-              width="90%"
+              width="90%"              
               blockScroll="true"
               fitViewport="true"
               closeOnEscape="true"
@@ -29,11 +29,11 @@
                     #{placesController.selectedPlace.lng}" 
                     zoom="13" 
                     type="map" 
-                    style="width:400px;height:400px"
+                    style="width:100px;height:100px"
                     model="#{placesController.mapModelDetail}"/>                                                    
 
             <p:graphicImage url="#{placesController.selectedPlace.imgurls}" 
-                            height="400"/>   
+                            height="100"/>   
 
         </p:panelGrid>
 
