@@ -153,7 +153,8 @@
                 <p:timeline id="timeline" 
                             value="#{placesController.timelineModel}"
                             var="timelinePlace"
-                            zoomable="false">
+                            zoomable="false"
+                            >
 
                     <h:outputText value="#{timelinePlace.name}" 
                                   style="font-weight: bold"/>
@@ -165,19 +166,11 @@
                     <br/>
                     <h:outputText value="#{placesController.getSelectedPlaceTotalDays(timelinePlace.arrivaldate, 
                                            timelinePlace.departuredate)} days"/>
-                    <br/>
-                    <h:panelGrid columns="2">
+                    <br/>                   
 
-                        <h:outputText value="Booked"/>
-                        <p:selectBooleanCheckbox value="#{timelinePlace.booked}" 
-                                                 disabled="true"/>                                                
-                        <h:outputText value="Payed"
-                                      rendered="#{timelinePlace.booked}"/>
-                        <p:selectBooleanCheckbox value="#{timelinePlace.payed}"
-                                                 disabled="true"
-                                                 rendered="#{timelinePlace.booked}"/>                        
+                    <h:outputText value="Booked: #{timelinePlace.booked}, "/>
 
-                    </h:panelGrid>
+                    <h:outputText value="Payed: #{timelinePlace.payed}"/>                        
 
                     <p:ajax event="select" 
                             listener="#{placesController.timelineSelect}"
