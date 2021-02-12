@@ -494,6 +494,8 @@ public class PlacesController implements Serializable {
         newPlace.setPayed(false);
         newPlace.setArrivaldate(new Date());
         newPlace.setTripid(selectedTrip.getId());
+        newPlace.setLat("52.0841037");
+        newPlace.setLng("4.9424081");
 
         PrimeFaces.current().executeScript("PF('addPlaceDLG').show();");
     }

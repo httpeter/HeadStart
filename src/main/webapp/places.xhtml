@@ -18,7 +18,7 @@
         <h:form id="mainForm">
 
 
-
+            <p:card>test</p:card>
 
 
             <!--MAIN MENU-->
@@ -48,6 +48,8 @@
                 <p:panelGrid columns="2" 
                              layout="grid">
 
+
+
                     <p:selectOneMenu value="#{placesController.selectedTripID}" 
                                      style="width:100%">
                         <f:selectItem itemLabel="select..."
@@ -60,6 +62,40 @@
                         <p:ajax update="@form" 
                                 listener="#{placesController.loadPlaces()}"/>                                        
                     </p:selectOneMenu> 
+
+                    <p:panelGrid columns="2"
+                                 layout="grid">
+
+                        <!--Trips-->                        
+                        <p:menuButton value="Trips" icon="fa fa-car">
+                        <p:menuitem icon="fa fa-plus"
+                                         oncomplete="PF('addTripDLG').show();"
+                                         value="Add trip"
+                                         action="#{placesController.makeNewTrip()}"/>                                                    
+
+                        <p:menuitem icon="fa fa-gear"                                                  
+                                         onclick="PF('tripEditDLG').show();" 
+                                         rendered="#{placesController.selectedTripID!=0}"
+                                         value="Edit trip"/>    
+
+                        <p:menuitem icon="fa fa-trash"                                                  
+                                         onclick="PF('tripDeleteDLG').show();" 
+                                         rendered="#{sessionController.currentUser.role == 'admin'}"
+                                         value="Delete trip"/>
+                        
+                        </p:menuButton>
+
+                        <!--Places-->
+                        <p:commandButton value="Add place" 
+                                         icon="pi pi-map-marker"                                         
+                                         action="#{placesController.makeNewPlace()}">
+                            <pe:badge content="#{placesController.places.size()}" 
+                                      rendered="#{placesController.places.size()!=null}"/>
+                        </p:commandButton>                       
+
+                    </p:panelGrid>        
+
+
                     <p:galleria value="#{placesController.gallery}" 
                                 var="image"  
                                 panelWidth="300"
@@ -67,7 +103,12 @@
                                 effectSpeed="5000"
                                 rendered="#{placesController.selectedTripID!=0}">
                         <p:graphicImage url="#{image}" height="250"/>
-                    </p:galleria>                                   
+                    </p:galleria>         
+                    <h:outputText rendered="#{placesController.selectedTripID!=0}"/>
+                    
+                    <p:separator rendered="#{placesController.selectedTripID!=0}"/>
+                    <h:outputText rendered="#{placesController.selectedTripID!=0}"/>
+
 
                     <h:outputText value="Startdate"
                                   rendered="#{placesController.selectedTripID!=0}"
@@ -109,26 +150,7 @@
                                      style="width:100%; border: none;"
                                      disabled="true" 
                                      rendered="#{placesController.selectedTrip.notes!=null}"/>
-
-                    <h:outputText/> 
-                    <h:panelGrid columns="3">
-                        <p:commandButton icon="fa fa-plus"
-                                         oncomplete="PF('addTripDLG').show();"
-                                         value="Add trip"
-                                         action="#{placesController.makeNewTrip()}">
-                            <pe:badge content="#{placesController.trips.size()}"/>
-                        </p:commandButton>                            
-
-                        <p:commandButton icon="fa fa-gear"                                                  
-                                         onclick="PF('tripEditDLG').show();" 
-                                         rendered="#{placesController.selectedTripID!=0}"
-                                         value="Edit trip"/>    
-
-                        <p:commandButton icon="fa fa-trash"                                                  
-                                         onclick="PF('tripDeleteDLG').show();" 
-                                         rendered="#{sessionController.currentUser.role == 'admin'}"
-                                         value="Delete trip"/> 
-                    </h:panelGrid>                                                           
+                    
 
                 </p:panelGrid>                         
 
@@ -211,16 +233,8 @@
                                 update="@form" />
                     </p:gmap>
 
-                    <p:panelGrid layout="grid"
-                                 columns="2" >
-                        <h:outputText/>
 
-                        <p:commandButton value="Add place" 
-                                         icon="fa fa-plus"                                         
-                                         action="#{placesController.makeNewPlace()}">
-                            <pe:badge content="#{placesController.places.size()}"/>
-                        </p:commandButton>                        
-                    </p:panelGrid>
+
 
                 </p:panelGrid>
 
