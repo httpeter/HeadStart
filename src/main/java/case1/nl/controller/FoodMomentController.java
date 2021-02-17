@@ -22,36 +22,50 @@ public class FoodMomentController implements Serializable {
 
     private List<Foodmoment> foodMoments;
 
-    private Foodmoment newFoodMoment;    
+    private Foodmoment newFoodMoment;
+
+
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
     public SessionController getSession() {
         return session;
     }
 
+
+
     public void setSession(SessionController session) {
         this.session = session;
     }
 
+
+
     public List<Foodmoment> getFoodMoments() {
         this.foodMoments = session.getFoodMomentRepository()
-                .getFoodMoments(session.getCurrentUser()
-                        .getId());
+                .findByTypedQueryName("Foodmoment.findByUserid", 
+                        session.getCurrentUser().getId());                
 
         return foodMoments;
     }
+
+
 
     public void setFoodMoments(List<Foodmoment> foodMoments) {
         this.foodMoments = foodMoments;
     }
 
+
+
     public Foodmoment getNewFoodMoment() {
         return newFoodMoment;
     }
 
+
+
     public void setNewFoodMoment(Foodmoment newFoodMoment) {
         this.newFoodMoment = newFoodMoment;
     }
+
+
 
     //</editor-fold>
     @PostConstruct
@@ -60,10 +74,16 @@ public class FoodMomentController implements Serializable {
         newFoodMoment.setUserid(session.getCurrentUser().getId());
     }
 
+
+
     public List<String> completeProducts(String query) {
         return session.getFoodMomentRepository()
                 .getProdListByDescEN(query);
     }
+    
+    
+
+
 
     public void save() {
 

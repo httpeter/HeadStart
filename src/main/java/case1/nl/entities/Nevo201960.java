@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Nevo201960.findByGroupdescriptionnl", query = "SELECT n FROM Nevo201960 n WHERE n.groupdescriptionnl = :groupdescriptionnl"),
     @NamedQuery(name = "Nevo201960.findByProdcode", query = "SELECT n FROM Nevo201960 n WHERE n.prodcode = :prodcode"),
     @NamedQuery(name = "Nevo201960.findByProddescnl", query = "SELECT n FROM Nevo201960 n WHERE n.proddescnl = :proddescnl"),
-    @NamedQuery(name = "Nevo201960.findByProddescen", query = "SELECT n FROM Nevo201960 n WHERE n.proddescen = :proddescen"),
+    @NamedQuery(name = "Nevo201960.findByProddescen", query = "SELECT n FROM Nevo201960 n WHERE n.proddescen like :proddescen"),
     @NamedQuery(name = "Nevo201960.findByProdsysnonymsnl", query = "SELECT n FROM Nevo201960 n WHERE n.prodsysnonymsnl = :prodsysnonymsnl"),
     @NamedQuery(name = "Nevo201960.findByUom", query = "SELECT n FROM Nevo201960 n WHERE n.uom = :uom"),
     @NamedQuery(name = "Nevo201960.findByAmount", query = "SELECT n FROM Nevo201960 n WHERE n.amount = :amount"),
