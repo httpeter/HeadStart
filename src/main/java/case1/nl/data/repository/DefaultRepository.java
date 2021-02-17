@@ -99,16 +99,6 @@ public class DefaultRepository implements Serializable {
 
 
 
-    public List getResultList(Class c) {
-
-        TypedQuery q = em.createQuery("select o from "
-                + c.getSimpleName()
-                + " o", c);
-        return q.getResultList();
-    }
-
-
-
     public List findAll(Class c) {
 
         Query query = null;
@@ -123,12 +113,16 @@ public class DefaultRepository implements Serializable {
 
 
 
-    public List findByTypedQueryName(String namedQueryName, String property, Object value) {
+    public List findByTypedQueryName(String namedQueryName, Object parameter) {
 
         Query query = null;
+        
+        String property = namedQueryName
+                .replace(namedQueryName.substring(0, namedQueryName.indexOf(".") + 1), "")
+                .toLowerCase();
         try {
             query = em.createNamedQuery(namedQueryName);
-            query.setParameter(property, value);
+            query.setParameter(property, parameter);
         } catch (Exception e) {
             FMessage.error(e.getLocalizedMessage());
         }

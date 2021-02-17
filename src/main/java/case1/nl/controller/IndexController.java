@@ -65,7 +65,7 @@ public class IndexController implements Serializable {
     @PostConstruct
     public void loadPersons() {
         try {
-            persons = session.getDefaultRepository().getResultList(Person.class);
+            persons = session.getDefaultRepository().findAll(Person.class);
 //            selectedPerson = (Person) persons.get(0);
         } catch (Exception e) {
             FMessage.error(e.getMessage());

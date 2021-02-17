@@ -123,10 +123,10 @@ public class AdminController implements Serializable {
 
     public void loadUsersAndSysPages() {
         sysPages = session.getUserRepository()
-                .getResultList(SysPage.class);
+                .findAll(SysPage.class);
 
         users = session.getUserRepository()
-                .getResultList(User.class);
+                .findAll(User.class);
     }
 
 
