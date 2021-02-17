@@ -277,7 +277,7 @@ public class PlacesController implements Serializable {
 
     private void loadTrips() throws Exception {
         trips = session.getPlacesRepository()
-                .getTripsByStartdateDesc();
+                .findAll(Trip.class);
 
         selectedTrip = new Trip();
         selectedTrip.setId(0);
@@ -295,7 +295,7 @@ public class PlacesController implements Serializable {
 
         if (selectedTrip.getId() != 0) {
             places = session.getPlacesRepository()
-                    .getPlaces(selectedTrip.getId());
+                    .findByTypedQueryName("Place.findByTripid", selectedTrip.getId());
 
             timelineModel = new TimelineModel();
 
