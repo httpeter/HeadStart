@@ -65,7 +65,7 @@ public class PlacesController implements Serializable {
 
     private int totalPrice,
             stillToPay;
-    
+
     private String selectedTripIcal;
 
 
@@ -261,6 +261,16 @@ public class PlacesController implements Serializable {
             //Load Trips
             loadTrips();
 
+           // System.out.println("All queries: "+ session.getPlacesRepository().findAllNamedQueries());
+            
+            System.out.println("All TRIPS: "
+                    + session.getPlacesRepository()
+                            .findAll(Trip.class));
+
+            System.out.println("TRIPS by name: "
+                    + session.getPlacesRepository()
+                            .findBy("Trip.findByName","name", "%2020%"));
+
         } catch (Exception ex) {
             Logger.getLogger(PlacesController.class.getName())
                     .log(Level.SEVERE, null, ex);
@@ -327,10 +337,9 @@ public class PlacesController implements Serializable {
                                     .atZone(ZoneId.systemDefault())
                                     .toLocalDate())
                             .build());
-                    
+
                     //Filling the ical
                     //selectedTripIcal+=
-                    
                 } else {
                     FMessage.fatal("A PLACE COULD NOT BE LOADED!");
                     return;

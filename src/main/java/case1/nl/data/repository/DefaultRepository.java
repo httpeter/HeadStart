@@ -3,14 +3,22 @@
 // For questions or suggestions please contact me at httpeter@gmail.com
 package case1.nl.data.repository;
 
+import case1.nl.util.FMessage;
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.metamodel.EntityType;
 
 /**
  * Simple extendable repository for use with JPA2 offering basic list retrieval
@@ -28,13 +36,19 @@ public class DefaultRepository implements Serializable {
 
     private EntityManager em;
 
+
+
     public EntityManager getEm() {
         return em;
     }
 
+
+
     public void setEm(EntityManager em) {
         this.em = em;
     }
+
+
 
     public DefaultRepository(String puName) {
 
@@ -43,12 +57,14 @@ public class DefaultRepository implements Serializable {
 
     }
 
+
+
     public boolean persisted(Object object) {
         try {
             em.getTransaction().begin();
             em.persist(object);
-            em.getTransaction().commit();            
-            em.clear();            
+            em.getTransaction().commit();
+            em.clear();
             return true;
         } catch (Exception e) {
             logger.log(Level.WARNING, e.getCause().getMessage());
@@ -60,13 +76,15 @@ public class DefaultRepository implements Serializable {
             return false;
         }
     }
-    
-     public boolean merged(Object object) {
+
+
+
+    public boolean merged(Object object) {
         try {
             em.getTransaction().begin();
             em.merge(object);
-            em.getTransaction().commit();            
-            em.clear();            
+            em.getTransaction().commit();
+            em.clear();
             return true;
         } catch (Exception e) {
             logger.log(Level.WARNING, e.getCause().getMessage());
@@ -78,6 +96,8 @@ public class DefaultRepository implements Serializable {
             return false;
         }
     }
+
+
 
     public List getResultList(Class c) {
 
@@ -86,6 +106,37 @@ public class DefaultRepository implements Serializable {
                 + " o", c);
         return q.getResultList();
     }
+
+
+
+    public List findAll(Class c) {
+
+        Query query = null;
+        try {
+            query = em.createNamedQuery(c.getSimpleName() + ".findAll");
+        } catch (Exception e) {
+            FMessage.error(e.getLocalizedMessage());
+        }
+
+        return query.getResultList();
+    }
+
+
+
+    public List findBy(String namedQueryName, String property, Object value) {
+
+        Query query = null;
+        try {
+            query = em.createNamedQuery(namedQueryName);
+            query.setParameter(property, value);
+        } catch (Exception e) {
+            FMessage.error(e.getLocalizedMessage());
+        }
+
+        return query.getResultList();
+    }
+
+
 
     public boolean deleted(Object object) {
 
@@ -103,12 +154,36 @@ public class DefaultRepository implements Serializable {
 
     }
 
+
+
     public void close() {
         if (em.isOpen()) {
             em.clear();
             em.close();
             emf.close();
         }
+    }
+
+
+
+    public Set<NamedQuery> findAllNamedQueries() {
+        Set<NamedQuery> allNamedQueries = new HashSet<NamedQuery>();
+
+        Set<EntityType<?>> entityTypes = emf.getMetamodel().getEntities();
+        for (EntityType<?> entityType : entityTypes) {
+            Class<?> entityClass = entityType.getBindableJavaType();
+
+            NamedQueries namedQueries = entityClass.getAnnotation(NamedQueries.class);
+            if (namedQueries != null) {
+                allNamedQueries.addAll(Arrays.asList(namedQueries.value()));
+            }
+
+            NamedQuery namedQuery = entityClass.getAnnotation(NamedQuery.class);
+            if (namedQuery != null) {
+                allNamedQueries.add(namedQuery);
+            }
+        }
+        return allNamedQueries;
     }
 
 }
