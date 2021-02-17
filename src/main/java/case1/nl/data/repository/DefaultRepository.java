@@ -123,7 +123,7 @@ public class DefaultRepository implements Serializable {
 
 
 
-    public List findBy(String namedQueryName, String property, Object value) {
+    public List findByTypedQueryName(String namedQueryName, String property, Object value) {
 
         Query query = null;
         try {

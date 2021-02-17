@@ -269,7 +269,7 @@ public class PlacesController implements Serializable {
 
             System.out.println("TRIPS by name: "
                     + session.getPlacesRepository()
-                            .findBy("Trip.findById","id", 1));
+                            .findByTypedQueryName("Trip.findById","id", 1));
 
         } catch (Exception ex) {
             Logger.getLogger(PlacesController.class.getName())
