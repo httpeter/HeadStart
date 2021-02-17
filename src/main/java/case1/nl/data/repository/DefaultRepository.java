@@ -113,16 +113,18 @@ public class DefaultRepository implements Serializable {
 
 
 
-    public List findByTypedQueryName(String namedQueryName, Object parameter) {
+    public List findByTypedQueryName(String namedQueryName, Object parameterValue) {
 
         Query query = null;
-        
-        String property = namedQueryName
-                .replace(namedQueryName.substring(0, namedQueryName.indexOf(".") + 1), "")
+
+        String parameter = namedQueryName
+                .replace(namedQueryName.substring(0, namedQueryName.indexOf(".findBy") + 7), "")
                 .toLowerCase();
+
         try {
             query = em.createNamedQuery(namedQueryName);
-            query.setParameter(property, parameter);
+            query.setParameter(parameter, parameterValue);
+
         } catch (Exception e) {
             FMessage.error(e.getLocalizedMessage());
         }
