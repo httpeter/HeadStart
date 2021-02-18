@@ -14,20 +14,4 @@ public class SystemRepository extends DefaultRepository {
         super(pu);
     }
     
-    
-    
-    public SysPage getSysPageById(int sysPageId) {
-        Query q = this.getEm().createQuery("select sp from SysPage sp "
-                + "where sp.id = :sysPageId")
-                .setParameter("sysPageId", sysPageId);
-        SysPage result = null;
-        try {
-            result = (SysPage) q.getSingleResult();            
-        } catch (Exception e) {
-            FMessage.error(e.getLocalizedMessage());
-        }
-        
-        return result;
-    }
-    
 }

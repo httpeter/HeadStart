@@ -1,6 +1,7 @@
 package case1.nl.controller;
 
 import case1.nl.entities.Foodmoment;
+import case1.nl.entities.Nevo201960;
 import case1.nl.util.FMessage;
 import java.io.Serializable;
 import java.util.List;
@@ -41,8 +42,8 @@ public class FoodMomentController implements Serializable {
 
     public List<Foodmoment> getFoodMoments() {
         this.foodMoments = session.getFoodMomentRepository()
-                .findByTypedQueryName("Foodmoment.findByUserid", 
-                        session.getCurrentUser().getId());                
+                .findByNamedQueryName("Foodmoment.findByUserid",
+                        session.getCurrentUser().getId());
 
         return foodMoments;
     }
@@ -80,8 +81,6 @@ public class FoodMomentController implements Serializable {
         return session.getFoodMomentRepository()
                 .getProdListByDescEN(query);
     }
-    
-    
 
 
 
@@ -89,11 +88,12 @@ public class FoodMomentController implements Serializable {
 
         if (newFoodMoment.getMoment() != null) {
 
-            int kCal = session.getFoodMomentRepository()
-                    .getProdByDescEN(newFoodMoment.getProduct())
-                    .getKcal();
+            Nevo201960 nevo201960 = (Nevo201960) session.getFoodMomentRepository()
+                    .findByNamedQueryName("Nevo201960.findByProddescen", newFoodMoment
+                            .getProduct())
+                    .get(0);
 
-            newFoodMoment.setKcal(kCal);
+            newFoodMoment.setKcal(nevo201960.getKcal());
 
             if (session.getFoodMomentRepository()
                     .persisted(newFoodMoment)) {

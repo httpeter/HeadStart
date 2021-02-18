@@ -1,5 +1,6 @@
 package case1.nl.controller;
 
+import case1.nl.entities.SysPage;
 import java.io.Serializable;
 import case1.nl.entities.User;
 import case1.nl.util.DBVersionController;
@@ -104,16 +105,21 @@ public class LoginController implements Serializable {
         if (t != null) {
             try {
 
-                User user = session.getUserRepository()
-                        .getUser(session.getCryptor().decrypt(t));
+                User user = (User) session.getUserRepository()
+                        .findByNamedQueryName("User.findByName",
+                                session.getCryptor().decrypt(t))
+                        .get(0);
 
                 if (user != null) {
                     session.setCurrentUser(user);
                     session.getFacesContext()
                             .getExternalContext()
                             .redirect(session.getSystemRepository()
-                                    .getSysPageById(session.getCurrentUser()
-                                            .getLandingpageid()).getValue());
+                                    .findByNamedQueryName("SysPage.findById",
+                                            session.getCurrentUser().getLandingpageid()).get(0).toString());
+
+//                                    .getSysPageById(session.getCurrentUser()
+//                                            .getLandingpageid()).getValue());
                 } else {
                     FMessage.warn("Token not valid");
                 }
@@ -151,10 +157,11 @@ public class LoginController implements Serializable {
                     + " logged in.");
             session.setCurrentUser(user);
 
-            return session.getSystemRepository()
-                    .getSysPageById(session.getCurrentUser().getLandingpageid())
-                    .getValue()
-                    + "?faces-redirect=true";
+            SysPage sysPage = (SysPage) session.getSystemRepository()
+                    .findByNamedQueryName("SysPage.findById", session.getCurrentUser()
+                            .getLandingpageid()).get(0);
+
+            return sysPage.getValue() + "?faces-redirect=true";
 
         } else {
             FMessage.warn("Problem logging in user '"

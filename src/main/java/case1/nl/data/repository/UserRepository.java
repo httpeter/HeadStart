@@ -31,20 +31,4 @@ public class UserRepository extends DefaultRepository {
         return u;
     }
 
-
-
-    public User getUser(String email) {
-        Query q = this.getEm().createQuery("select u from User u "
-                + "where u.email = :email")
-                .setParameter("email", email);
-        User u = null;
-        try {
-            u = (User) q.getSingleResult();
-        } catch (Exception ex) {
-            System.out.println("--> No entities retrieved when querying for user "
-                    + email);
-        }
-        return u;
-    }
-
 }

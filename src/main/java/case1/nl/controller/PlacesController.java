@@ -291,7 +291,7 @@ public class PlacesController implements Serializable {
 
         if (selectedTrip.getId() != 0) {
             places = session.getPlacesRepository()
-                    .findByTypedQueryName("Place.findByTripid", selectedTrip.getId());
+                    .findByNamedQueryName("Place.findByTripid", selectedTrip.getId());
 
             timelineModel = new TimelineModel();
 

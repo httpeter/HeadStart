@@ -26,14 +26,5 @@ public class FoodMomentRepository extends DefaultRepository {
     }
 
 
-    public Nevo201960 getProdByDescEN(String prod) {
-
-        Query q = this.getEm().createQuery("select prod "
-                + "from Nevo201960 prod "
-                + "where prod.proddescen = :prod")
-                .setParameter("prod", prod);
-
-        return (Nevo201960) q.getSingleResult();
-    }
 
 }
