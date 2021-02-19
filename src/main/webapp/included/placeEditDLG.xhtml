@@ -18,134 +18,134 @@
         <p:tabView>
 
             <p:tab title="General">
+                <p:scrollPanel>
+                    <p:panelGrid columns="2"
+                                 layout="grid">
 
-                <p:panelGrid columns="2"
-                             layout="grid">
+                        <p:gmap id="gmapDetail" 
+                                widgetVar="gmapDetail" 
+                                center="#{placesController.selectedPlace.lat}, 
+                                #{placesController.selectedPlace.lng}" 
+                                zoom="13" 
+                                type="map" 
+                                style="width:200px;height:200px"
+                                model="#{placesController.mapModelDetail}"/>                                                    
 
-                    <p:gmap id="gmapDetail" 
-                            widgetVar="gmapDetail" 
-                            center="#{placesController.selectedPlace.lat}, 
-                            #{placesController.selectedPlace.lng}" 
-                            zoom="13" 
-                            type="map" 
-                            style="width:100px;height:100px"
-                            model="#{placesController.mapModelDetail}"/>                                                    
+                        <p:graphicImage url="#{placesController.selectedPlace.imgurls}" 
+                                        height="100"/>
 
-                    <p:graphicImage url="#{placesController.selectedPlace.imgurls}" 
-                                    height="100"/>
+                        <h:outputText value="Name" styleClass="headerText"/>
+                        <p:inplace editor="true">
+                            <p:inputText value="#{placesController.selectedPlace.name}"/>
+                        </p:inplace>
 
-                    <h:outputText value="Name" styleClass="headerText"/>
-                    <p:inplace editor="true">
-                        <p:inputText value="#{placesController.selectedPlace.name}"/>
-                    </p:inplace>
+                        <h:outputText value="Add to Calendar" styleClass="headerText"/>
+                        <h:commandLink value="#{placesController.selectedPlace.name}.ics"
+                                       action="#{placesController.downloadIcal(place)}"/>
 
-                    <h:outputText value="Add to Calendar" styleClass="headerText"/>
-                    <h:commandLink value="#{placesController.selectedPlace.name}.ics"
-                                   action="#{placesController.downloadIcal(place)}"/>
+                        <h:outputText value="Rating" styleClass="headerText"/>
+                        <p:rating value="#{placesController.selectedPlace.rating}" />
 
-                    <h:outputText value="Rating" styleClass="headerText"/>
-                    <p:rating value="#{placesController.selectedPlace.rating}" />
+                        <h:outputText value="Description" styleClass="headerText"/>
+                        <p:inplace editor="true">
+                            <p:inputTextarea value="#{placesController.selectedPlace.description}"/>                                                                                                     
+                        </p:inplace>
 
-                    <h:outputText value="Description" styleClass="headerText"/>
-                    <p:inplace editor="true">
-                        <p:inputTextarea value="#{placesController.selectedPlace.description}"/>                                                                                                     
-                    </p:inplace>
-
-                </p:panelGrid>
-
+                    </p:panelGrid>
+                </p:scrollPanel>
             </p:tab>
 
 
             <p:tab title="Booking details">
-
-                <p:panelGrid columns="2" 
-                             layout="grid">
-
-
-
-                    <h:outputText value="Booked" styleClass="headerText"/>
-                    <p:selectBooleanCheckbox value="#{placesController.selectedPlace.booked}">
-                        <p:ajax update="@parent"/>
-                    </p:selectBooleanCheckbox>
-
-                    <h:outputText value="Already payed" 
-                                  styleClass="headerText"
-                                  rendered="#{placesController.selectedPlace.booked}"/>
-                    <p:selectBooleanCheckbox 
-                        value="#{placesController.selectedPlace.payed}"
-                        rendered="#{placesController.selectedPlace.booked}"/>         
+                <p:scrollPanel>
+                    <p:panelGrid columns="2" 
+                                 layout="grid">
 
 
-                    <h:outputText value="Arrival *" styleClass="headerText"/>
-                    <p:inplace editor="true">
-                        <p:calendar value="#{placesController.selectedPlace.arrivaldate}" 
-                                    pattern="dd-MM-yyyy" 
-                                    timeZone="CET"
-                                    required="true" >
-                            <f:convertDateTime pattern="dd-MM-yyyy"/>
-                        </p:calendar>
-                    </p:inplace>
 
-                    <h:outputText value="Departure *" styleClass="headerText"/>
-                    <p:inplace editor="true" >
-                        <p:calendar value="#{placesController.selectedPlace.departuredate}" 
-                                    pattern="dd-MM-yyyy" 
-                                    timeZone="CET"
-                                    required="true">
-                            <f:convertDateTime pattern="dd-MM-yyyy" />
-                        </p:calendar>
-                    </p:inplace>
+                        <h:outputText value="Booked" styleClass="headerText"/>
+                        <p:selectBooleanCheckbox value="#{placesController.selectedPlace.booked}">
+                            <p:ajax update="@parent"/>
+                        </p:selectBooleanCheckbox>
 
-                    <h:outputText value="Total stay" styleClass="headerText"/>
-                    <h:outputText value="#{placesController.getSelectedPlaceTotalDays(placesController.selectedPlace.arrivaldate, 
-                                           placesController.selectedPlace.departuredate)}
-                                  days"/>                                               
-
-                    <h:outputText value="Price *" styleClass="headerText"/>            
-                    <p:inplace editor="true">
-                        <p:inputNumber value="#{placesController.selectedPlace.price}"
-                                       required="true"
-                                       symbol="€ "
-                                       decimalPlaces="0"/>                                 
-                    </p:inplace>
-
-                    <h:outputText value="Address" styleClass="headerText"/>
-                    <p:inplace editor="true">
-                        <p:inputTextarea value="#{placesController.selectedPlace.address}"/>
-                    </p:inplace>
-
-                    <h:outputText value="Country *" styleClass="headerText"/>
-                    <p:inplace editor="true">
-                        <p:inputText value="#{placesController.selectedPlace.country}"
-                                     required="true"/>
-                    </p:inplace>
-
-                    <h:outputText value="Lattitude" styleClass="headerText"/>
-                    <p:inplace editor="true">
-                        <p:inputText value="#{placesController.selectedPlace.lat}"/>
-                    </p:inplace>
-
-                    <h:outputText value="Longitude" styleClass="headerText"/>
-                    <p:inplace editor="true">
-                        <p:inputText value="#{placesController.selectedPlace.lng}"/>
-                    </p:inplace>
-
-                    <h:outputText value="Image URL:" styleClass="headerText"/>
-                    <p:inplace editor="true">
-                        <p:inputText  value="#{placesController.selectedPlace.imgurls}"/>
-                    </p:inplace>
-
-                    <h:outputText value="Venue URL:" styleClass="headerText"/>
-                    <p:inplace editor="true">
-                        <p:inputText  value="#{placesController.selectedPlace.urls}"/>
-                    </p:inplace>
-
-                    <h:outputText value="Optional" styleClass="headerText"/>
-                    <p:selectBooleanCheckbox value="#{placesController.selectedPlace.optional}"/>                
+                        <h:outputText value="Already payed" 
+                                      styleClass="headerText"
+                                      rendered="#{placesController.selectedPlace.booked}"/>
+                        <p:selectBooleanCheckbox 
+                            value="#{placesController.selectedPlace.payed}"
+                            rendered="#{placesController.selectedPlace.booked}"/>         
 
 
-                </p:panelGrid> 
+                        <h:outputText value="Arrival *" styleClass="headerText"/>
+                        <p:inplace editor="true">
+                            <p:calendar value="#{placesController.selectedPlace.arrivaldate}" 
+                                        pattern="dd-MM-yyyy" 
+                                        timeZone="CET"
+                                        required="true" >
+                                <f:convertDateTime pattern="dd-MM-yyyy"/>
+                            </p:calendar>
+                        </p:inplace>
 
+                        <h:outputText value="Departure *" styleClass="headerText"/>
+                        <p:inplace editor="true" >
+                            <p:calendar value="#{placesController.selectedPlace.departuredate}" 
+                                        pattern="dd-MM-yyyy" 
+                                        timeZone="CET"
+                                        required="true">
+                                <f:convertDateTime pattern="dd-MM-yyyy" />
+                            </p:calendar>
+                        </p:inplace>
+
+                        <h:outputText value="Total stay" styleClass="headerText"/>
+                        <h:outputText value="#{placesController.getSelectedPlaceTotalDays(placesController.selectedPlace.arrivaldate, 
+                                               placesController.selectedPlace.departuredate)}
+                                      days"/>                                               
+
+                        <h:outputText value="Price *" styleClass="headerText"/>            
+                        <p:inplace editor="true">
+                            <p:inputNumber value="#{placesController.selectedPlace.price}"
+                                           required="true"
+                                           symbol="€ "
+                                           decimalPlaces="0"/>                                 
+                        </p:inplace>
+
+                        <h:outputText value="Address" styleClass="headerText"/>
+                        <p:inplace editor="true">
+                            <p:inputTextarea value="#{placesController.selectedPlace.address}"/>
+                        </p:inplace>
+
+                        <h:outputText value="Country *" styleClass="headerText"/>
+                        <p:inplace editor="true">
+                            <p:inputText value="#{placesController.selectedPlace.country}"
+                                         required="true"/>
+                        </p:inplace>
+
+                        <h:outputText value="Lattitude" styleClass="headerText"/>
+                        <p:inplace editor="true">
+                            <p:inputText value="#{placesController.selectedPlace.lat}"/>
+                        </p:inplace>
+
+                        <h:outputText value="Longitude" styleClass="headerText"/>
+                        <p:inplace editor="true">
+                            <p:inputText value="#{placesController.selectedPlace.lng}"/>
+                        </p:inplace>
+
+                        <h:outputText value="Image URL:" styleClass="headerText"/>
+                        <p:inplace editor="true">
+                            <p:inputText  value="#{placesController.selectedPlace.imgurls}"/>
+                        </p:inplace>
+
+                        <h:outputText value="Venue URL:" styleClass="headerText"/>
+                        <p:inplace editor="true">
+                            <p:inputText  value="#{placesController.selectedPlace.urls}"/>
+                        </p:inplace>
+
+                        <h:outputText value="Optional" styleClass="headerText"/>
+                        <p:selectBooleanCheckbox value="#{placesController.selectedPlace.optional}"/>                
+
+
+                    </p:panelGrid> 
+                </p:scrollPanel>
             </p:tab>
 
         </p:tabView>

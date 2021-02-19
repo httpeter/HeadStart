@@ -38,58 +38,45 @@ public class LoginController implements Serializable {
 
     private String mail, pwd, t, dbStatus = "";
 
-    private DashboardModel dashboardModel;
 
 
-
-    //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
-    public DashboardModel getDashboardModel() {
-        return dashboardModel;
-    }
-
-
-
-    public void setDashboardModel(DashboardModel dashboardModel) {
-        this.dashboardModel = dashboardModel;
-    }
-
-
-
+//<editor-fold defaultstate="collapsed" desc="Getters & Setters">
     public SessionController getSession() {
         return session;
     }
-
-
-
+    
+    
+    
     public void setSession(SessionController session) {
         this.session = session;
     }
-
-
-
+    
+    
+    
     public String getMail() {
         return mail;
     }
-
-
-
+    
+    
+    
     public void setMail(String mail) {
         this.mail = mail;
     }
-
-
-
+    
+    
+    
     public String getPwd() {
         return pwd;
     }
-
-
-
+    
+    
+    
     public void setPwd(String pwd) {
         this.pwd = pwd;
     }
-
 //</editor-fold>
+
+
 
 
     @PostConstruct
@@ -117,9 +104,6 @@ public class LoginController implements Serializable {
                             .redirect(session.getSystemRepository()
                                     .findByNamedQueryName("SysPage.findById",
                                             session.getCurrentUser().getLandingpageid()).get(0).toString());
-
-//                                    .getSysPageById(session.getCurrentUser()
-//                                            .getLandingpageid()).getValue());
                 } else {
                     FMessage.warn("Token not valid");
                 }
@@ -130,7 +114,6 @@ public class LoginController implements Serializable {
                         .log(Level.SEVERE, null, ex);
             }
         }
-        loadDasboards();
     }
 
 
@@ -202,24 +185,6 @@ public class LoginController implements Serializable {
             this.dbStatus = e.getMessage();
         }
         return this.dbStatus;
-    }
-
-
-
-    /**
-     * Helper function for setting the proper dashboard columns
-     */
-    private void loadDasboards() {
-        dashboardModel = new DefaultDashboardModel();
-
-        DashboardColumn column1 = new DefaultDashboardColumn();
-        DashboardColumn column2 = new DefaultDashboardColumn();
-
-        column1.addWidget("welcomePanel");
-        column2.addWidget("loginPanel");
-
-        dashboardModel.addColumn(column1);
-        dashboardModel.addColumn(column2);
     }
 
 }

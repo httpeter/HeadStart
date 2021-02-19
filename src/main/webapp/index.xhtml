@@ -17,7 +17,7 @@
             <p:outputPanel deferredMode="visible" deferred="true" >
                 <ui:include src="included/menu.xhtml"/>                   
 
-                <p:panel id="personPanel">      
+                <p:card id="personCard" style="width:90%">      
 
                     <p:splitButton id="advanced" value="Action"  
                                    icon="pi pi-user-plus" 
@@ -55,7 +55,7 @@
 
                         <p:ajax event="rowSelect"
                                 listener="#{indexController.selectPerson}"
-                                update="@form:personPanel" 
+                                update="@form:personCard" 
                                 oncomplete="PF('dlgEditSelectedPerson').show()"/>              
 
                         <f:facet name="header">
@@ -240,7 +240,7 @@
                                          onclick="PF('dlgDelete').hide()"/>
                     </p:dialog>
                     
-                </p:panel> 
+                </p:card> 
 
             </p:outputPanel>
         </h:form>

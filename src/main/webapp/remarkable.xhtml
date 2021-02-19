@@ -17,22 +17,22 @@
             <ui:include src="included/menu.xhtml"/>                   
 
 
-            <p:panel>
+            <p:card style="width:90%">
 
                 <p:fileUpload auto="true"                               
                               listener="#{remarkableController.handleFileUpload}"
-                              update="remarkupPanel" />                                             
+                              update="remarkupCard" />                                             
 
-            </p:panel>                      
+            </p:card>                      
 
 
-            <p:panel id="remarkupPanel">
+            <p:card id="remarkupCard" style="width:90%">
 
                 <p:inputTextarea 
                     style="width: 100%" 
                     value="#{remarkableController.remarkup}"/>
 
-            </p:panel>
+            </p:card>
 
 
         </h:form>

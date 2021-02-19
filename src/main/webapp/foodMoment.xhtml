@@ -16,7 +16,7 @@
 
             <ui:include src="included/menu.xhtml"/>        
 
-            <p:panel>
+            <p:card style="width:90%">
 
                 <h4>Register food</h4>
 
@@ -58,11 +58,11 @@
 
                 </p:panelGrid>
 
-            </p:panel>
+            </p:card>
 
 
 
-            <p:panel>
+            <p:card style="width:90%">
 
                 <h4>
                     <h:outputText value="Food Moments of #{sessionController.currentUser.firstname} 
@@ -76,8 +76,7 @@
                              reflow="true"
                              paginator="true"
                              rows="18"                                
-                             sortBy="#{item.moment}"
-                             sortOrder="descending"
+                             sortBy="#{item.moment}"                             
                              filterBy="#{item.moment}">
 
                     <f:facet name="header">
@@ -129,7 +128,7 @@
 
                 </p:dataTable>
 
-            </p:panel>
+            </p:card>
 
 
 

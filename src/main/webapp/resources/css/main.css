@@ -1,55 +1,10 @@
-
-
 /*Timeline style*/
 div.vis-item-overflow{        
-    background-color: khaki;
+    background-color: lightsteelblue;
 }
-
 
 .ui-datatable .ui-column-filter {
     visibility: hidden;
-}
-
-
-.myMap
-{
-    width: 100%;
-    height: 500pt;
-    position: relative;
-}
-
-.myLocateMePanel
-{
-    text-align: center;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;    
-}
-
-.myLocateMePanelItem
-{
-    width: 100%;
-}
-
-.myMobileMenuButton{
-    position:absolute;
-    bottom:10px;
-    right:5px;
-}
-
-
-.ui-panel {
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
-    -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
-    -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    background: #ffffff;    
-    padding: 18px;
-    margin: 18px;
-    box-sizing: border-box;    
-
 }
 
 .placesPage
@@ -67,68 +22,15 @@ div.vis-item-overflow{
     background-size: cover;
 }
 
-body .ui-panel .ui-panel-content {
-    /*border: 1px solid #c8c8c8;*/
-    border:none;
-    background-color: #fff;
-    color: #333;
-    padding: .571em 1em;
-    border-top: 0 none;
-    line-height: 1.5;
-    font-size: 16px;
-    min-width: 100%;
-    max-width: 1024px;
+.ui-card
+{
+    width: 25rem; 
+    margin-bottom: 2em;
+    padding: 18px;
+    margin: 18px;
+    box-sizing: border-box;    
 }
-
-body .ui-datatable thead th .ui-column-title {
-    font-weight: 700;
-    font-size: 16px;
+.ui-card-title
+{
+    font-size: smaller; 
 }
-
-body .ui-datatable .ui-datatable-data>tr>td {
-    padding: .571em .857em;
-    border: inherit;
-    font-size: 16px;
-}
-
-.ui-menu .ui-menuitem-link {
-    display: block;
-    width: 92%;
-    outline: 0;
-    text-decoration: none;
-    font-weight: 400;    
-    border: solid 1px transparent;
-    float: left;
-    line-height: 16px;
-    padding: .3em;
-    cursor: pointer;
-    font-family: Roboto,"Helvetica Neue",sans-serif;
-    font-size: 18px;
-    color: #424242;
-    -webkit-font-smoothing: antialiased;
-    height: 10%;
-}
-
-
-
-
-h1 {
-    display: block;
-    font-size: 2em;
-    margin-block-start: 0.67em;
-    margin-block-end: 0.67em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-}
-
-h3{
-    display: block;
-    font-size: 2em;
-    margin-block-start: 0.67em;
-    margin-block-end: 0.67em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;        
-}
-

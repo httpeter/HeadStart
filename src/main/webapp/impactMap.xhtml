@@ -17,7 +17,7 @@
             <ui:include src="included/menu.xhtml"/>                   
 
 
-            <p:panel id="imPanel">
+            <p:card id="imCard" style="width:90%">
 
                 <h:outputText value="Title: MyMap" 
                               style="font-size: large; font-weight: bold"/>                                                
@@ -46,13 +46,13 @@
                 <p:commandButton icon="fa fa-gear" 
                                  rendered="#{impactMapController.impactMaps.size()!=0}"/>
 
-            </p:panel>
+            </p:card>
 
 
 
 
 
-            <p:panel>                
+            <p:card>                
 
                 <p:splitButton id="advancetreed" value="Add"  
                                icon="pi pi-plus" 
@@ -63,7 +63,7 @@
                         <p:menuitem value="Goal"
                                     icon="pi pi-plus"
                                     action="#{impactMapController.newIM()}"
-                                    update="imPanel"/>
+                                    update="imCard"/>
                        
                     </p:submenu>     
                 </p:splitButton>    
@@ -73,7 +73,7 @@
                                  action="#{impactMapController.showChildren()}"/>
                 
 
-            </p:panel>
+            </p:card>
 
 
         </h:form>
