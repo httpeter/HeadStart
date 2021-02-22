@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
     @NamedQuery(name = "User.findByPwdhash", query = "SELECT u FROM User u WHERE u.pwdhash = :pwdhash"),
     @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role"),
+    @NamedQuery(name = "User.findByLanguage", query = "SELECT u FROM User u WHERE u.language = :language"),
     @NamedQuery(name = "User.findByFirstname", query = "SELECT u FROM User u WHERE u.firstname = :firstname"),
     @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname"),
     @NamedQuery(name = "User.findByUsetoken", query = "SELECT u FROM User u WHERE u.usetoken = :usetoken"),
@@ -56,6 +57,11 @@ public class User implements Serializable {
     @Size(max = 45)
     @Column(name = "ROLE")
     private String role;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "LANGUAGE")
+    private String language;
     @Size(max = 45)
     @Column(name = "FIRSTNAME")
     private String firstname;
@@ -86,8 +92,9 @@ public class User implements Serializable {
 
 
 
-    public User(Integer id, int landingpageid) {
+    public User(Integer id, String language, int landingpageid) {
         this.id = id;
+        this.language = language;
         this.landingpageid = landingpageid;
     }
 
@@ -137,6 +144,18 @@ public class User implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+
+
+    public String getLanguage() {
+        return language;
+    }
+
+
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
 

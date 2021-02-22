@@ -99,6 +99,13 @@
                        rendered="#{adminController.selectedUser.firstname!=null}">
 
                     <p:panelGrid layout="grid" columns="2">
+                        
+                        <h:outputText value="Language"/>
+                        <p:selectOneButton value="#{sessionController.currentUser.language}">
+                            <f:selectItem itemLabel="English" itemValue="EN"/>
+                            <f:selectItem itemLabel="Nederlands" itemValue="NL"/>
+                            <p:ajax update="@form"/>
+                        </p:selectOneButton>
 
                         <h:outputText value="First name"/>
                         <p:inputText value="#{adminController.selectedUser.firstname}" required="true"/>

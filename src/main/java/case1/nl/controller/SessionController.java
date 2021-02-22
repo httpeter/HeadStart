@@ -39,11 +39,28 @@ public class SessionController implements Serializable {
 
     private DefaultRepository defaultRepository;
 
+    private final String persistenceUnitName = "PU";
+
+
+
+    public SessionController() {
+
+        if (cryptor == null) {
+            try {
+                cryptor = new AESEncryptor();
+            } catch (Exception ex) {
+                Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        currentUser = new User();
+        currentUser.setLanguage("EN");
+    }
+
 
 
     public SystemRepository getSystemRepository() {
         if (systemRepository == null) {
-            systemRepository = new SystemRepository("PU");
+            systemRepository = new SystemRepository(persistenceUnitName);
         }
         return systemRepository;
     }
@@ -52,7 +69,7 @@ public class SessionController implements Serializable {
 
     public FoodMomentRepository getFoodMomentRepository() {
         if (foodMomentRepository == null) {
-            foodMomentRepository = new FoodMomentRepository("PU");
+            foodMomentRepository = new FoodMomentRepository(persistenceUnitName);
         }
         return foodMomentRepository;
     }
@@ -61,7 +78,7 @@ public class SessionController implements Serializable {
 
     public PlacesRepository getPlacesRepository() {
         if (placesRepository == null) {
-            placesRepository = new PlacesRepository("PU");
+            placesRepository = new PlacesRepository(persistenceUnitName);
         }
         return placesRepository;
     }
@@ -70,7 +87,7 @@ public class SessionController implements Serializable {
 
     public UserRepository getUserRepository() {
         if (userRepository == null) {
-            userRepository = new UserRepository("PU");
+            userRepository = new UserRepository(persistenceUnitName);
         }
         return userRepository;
     }
@@ -79,7 +96,7 @@ public class SessionController implements Serializable {
 
     public DefaultRepository getDefaultRepository() {
         if (defaultRepository == null) {
-            defaultRepository = new DefaultRepository("PU");
+            defaultRepository = new DefaultRepository(persistenceUnitName);
         }
         return defaultRepository;
     }
@@ -115,6 +132,7 @@ public class SessionController implements Serializable {
             p.load(getClass()
                     .getClassLoader()
                     .getResourceAsStream(this.getLabelFile()
+                            + currentUser.getLanguage()
                             + ".properties"));
         } catch (IOException e) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, e);
@@ -159,19 +177,6 @@ public class SessionController implements Serializable {
 
     public void setCryptor(AESEncryptor cryptor) {
         this.cryptor = cryptor;
-    }
-
-
-
-    public SessionController() {
-
-        if (cryptor == null) {
-            try {
-                cryptor = new AESEncryptor();
-            } catch (Exception ex) {
-                Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
     }
 
 }

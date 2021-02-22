@@ -44,7 +44,7 @@
     
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>nova-light</param-value>
+        <param-value>saga</param-value>
     </context-param> 
     
     <context-param>
@@ -55,7 +55,7 @@
     
     <context-param>
         <param-name>labelFile</param-name>
-        <param-value>labelsEN</param-value>
+        <param-value>labels</param-value>
     </context-param>
     
     <context-param>
@@ -96,14 +96,7 @@
     <context-param>
         <param-name>primefaces.MOVE_SCRIPTS_TO_BOTTOM</param-name>
         <param-value>true</param-value>
-    </context-param>   
-    
-    <!-- Enable partial submit in PrimeFaces - this reduces the network traffic -->
-    <context-param>
-        <param-name>primefaces.SUBMIT</param-name>
-        <param-value>partial</param-value>
-    </context-param>
-                                                                                                                                                                                                                                                                                                 
+    </context-param>                                                                                                                                                                                                                                                                                                   
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     		
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
