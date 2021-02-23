@@ -215,21 +215,23 @@
                             zoomable="false"
                             >
 
-                    <h:outputText value="#{timelinePlace.name}" 
+                    <h:outputText value="#{timelinePlace.name} (#{timelinePlace.country})" 
                                   style="font-weight: bold"/>
                     <h:outputText value=" (optional)" 
                                   style="font-weight: bold; color: red"
-                                  rendered="#{timelinePlace.optional}"/>
-                    <br/>
-                    <h:outputText value="#{timelinePlace.country}"/>
+                                  rendered="#{timelinePlace.optional}"/>                                       
                     <br/>
                     <h:outputText value="#{placesController.getSelectedPlaceTotalDays(timelinePlace.arrivaldate, 
                                            timelinePlace.departuredate)} days"/>
                     <br/>                   
 
-                    <h:outputText value="Booked: #{timelinePlace.booked}, "/>
-
-                    <h:outputText value="Payed: #{timelinePlace.payed}"/>                        
+                    <h:outputText value="Booked: "/>
+                    <h:outputText value="☑" rendered="#{timelinePlace.booked}"/>
+                    <h:outputText value="☐" rendered="#{timelinePlace.booked==false}"/>
+                    <br/>
+                    <h:outputText value="Payed: "/>                        
+                    <h:outputText value="☑" rendered="#{timelinePlace.payed}"/>
+                    <h:outputText value="☐" rendered="#{timelinePlace.payed==false}"/>
 
                     <p:ajax event="select" 
                             listener="#{placesController.timelineSelect}"
