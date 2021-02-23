@@ -1,3 +1,7 @@
+body .ui-panelgrid .ui-panelgrid-cell {    
+    padding: 0.3rem;
+}
+
 /*Timeline style*/
 div.vis-item-overflow{        
     background-color: lightsteelblue;

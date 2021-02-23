@@ -16,6 +16,7 @@ import case1.nl.util.FMessage;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 
 /**
  *
@@ -52,6 +53,13 @@ public class SessionController implements Serializable {
                 Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
+    }
+
+
+
+    @PostConstruct
+    public void init() {
         currentUser = new User();
         currentUser.setLanguage("EN");
     }
@@ -121,7 +129,7 @@ public class SessionController implements Serializable {
 
     public String getLabelFile() {
         return getFacesContext().getExternalContext()
-                .getInitParameter("labelFile");
+                .getInitParameter("labelFile") + currentUser.getLanguage();
     }
 
 

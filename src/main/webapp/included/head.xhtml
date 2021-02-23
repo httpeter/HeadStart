@@ -6,7 +6,7 @@
 
     <ui:include src="analytics.xhtml"/>     
 
-    <f:loadBundle basename="#{sessionController.labelFile}#{sessionController.currentUser.language}" 
+    <f:loadBundle basename="#{sessionController.labelFile}" 
                   var="labels"/>
 
     <p:idleMonitor timeout="#{session.maxInactiveInterval*900}"  

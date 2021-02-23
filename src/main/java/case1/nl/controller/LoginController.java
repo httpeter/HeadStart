@@ -81,7 +81,9 @@ public class LoginController implements Serializable {
 
     @PostConstruct
     public void init() {
-        session.setCurrentUser(null);
+        User tempUser = new User();
+        tempUser.setLanguage("EN");
+        session.setCurrentUser(tempUser);
 
         request = (HttpServletRequest) FacesContext.getCurrentInstance()
                 .getExternalContext()

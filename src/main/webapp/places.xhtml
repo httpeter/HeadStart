@@ -40,13 +40,13 @@
             <p:card style="min-width:90%;">
 
                 <f:facet name="title">                   
-                    
+
                     <h:outputText value="Trips (#{placesController.trips.size()}) of 
-                    #{sessionController.currentUser.firstname} 
-                    #{sessionController.currentUser.lastname}"/>                    
-                    
+                                  #{sessionController.currentUser.firstname} 
+                                  #{sessionController.currentUser.lastname}"/>                    
+
                     <h:outputText style="font-size: 10pt" value=" (#{sessionController.currentUser.vacationdaysleft} payed holidays left)"/>
-                        
+
                 </f:facet>
 
 
@@ -69,7 +69,7 @@
                                 listener="#{placesController.loadPlaces()}"/>                                        
                     </p:selectOneMenu> 
 
-                    
+
                     <p:panelGrid columns="2"
                                  layout="grid">
 
@@ -165,6 +165,36 @@
 
 
 
+                <br/>
+
+
+
+
+
+
+
+                <!--Map-->
+                <p:panelGrid id="map"
+                             layout="grid" 
+                             columns="1"
+                             rendered="#{placesController.selectedTripID!=0}"> 
+
+                    <p:gmap id="gmap" 
+                            widgetVar="gmap" 
+                            center="46.1848764, 7.8171154" 
+                            zoom="4" 
+                            type="map" 
+                            style="width: auto;height:400px"
+                            model="#{placesController.mapModel}">                             
+                        <p:ajax event="pointSelect" 
+                                listener="#{placesController.mapSelect}" 
+                                update="@form" />
+                    </p:gmap>
+
+                </p:panelGrid>
+
+
+
 
 
 
@@ -206,46 +236,6 @@
                             update="@form"/>
 
                 </p:timeline>
-
-
-
-
-
-
-
-
-                <br/>
-
-
-
-
-
-
-
-                <!--Map-->
-                <p:panelGrid id="map"
-                             layout="grid" 
-                             columns="1"
-                             rendered="#{placesController.selectedTripID!=0}"> 
-
-                    <p:gmap id="gmap" 
-                            widgetVar="gmap" 
-                            center="46.1848764, 7.8171154" 
-                            zoom="4" 
-                            type="map" 
-                            style="width: auto;height:400px"
-                            model="#{placesController.mapModel}">                             
-                        <p:ajax event="pointSelect" 
-                                listener="#{placesController.mapSelect}" 
-                                update="@form" />
-                    </p:gmap>
-
-
-
-
-                </p:panelGrid>
-
-
 
 
 
