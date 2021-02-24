@@ -37,8 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname"),
     @NamedQuery(name = "User.findByUsetoken", query = "SELECT u FROM User u WHERE u.usetoken = :usetoken"),
     @NamedQuery(name = "User.findByLandingpageid", query = "SELECT u FROM User u WHERE u.landingpageid = :landingpageid"),
-    @NamedQuery(name = "User.findByVacationdaysinitial", query = "SELECT u FROM User u WHERE u.vacationdaysinitial = :vacationdaysinitial"),
-    @NamedQuery(name = "User.findByVacationdaysleft", query = "SELECT u FROM User u WHERE u.vacationdaysleft = :vacationdaysleft")})
+    @NamedQuery(name = "User.findByVacationdays", query = "SELECT u FROM User u WHERE u.vacationdays = :vacationdays")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -74,10 +73,8 @@ public class User implements Serializable {
     @NotNull
     @Column(name = "LANDINGPAGEID")
     private int landingpageid;
-    @Column(name = "VACATIONDAYSINITIAL")
-    private Integer vacationdaysinitial;
-    @Column(name = "VACATIONDAYSLEFT")
-    private Integer vacationdaysleft;
+    @Column(name = "VACATIONDAYS")
+    private Integer vacationdays;
 
 
 
@@ -208,26 +205,14 @@ public class User implements Serializable {
 
 
 
-    public Integer getVacationdaysinitial() {
-        return vacationdaysinitial;
+    public Integer getVacationdays() {
+        return vacationdays;
     }
 
 
 
-    public void setVacationdaysinitial(Integer vacationdaysinitial) {
-        this.vacationdaysinitial = vacationdaysinitial;
-    }
-
-
-
-    public Integer getVacationdaysleft() {
-        return vacationdaysleft;
-    }
-
-
-
-    public void setVacationdaysleft(Integer vacationdaysleft) {
-        this.vacationdaysleft = vacationdaysleft;
+    public void setVacationdays(Integer vacationdays) {
+        this.vacationdays = vacationdays;
     }
 
 
