@@ -18,10 +18,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
-import org.primefaces.model.DashboardColumn;
-import org.primefaces.model.DashboardModel;
-import org.primefaces.model.DefaultDashboardColumn;
-import org.primefaces.model.DefaultDashboardModel;
 
 /**
  *
@@ -44,38 +40,37 @@ public class LoginController implements Serializable {
     public SessionController getSession() {
         return session;
     }
-    
-    
-    
+
+
+
     public void setSession(SessionController session) {
         this.session = session;
     }
-    
-    
-    
+
+
+
     public String getMail() {
         return mail;
     }
-    
-    
-    
+
+
+
     public void setMail(String mail) {
         this.mail = mail;
     }
-    
-    
-    
+
+
+
     public String getPwd() {
         return pwd;
     }
-    
-    
-    
+
+
+
     public void setPwd(String pwd) {
         this.pwd = pwd;
     }
 //</editor-fold>
-
 
 
 
@@ -95,17 +90,22 @@ public class LoginController implements Serializable {
             try {
 
                 User user = (User) session.getUserRepository()
-                        .findByNamedQueryName("User.findByName",
+                        .findByNamedQueryName("User.findByEmail",
                                 session.getCryptor().decrypt(t))
                         .get(0);
 
                 if (user != null) {
+
                     session.setCurrentUser(user);
+
+                    SysPage redirectPage = (SysPage) session.getSystemRepository()
+                            .findByNamedQueryName("SysPage.findById",
+                                    session.getCurrentUser()
+                                            .getLandingpageid()).get(0);
+
                     session.getFacesContext()
                             .getExternalContext()
-                            .redirect(session.getSystemRepository()
-                                    .findByNamedQueryName("SysPage.findById",
-                                            session.getCurrentUser().getLandingpageid()).get(0).toString());
+                            .redirect(redirectPage.getValue());
                 } else {
                     FMessage.warn("Token not valid");
                 }
@@ -137,9 +137,11 @@ public class LoginController implements Serializable {
 
         if (user != null
                 && Validator.isEmailAddress(mail)) {
+
             FMessage.info("User "
                     + mail
                     + " logged in.");
+
             session.setCurrentUser(user);
 
             SysPage sysPage = (SysPage) session.getSystemRepository()
