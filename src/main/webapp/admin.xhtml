@@ -101,7 +101,7 @@
                     <p:panelGrid layout="grid" columns="2">
                         
                         <h:outputText value="Language"/>
-                        <p:selectOneButton value="#{sessionController.currentUser.language}">
+                        <p:selectOneButton value="#{adminController.selectedUser.language}">
                             <f:selectItem itemLabel="English" itemValue="EN"/>
                             <f:selectItem itemLabel="Nederlands" itemValue="NL"/>
                             <p:ajax update="@form"/>
