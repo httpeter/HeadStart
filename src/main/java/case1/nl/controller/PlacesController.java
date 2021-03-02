@@ -273,7 +273,7 @@ public class PlacesController implements Serializable {
 
     private void loadTrips() throws Exception {
         trips = session.getPlacesRepository()
-                .findByNamedQueryName("Trip.findByUserid",
+                .findByNamedQueryName("Trip.findByOwninguserid",
                         session.getCurrentUser().getId());
 
         selectedTrip = new Trip();

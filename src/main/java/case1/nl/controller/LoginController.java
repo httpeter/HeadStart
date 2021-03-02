@@ -146,7 +146,7 @@ public class LoginController implements Serializable {
             session.setCurrentUser(user);
 
             Syspage sysPage = (Syspage) session.getSystemRepository()
-                    .findByNamedQueryName("SysPage.findById", session.getCurrentUser()
+                    .findByNamedQueryName("Syspage.findById", session.getCurrentUser()
                             .getLandingpageid()).get(0);
 
             return sysPage.getValue() + "?faces-redirect=true";
