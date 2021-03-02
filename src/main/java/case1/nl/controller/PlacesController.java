@@ -504,7 +504,7 @@ public class PlacesController implements Serializable {
 
     public void makeNewTrip() {
         newTrip = new Trip();
-        newTrip.setUserid(session.getCurrentUser().getId());
+        newTrip.setOwninguserid(session.getCurrentUser().getId());
         newTrip.setHomeaddress("Gerrit Doustraat 43\n2311XM Leiden\nNederland");
         newTrip.setHomelat("52.1529984");
         newTrip.setHomelng("4.4842176");

@@ -13,6 +13,9 @@
     <class>case1.nl.entities.Tripparticipant</class>
     <class>case1.nl.entities.SysPages</class>
     <class>case1.nl.entities.SysPage</class>
+    <class>case1.nl.entities.Person_1</class>
+    <class>case1.nl.entities.Tripuser</class>
+    <class>case1.nl.entities.Syspage</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/example?zeroDateTimeBehavior=convertToNull"/>

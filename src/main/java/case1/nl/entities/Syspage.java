@@ -23,14 +23,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author peterhendriks
  */
 @Entity
-@Table(name = "SYS_PAGE")
+@Table(name = "SYSPAGE")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SysPage.findAll", query = "SELECT s FROM SysPage s"),
-    @NamedQuery(name = "SysPage.findById", query = "SELECT s FROM SysPage s WHERE s.id = :id"),
-    @NamedQuery(name = "SysPage.findByLabel", query = "SELECT s FROM SysPage s WHERE s.label = :label"),
-    @NamedQuery(name = "SysPage.findByValue", query = "SELECT s FROM SysPage s WHERE s.value = :value")})
-public class SysPage implements Serializable {
+    @NamedQuery(name = "Syspage.findAll", query = "SELECT s FROM Syspage s"),
+    @NamedQuery(name = "Syspage.findById", query = "SELECT s FROM Syspage s WHERE s.id = :id"),
+    @NamedQuery(name = "Syspage.findByLabel", query = "SELECT s FROM Syspage s WHERE s.label = :label"),
+    @NamedQuery(name = "Syspage.findByValue", query = "SELECT s FROM Syspage s WHERE s.value = :value")})
+public class Syspage implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,12 +47,12 @@ public class SysPage implements Serializable {
 
 
 
-    public SysPage() {
+    public Syspage() {
     }
 
 
 
-    public SysPage(Integer id) {
+    public Syspage(Integer id) {
         this.id = id;
     }
 
@@ -106,10 +106,10 @@ public class SysPage implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SysPage)) {
+        if (!(object instanceof Syspage)) {
             return false;
         }
-        SysPage other = (SysPage) object;
+        Syspage other = (Syspage) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -120,7 +120,7 @@ public class SysPage implements Serializable {
 
     @Override
     public String toString() {
-        return "case1.nl.entities.SysPage[ id=" + id + " ]";
+        return "case1.nl.entities.Syspage[ id=" + id + " ]";
     }
     
 }

@@ -1,6 +1,7 @@
 package case1.nl.controller;
 
-import case1.nl.entities.SysPage;
+
+import case1.nl.entities.Syspage;
 import java.io.Serializable;
 import case1.nl.entities.User;
 import case1.nl.util.DBVersionController;
@@ -98,7 +99,7 @@ public class LoginController implements Serializable {
 
                     session.setCurrentUser(user);
 
-                    SysPage redirectPage = (SysPage) session.getSystemRepository()
+                    Syspage redirectPage = (Syspage) session.getSystemRepository()
                             .findByNamedQueryName("SysPage.findById",
                                     session.getCurrentUser()
                                             .getLandingpageid()).get(0);
@@ -144,7 +145,7 @@ public class LoginController implements Serializable {
 
             session.setCurrentUser(user);
 
-            SysPage sysPage = (SysPage) session.getSystemRepository()
+            Syspage sysPage = (Syspage) session.getSystemRepository()
                     .findByNamedQueryName("SysPage.findById", session.getCurrentUser()
                             .getLandingpageid()).get(0);
 

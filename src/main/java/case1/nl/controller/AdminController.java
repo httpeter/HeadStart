@@ -1,6 +1,6 @@
 package case1.nl.controller;
 
-import case1.nl.entities.SysPage;
+import case1.nl.entities.Syspage;
 import case1.nl.entities.User;
 import case1.nl.util.FMessage;
 import java.io.IOException;
@@ -34,7 +34,7 @@ public class AdminController implements Serializable {
 
     private User newUser;
 
-    private List<SysPage> sysPages;
+    private List<Syspage> sysPages;
 
     private int userTabIndex = 0;
 
@@ -53,13 +53,13 @@ public class AdminController implements Serializable {
 
 
 
-    public List<SysPage> getSysPages() {
+    public List<Syspage> getSyspages() {
         return sysPages;
     }
 
 
 
-    public void setSysPages(List<SysPage> sysPages) {
+    public void setSyspages(List<Syspage> sysPages) {
         this.sysPages = sysPages;
     }
 
@@ -123,7 +123,7 @@ public class AdminController implements Serializable {
 
     public void loadUsersAndSysPages() {
         sysPages = session.getUserRepository()
-                .findAll(SysPage.class);
+                .findAll(Syspage.class);
 
         users = session.getUserRepository()
                 .findAll(User.class);

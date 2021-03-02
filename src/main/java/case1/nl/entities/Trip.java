@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Trip.findAll", query = "SELECT t FROM Trip t"),
     @NamedQuery(name = "Trip.findById", query = "SELECT t FROM Trip t WHERE t.id = :id"),
-    @NamedQuery(name = "Trip.findByUserid", query = "SELECT t FROM Trip t WHERE t.userid = :userid"),
+    @NamedQuery(name = "Trip.findByOwninguserid", query = "SELECT t FROM Trip t WHERE t.owninguserid = :owninguserid"),
     @NamedQuery(name = "Trip.findByName", query = "SELECT t FROM Trip t WHERE t.name = :name"),
     @NamedQuery(name = "Trip.findByDescription", query = "SELECT t FROM Trip t WHERE t.description = :description"),
     @NamedQuery(name = "Trip.findByNotes", query = "SELECT t FROM Trip t WHERE t.notes = :notes"),
@@ -51,8 +51,8 @@ public class Trip implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "USERID")
-    private int userid;
+    @Column(name = "OWNINGUSERID")
+    private int owninguserid;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -95,9 +95,9 @@ public class Trip implements Serializable {
 
 
 
-    public Trip(Integer id, int userid, String name, Date startdate) {
+    public Trip(Integer id, int owninguserid, String name, Date startdate) {
         this.id = id;
-        this.userid = userid;
+        this.owninguserid = owninguserid;
         this.name = name;
         this.startdate = startdate;
     }
@@ -116,14 +116,14 @@ public class Trip implements Serializable {
 
 
 
-    public int getUserid() {
-        return userid;
+    public int getOwninguserid() {
+        return owninguserid;
     }
 
 
 
-    public void setUserid(int userid) {
-        this.userid = userid;
+    public void setOwninguserid(int owninguserid) {
+        this.owninguserid = owninguserid;
     }
 
 
