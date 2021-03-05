@@ -19,7 +19,7 @@
     -->
     
     
-    <filter>
+<!--    <filter>
         <filter-name>ExpiresFilter</filter-name>
         <filter-class>org.apache.catalina.filters.ExpiresFilter</filter-class>
         <init-param>
@@ -34,13 +34,13 @@
             <param-name>ExpiresByType application/javascript</param-name>
             <param-value>access plus 1 month</param-value>
         </init-param>
-    </filter>
+    </filter>-->
     
-    <filter-mapping>
+<!--    <filter-mapping>
         <filter-name>ExpiresFilter</filter-name>
         <url-pattern>/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
-    </filter-mapping>    
+    </filter-mapping>    -->
     
     <context-param>
         <param-name>primefaces.THEME</param-name>
