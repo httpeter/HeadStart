@@ -38,7 +38,7 @@
 
 
             <p:card style="min-width:90%;">
-                
+
                 <f:facet name="title">                   
 
                     <h:outputText value="Trips (#{placesController.trips.size()}) of 
@@ -71,32 +71,38 @@
                     <p:panelGrid columns="2"
                                  layout="grid">
 
-                        <!--Trips-->                        
-                        <p:menuButton value="Trips" icon="fa fa-car">
-                            <p:menuitem icon="fa fa-plus"
-                                        oncomplete="PF('addTripDLG').show();"
-                                        value="Add trip"
-                                        action="#{placesController.makeNewTrip()}"/>                                                    
+                        <!--Trips--> 
+                        <p:badge severity="warning" 
+                                 value="#{placesController.trips.size()}">
+                            <p:menuButton value="Trips" icon="fa fa-car">
+                                <p:menuitem icon="fa fa-plus"
+                                            oncomplete="PF('addTripDLG').show();"
+                                            value="Add trip"
+                                            action="#{placesController.makeNewTrip()}"/>                                                    
 
-                            <p:menuitem icon="fa fa-gear"                                                  
-                                        onclick="PF('tripEditDLG').show();" 
-                                        rendered="#{placesController.selectedTripID!=0}"
-                                        value="Edit trip"/>    
+                                <p:menuitem icon="fa fa-gear"                                                  
+                                            onclick="PF('tripEditDLG').show();" 
+                                            rendered="#{placesController.selectedTripID!=0}"
+                                            value="Edit trip"/>    
 
-                            <p:menuitem icon="fa fa-trash"                                                  
-                                        onclick="PF('tripDeleteDLG').show();" 
-                                        rendered="#{sessionController.currentUser.role == 'admin'}"
-                                        value="Delete trip"/>
+                                <p:menuitem icon="fa fa-trash"                                                  
+                                            onclick="PF('tripDeleteDLG').show();" 
+                                            rendered="#{sessionController.currentUser.role == 'admin'}"
+                                            value="Delete trip"/>
 
-                        </p:menuButton>
+                            </p:menuButton>
+                        </p:badge>
 
                         <!--Places-->
-                        <p:commandButton value="Add place" 
-                                         icon="pi pi-map-marker"                                         
-                                         action="#{placesController.makeNewPlace()}"
-                                         rendered="#{placesController.places.size()!=null}">
-                            <pe:badge content="#{placesController.places.size()}"/>
-                        </p:commandButton>                       
+                        <p:badge value="#{placesController.places.size()}"
+                                 rendered="#{placesController.places.size()!=null}"
+                                 severity="warning">
+                            <p:commandButton value="Add place" 
+                                             icon="pi pi-map-marker"                                         
+                                             action="#{placesController.makeNewPlace()}"
+                                             rendered="#{placesController.places.size()!=null}"/>                            
+
+                        </p:badge>
 
                     </p:panelGrid>        
 
@@ -210,8 +216,7 @@
                 <p:timeline id="timeline" 
                             value="#{placesController.timelineModel}"
                             var="timelinePlace"
-                            zoomable="false"
-                            >
+                            zoomable="false">
 
                     <h:outputText value="#{timelinePlace.name} (#{timelinePlace.country})" 
                                   style="font-weight: bold"/>

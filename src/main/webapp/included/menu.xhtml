@@ -52,7 +52,17 @@
         <p:submenu label="Account" icon="pi pi-user-edit">
             <p:column> 
 
-                <p:submenu label="#{sessionController.currentUser.firstname}  #{sessionController.currentUser.lastname} logged in">                   
+                <p:submenu>                   
+
+                    <p:menuitem>
+                        <p:avatar label="#{sessionController.currentUser.firstname.substring(0,1)}"
+                                  shape="circle"/>                        
+                        <h:outputText value="#{sessionController.currentUser.firstname}  #{sessionController.currentUser.lastname}"/>
+                    </p:menuitem>
+
+                </p:submenu>
+
+                <p:submenu>                   
 
                     <p:menuitem value="#{labels.menuItemAdmin}" 
                                 disabled="#{sessionController.currentUser.role!= 'admin'}"
@@ -63,6 +73,7 @@
                                  disabled="#{sessionController.currentUser==null}"                    
                                  icon="pi pi-lock"
                                  url="login.html"/>
+
 
                 </p:submenu>
 
