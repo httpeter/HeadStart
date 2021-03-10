@@ -55,9 +55,8 @@
                 <p:submenu>                   
 
                     <p:menuitem>
-                        <p:avatar label="#{sessionController.currentUser.firstname.substring(0,1)} "
-                                  shape="circle"/>                        
-                        <h:outputText value="#{sessionController.currentUser.firstname}  #{sessionController.currentUser.lastname}"/>
+                        <p:avatar label="#{sessionController.currentUser.firstname.substring(0,1)} #{sessionController.currentUser.lastname.substring(0,1)}"
+                                  shape="circle"/>                                                
                     </p:menuitem>
 
                 </p:submenu>
