@@ -142,7 +142,7 @@
                             <pe:clipboard trigger="copyBtn"
                                           action="copy" 
                                           target="tokenTxt"/>
-                            <h:outputText id="tokenTxt" value="http://case1.nl/?t=#{sessionController.cryptor.encrypt(adminController.selectedUser.email)}"/>
+                            <h:outputText id="tokenTxt" value="http://#{sessionController.facesContext.externalContext.requestServerName}:#{sessionController.facesContext.externalContext.requestServerPort}#{sessionController.facesContext.externalContext.requestContextPath}/?t=#{sessionController.cryptor.encrypt(adminController.selectedUser.email)}"/>
                             <p:commandButton id="copyBtn" icon="fa fa-copy"/>
                         </p:outputPanel>
 
