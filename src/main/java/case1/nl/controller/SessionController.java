@@ -14,9 +14,12 @@ import case1.nl.entities.User;
 import case1.nl.util.AESEncryptor;
 import case1.nl.util.FMessage;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
 
 /**
  *
@@ -185,6 +188,33 @@ public class SessionController implements Serializable {
 
     public void setCryptor(AESEncryptor cryptor) {
         this.cryptor = cryptor;
+    }
+
+
+
+    public void saveCurrentUser() {
+        try {
+            currentUser.setPwdhash(cryptor.encrypt(currentUser.getPwdhash()));
+
+            if (systemRepository.merged(currentUser)) {
+                FMessage.info(currentUser.getFirstname()
+                        + " "
+                        + currentUser.getLastname()
+                        + " saved.");
+
+            } else {
+                FMessage.error("User could not be saved.");
+            }
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
+            FMessage.error("User could not be saved. " + ex.getLocalizedMessage());
+        } catch (IllegalBlockSizeException ex) {
+            Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
+            FMessage.error("User could not be saved. " + ex.getLocalizedMessage());
+        } catch (BadPaddingException ex) {
+            Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
+            FMessage.error("User could not be saved. " + ex.getLocalizedMessage());
+        }
     }
 
 }

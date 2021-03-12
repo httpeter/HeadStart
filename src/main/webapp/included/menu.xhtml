@@ -54,9 +54,10 @@
 
                 <p:submenu>                   
 
-                    <p:menuitem>
+                    <p:menuitem onclick="PF('editUserProfileDLG').show();">
                         <p:avatar label="#{sessionController.currentUser.firstname.substring(0,1)} #{sessionController.currentUser.lastname.substring(0,1)}"
                                   shape="circle"/>                                                
+                        <h:outputText value="#{labels.menuItemUserProfile}" />
                     </p:menuitem>
 
                 </p:submenu>
@@ -82,7 +83,11 @@
     </p:megaMenu>
 
     <!--Do not remove!-->
-    <h:outputText value="#{sessionController.redirectToLogin}"/>   
+    <h:outputText value="#{sessionController.redirectToLogin}"/>
+    
+    
+    <!-- Dialogs -->
+    <ui:include src="editUserProfileDLG.xhtml"/>
 
 
 

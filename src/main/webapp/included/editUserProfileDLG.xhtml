@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+    <p:dialog header="#{sessionController.currentUser.firstname} #{sessionController.currentUser.lastname}"
+              modal="true" 
+              widgetVar="editUserProfileDLG"
+              width="400"              
+              fitViewport="true"
+              closeOnEscape="true"
+              dynamic="true"
+              minHeight="200"
+              height="600">
+
+        <p:panelGrid columns="2" layout="grid">
+
+            <h:outputText value="#{labels.dlgEditUserProfileFirstname} *"/>
+            <p:inputText value="#{sessionController.currentUser.firstname}"
+                         style="width:100%"/>    
+            
+            <h:outputText value="#{labels.dlgEditUserProfileLastname} *"/>
+            <p:inputText value="#{sessionController.currentUser.lastname}"
+                         style="width:100%"/>    
+            
+            <h:outputText value="#{labels.dlgEditUserProfileEmail} *"/>
+            <p:inputText value="#{sessionController.currentUser.email}"
+                         style="width:100%"/>    
+            
+            <h:outputText value="#{labels.dlgEditUserProfilePassword} *"/>
+            <p:password value="#{sessionController.currentUser.pwdhash}"
+                         style="width:100%"
+                         feedback="true"/>                                       
+
+            <h:outputText value="Home address *"/>
+            <p:inputTextarea style="width:100%"/>
+
+            <h:outputText value="Home address lattitude *"/>
+            <p:inputText style="width:100%"/>
+
+            <h:outputText value="Home address longitude *"/>
+            <p:inputText style="width:100%"/>
+
+            <p:commandButton icon="fa fa-save"
+                             value="Save"
+                             action="#{sessionController.saveCurrentUser()}" 
+                             oncomplete="PF('editUserProfileDLG').hide();"
+                             update="@form"/>                               
+            <p:commandButton icon="fa fa-ban" 
+                             value="Cancel"
+                             onclick="PF('editUserProfileDLG').hide();"/>  
+
+            <h:outputText/>
+            <p:commandButton icon="fa fa-ban" 
+                             value="Delete"
+                             onclick="PF('editUserProfileDLG').hide();"
+                             disabled="true"/>  
+
+        </p:panelGrid>
+
+
+
+    </p:dialog>
+
+</ui:composition>

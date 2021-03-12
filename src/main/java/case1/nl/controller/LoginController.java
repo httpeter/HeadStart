@@ -1,10 +1,8 @@
 package case1.nl.controller;
 
-
 import case1.nl.entities.Syspage;
 import java.io.Serializable;
 import case1.nl.entities.User;
-import case1.nl.util.DBVersionController;
 import case1.nl.util.FMessage;
 import case1.nl.util.Validator;
 import java.io.IOException;
@@ -177,18 +175,19 @@ public class LoginController implements Serializable {
 
     public String getDBStatus() {
 
-        try {
-            DBVersionController dbvc = new DBVersionController();
-            int migrations = dbvc.migrateToLatest();
-            if (migrations > 0) {
-                this.dbStatus = "# of database migrations performed: "
-                        + migrations;
-                return dbStatus;
-            }
-        } catch (Exception e) {
-            FMessage.fatal(e.getMessage());
-            this.dbStatus = e.getMessage();
-        }
+//Turned off for performance reasons...
+//        try {
+//            DBVersionController dbvc = new DBVersionController();
+//            int migrations = dbvc.migrateToLatest();
+//            if (migrations > 0) {
+//                this.dbStatus = "# of database migrations performed: "
+//                        + migrations;
+//                return dbStatus;
+//            }
+//        } catch (Exception e) {
+//            FMessage.fatal(e.getMessage());
+//            this.dbStatus = e.getMessage();
+//        }
         return this.dbStatus;
     }
 
