@@ -27,12 +27,12 @@
 
             <h:outputText value="Startdate *"/>
             <p:inplace editor="true">
-                <p:calendar mode="full" 
-                            value="#{placesController.selectedTrip.startdate}"
-                            pattern="dd-MM-yyyy" 
-                            timeZone="CET">
+                <p:datePicker touchUI="true"                               
+                              value="#{placesController.selectedTrip.startdate}"
+                              pattern="dd-MM-yyyy" 
+                              timeZone="CET">
                     <f:convertDateTime pattern="dd-MM-yyyy" />
-                </p:calendar>
+                </p:datePicker>>
             </p:inplace>
 
             <h:outputText value="Description *"/>

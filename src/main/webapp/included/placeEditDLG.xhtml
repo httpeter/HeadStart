@@ -79,22 +79,24 @@
 
                     <h:outputText value="Arrival *" styleClass="headerText"/>
                     <p:inplace editor="true">
-                        <p:calendar value="#{placesController.selectedPlace.arrivaldate}" 
-                                    pattern="dd-MM-yyyy" 
-                                    timeZone="CET"
-                                    required="true" >
+                        <p:datePicker touchUI="true"
+                                      value="#{placesController.selectedPlace.arrivaldate}" 
+                                      pattern="dd-MM-yyyy" 
+                                      timeZone="CET"
+                                      required="true" >
                             <f:convertDateTime pattern="dd-MM-yyyy"/>
-                        </p:calendar>
+                        </p:datePicker>>
                     </p:inplace>
 
                     <h:outputText value="Departure *" styleClass="headerText"/>
                     <p:inplace editor="true" >
-                        <p:calendar value="#{placesController.selectedPlace.departuredate}" 
-                                    pattern="dd-MM-yyyy" 
-                                    timeZone="CET"
-                                    required="true">
+                        <p:datePicker touchUI="true" 
+                                      value="#{placesController.selectedPlace.departuredate}" 
+                                      pattern="dd-MM-yyyy" 
+                                      timeZone="CET"
+                                      required="true">
                             <f:convertDateTime pattern="dd-MM-yyyy" />
-                        </p:calendar>
+                        </p:datePicker>>
                     </p:inplace>
 
                     <h:outputText value="Total stay" styleClass="headerText"/>

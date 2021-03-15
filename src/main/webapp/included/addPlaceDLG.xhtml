@@ -31,13 +31,15 @@
             <p:inputTextarea value="#{placesController.newPlace.description}"/>                                                                                                     
 
             <h:outputText value="Arrival *" styleClass="headerText"/>
-            <p:calendar value="#{placesController.newPlace.arrivaldate}" 
+            <p:datePicker value="#{placesController.newPlace.arrivaldate}" 
                         pattern="dd-MM-yyyy" 
                         timeZone="CET" 
-                        required="true"/>
+                        required="true"
+                        touchUI="true"/>
 
             <h:outputText value="Departure *" styleClass="headerText"/>
-            <p:calendar value="#{placesController.newPlace.departuredate}" 
+            <p:datePicker touchUI="true" 
+                        value="#{placesController.newPlace.departuredate}" 
                         pattern="dd-MM-yyyy" 
                         timeZone="CET"
                         required="true"/>                
