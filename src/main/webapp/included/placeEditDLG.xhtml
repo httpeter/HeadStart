@@ -40,9 +40,10 @@
                         <p:inputText value="#{placesController.selectedPlace.name}"/>
                     </p:inplace>
 
-                    <h:outputText value="Add to Calendar" styleClass="headerText"/>
-                    <h:commandLink value="#{placesController.selectedPlace.name}.ics"
-                                   action="#{placesController.downloadIcal(place)}"/>
+                    <h:outputText value="Total stay" styleClass="headerText"/>
+                    <h:outputText value="#{placesController.getSelectedPlaceTotalDays(placesController.selectedPlace.arrivaldate, 
+                                           placesController.selectedPlace.departuredate)}
+                                  days"/>
 
                     <h:outputText value="Rating" styleClass="headerText"/>
                     <p:rating value="#{placesController.selectedPlace.rating}" />
@@ -51,6 +52,10 @@
                     <p:inplace editor="true">
                         <p:inputTextarea value="#{placesController.selectedPlace.description}"/>                                                                                                     
                     </p:inplace>
+
+                    <h:outputText value="Add to Calendar" styleClass="headerText"/>
+                    <h:commandLink value="#{placesController.selectedPlace.name}.ics"
+                                   action="#{placesController.downloadIcal(place)}"/>
 
                 </p:panelGrid>
 
@@ -97,12 +102,7 @@
                                       required="true">
                             <f:convertDateTime pattern="dd-MM-yyyy" />
                         </p:datePicker>
-                    </p:inplace>
-
-                    <h:outputText value="Total stay" styleClass="headerText"/>
-                    <h:outputText value="#{placesController.getSelectedPlaceTotalDays(placesController.selectedPlace.arrivaldate, 
-                                           placesController.selectedPlace.departuredate)}
-                                  days"/>                                               
+                    </p:inplace>                                                                   
 
                     <h:outputText value="Price *" styleClass="headerText"/>            
                     <p:inplace editor="true">
