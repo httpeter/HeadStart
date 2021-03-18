@@ -13,7 +13,7 @@
               closeOnEscape="true"
               dynamic="true"
               minHeight="200"
-              height="600">
+              height="800">
 
         <p:panelGrid columns="2" layout="grid">
 
@@ -51,8 +51,12 @@
                          style="width:100%"/>
 
             <h:outputText value="Vacation days *"/>            
-            <p:inputText id="vacationDaysInput" value="#{sessionController.currentUser.vacationdays}"/>
-            <p:slider for="vacationDaysInput"/>
+            <h:panelGrid>
+                <p:inputText id="vacationDaysInput" 
+                             value="#{sessionController.currentUser.vacationdays}"
+                             style="width:100%"/>
+                <p:slider for="vacationDaysInput"/>
+            </h:panelGrid>
 
             <p:commandButton icon="fa fa-save"
                              value="Save"
