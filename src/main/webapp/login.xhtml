@@ -26,44 +26,52 @@
 
 
 
-            
-                
 
-            <p:card style="min-width: 50%">
-                    
-                    <f:facet name="title">
-                        #{labels.welcomeMSG}
-                    </f:facet>
-                    
-                    <h:panelGrid columns="2">
 
-                        <h:outputText value="Email address"/>
-                        <p:inputText value="#{loginController.mail}"
-                                     required="true"
-                                     requiredMessage="Email address Required"/>
 
-                        <h:outputText value="Password"/>
-                        <p:password value="#{loginController.pwd}" 
-                                    required="true" 
-                                    requiredMessage="Password Required"/>
+            <p:card class="mainCard">
 
-                        <p:spacer/>                        
-                        <p:spacer/>                        
-
-                        <h:outputText/>
-                        <p:commandButton value="login" 
-                                         action="#{loginController.login()}"                              
-                                         icon="pi pi-unlock" 
-                                         ajax="false"/>      
-                    </h:panelGrid>
-                
-                <f:facet name="footer">
-                    <h:link value="#{labels.sourceMSG}" 
-                            style="font-size: 8pt; color: grey;"/>
+                <f:facet name="title">
+                    #{labels.welcomeMSG}
                 </f:facet>
-                
-                </p:card>
-            
+
+                <h:panelGrid columns="2">
+
+                    <h:outputText value="Email address"/>
+                    <p:inputText value="#{loginController.mail}"
+                                 required="true"
+                                 requiredMessage="Email address Required"/>
+
+                    <h:outputText value="Password"/>
+                    <p:password value="#{loginController.pwd}" 
+                                required="true" 
+                                requiredMessage="Password Required"/>
+
+                    <p:spacer/>                        
+                    <p:spacer/>                        
+
+                    <h:outputText/>
+                    <p:commandButton value="login" 
+                                     action="#{loginController.login()}"                              
+                                     icon="pi pi-unlock" 
+                                     ajax="false"/>      
+                </h:panelGrid>
+
+                <f:facet name="footer">
+
+                    <div align="right">
+                        <h:link value="#{labels.contactMSG}" 
+                                style="font-size: 8pt; color: grey;"/>
+
+                        <h:outputText value=" | "/>
+
+                        <h:link value="#{labels.aboutMSG}" 
+                                style="font-size: 8pt; color: grey;"/>
+                    </div>
+                </f:facet>
+
+            </p:card>
+
 
 
 

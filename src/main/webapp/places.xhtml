@@ -37,7 +37,7 @@
 
 
 
-            <p:card style="min-width:90%;">                
+            <p:card style="min-width: 93%">                
 
 
                 <!--Trip overview-->                
@@ -46,8 +46,7 @@
                              layout="grid">
 
 
-                    <p:selectOneMenu value="#{placesController.selectedTripID}" 
-                                     style="width:100%">
+                    <p:selectOneMenu value="#{placesController.selectedTripID}" >
                         <f:selectItem itemLabel="select..."
                                       itemValue="0"
                                       rendered="#{placesController.selectedTripID==0}"/>
@@ -101,12 +100,12 @@
 
 
                     <p:galleria value="#{placesController.gallery}" 
-                                var="image"  
-                                panelWidth="300"
-                                panelHeight="250"
+                                var="image"                                
                                 effectSpeed="5000"
-                                rendered="#{placesController.selectedTripID!=0}">
-                        <p:graphicImage url="#{image}" height="250"/>
+                                rendered="#{placesController.selectedTripID!=0}" 
+                                panelHeight="200">
+                        <p:graphicImage url="#{image}"
+                                        height="200"/>
                     </p:galleria>         
                     <h:outputText rendered="#{placesController.selectedTripID!=0}"/>
 
@@ -182,7 +181,9 @@
                             zoom="4" 
                             type="map" 
                             style="width: auto;height:400px"
-                            model="#{placesController.mapModel}">                             
+                            model="#{placesController.mapModel}"
+                            onPointClick="pointSelect">
+                        
                         <p:ajax event="pointSelect" 
                                 listener="#{placesController.mapSelect}" 
                                 update="@form" />

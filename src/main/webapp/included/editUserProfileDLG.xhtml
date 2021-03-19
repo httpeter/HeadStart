@@ -31,7 +31,8 @@
 
             <h:outputText value="#{labels.dlgEditUserProfilePassword} *"/>
             <p:password value="#{sessionController.currentUser.pwdhash}"
-                        style="width:100%"
+                        style="width:100%" 
+                        required="true"
                         feedback="true"/>                                       
 
             <h:outputText value="Home address *"/>

@@ -31,13 +31,17 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
     @NamedQuery(name = "User.findByPwdhash", query = "SELECT u FROM User u WHERE u.pwdhash = :pwdhash"),
+    @NamedQuery(name = "User.findByHomeaddress", query = "SELECT u FROM User u WHERE u.homeaddress = :homeaddress"),
+    @NamedQuery(name = "User.findByHomeaddresslattitude", query = "SELECT u FROM User u WHERE u.homeaddresslattitude = :homeaddresslattitude"),
+    @NamedQuery(name = "User.findByHomeaddresslongitude", query = "SELECT u FROM User u WHERE u.homeaddresslongitude = :homeaddresslongitude"),
+    @NamedQuery(name = "User.findByCountry", query = "SELECT u FROM User u WHERE u.country = :country"),
+    @NamedQuery(name = "User.findByVacationdays", query = "SELECT u FROM User u WHERE u.vacationdays = :vacationdays"),
     @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role"),
     @NamedQuery(name = "User.findByLanguage", query = "SELECT u FROM User u WHERE u.language = :language"),
     @NamedQuery(name = "User.findByFirstname", query = "SELECT u FROM User u WHERE u.firstname = :firstname"),
     @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname"),
     @NamedQuery(name = "User.findByUsetoken", query = "SELECT u FROM User u WHERE u.usetoken = :usetoken"),
-    @NamedQuery(name = "User.findByLandingpageid", query = "SELECT u FROM User u WHERE u.landingpageid = :landingpageid"),
-    @NamedQuery(name = "User.findByVacationdays", query = "SELECT u FROM User u WHERE u.vacationdays = :vacationdays")})
+    @NamedQuery(name = "User.findByLandingpageid", query = "SELECT u FROM User u WHERE u.landingpageid = :landingpageid")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,6 +57,20 @@ public class User implements Serializable {
     @Size(max = 45)
     @Column(name = "PWDHASH")
     private String pwdhash;
+    @Size(max = 255)
+    @Column(name = "HOMEADDRESS")
+    private String homeaddress;
+    @Size(max = 45)
+    @Column(name = "HOMEADDRESSLATTITUDE")
+    private String homeaddresslattitude;
+    @Size(max = 45)
+    @Column(name = "HOMEADDRESSLONGITUDE")
+    private String homeaddresslongitude;
+    @Size(max = 45)
+    @Column(name = "COUNTRY")
+    private String country;
+    @Column(name = "VACATIONDAYS")
+    private Integer vacationdays;
     @Size(max = 45)
     @Column(name = "ROLE")
     private String role;
@@ -73,8 +91,6 @@ public class User implements Serializable {
     @NotNull
     @Column(name = "LANDINGPAGEID")
     private int landingpageid;
-    @Column(name = "VACATIONDAYS")
-    private Integer vacationdays;
 
 
 
@@ -129,6 +145,66 @@ public class User implements Serializable {
 
     public void setPwdhash(String pwdhash) {
         this.pwdhash = pwdhash;
+    }
+
+
+
+    public String getHomeaddress() {
+        return homeaddress;
+    }
+
+
+
+    public void setHomeaddress(String homeaddress) {
+        this.homeaddress = homeaddress;
+    }
+
+
+
+    public String getHomeaddresslattitude() {
+        return homeaddresslattitude;
+    }
+
+
+
+    public void setHomeaddresslattitude(String homeaddresslattitude) {
+        this.homeaddresslattitude = homeaddresslattitude;
+    }
+
+
+
+    public String getHomeaddresslongitude() {
+        return homeaddresslongitude;
+    }
+
+
+
+    public void setHomeaddresslongitude(String homeaddresslongitude) {
+        this.homeaddresslongitude = homeaddresslongitude;
+    }
+
+
+
+    public String getCountry() {
+        return country;
+    }
+
+
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+
+
+    public Integer getVacationdays() {
+        return vacationdays;
+    }
+
+
+
+    public void setVacationdays(Integer vacationdays) {
+        this.vacationdays = vacationdays;
     }
 
 
@@ -201,18 +277,6 @@ public class User implements Serializable {
 
     public void setLandingpageid(int landingpageid) {
         this.landingpageid = landingpageid;
-    }
-
-
-
-    public Integer getVacationdays() {
-        return vacationdays;
-    }
-
-
-
-    public void setVacationdays(Integer vacationdays) {
-        this.vacationdays = vacationdays;
     }
 
 
