@@ -14,9 +14,15 @@
 
         <h:form>             
 
+
+
+
             <p:sidebar position="top" visible="#{loginController.DBStatus != ''}">
                 <h:outputText value="#{loginController.DBStatus}"/>
             </p:sidebar>
+
+
+
 
             <!--Extra Growl since page doesn't include menu-->
             <p:growl>
@@ -31,9 +37,20 @@
 
             <p:card class="mainCard">
 
+
+
+
+
+
+
                 <f:facet name="title">
                     #{labels.welcomeMSG}
                 </f:facet>
+
+
+
+
+
 
                 <h:panelGrid columns="2">
 
@@ -57,17 +74,51 @@
                                      ajax="false"/>      
                 </h:panelGrid>
 
+
+
+
+
+
+
+
                 <f:facet name="footer">
 
                     <div align="right">
-                        
-                        <h:link value="#{labels.signupMSG}" 
-                                style="font-size: 8pt; color: grey;"/>
+
+                        <h:link id="signupLink" value="#{labels.signupMSG}" 
+                                style="font-size: 8pt; color: grey;" />
+
+                        <p:overlayPanel for="signupLink" showEvent="mouseover">
+                            
+                            <div align="left">
+
+                            <h4>#{labels.signupMSG}</h4>
+
+                            <p:panelGrid columns="2" layout="grid">
+
+                                <h:outputText value="#{labels.firstName} *"/>
+                                <p:inputText style="width:100%"/>
+
+                                <h:outputText value="#{labels.lastName} *"/>
+                                <p:inputText style="width:100%"/>
+
+                                <h:outputText value="#{labels.email} *"/>
+                                <p:inputText style="width:100%"/>
+                                
+                                <h:outputText/>
+                                <p:commandButton value="Submit"/>
+
+                            </p:panelGrid>
+
+                            </div>
+                            
+                        </p:overlayPanel>
 
                         <h:outputText value=" | "/>
-                        
+
                         <h:link value="#{labels.contactMSG}" 
-                                style="font-size: 8pt; color: grey;"/>
+                                style="font-size: 8pt; color: grey;"
+                                />
 
                         <h:outputText value=" | "/>
 
@@ -76,7 +127,20 @@
                     </div>
                 </f:facet>
 
+
+
+
+
+
             </p:card>
+
+
+
+
+
+
+
+
 
 
 
