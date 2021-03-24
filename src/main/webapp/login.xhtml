@@ -12,7 +12,14 @@
 
     <h:body styleClass="loginPage">              
 
-        <h:form>             
+        <h:form>    
+
+
+
+
+
+            <!--DIALOGS-->
+            <ui:include src="included/signupDLG.xhtml"/>
 
 
 
@@ -31,48 +38,39 @@
 
 
 
+            <p:panelGrid columns="2" layout="grid">
+                                         
+
+                <!--Login Panel-->
+                <p:card class="mainCard">
 
 
+                    <f:facet name="title">
+                        #{labels.welcomeMSG}
+                    </f:facet>
 
 
-            <p:card class="mainCard">
+                    <h:panelGrid columns="2">
 
+                        <h:outputText value="Email address"/>
+                        <p:inputText value="#{loginController.mail}"
+                                     required="true"
+                                     requiredMessage="Email address Required"/>
 
+                        <h:outputText value="Password"/>
+                        <p:password value="#{loginController.pwd}" 
+                                    required="true" 
+                                    requiredMessage="Password Required"/>
 
+                        <p:spacer/>                        
+                        <p:spacer/>                        
 
-
-
-
-                <f:facet name="title">
-                    #{labels.welcomeMSG}
-                </f:facet>
-
-
-
-
-
-
-                <h:panelGrid columns="2">
-
-                    <h:outputText value="Email address"/>
-                    <p:inputText value="#{loginController.mail}"
-                                 required="true"
-                                 requiredMessage="Email address Required"/>
-
-                    <h:outputText value="Password"/>
-                    <p:password value="#{loginController.pwd}" 
-                                required="true" 
-                                requiredMessage="Password Required"/>
-
-                    <p:spacer/>                        
-                    <p:spacer/>                        
-
-                    <h:outputText/>
-                    <p:commandButton value="login" 
-                                     action="#{loginController.login()}"                              
-                                     icon="pi pi-unlock" 
-                                     ajax="false"/>      
-                </h:panelGrid>
+                        <h:outputText/>
+                        <p:commandButton value="login" 
+                                         action="#{loginController.login()}"                              
+                                         icon="pi pi-unlock" 
+                                         ajax="false"/>      
+                    </h:panelGrid>
 
 
 
@@ -80,69 +78,37 @@
 
 
 
+                    <f:facet name="footer">
 
-                <f:facet name="footer">
+                        <p:divider/>
 
-                    <div align="right">
+                        <div align="right">                                                
 
-                        <h:link id="signupLink" value="#{labels.signupMSG}" 
-                                style="font-size: 8pt; color: grey;" />
+                            <a href="#" onclick="PF('signupDLG').show()" 
+                               class="myLink">#{labels.signupMSG}</a>                                               
 
-                        <p:overlayPanel for="signupLink" showEvent="mouseover">
-                            
-                            <div align="left">
+                            <h:outputText value=" | " 
+                                          styleClass="myLink"/>
 
-                            <h4>#{labels.signupMSG}</h4>
+                            <a href="#" onclick="PF('signupDLG').show()" 
+                               class="myLink">#{labels.contactMSG}</a>
 
-                            <p:panelGrid columns="2" layout="grid">
+                            <h:outputText value=" | "
+                                          styleClass="myLink"/>
 
-                                <h:outputText value="#{labels.firstName} *"/>
-                                <p:inputText style="width:100%"/>
-
-                                <h:outputText value="#{labels.lastName} *"/>
-                                <p:inputText style="width:100%"/>
-
-                                <h:outputText value="#{labels.email} *"/>
-                                <p:inputText style="width:100%"/>
-                                
-                                <h:outputText/>
-                                <p:commandButton value="Submit"/>
-
-                            </p:panelGrid>
-
-                            </div>
-                            
-                        </p:overlayPanel>
-
-                        <h:outputText value=" | "/>
-
-                        <h:link value="#{labels.contactMSG}" 
-                                style="font-size: 8pt; color: grey;"
-                                />
-
-                        <h:outputText value=" | "/>
-
-                        <h:link value="#{labels.aboutMSG}" 
-                                style="font-size: 8pt; color: grey;"/>
-                    </div>
-                </f:facet>
+                            <a href="#" onclick="PF('signupDLG').show()" 
+                               class="myLink">#{labels.aboutMSG}</a>
+                        </div>
+                    </f:facet>
 
 
+                </p:card>
 
 
+                <p:tagCloud model="#{loginController.tagCloudModel}"/>
 
 
-            </p:card>
-
-
-
-
-
-
-
-
-
-
+            </p:panelGrid>
 
 
 

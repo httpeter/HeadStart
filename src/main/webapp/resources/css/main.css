@@ -2,7 +2,11 @@ body .ui-panelgrid .ui-panelgrid-cell {
     padding: 1 rem;
 }
 
-
+.myLink
+{
+    font-size: 8pt; 
+    color: grey;
+}
 
 /*Timeline style*/
 div.vis-item-overflow{        
@@ -20,7 +24,7 @@ div.vis-item-overflow{
 
 .mainCard
 {
-    min-width: 40%;    
+    min-width: 200px;    
     max-width: 93%;
 }
 
@@ -45,4 +49,16 @@ div.vis-item-overflow{
 .ui-card-title
 {
     font-size: smaller; 
+}
+
+body .ui-tagcloud {  
+    border: none;
+    background: none;
+    color: #495057;
+    padding: 1rem;    
+}
+
+.ui-panelgrid .p-grid .ui-panelgrid-cell, .ui-panelgrid .ui-grid-responsive .ui-panelgrid-cell {
+    border: 0 none;
+    background: none;
 }

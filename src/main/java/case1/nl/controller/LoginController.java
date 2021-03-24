@@ -17,6 +17,9 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import org.primefaces.model.tagcloud.DefaultTagCloudItem;
+import org.primefaces.model.tagcloud.DefaultTagCloudModel;
+import org.primefaces.model.tagcloud.TagCloudModel;
 
 /**
  *
@@ -31,11 +34,25 @@ public class LoginController implements Serializable {
 
     private HttpServletRequest request;
 
+    private TagCloudModel tagCloudModel;
+
     private String mail, pwd, t, dbStatus = "";
 
 
 
 //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    public TagCloudModel getTagCloudModel() {
+        return tagCloudModel;
+    }
+
+
+
+    public void setTagCloudModel(TagCloudModel tagCloudModel) {
+        this.tagCloudModel = tagCloudModel;
+    }
+
+
+
     public SessionController getSession() {
         return session;
     }
@@ -73,10 +90,18 @@ public class LoginController implements Serializable {
 
 
 
+    public LoginController() {
+        this.fillTagCloud();
+    }
+
+
+
     @PostConstruct
     public void init() {
+
         User tempUser = new User();
         tempUser.setLanguage("EN");
+
         session.setCurrentUser(tempUser);
 
         request = (HttpServletRequest) FacesContext.getCurrentInstance()
@@ -115,6 +140,22 @@ public class LoginController implements Serializable {
                         .log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+
+
+    private void fillTagCloud() {
+        tagCloudModel = new DefaultTagCloudModel();        
+        tagCloudModel.addTag(new DefaultTagCloudItem("design", 1));
+        tagCloudModel.addTag(new DefaultTagCloudItem("users", "http://www.nu.nl", 3));
+        tagCloudModel.addTag(new DefaultTagCloudItem("application", 2));
+        tagCloudModel.addTag(new DefaultTagCloudItem("quality", "#", 5));
+        tagCloudModel.addTag(new DefaultTagCloudItem("interface", 4));
+        tagCloudModel.addTag(new DefaultTagCloudItem("team", "#", 2));
+        tagCloudModel.addTag(new DefaultTagCloudItem("product", 5));
+        tagCloudModel.addTag(new DefaultTagCloudItem("data", 3));
+        tagCloudModel.addTag(new DefaultTagCloudItem("usability", "#", 4));
+        tagCloudModel.addTag(new DefaultTagCloudItem("experience", "#", 1));        
     }
 
 

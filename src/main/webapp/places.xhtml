@@ -46,7 +46,8 @@
                              layout="grid">
 
 
-                    <p:selectOneMenu value="#{placesController.selectedTripID}" >
+                    <p:selectOneMenu value="#{placesController.selectedTripID}" 
+                                     style="width:100%">
                         <f:selectItem itemLabel="select..."
                                       itemValue="0"
                                       rendered="#{placesController.selectedTripID==0}"/>
@@ -59,10 +60,12 @@
                     </p:selectOneMenu> 
 
 
-                    <p:panelGrid columns="2"
-                                 layout="grid">
 
-                        <!--Trips--> 
+
+                    <p:panelGrid columns="2">
+
+                        <!--Trips-->                                                 
+
                         <p:badge severity="warning" 
                                  value="#{placesController.trips.size()}">
                             <p:menuButton value="#{sessionController.currentUser.firstname}'s Trips" 
@@ -101,15 +104,17 @@
 
                     <p:galleria value="#{placesController.gallery}" 
                                 var="image"                                
-                                effectSpeed="5000"
+                                effectSpeed="1000"
                                 rendered="#{placesController.selectedTripID!=0}" 
-                                panelHeight="200">
+                                panelWidth="300"
+                                panelHeight="200"
+                                showFilmstrip="true">
                         <p:graphicImage url="#{image}"
-                                        height="200"/>
+                                        width="300"/>
                     </p:galleria>         
                     <h:outputText rendered="#{placesController.selectedTripID!=0}"/>
 
-                    <p:separator rendered="#{placesController.selectedTripID!=0}"/>
+                    <p:divider rendered="#{placesController.selectedTripID!=0}"/>
                     <h:outputText rendered="#{placesController.selectedTripID!=0}"/>
 
 
@@ -183,7 +188,7 @@
                             style="width: auto;height:400px"
                             model="#{placesController.mapModel}"
                             onPointClick="pointSelect">
-                        
+
                         <p:ajax event="pointSelect" 
                                 listener="#{placesController.mapSelect}" 
                                 update="@form" />

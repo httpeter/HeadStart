@@ -140,49 +140,33 @@ public class AdminController implements Serializable {
 
     public void saveNewUser() {
 
-        try {
-            newUser.setPwdhash(session.getCryptor()
-                    .encrypt(newUser.getPwdhash()));
-            if (session.getUserRepository().persisted(newUser)) {
-                FMessage.info(newUser.getFirstname()
-                        + " "
-                        + newUser.getLastname()
-                        + " saved.");
-                this.init();
-            } else {
-                FMessage.fatal("Could not save "
-                        + newUser.getFirstname()
-                        + " "
-                        + newUser.getLastname());
-            }
-            this.loadUsersAndSysPages();
-        } catch (UnsupportedEncodingException
-                | IllegalBlockSizeException
-                | BadPaddingException ex) {
-            Logger.getLogger(AdminController.class.getName())
-                    .log(Level.SEVERE, null, ex);
-            FMessage.fatal(ex.getMessage());
+        if (session.getUserRepository().persisted(newUser)) {
+            FMessage.info(newUser.getFirstname()
+                    + " "
+                    + newUser.getLastname()
+                    + " saved.");
+            this.init();
+        } else {
+            FMessage.fatal("Could not save "
+                    + newUser.getFirstname()
+                    + " "
+                    + newUser.getLastname());
         }
+        this.loadUsersAndSysPages();
 
     }
 
 
 
     public void selectUser(SelectEvent selectEvent) {
-        selectedUser = (User) selectEvent.getObject();
+
         try {
-            if (selectedUser.getPwdhash().endsWith("==")) {
-                selectedUser.setPwdhash(session.getCryptor()
-                        .decrypt(selectedUser
-                                .getPwdhash()));
-            }
+            selectedUser = (User) selectEvent.getObject();
             userTabIndex = 1;
-        } catch (IOException
-                | IllegalBlockSizeException
-                | BadPaddingException ex) {
+        } catch (Exception e) {
             Logger.getLogger(AdminController.class.getName())
-                    .log(Level.SEVERE, null, ex);
-            FMessage.error(ex.getMessage());
+                    .log(Level.SEVERE, null, e);
+            FMessage.error(e.getMessage());
             userTabIndex = 0;
         }
     }
@@ -190,33 +174,21 @@ public class AdminController implements Serializable {
 
 
     public void saveUser() {
-        try {
-            selectedUser.setPwdhash(session.getCryptor()
-                    .encrypt(selectedUser.getPwdhash()));
-            if (session.getUserRepository().persisted(selectedUser)) {
 
-                FMessage.info(selectedUser.getFirstname()
-                        + " "
-                        + selectedUser.getLastname()
-                        + " saved.");
-                selectedUser = null;
-            } else {
-                FMessage.error("Could not save user "
-                        + selectedUser.getFirstname()
-                        + " "
-                        + selectedUser.getLastname());
-            }
-            this.loadUsersAndSysPages();
-        } catch (UnsupportedEncodingException
-                | IllegalBlockSizeException
-                | BadPaddingException ex) {
-            Logger.getLogger(AdminController.class.getName())
-                    .log(Level.SEVERE, null, ex);
-            FMessage.fatal("Could not save "
+        if (session.getUserRepository().persisted(selectedUser)) {
+
+            FMessage.info(selectedUser.getFirstname()
+                    + " "
+                    + selectedUser.getLastname()
+                    + " saved.");
+            selectedUser = null;
+        } else {
+            FMessage.error("Could not save user "
                     + selectedUser.getFirstname()
                     + " "
                     + selectedUser.getLastname());
         }
+        this.loadUsersAndSysPages();
 
     }
 

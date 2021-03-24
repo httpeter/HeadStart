@@ -154,14 +154,54 @@ public class SessionController implements Serializable {
 
 
 
+    /**
+     * Get password from hash
+     */
     public User getCurrentUser() {
+
+        if (this.currentUser.getPwdhash() != null
+                && this.currentUser.getPwdhash() != "") {
+            try {
+                this.currentUser
+                        .setPwdhash(cryptor.decrypt(this.currentUser.getPwdhash()));
+            } catch (IOException ex) {
+                Logger.getLogger(SessionController.class.getName())
+                        .log(Level.SEVERE, null, ex);
+            } catch (IllegalBlockSizeException ex) {
+                Logger.getLogger(SessionController.class.getName())
+                        .log(Level.SEVERE, null, ex);
+            } catch (BadPaddingException ex) {
+                Logger.getLogger(SessionController.class.getName())
+                        .log(Level.SEVERE, null, ex);
+            }
+        }
         return currentUser;
     }
 
 
 
+    /**
+     * Set password to hash
+     */
     public void setCurrentUser(User currentUser) {
+
+        if (currentUser.getPwdhash() != null
+                && currentUser.getPwdhash() != "") {
+            try {
+
+                currentUser.setPwdhash(cryptor.encrypt(currentUser.getPwdhash()));
+
+            } catch (IOException ex) {
+                Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalBlockSizeException ex) {
+                Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (BadPaddingException ex) {
+                Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
         this.currentUser = currentUser;
+
     }
 
 
@@ -193,27 +233,28 @@ public class SessionController implements Serializable {
 
 
     public void saveCurrentUser() {
-        try {
-            currentUser.setPwdhash(cryptor.encrypt(currentUser.getPwdhash()));
 
-            if (systemRepository.merged(currentUser)) {
-                FMessage.info(currentUser.getFirstname()
-                        + " "
-                        + currentUser.getLastname()
-                        + " saved.");
-
-            } else {
-                FMessage.error("User could not be saved.");
+        //Just to be sure
+        if (!currentUser.getPwdhash().endsWith("==")) {
+            try {
+                currentUser.setPwdhash(cryptor.encrypt(currentUser.getPwdhash()));
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalBlockSizeException ex) {
+                Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (BadPaddingException ex) {
+                Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
-            FMessage.error("User could not be saved. " + ex.getLocalizedMessage());
-        } catch (IllegalBlockSizeException ex) {
-            Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
-            FMessage.error("User could not be saved. " + ex.getLocalizedMessage());
-        } catch (BadPaddingException ex) {
-            Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
-            FMessage.error("User could not be saved. " + ex.getLocalizedMessage());
+        }
+
+        if (currentUser.getPwdhash()!="" && systemRepository.merged(currentUser)) {
+            FMessage.info(currentUser.getFirstname()
+                    + " "
+                    + currentUser.getLastname()
+                    + " saved.");
+        } else {
+            FMessage.error("User could not be saved.\nFilled out all required fields?");
+
         }
     }
 
