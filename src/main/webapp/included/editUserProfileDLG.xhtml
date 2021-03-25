@@ -17,40 +17,40 @@
 
         <p:panelGrid columns="2" layout="grid">
 
-            <h:outputText value="#{labels.dlgEditUserProfileFirstname} *"/>
+            <h:outputText value="#{labels.firstName} *"/>
             <p:inputText value="#{sessionController.currentUser.firstname}"
                          style="width:100%"/>    
 
-            <h:outputText value="#{labels.dlgEditUserProfileLastname} *"/>
+            <h:outputText value="#{labels.lastName} *"/>
             <p:inputText value="#{sessionController.currentUser.lastname}"
                          style="width:100%"/>    
 
-            <h:outputText value="#{labels.dlgEditUserProfileEmail} *"/>
+            <h:outputText value="#{labels.email} *"/>
             <p:inputText value="#{sessionController.currentUser.email}"
                          style="width:100%"/>    
 
-            <h:outputText value="#{labels.dlgEditUserProfilePassword} *"/>
+            <h:outputText value="#{labels.password} *"/>
             <p:password value="#{sessionController.currentUser.pwdhash}"
                         style="width:100%"
                         feedback="true"/>                                       
 
-            <h:outputText value="Home address *"/>
+            <h:outputText value="#{labels.homeAddress} *"/>
             <p:inputTextarea value="#{sessionController.currentUser.homeaddress}"
                              style="width:100%"/>
 
-            <h:outputText value="Home address lattitude *"/>
+            <h:outputText value="#{labels.homeAddressLattitude} *"/>
             <p:inputText value="#{sessionController.currentUser.homeaddresslattitude}"
                          style="width:100%"/>
 
-            <h:outputText value="Home address longitude *"/>
+            <h:outputText value="#{labels.homeAddressLongitude} *"/>
             <p:inputText value="#{sessionController.currentUser.homeaddresslongitude}"
                          style="width:100%"/>
 
-            <h:outputText value="Home country *"/>
+            <h:outputText value="#{labels.homeCountry} *"/>
             <p:inputText value="#{sessionController.currentUser.country}"
                          style="width:100%"/>
 
-            <h:outputText value="Vacation days *"/>            
+            <h:outputText value="#{labels.vacationDays} *"/>            
             <h:panelGrid>
                 <p:inputText id="vacationDaysInput" 
                              value="#{sessionController.currentUser.vacationdays}"

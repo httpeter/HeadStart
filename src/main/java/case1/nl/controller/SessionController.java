@@ -159,20 +159,16 @@ public class SessionController implements Serializable {
      */
     public User getCurrentUser() {
 
-        if (this.currentUser.getPwdhash() != null
-                && this.currentUser.getPwdhash() != "") {
+        if (this.currentUser != null
+                && this.currentUser.getPwdhash() != null
+                && this.currentUser.getPwdhash() != ""
+                && this.currentUser.getPwdhash().endsWith("==")) {
             try {
                 this.currentUser
                         .setPwdhash(cryptor.decrypt(this.currentUser.getPwdhash()));
-            } catch (IOException ex) {
+            } catch (Exception e) {
                 Logger.getLogger(SessionController.class.getName())
-                        .log(Level.SEVERE, null, ex);
-            } catch (IllegalBlockSizeException ex) {
-                Logger.getLogger(SessionController.class.getName())
-                        .log(Level.SEVERE, null, ex);
-            } catch (BadPaddingException ex) {
-                Logger.getLogger(SessionController.class.getName())
-                        .log(Level.SEVERE, null, ex);
+                        .log(Level.SEVERE, null, e);
             }
         }
         return currentUser;
@@ -247,7 +243,7 @@ public class SessionController implements Serializable {
             }
         }
 
-        if (currentUser.getPwdhash()!="" && systemRepository.merged(currentUser)) {
+        if (currentUser.getPwdhash() != "" && systemRepository.merged(currentUser)) {
             FMessage.info(currentUser.getFirstname()
                     + " "
                     + currentUser.getLastname()
