@@ -10,6 +10,7 @@ import java.time.Instant;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -64,13 +65,26 @@ public class PlacesController implements Serializable {
             mapModelDetail;
 
     private int totalPrice,
-            stillToPay;
+            stillToPay,
+            currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
     private String selectedTripIcal;
 
 
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    public int getCurrentYear() {
+        return currentYear;
+    }
+
+
+
+    public void setCurrentYear(int currentYear) {
+        this.currentYear = currentYear;
+    }
+
+
+
     public int getStillToPay() {
         return stillToPay;
     }
@@ -272,9 +286,19 @@ public class PlacesController implements Serializable {
 
 
     private void loadTrips() throws Exception {
-        trips = session.getPlacesRepository()
+
+        List<Trip> allTrips = session.getPlacesRepository()
                 .findByNamedQueryName("Trip.findByOwninguserid",
                         session.getCurrentUser().getId());
+
+        trips = new ArrayList();
+
+        //Filter for curreyt year...
+        allTrips.forEach(t -> {
+            if (t.getStartdate().toString().contains(String.valueOf(currentYear))) {
+                trips.add(t);
+            }
+        });
 
         selectedTrip = new Trip();
         selectedTrip.setId(0);

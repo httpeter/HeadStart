@@ -68,7 +68,7 @@
 
                         <p:badge severity="warning" 
                                  value="#{placesController.trips.size()}">
-                            <p:menuButton value="#{sessionController.currentUser.firstname}'s Trips" 
+                            <p:menuButton value="#{sessionController.currentUser.firstname}'s Trips in #{placesController.currentYear}" 
                                           icon="fa fa-car">
                                 <p:menuitem icon="fa fa-plus"
                                             oncomplete="PF('addTripDLG').show();"
