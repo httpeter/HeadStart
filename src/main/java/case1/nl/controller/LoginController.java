@@ -7,6 +7,10 @@ import case1.nl.util.FMessage;
 import case1.nl.util.Validator;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+import static java.util.Locale.filter;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -41,6 +45,12 @@ public class LoginController implements Serializable {
 
 
 //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    public int getRandomInt() {
+        return (int) Math.round(Math.random() * 5);
+    }
+
+
+
     public TagCloudModel getTagCloudModel() {
         return tagCloudModel;
     }
@@ -90,14 +100,10 @@ public class LoginController implements Serializable {
 
 
 
-    public LoginController() {
-        this.fillTagCloud();
-    }
-
-
-
     @PostConstruct
     public void init() {
+
+        this.fillTagCloud();
 
         User tempUser = new User();
         tempUser.setLanguage("EN");
@@ -145,17 +151,15 @@ public class LoginController implements Serializable {
 
 
     private void fillTagCloud() {
-        tagCloudModel = new DefaultTagCloudModel();        
-        tagCloudModel.addTag(new DefaultTagCloudItem("design", 1));
-        tagCloudModel.addTag(new DefaultTagCloudItem("users", "http://www.nu.nl", 3));
-        tagCloudModel.addTag(new DefaultTagCloudItem("application", 2));
-        tagCloudModel.addTag(new DefaultTagCloudItem("quality", "#", 5));
-        tagCloudModel.addTag(new DefaultTagCloudItem("interface", 4));
-        tagCloudModel.addTag(new DefaultTagCloudItem("team", "#", 2));
-        tagCloudModel.addTag(new DefaultTagCloudItem("product", 5));
-        tagCloudModel.addTag(new DefaultTagCloudItem("data", 3));
-        tagCloudModel.addTag(new DefaultTagCloudItem("usability", "#", 4));
-        tagCloudModel.addTag(new DefaultTagCloudItem("experience", "#", 1));        
+
+        tagCloudModel = new DefaultTagCloudModel();
+
+        List<Syspage> sysPages = session.getSystemRepository().findAll(Syspage.class);
+        sysPages.forEach((sp -> {
+            if (!sp.getLabel().equals("admin")) {
+                tagCloudModel.addTag(new DefaultTagCloudItem(sp.getLabel(), "#", getRandomInt()));
+            }
+        }));
     }
 
 

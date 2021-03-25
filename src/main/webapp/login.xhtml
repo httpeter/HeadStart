@@ -39,7 +39,7 @@
 
 
             <p:panelGrid columns="2" layout="grid">
-                                         
+
 
                 <!--Login Panel-->
                 <p:card class="mainCard">
@@ -55,12 +55,14 @@
                         <h:outputText value="Email address"/>
                         <p:inputText value="#{loginController.mail}"
                                      required="true"
-                                     requiredMessage="Email address Required"/>
+                                     requiredMessage="Email address Required"
+                                     style="width: 150px"/>
 
                         <h:outputText value="Password"/>
                         <p:password value="#{loginController.pwd}" 
                                     required="true" 
-                                    requiredMessage="Password Required"/>
+                                    requiredMessage="Password Required"
+                                    style="width: 150px"/>
 
                         <p:spacer/>                        
                         <p:spacer/>                        
@@ -105,7 +107,9 @@
                 </p:card>
 
 
-                <p:tagCloud model="#{loginController.tagCloudModel}"/>
+                <p:tagCloud model="#{loginController.tagCloudModel}">
+                    <p:effect type="pulsate" event="load"  speed="500" delay="1000"/>
+                </p:tagCloud>
 
 
             </p:panelGrid>

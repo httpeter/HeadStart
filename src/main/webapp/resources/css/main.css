@@ -56,6 +56,18 @@ body .ui-tagcloud {
     background: none;
     color: #495057;
     padding: 1rem;    
+    font-size: 150%;
+    width: 100%;
+}
+
+body .ui-tagcloud a {
+    color: floralwhite;
+    border-radius: 12px;    
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+
+    height: 40px;
+    margin: 20px;
+
 }
 
 .ui-panelgrid .p-grid .ui-panelgrid-cell, .ui-panelgrid .ui-grid-responsive .ui-panelgrid-cell {
