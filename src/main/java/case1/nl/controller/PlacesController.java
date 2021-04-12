@@ -518,8 +518,8 @@ public class PlacesController implements Serializable {
         newPlace.setPayed(false);
         newPlace.setArrivaldate(new Date());
         newPlace.setTripid(selectedTrip.getId());
-        newPlace.setLat("52.0841037");
-        newPlace.setLng("4.9424081");
+        newPlace.setLat(selectedTrip.getHomelat());
+        newPlace.setLng(selectedTrip.getHomelng());
 
         PrimeFaces.current().executeScript("PF('addPlaceDLG').show();");
     }
@@ -529,9 +529,9 @@ public class PlacesController implements Serializable {
     public void makeNewTrip() {
         newTrip = new Trip();
         newTrip.setOwninguserid(session.getCurrentUser().getId());
-        newTrip.setHomeaddress("Gerrit Doustraat 43\n2311XM Leiden\nNederland");
-        newTrip.setHomelat("52.1529984");
-        newTrip.setHomelng("4.4842176");
+        newTrip.setHomeaddress(session.getCurrentUser().getHomeaddress());
+        newTrip.setHomelat(session.getCurrentUser().getHomeaddresslattitude());
+        newTrip.setHomelng(session.getCurrentUser().getHomeaddresslongitude());
     }
 
 
