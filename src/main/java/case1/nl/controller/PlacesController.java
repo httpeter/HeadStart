@@ -66,7 +66,8 @@ public class PlacesController implements Serializable {
 
     private int totalPrice,
             stillToPay,
-            currentYear = Calendar.getInstance().get(Calendar.YEAR);
+            currentYear = Calendar.getInstance().get(Calendar.YEAR),
+            vacationDaysPlannedTotal;
 
     private String selectedTripIcal;
 
@@ -288,8 +289,10 @@ public class PlacesController implements Serializable {
     private void loadTrips() throws Exception {
 
         List<Trip> allTrips = session.getPlacesRepository()
-                .findByNamedQueryName("Trip.findByOwninguserid",
-                        session.getCurrentUser().getId());
+                .getTripsByDateAsc(session.getCurrentUser().getId());
+                
+                //.findByNamedQueryName("Trip.findByOwninguserid",
+                  //      session.getCurrentUser().getId());
 
         trips = new ArrayList();
 
