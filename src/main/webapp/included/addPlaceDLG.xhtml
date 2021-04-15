@@ -13,7 +13,7 @@
               responsive="true"
               dynamic="true"
               fitViewport="true"
-              width="450"
+              width="90%"
               minHeight="200"
               height="600">
 
@@ -32,24 +32,23 @@
 
             <h:outputText value="Arrival *" styleClass="headerText"/>
             <p:datePicker value="#{placesController.newPlace.arrivaldate}" 
-                        pattern="dd-MM-yyyy" 
-                        timeZone="CET" 
-                        required="true"
-                        touchUI="true"/>
+                          pattern="dd-MM-yyyy" 
+                          timeZone="CET" 
+                          required="true"
+                          touchUI="true"/>
 
             <h:outputText value="Departure *" styleClass="headerText"/>
             <p:datePicker touchUI="true" 
-                        value="#{placesController.newPlace.departuredate}" 
-                        pattern="dd-MM-yyyy" 
-                        timeZone="CET"
-                        required="true"/>                
+                          value="#{placesController.newPlace.departuredate}" 
+                          pattern="dd-MM-yyyy" 
+                          timeZone="CET"
+                          required="true"/>                
 
-            <h:outputText value="Price *" styleClass="headerText"/>
-            <h:panelGrid columns="2">
-                <h:outputText value="€"/>
-                <p:inputText value="#{placesController.newPlace.price}"
-                             required="true"/> 
-            </h:panelGrid>
+            <h:outputText value="Price *" styleClass="headerText"/>            
+            <p:inputNumber value="#{placesController.newPlace.price}"
+                           required="true"
+                           symbol="€ "
+                           decimalPlaces="0"/>                                             
 
             <h:outputText value="Already booked" styleClass="headerText"/>
             <p:selectBooleanCheckbox value="#{placesController.newPlace.booked}" />
