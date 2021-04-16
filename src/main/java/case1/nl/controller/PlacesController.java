@@ -286,14 +286,13 @@ public class PlacesController implements Serializable {
 
 
 
-    private void loadTrips() throws Exception {
+    private void loadTrips() {
 
         List<Trip> allTrips = session.getPlacesRepository()
                 .getTripsByDateAsc(session.getCurrentUser().getId());
-                
-                //.findByNamedQueryName("Trip.findByOwninguserid",
-                  //      session.getCurrentUser().getId());
 
+        //.findByNamedQueryName("Trip.findByOwninguserid",
+        //      session.getCurrentUser().getId());
         trips = new ArrayList();
 
         //Filter for curreyt year...
