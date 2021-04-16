@@ -17,12 +17,14 @@ public class PlacesRepository extends DefaultRepository {
 
 
 
-    public List<Trip> getTripsByDateAsc(int curUserId){
+    public List<Trip> getTripsByDateAsc(int curUserId, int curYear) {
 
         Query q = this.getEm().createQuery("SELECT t FROM Trip t "
                 + "WHERE t.owninguserid = :curUserId "
+                + "AND t.startdate LIKE :curYear "
                 + "AND t.startdate > :curDate "
                 + "ORDER BY t.startdate ASC")
+                .setParameter("curYear", curYear + "%")
                 .setParameter("curUserId", curUserId)
                 .setParameter("curDate", new Date());
 

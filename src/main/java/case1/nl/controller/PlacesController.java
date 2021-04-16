@@ -4,10 +4,12 @@ import case1.nl.entities.Place;
 import case1.nl.entities.Trip;
 import case1.nl.util.DateHelper;
 import case1.nl.util.FMessage;
+import com.lowagie.text.pdf.BidiOrder;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.Period;
+import java.time.Year;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -67,13 +69,25 @@ public class PlacesController implements Serializable {
     private int totalPrice,
             stillToPay,
             currentYear = Calendar.getInstance().get(Calendar.YEAR),
-            vacationDaysPlannedTotal;
+            vacationDaysLeft;
 
     private String selectedTripIcal;
 
 
 
-    //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    //<editor-fold defaultstate="collapsed" desc="Getters & Setters"> 
+    public int getVacationDaysLeft() {
+        return vacationDaysLeft;
+    }
+
+
+
+    public void setVacationDaysLeft(int vacationDaysLeft) {
+        this.vacationDaysLeft = vacationDaysLeft;
+    }
+
+
+
     public int getCurrentYear() {
         return currentYear;
     }
@@ -289,10 +303,8 @@ public class PlacesController implements Serializable {
     private void loadTrips() {
 
         List<Trip> allTrips = session.getPlacesRepository()
-                .getTripsByDateAsc(session.getCurrentUser().getId());
+                .getTripsByDateAsc(session.getCurrentUser().getId(), Year.now().getValue());
 
-        //.findByNamedQueryName("Trip.findByOwninguserid",
-        //      session.getCurrentUser().getId());
         trips = new ArrayList();
 
         //Filter for curreyt year...
@@ -305,6 +317,33 @@ public class PlacesController implements Serializable {
         selectedTrip = new Trip();
         selectedTrip.setId(0);
 
+        calculateVacationdaysLeft();
+
+    }
+
+
+
+    private void calculateVacationdaysLeft() {
+
+        vacationDaysLeft = session.getCurrentUser().getVacationdays();
+
+        if (trips.size() != 0) {
+            trips.forEach(t -> {
+
+                List<Place> tripPlaces = session.getPlacesRepository()
+                        .findByNamedQueryName("Place.findByTripid", t.getId());
+
+                tripPlaces.forEach(p -> {
+                    try {
+                        vacationDaysLeft -= DateHelper.getVacationDurationDays(p.getArrivaldate(), p.getDeparturedate());
+                    } catch (Exception ex) {
+                        FMessage.error(ex.getLocalizedMessage());
+                        Logger.getLogger(PlacesController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
+
+            });
+        }
     }
 
 
@@ -391,9 +430,8 @@ public class PlacesController implements Serializable {
                     }
 
                     //Calculating total duration                    
-                    selectedTripDuration += Period.between(DateHelper.convertDateToLocalDate(place.getArrivaldate()),
-                            DateHelper.convertDateToLocalDate(place.getDeparturedate()))
-                            .getDays();
+                    selectedTripDuration += DateHelper.getVacationDurationDays(place.getArrivaldate(),
+                            place.getDeparturedate());
 
                 } catch (Exception e) {
                     FMessage.warn(e.getMessage());

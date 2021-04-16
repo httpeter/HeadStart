@@ -40,7 +40,9 @@
 
 
             <p:card style="min-width: 93%" 
-                    header="#{sessionController.currentUser.firstname}'s Trips in #{placesController.currentYear}">
+                    header="#{sessionController.currentUser.firstname}'s Trips in 
+                    #{placesController.currentYear} (#{placesController.vacationDaysLeft}/#{sessionController.currentUser.vacationdays} 
+                    vacation days left)">
 
 
                 <!--Trip overview-->                

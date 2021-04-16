@@ -2,7 +2,9 @@ package case1.nl.util;
 
 import case1.nl.entities.Place;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
 
@@ -39,6 +41,35 @@ public final class DateHelper {
                 + "END:VCALENDAR";
 
         return templateIcalString;
+    }
+
+
+
+    public static final int getVacationDurationDays(Date startDate, Date endDate) throws Exception {
+        if (startDate.after(endDate)) {
+            throw new Exception("StartDate after EndDate");
+        }
+
+        LocalDate dateIterator = convertDateToLocalDate(startDate);
+        LocalDate lEndDate = convertDateToLocalDate(endDate);
+
+        int days = Period.between(dateIterator, lEndDate).getDays();
+
+        for (int i = 0; i < days; i++) {
+            if (dateIterator.getDayOfWeek().equals(DayOfWeek.SATURDAY)) {
+
+                days--;
+            }
+
+            if (dateIterator.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+
+                days--;
+            }
+
+            dateIterator.plusDays(1);
+        }
+
+        return days;
     }
 
 }
