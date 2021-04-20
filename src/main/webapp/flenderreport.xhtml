@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <h:head>               
+        <ui:include src="included/head.xhtml"/>
+        <title>#{labels.appTitle} - #{labels.organizationName}</title>
+    </h:head>
+
+    <h:body styleClass="placesPage">
+
+
+
+        <h:form>
+
+
+
+            <p:card>
+
+
+
+                <f:facet name="title">
+                    Reports
+                </f:facet>
+
+
+
+                <p:tabView activeIndex="#{flenderReportController.currentTab}">
+
+
+
+
+                    <p:tab title="History">
+
+                        <h:panelGrid columns="2">
+
+
+                            <h:outputText value="Period"/>                            
+                            <p:selectOneRadio layout="grid" columns="1" value="#{flenderReportController.periodType}">
+                                <f:selectItem itemLabel="Annual" itemValue="a"/>
+                                <f:selectItem itemLabel="Quarterly" itemValue="q"/>                                                                
+                            </p:selectOneRadio>
+
+
+                            <p:spacer height="10"/>
+                            <p:spacer height="10"/>
+
+                            <h:outputText value="Type"/>                            
+                            <p:selectOneMenu style="width:100%">
+                                <f:selectItem itemLabel="select..." itemValue=""/>
+                                <f:selectItem itemLabel="Fire protection" itemValue="fp"/>
+                                <f:selectItem itemLabel="Dangerous goods" itemValue="dg"/>
+                                <f:selectItem itemLabel="Product environmental protection" itemValue="pep"/>
+                                <f:selectItem itemLabel="Environment" itemValue="e"/>
+                            </p:selectOneMenu>
+
+
+                            <p:spacer height="10"/>
+                            <p:spacer height="10"/>
+
+                            <h:outputText value="Year"/>   
+                            <p:selectOneMenu  style="width:100%">
+                                <f:selectItem itemLabel="select..." itemValue=""/>
+                                <f:selectItem itemLabel="2018" itemValue="2018"/>
+                                <f:selectItem itemLabel="2019" itemValue="2019"/>
+                                <f:selectItem itemLabel="2020" itemValue="2020"/>
+                            </p:selectOneMenu>
+
+                            <p:spacer height="10"/>
+                            <p:spacer height="10"/>
+
+                            <h:outputText value="Language" />   
+                            <p:selectOneMenu  style="width:100%">
+                                <f:selectItem itemLabel="select..." itemValue=""/>
+                                <f:selectItem itemLabel="Deutsch" itemValue="Deutsch"/>
+                                <f:selectItem itemLabel="English" itemValue="English"/>                                
+                            </p:selectOneMenu>
+
+
+
+                            <h:outputText/>
+                            <p:divider/>
+
+                            <h:outputText/>
+                            <p:commandButton value="Download report" icon="fa fa-download"
+                                             disabled="true"/>
+
+                        </h:panelGrid>
+
+                    </p:tab>
+
+
+
+
+                    <p:tab title="Generate">
+
+                        <h:panelGrid columns="2">
+
+                            <h:outputText value="Period"/>                            
+                            <p:selectOneRadio layout="grid" columns="1" value="#{flenderReportController.periodType}">
+                                <f:selectItem itemLabel="Annual" itemValue="a"/>
+                                <f:selectItem itemLabel="Quarterly" itemValue="q"/>                                
+                                <p:ajax update="@form"/>
+                            </p:selectOneRadio>
+
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="2" rendered="#{flenderReportController.periodType != null}">
+
+                            <p:spacer height="10"/>
+                            <p:spacer height="10"/>
+
+                            <h:outputText value="Type"/>                            
+                            <p:selectOneMenu style="width:100%">
+                                <f:selectItem itemLabel="select..." itemValue=""/>
+                                <f:selectItem itemLabel="Fire protection" itemValue=""/>
+                                <f:selectItem itemLabel="Dangerous goods" itemValue=""/>
+                                <f:selectItem itemLabel="Product environmental protection" itemValue=""/>
+                                <f:selectItem itemLabel="Environment" itemValue=""/>
+                            </p:selectOneMenu>
+
+                            <p:spacer height="10"/>
+                            <p:spacer height="10"/>
+
+                            <h:outputText value="Year"/>   
+                            <p:selectOneMenu style="width:100%">
+                                <f:selectItem itemLabel="select..." itemValue=""/>
+                                <f:selectItem itemLabel="2018" itemValue="2018"/>
+                                <f:selectItem itemLabel="2019" itemValue="2019"/>
+                                <f:selectItem itemLabel="2020" itemValue="2020"/>
+                            </p:selectOneMenu>
+
+                            <p:spacer height="10"/>
+                            <p:spacer height="10"/>
+
+                            <h:outputText value="Language"/>   
+                            <p:selectOneMenu style="width:100%">
+                                <f:selectItem itemLabel="select..." itemValue=""/>
+                                <f:selectItem itemLabel="Deutsch" itemValue="Deutsch"/>
+                                <f:selectItem itemLabel="English" itemValue="English"/>                                
+                            </p:selectOneMenu>
+
+
+
+                            <h:outputText/>
+                            <p:divider/>
+
+                            <h:outputText/>
+                            <p:commandButton value="Generate report" icon="fa fa-file-pdf-o"
+                                             disabled="true"/>
+
+                        </h:panelGrid>
+
+                    </p:tab> 
+
+
+
+
+                </p:tabView>
+
+
+
+            </p:card>
+
+
+
+
+
+        </h:form>
+
+
+
+    </h:body>
+
+</html>
