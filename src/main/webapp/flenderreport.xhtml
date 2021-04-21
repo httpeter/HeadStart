@@ -34,10 +34,19 @@
 
 
 
-                    <p:tab title="History">
+                    <p:tab title="Download">
 
                         <h:panelGrid columns="2">
 
+                            <h:outputText value="Location"/>                            
+                            <p:selectOneMenu style="width:100%">
+                                <f:selectItem itemLabel="select..." itemValue="select"/>
+                                <f:selectItem itemLabel="Flender Bocholt" itemValue="fb"/>                                                                
+                            </p:selectOneMenu>
+
+
+                            <p:spacer height="10"/>
+                            <p:spacer height="10"/>
 
                             <h:outputText value="Period"/>                            
                             <p:selectOneRadio layout="grid" columns="1" value="#{flenderReportController.periodType}">
@@ -68,19 +77,13 @@
                                 <f:selectItem itemLabel="2018" itemValue="2018"/>
                                 <f:selectItem itemLabel="2019" itemValue="2019"/>
                                 <f:selectItem itemLabel="2020" itemValue="2020"/>
-                            </p:selectOneMenu>
+                            </p:selectOneMenu>     
 
                             <p:spacer height="10"/>
                             <p:spacer height="10"/>
 
-                            <h:outputText value="Language" />   
-                            <p:selectOneMenu  style="width:100%">
-                                <f:selectItem itemLabel="select..." itemValue=""/>
-                                <f:selectItem itemLabel="Deutsch" itemValue="Deutsch"/>
-                                <f:selectItem itemLabel="English" itemValue="English"/>                                
-                            </p:selectOneMenu>
-
-
+                            <h:outputText value="Language"/>
+                            <h:outputText value="..."/>
 
                             <h:outputText/>
                             <p:divider/>
@@ -100,16 +103,21 @@
 
                         <h:panelGrid columns="2">
 
+                            <h:outputText value="Location"/>                            
+                            <p:selectOneMenu style="width:100%">
+                                <f:selectItem itemLabel="select..." itemValue=""/>
+                                <f:selectItem itemLabel="Flender Bocholt" itemValue="fb"/>                                    
+                            </p:selectOneMenu>
+
+
+                            <p:spacer height="10"/>
+                            <p:spacer height="10"/>
+
                             <h:outputText value="Period"/>                            
                             <p:selectOneRadio layout="grid" columns="1" value="#{flenderReportController.periodType}">
                                 <f:selectItem itemLabel="Annual" itemValue="a"/>
-                                <f:selectItem itemLabel="Quarterly" itemValue="q"/>                                
-                                <p:ajax update="@form"/>
+                                <f:selectItem itemLabel="Quarterly" itemValue="q"/>                                                                
                             </p:selectOneRadio>
-
-                        </h:panelGrid>
-
-                        <h:panelGrid columns="2" rendered="#{flenderReportController.periodType != null}">
 
                             <p:spacer height="10"/>
                             <p:spacer height="10"/>
