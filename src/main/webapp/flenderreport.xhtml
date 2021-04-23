@@ -18,164 +18,169 @@
         <h:form>
 
 
+            <p:panelGrid columns="2" layout="grid">
 
-            <p:card>
-
-
-
-                <f:facet name="title">
-                    Reports
-                </f:facet>
+                <p:card>
 
 
 
-                <p:tabView activeIndex="#{flenderReportController.currentTab}">
+                    <f:facet name="title">
+                        Reports
+                    </f:facet>
 
 
 
-
-                    <p:tab title="Download">
-
-                        <h:panelGrid columns="2">
-
-                            <h:outputText value="Location"/>                            
-                            <p:selectOneMenu style="width:100%">
-                                <f:selectItem itemLabel="select..." itemValue="select"/>
-                                <f:selectItem itemLabel="Flender Bocholt" itemValue="fb"/>                                                                
-                            </p:selectOneMenu>
-
-
-                            <p:spacer height="10"/>
-                            <p:spacer height="10"/>
-
-                            <h:outputText value="Period"/>                            
-                            <p:selectOneRadio layout="grid" columns="1" value="#{flenderReportController.periodType}">
-                                <f:selectItem itemLabel="Annual" itemValue="a"/>
-                                <f:selectItem itemLabel="Quarterly" itemValue="q"/>                                                                
-                            </p:selectOneRadio>
-
-
-                            <p:spacer height="10"/>
-                            <p:spacer height="10"/>
-
-                            <h:outputText value="Type"/>                            
-                            <p:selectOneMenu style="width:100%">
-                                <f:selectItem itemLabel="select..." itemValue=""/>
-                                <f:selectItem itemLabel="Fire protection" itemValue="fp"/>
-                                <f:selectItem itemLabel="Dangerous goods" itemValue="dg"/>
-                                <f:selectItem itemLabel="Product environmental protection" itemValue="pep"/>
-                                <f:selectItem itemLabel="Environment" itemValue="e"/>
-                            </p:selectOneMenu>
-
-
-                            <p:spacer height="10"/>
-                            <p:spacer height="10"/>
-
-                            <h:outputText value="Year"/>   
-                            <p:selectOneMenu  style="width:100%">
-                                <f:selectItem itemLabel="select..." itemValue=""/>
-                                <f:selectItem itemLabel="2018" itemValue="2018"/>
-                                <f:selectItem itemLabel="2019" itemValue="2019"/>
-                                <f:selectItem itemLabel="2020" itemValue="2020"/>
-                            </p:selectOneMenu>     
-
-                            <p:spacer height="10"/>
-                            <p:spacer height="10"/>
-
-                            <h:outputText value="Language"/>
-                            <h:outputText value="..."/>
-
-                            <h:outputText/>
-                            <p:divider/>
-
-                            <h:outputText/>
-                            <p:commandButton value="Download report" icon="fa fa-download"
-                                             disabled="true"/>
-
-                        </h:panelGrid>
-
-                    </p:tab>
+                    <p:tabView activeIndex="#{flenderReportController.currentTab}">
 
 
 
 
-                    <p:tab title="Generate">
+                        <p:tab title="View">
 
-                        <h:panelGrid columns="2">
+                            <h:panelGrid columns="2">
 
-                            <h:outputText value="Location"/>                            
-                            <p:selectOneMenu style="width:100%">
-                                <f:selectItem itemLabel="select..." itemValue=""/>
-                                <f:selectItem itemLabel="Flender Bocholt" itemValue="fb"/>                                    
-                            </p:selectOneMenu>
-
-
-                            <p:spacer height="10"/>
-                            <p:spacer height="10"/>
-
-                            <h:outputText value="Period"/>                            
-                            <p:selectOneRadio layout="grid" columns="1" value="#{flenderReportController.periodType}">
-                                <f:selectItem itemLabel="Annual" itemValue="a"/>
-                                <f:selectItem itemLabel="Quarterly" itemValue="q"/>                                                                
-                            </p:selectOneRadio>
-
-                            <p:spacer height="10"/>
-                            <p:spacer height="10"/>
-
-                            <h:outputText value="Type"/>                            
-                            <p:selectOneMenu style="width:100%">
-                                <f:selectItem itemLabel="select..." itemValue=""/>
-                                <f:selectItem itemLabel="Fire protection" itemValue=""/>
-                                <f:selectItem itemLabel="Dangerous goods" itemValue=""/>
-                                <f:selectItem itemLabel="Product environmental protection" itemValue=""/>
-                                <f:selectItem itemLabel="Environment" itemValue=""/>
-                            </p:selectOneMenu>
-
-                            <p:spacer height="10"/>
-                            <p:spacer height="10"/>
-
-                            <h:outputText value="Year"/>   
-                            <p:selectOneMenu style="width:100%">
-                                <f:selectItem itemLabel="select..." itemValue=""/>
-                                <f:selectItem itemLabel="2018" itemValue="2018"/>
-                                <f:selectItem itemLabel="2019" itemValue="2019"/>
-                                <f:selectItem itemLabel="2020" itemValue="2020"/>
-                            </p:selectOneMenu>
-
-                            <p:spacer height="10"/>
-                            <p:spacer height="10"/>
-
-                            <h:outputText value="Language"/>   
-                            <p:selectOneMenu style="width:100%">
-                                <f:selectItem itemLabel="select..." itemValue=""/>
-                                <f:selectItem itemLabel="Deutsch" itemValue="Deutsch"/>
-                                <f:selectItem itemLabel="English" itemValue="English"/>                                
-                            </p:selectOneMenu>
+                                <h:outputText value="Location"/>                            
+                                <p:selectOneMenu style="width:100%">
+                                    <f:selectItem itemLabel="select..." itemValue="select"/>
+                                    <f:selectItem itemLabel="Flender Bocholt" itemValue="fb"/>                                                                
+                                </p:selectOneMenu>
 
 
+                                <p:spacer height="10"/>
+                                <p:spacer height="10"/>
 
-                            <h:outputText/>
-                            <p:divider/>
+                                <h:outputText value="Period"/>                            
+                                <p:selectOneRadio layout="grid" columns="1" value="#{flenderReportController.periodType}">
+                                    <f:selectItem itemLabel="Annual" itemValue="a"/>
+                                    <f:selectItem itemLabel="Quarterly" itemValue="q"/>                                                                
+                                </p:selectOneRadio>
 
-                            <h:outputText/>
-                            <p:commandButton value="Generate report" icon="fa fa-file-pdf-o"
-                                             disabled="true"/>
 
-                        </h:panelGrid>
+                                <p:spacer height="10"/>
+                                <p:spacer height="10"/>
 
-                    </p:tab> 
+                                <h:outputText value="Year"/>   
+                                <p:selectOneMenu  style="width:100%">
+                                    <f:selectItem itemLabel="select..." itemValue=""/>
+                                    <f:selectItem itemLabel="2018" itemValue="2018"/>
+                                    <f:selectItem itemLabel="2019" itemValue="2019"/>
+                                    <f:selectItem itemLabel="2020" itemValue="2020"/>
+                                </p:selectOneMenu>     
+
+                                <p:spacer height="10"/>
+                                <p:spacer height="10"/>
+
+                                <h:outputText value="Type"/>                            
+                                <p:selectOneMenu style="width:100%">
+                                    <f:selectItem itemLabel="select..." itemValue=""/>
+                                    <f:selectItem itemLabel="Fire protection (0)" itemValue="fp"/>
+                                    <f:selectItem itemLabel="Dangerous goods (0)" itemValue="dg"/>
+                                    <f:selectItem itemLabel="Product environmental protection (0)" itemValue="pep"/>
+                                    <f:selectItem itemLabel="Environment (0)" itemValue="e"/>
+                                </p:selectOneMenu>
+
+
+                                <p:spacer height="10"/>
+                                <p:spacer height="10"/>                            
+
+                                <h:outputText value="Language"/>
+                                <h:outputText value="..."/>
+
+                                
+
+                            </h:panelGrid>
+
+                        </p:tab>
 
 
 
 
-                </p:tabView>
+                        <p:tab title="Generate">
+
+                            <h:panelGrid columns="2">
+
+                                <h:outputText value="Location"/>                            
+                                <p:selectOneMenu style="width:100%">
+                                    <f:selectItem itemLabel="select..." itemValue=""/>
+                                    <f:selectItem itemLabel="Flender Bocholt" itemValue="fb"/>                                    
+                                </p:selectOneMenu>
+
+
+                                <p:spacer height="10"/>
+                                <p:spacer height="10"/>
+
+                                <h:outputText value="Period"/>                            
+                                <p:selectOneRadio layout="grid" columns="1" value="#{flenderReportController.periodType}">
+                                    <f:selectItem itemLabel="Annual" itemValue="a"/>
+                                    <f:selectItem itemLabel="Quarterly" itemValue="q"/>                                                                
+                                </p:selectOneRadio>
+
+                                <p:spacer height="10"/>
+                                <p:spacer height="10"/>
+
+                                <h:outputText value="Year"/>   
+                                <p:selectOneMenu style="width:100%">
+                                    <f:selectItem itemLabel="select..." itemValue=""/>
+                                    <f:selectItem itemLabel="2018" itemValue="2018"/>
+                                    <f:selectItem itemLabel="2019" itemValue="2019"/>
+                                    <f:selectItem itemLabel="2020" itemValue="2020"/>
+                                </p:selectOneMenu>
+
+                                <p:spacer height="10"/>
+                                <p:spacer height="10"/>
+
+                                <h:outputText value="Type"/>                            
+                                <p:selectOneMenu style="width:100%">
+                                    <f:selectItem itemLabel="select..." itemValue=""/>
+                                    <f:selectItem itemLabel="Fire protection" itemValue=""/>
+                                    <f:selectItem itemLabel="Dangerous goods" itemValue=""/>
+                                    <f:selectItem itemLabel="Product environmental protection" itemValue=""/>
+                                    <f:selectItem itemLabel="Environment" itemValue=""/>
+                                </p:selectOneMenu>
+
+                                <p:spacer height="10"/>
+                                <p:spacer height="10"/>                            
+
+                                <h:outputText value="Language"/>   
+                                <p:selectOneMenu style="width:100%">
+                                    <f:selectItem itemLabel="select..." itemValue=""/>
+                                    <f:selectItem itemLabel="Deutsch" itemValue="Deutsch"/>
+                                    <f:selectItem itemLabel="English" itemValue="English"/>                                
+                                </p:selectOneMenu>
 
 
 
-            </p:card>
+                                <h:outputText/>
+                                <p:divider/>
+
+                                <h:outputText/>
+                                <p:commandButton value="Generate report" icon="fa fa-file-pdf-o"
+                                                 disabled="true"/>
+
+                            </h:panelGrid>
+
+                        </p:tab> 
 
 
 
+
+                    </p:tabView>
+
+
+
+                </p:card>
+
+                <p:card header="PDF Viewer"
+                        style="width: 600px; height: 500px">
+                    <p:media value="resources/files/report_20210423141224.pdf"
+                             style="width: 100%; height: 400px"/>
+                </p:card>
+
+
+
+
+
+            </p:panelGrid>
 
 
         </h:form>
