@@ -15,7 +15,7 @@
 
 
 
-        <h:form>
+        <h:form id="mainForm">
 
 
 
@@ -29,29 +29,31 @@
 
 
 
-                <p:tabView activeIndex="#{flenderReportController.currentTab}">
+                <p:tabView id="tabs" activeIndex="#{flenderReportController.currentTab}">
 
 
 
 
-                    <p:tab title="View" >
+                    <p:tab title="View" id="viewTab">
 
                         <p:panelGrid layout="grid" columns="2" style="width:600px">
 
                             <h:panelGrid columns="2">
 
                                 <h:outputText value="Location"/>                            
-                                <p:selectOneMenu style="width:100%">
-                                    <f:selectItem itemLabel="select..." itemValue="select"/>
+                                <p:selectOneMenu style="width:100%" value="#{flenderreportController.location}">
+                                    <f:selectItem itemLabel="select..." itemValue=""/>
                                     <f:selectItem itemLabel="Flender Bocholt" itemValue="fb"/>                                                                
+                                    <p:ajax update=":mainForm:tabs:viewTab"/>
                                 </p:selectOneMenu>
 
 
                                 <p:spacer height="10"/>
                                 <p:spacer height="10"/>
 
-                                <h:outputText value="Period"/>                            
-                                <p:selectOneRadio layout="grid" columns="1" value="#{flenderReportController.periodType}">
+                                <h:outputText value="Period" rendered="#{flenderreportController.location != ''}"/>                                                            
+                                <p:selectOneRadio layout="grid" columns="1" value="#{flenderReportController.periodType}" 
+                                                  rendered="#{flenderreportController.location != ''}">
                                     <f:selectItem itemLabel="Annual" itemValue="a"/>
                                     <f:selectItem itemLabel="Quarterly" itemValue="q"/>                                                                
                                 </p:selectOneRadio>
@@ -60,8 +62,8 @@
                                 <p:spacer height="10"/>
                                 <p:spacer height="10"/>
 
-                                <h:outputText value="Year"/>   
-                                <p:selectOneMenu  style="width:100%">
+                                <h:outputText value="Year" rendered="#{flenderreportController.location != ''}"/>   
+                                <p:selectOneMenu  style="width:100%" rendered="#{flenderreportController.location != ''}">
                                     <f:selectItem itemLabel="select..." itemValue=""/>
                                     <f:selectItem itemLabel="2018" itemValue="2018"/>
                                     <f:selectItem itemLabel="2019" itemValue="2019"/>
@@ -71,21 +73,34 @@
                                 <p:spacer height="10"/>
                                 <p:spacer height="10"/>
 
-                                <h:outputText value="Type"/>                            
-                                <p:selectOneMenu style="width:100%">
+                                <h:outputText value="Type" rendered="#{flenderreportController.location != ''}"/>                            
+                                <p:selectOneMenu style="width:100%" rendered="#{flenderreportController.location != ''}">
                                     <f:selectItem itemLabel="select..." itemValue=""/>
-                                    <f:selectItem itemLabel="Fire protection (0)" itemValue="fp"/>
-                                    <f:selectItem itemLabel="Dangerous goods (0)" itemValue="dg"/>
-                                    <f:selectItem itemLabel="Product environmental protection (0)" itemValue="pep"/>
-                                    <f:selectItem itemLabel="Environment (0)" itemValue="e"/>
+                                    <f:selectItem itemLabel="Fire protection (n/a)" itemValue="fp"/>
+                                    <f:selectItem itemLabel="Dangerous goods (n/a)" itemValue="dg"/>
+                                    <f:selectItem itemLabel="Product environmental protection (n/a)" itemValue="pep"/>
+                                    <f:selectItem itemLabel="Environment (3)" itemValue="e"/>
                                 </p:selectOneMenu>
 
 
                                 <p:spacer height="10"/>
                                 <p:spacer height="10"/>                            
 
-                                <h:outputText value="Language"/>
-                                <h:outputText value="..."/>
+                                <h:outputText value="Reports" rendered="#{flenderreportController.location != ''}"/>
+                                <p:selectOneListbox rendered="#{flenderreportController.location != ''}" scrollHeight="100"
+                                                    value="#{flenderreportController.dateGenerated}">
+                                    <f:selectItem itemLabel="21-04-2021" itemValue="20210421"/>
+                                    <f:selectItem itemLabel="24-04-2021" itemValue="20210424"/>
+                                    <f:selectItem itemLabel="25-04-2021" itemValue="20210425"/>
+                                    <p:ajax update="@form"/>
+                                </p:selectOneListbox>
+
+
+                                <p:spacer height="10"/>
+                                <p:spacer height="10"/>                            
+
+                                <h:outputText value="Language"  rendered="#{flenderreportController.dateGenerated != ''}"/>
+                                <h:outputText value="Deutsch" rendered="#{flenderreportController.dateGenerated != ''}"/>
 
 
 
@@ -94,7 +109,8 @@
 
 
 
-                            <p:media value="resources/files/report_20210423141224.pdf"
+                            <p:media value="resources/files/report_20210423141224.pdf" 
+                                     rendered="#{flenderreportController.dateGenerated != ''}"
                                      style="width: 400px; height: 400px"/>
 
                         </p:panelGrid>
