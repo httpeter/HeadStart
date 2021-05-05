@@ -70,11 +70,37 @@ public class PlacesController implements Serializable {
             currentYear = Calendar.getInstance().get(Calendar.YEAR),
             vacationDaysLeft;
 
+    private Boolean showOlderTrips = false;
+
     private String selectedTripIcal;
 
 
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters"> 
+    public String getSelectedTripIcal() {
+        return selectedTripIcal;
+    }
+
+
+
+    public void setSelectedTripIcal(String selectedTripIcal) {
+        this.selectedTripIcal = selectedTripIcal;
+    }
+
+
+
+    public Boolean getShowOlderTrips() {
+        return showOlderTrips;
+    }
+
+
+
+    public void setShowOlderTrips(Boolean showOlderTrips) {
+        this.showOlderTrips = showOlderTrips;
+    }
+
+
+
     public int getVacationDaysLeft() {
         return vacationDaysLeft;
     }
@@ -299,10 +325,16 @@ public class PlacesController implements Serializable {
 
 
 
-    private void loadTrips() {
+    public void loadTrips() {
+
+        int year = Year.now().getValue();
+
+        if (showOlderTrips) {
+            year--;
+        }
 
         List<Trip> allTrips = session.getPlacesRepository()
-                .getTripsByDateAsc(session.getCurrentUser().getId(), Year.now().getValue());
+                .getTripsByDateAsc(session.getCurrentUser().getId(), year);
 
         trips = new ArrayList();
 

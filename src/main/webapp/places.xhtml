@@ -4,7 +4,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
       xmlns:p="http://primefaces.org/ui"
-      xmlns:pe="http://primefaces.org/ui/extensions">
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:head>               
         <ui:include src="included/head.xhtml"/>
@@ -39,7 +40,8 @@
 
 
 
-            <p:card style="min-width: 93%" 
+            <p:card id="tripCard"
+                    style="min-width: 93%" 
                     header="#{sessionController.currentUser.firstname}'s Trips in 
                     #{placesController.currentYear} (#{placesController.vacationDaysLeft}/#{sessionController.currentUser.vacationdays} 
                     vacation days left)">
@@ -50,21 +52,35 @@
                 <p:panelGrid columns="2" 
                              layout="grid">
 
-                    <p:badge severity="warning" 
-                             value="#{placesController.trips.size()}">
-                        <p:selectOneMenu value="#{placesController.selectedTripID}" 
-                                         style="width:400px">
-                            <f:selectItem itemLabel="select..."
-                                          itemValue="0"
-                                          rendered="#{placesController.selectedTripID==0}"/>
-                            <f:selectItems value="#{placesController.trips}" 
-                                           var="trip" 
-                                           itemValue="#{trip.id}" 
-                                           itemLabel="#{trip.name}"/>
-                            <p:ajax update="@form" 
-                                    listener="#{placesController.loadPlaces()}"/>                                        
-                        </p:selectOneMenu> 
-                    </p:badge>
+
+                    <h:panelGrid >
+
+                        <p:badge severity="info" 
+                                 value="#{placesController.trips.size()}">
+                            <p:selectOneMenu value="#{placesController.selectedTripID}" 
+                                             style="width:400px">
+                                <f:selectItem itemLabel="select..."
+                                              itemValue="0"
+                                              rendered="#{placesController.selectedTripID==0}"/>
+                                <f:selectItems value="#{placesController.trips}" 
+                                               var="trip" 
+                                               itemValue="#{trip.id}" 
+                                               itemLabel="#{trip.name}"/>
+                                <p:ajax listener="#{placesController.loadPlaces()}"
+                                        update="mainForm:tripCard"/>                                        
+                            </p:selectOneMenu> 
+                        </p:badge>
+                        
+                        <br/>
+                        
+                        <h:outputText value="Show older trips"/>                            
+                        <p:inputSwitch value="#{placesController.showOlderTrips}">
+                            <p:ajax listener="#{placesController.loadTrips()}"
+                                    update="@form"/>
+                        </p:inputSwitch>
+
+                    </h:panelGrid>
+
 
 
                     <h:panelGrid columns="3" rendered="#{placesController.selectedTripID!=0}">
