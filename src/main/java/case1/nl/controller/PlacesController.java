@@ -4,7 +4,6 @@ import case1.nl.entities.Place;
 import case1.nl.entities.Trip;
 import case1.nl.util.DateHelper;
 import case1.nl.util.FMessage;
-import com.lowagie.text.pdf.BidiOrder;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.time.Instant;
