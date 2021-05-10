@@ -70,14 +70,28 @@
                                         update="mainForm:tripCard"/>                                        
                             </p:selectOneMenu> 
                         </p:badge>
-                        
+
                         <br/>
-                        
-                        <h:outputText value="Show older trips"/>                            
-                        <p:inputSwitch value="#{placesController.showOlderTrips}">
-                            <p:ajax listener="#{placesController.loadTrips()}"
-                                    update="@form"/>
-                        </p:inputSwitch>
+
+                        <h:panelGrid columns="3">
+                            
+                            <h:outputText value="Trips since"/>                            
+
+                            <h:outputText value=":"/>                            
+
+                            <p:inplace editor="true" >
+                                <p:datePicker touchUI="true" 
+                                              value="#{placesController.tripFilterDate}" 
+                                              pattern="dd-MM-yyyy" 
+                                              timeZone="CET">
+                                    <p:ajax listener="#{placesController.loadTrips()}"
+                                            event="dateSelect"
+                                            update="@form"/>
+                                    <f:convertDateTime pattern="dd-MM-yyyy" />
+                                </p:datePicker>
+                            </p:inplace>   
+
+                        </h:panelGrid>
 
                     </h:panelGrid>
 
