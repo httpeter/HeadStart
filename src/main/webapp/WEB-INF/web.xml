@@ -8,13 +8,10 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+  
+       
     
-    
-      
-    
-    
-    
-<!--    <filter>
+    <!--    <filter>
         <filter-name>ExpiresFilter</filter-name>
         <filter-class>org.apache.catalina.filters.ExpiresFilter</filter-class>
         <init-param>
@@ -31,7 +28,7 @@
         </init-param>
     </filter>-->
     
-<!--    <filter-mapping>
+    <!--    <filter-mapping>
         <filter-name>ExpiresFilter</filter-name>
         <url-pattern>/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>

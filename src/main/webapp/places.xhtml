@@ -65,7 +65,8 @@
                                 <f:selectItems value="#{placesController.trips}" 
                                                var="trip" 
                                                itemValue="#{trip.id}" 
-                                               itemLabel="#{trip.name}"/>
+                                               itemLabel="#{trip.name},                                                
+                                               #{placesController.getFormattedDate(trip.startdate)}"/>
                                 <p:ajax listener="#{placesController.loadPlaces()}"
                                         update="mainForm:tripCard"/>                                        
                             </p:selectOneMenu> 
@@ -74,7 +75,7 @@
                         <br/>
 
                         <h:panelGrid columns="3">
-                            
+
                             <h:outputText value="Trips since"/>                            
 
                             <h:outputText value=":"/>                            
@@ -99,6 +100,14 @@
 
                     <h:panelGrid columns="3" rendered="#{placesController.selectedTripID!=0}">
 
+                        <h:outputText value="Name" styleClass="headerText"/>
+                        <h:outputText value=":"/>
+                        <h:outputText value="#{placesController.selectedTrip.name}"/>
+
+                        <h:outputText/>
+                        <h:outputText/>
+                        <h:outputText/>
+
                         <h:outputText value="Startdate" styleClass="headerText"/>
                         <h:outputText value=":"/>
                         <h:outputText value="#{placesController.selectedTrip.startdate}"
@@ -106,20 +115,36 @@
                             <f:convertDateTime pattern="dd-MM-yyyy" />
                         </h:outputText>
 
+                        <h:outputText/>
+                        <h:outputText/>
+                        <h:outputText/>
+
                         <h:outputText value="Description" styleClass="headerText"/>
                         <h:outputText value=":"/>
                         <h:outputText value="#{placesController.selectedTrip.description}" 
                                       rendered="#{placesController.selectedTripID!=0}"/>
+
+                        <h:outputText/>
+                        <h:outputText/>
+                        <h:outputText/>
 
                         <h:outputText value="Duration" styleClass="headerText"/>
                         <h:outputText value=":"/>
                         <h:outputText value="#{placesController.selectedTripDuration} days" 
                                       rendered="#{placesController.selectedTripID!=0}"/>
 
+                        <h:outputText/>
+                        <h:outputText/>
+                        <h:outputText/>
+
                         <h:outputText value="Total price" styleClass="headerText"/>
                         <h:outputText value=":"/>
                         <h:outputText value="€ #{placesController.totalPrice},-"
                                       rendered="#{placesController.selectedTripID!=0}"/>
+
+                        <h:outputText/>
+                        <h:outputText/>
+                        <h:outputText/>
 
                         <h:outputText value="Still to pay" styleClass="headerText"/>
                         <h:outputText value=":"/>
@@ -127,11 +152,25 @@
                                       rendered="#{placesController.selectedTripID!=0}"
                                       style="color:red; font-weight: bold"/>
 
+                        <h:outputText/>
+                        <h:outputText/>
+                        <h:outputText/>
+
                         <h:outputText value="Notes" styleClass="headerText"/>
-                        <h:outputText value=":"/>
-                        <p:inputText value="#{placesController.selectedTrip.notes}"                                         
-                                     style="width:100%; border: none;"
-                                     disabled="true"/>
+                        <h:outputText value=":"/>                        
+                        <p:inputTextarea disabled="true" 
+                                         value="#{placesController.selectedTrip.notes}"/>
+                        <h:outputText/>
+                        <h:outputText/>
+                        <h:outputText/>
+
+                        <h:outputText/>
+                        <h:outputText/>
+                        <p:commandButton icon="fa fa-gear"                                                  
+                                         onclick="PF('tripEditDLG').show();" 
+                                         rendered="#{placesController.selectedTripID!=0}"
+                                         value="Edit trip"/>
+
 
                     </h:panelGrid>                         
 

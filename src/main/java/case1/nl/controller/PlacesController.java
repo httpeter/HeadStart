@@ -6,9 +6,9 @@ import case1.nl.util.DateHelper;
 import case1.nl.util.FMessage;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.time.Instant;
 import java.time.Period;
-import java.time.Year;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -265,6 +265,14 @@ public class PlacesController implements Serializable {
 
 
 
+    public String getFormattedDate(Date date) {
+        
+        DateFormat dFormat = DateFormat.getDateInstance();
+        return dFormat.format(date);
+    }
+
+
+
     public Trip getSelectedTrip() {
         return selectedTrip;
     }
@@ -326,8 +334,6 @@ public class PlacesController implements Serializable {
 
 
     public void loadTrips() {
-
-       
 
         List<Trip> allTrips = session.getPlacesRepository()
                 .getTripsByDateAsc(session.getCurrentUser().getId(), tripFilterDate);
