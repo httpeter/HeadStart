@@ -154,7 +154,9 @@ public class LoginController implements Serializable {
         List<Syspage> sysPages = session.getSystemRepository().findAll(Syspage.class);
         sysPages.forEach((sp -> {
             if (!sp.getLabel().equals("admin")) {
-                tagCloudModel.addTag(new DefaultTagCloudItem(sp.getLabel(), "#", getRandomInt()));
+                tagCloudModel.addTag(new DefaultTagCloudItem(sp.getLabel(), session.getFacesContext().getExternalContext().getRequestContextPath()
+                        + "/"
+                        + sp.getValue(), getRandomInt()));
             }
         }));
     }
