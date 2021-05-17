@@ -84,27 +84,23 @@
                         rendered="#{placesController.selectedPlace.booked}"/>         
 
 
-                    <h:outputText value="Arrival *" styleClass="headerText"/>
-                    <p:inplace editor="true">
-                        <p:datePicker touchUI="true"
-                                      value="#{placesController.selectedPlace.arrivaldate}" 
-                                      pattern="dd-MM-yyyy" 
-                                      timeZone="CET"
-                                      required="true" >
-                            <f:convertDateTime pattern="dd-MM-yyyy"/>
-                        </p:datePicker>
-                    </p:inplace>
+                    <h:outputText value="Arrival *" styleClass="headerText"/>                    
+                    <p:datePicker touchUI="true"
+                                  value="#{placesController.selectedPlace.arrivaldate}" 
+                                  pattern="dd-MM-yyyy" 
+                                  timeZone="CET"
+                                  required="true" 
+                                  showTime="true"/>                                                  
 
-                    <h:outputText value="Departure *" styleClass="headerText"/>
-                    <p:inplace editor="true" >
-                        <p:datePicker touchUI="true" 
-                                      value="#{placesController.selectedPlace.departuredate}" 
-                                      pattern="dd-MM-yyyy" 
-                                      timeZone="CET"
-                                      required="true">
-                            <f:convertDateTime pattern="dd-MM-yyyy" />
-                        </p:datePicker>
-                    </p:inplace>                                                                   
+
+                    <h:outputText value="Departure *" styleClass="headerText"/>                    
+                    <p:datePicker touchUI="true" 
+                                  value="#{placesController.selectedPlace.departuredate}" 
+                                  pattern="dd-MM-yyyy" 
+                                  timeZone="CET"
+                                  required="true" 
+                                  showTime="true"/>                                                
+
 
                     <h:outputText value="Price *" styleClass="headerText"/>            
                     <p:inplace editor="true">
