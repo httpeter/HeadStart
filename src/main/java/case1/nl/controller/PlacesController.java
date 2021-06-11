@@ -414,7 +414,7 @@ public class PlacesController implements Serializable {
                         && place.getArrivaldate() != null
                         && place.getDeparturedate() != null) {
 
-                    //Filling the timeline model
+                    //Filling the timeline model                    
                     timelineModel.add(TimelineEvent.<Place>builder()
                             .data(place)
                             .startDate(Instant.ofEpochMilli(place.getArrivaldate()
