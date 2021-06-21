@@ -4,7 +4,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
- 
+
     <p:dialog header="#{labels.signupMSG}"
               modal="true" 
               widgetVar="signupDLG"
@@ -15,23 +15,26 @@
               minHeight="200"
               height="800">
 
-        <p:panelGrid columns="2" layout="grid">
-            
-            <h:outputText/>
-            <h:outputText value="Not available yet!" style="color: red"/>
+
+        
+        <p:panelGrid columns="2" layout="grid">            
+
 
             <h:outputText value="#{labels.firstName} *"/>
             <p:inputText style="width:100%" 
+                         value="#{signupController.newUser.firstname}"
                          disabled="true"/>
 
             <h:outputText value="#{labels.lastName} *"/>
-            <p:inputText style="width:100%" 
-                         disabled="true"/>
+            <p:inputText style="width:100%"/>
 
             <h:outputText value="#{labels.email} *"/>
-            <p:inputText style="width:100%" 
-                         disabled="true"/>
+            <p:inputText style="width:100%"/>
 
+            <h:outputText value="#{labels.email} *"/>
+            <p:inputText style="width:100%"/>
+
+            
             <p:commandButton icon="fa fa-save"
                              value="Save"
                              disabled="true"
@@ -47,7 +50,12 @@
                              onclick="PF('signupDLG').hide();"
                              disabled="true"/>  
 
+
         </p:panelGrid>
+
+
+
+
 
 
 

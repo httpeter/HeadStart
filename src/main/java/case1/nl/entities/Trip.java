@@ -32,8 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Trip.findAll", query = "SELECT t FROM Trip t"),
     @NamedQuery(name = "Trip.findById", query = "SELECT t FROM Trip t WHERE t.id = :id"),
-    @NamedQuery(name = "Trip.findByOwninguserid", query = "SELECT t FROM Trip t WHERE t.owninguserid = :owninguserid"),
     @NamedQuery(name = "Trip.findByName", query = "SELECT t FROM Trip t WHERE t.name = :name"),
+    @NamedQuery(name = "Trip.findByOwninguserid", query = "SELECT t FROM Trip t WHERE t.owninguserid = :owninguserid"),
     @NamedQuery(name = "Trip.findByDescription", query = "SELECT t FROM Trip t WHERE t.description = :description"),
     @NamedQuery(name = "Trip.findByNotes", query = "SELECT t FROM Trip t WHERE t.notes = :notes"),
     @NamedQuery(name = "Trip.findByHomeaddress", query = "SELECT t FROM Trip t WHERE t.homeaddress = :homeaddress"),
@@ -51,13 +51,13 @@ public class Trip implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "OWNINGUSERID")
-    private int owninguserid;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "NAME")
     private String name;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "OWNINGUSERID")
+    private int owninguserid;
     @Size(max = 1024)
     @Column(name = "DESCRIPTION")
     private String description;
@@ -76,8 +76,6 @@ public class Trip implements Serializable {
     @Size(max = 255)
     @Column(name = "TRIPSHAREURL")
     private String tripshareurl;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "STARTDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startdate;
@@ -95,11 +93,10 @@ public class Trip implements Serializable {
 
 
 
-    public Trip(Integer id, int owninguserid, String name, Date startdate) {
+    public Trip(Integer id, String name, int owninguserid) {
         this.id = id;
-        this.owninguserid = owninguserid;
         this.name = name;
-        this.startdate = startdate;
+        this.owninguserid = owninguserid;
     }
 
 
@@ -116,18 +113,6 @@ public class Trip implements Serializable {
 
 
 
-    public int getOwninguserid() {
-        return owninguserid;
-    }
-
-
-
-    public void setOwninguserid(int owninguserid) {
-        this.owninguserid = owninguserid;
-    }
-
-
-
     public String getName() {
         return name;
     }
@@ -136,6 +121,18 @@ public class Trip implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+
+    public int getOwninguserid() {
+        return owninguserid;
+    }
+
+
+
+    public void setOwninguserid(int owninguserid) {
+        this.owninguserid = owninguserid;
     }
 
 

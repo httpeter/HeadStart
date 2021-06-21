@@ -29,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Syspage.findAll", query = "SELECT s FROM Syspage s"),
     @NamedQuery(name = "Syspage.findById", query = "SELECT s FROM Syspage s WHERE s.id = :id"),
     @NamedQuery(name = "Syspage.findByLabel", query = "SELECT s FROM Syspage s WHERE s.label = :label"),
-    @NamedQuery(name = "Syspage.findByValue", query = "SELECT s FROM Syspage s WHERE s.value = :value")})
+    @NamedQuery(name = "Syspage.findByValue", query = "SELECT s FROM Syspage s WHERE s.value = :value"),
+    @NamedQuery(name = "Syspage.findByIcon", query = "SELECT s FROM Syspage s WHERE s.icon = :icon")})
 public class Syspage implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,6 +45,9 @@ public class Syspage implements Serializable {
     @Size(max = 45)
     @Column(name = "VALUE")
     private String value;
+    @Size(max = 45)
+    @Column(name = "ICON")
+    private String icon;
 
 
 
@@ -90,6 +94,18 @@ public class Syspage implements Serializable {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+
+
+    public String getIcon() {
+        return icon;
+    }
+
+
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
 
