@@ -28,27 +28,27 @@ import javax.crypto.IllegalBlockSizeException;
 @ManagedBean(eager = true)
 @SessionScoped
 public class SessionController implements Serializable {
-    
+
     private User currentUser;
-    
+
     private AESEncryptor cryptor;
-    
+
     private PlacesRepository placesRepository;
-    
+
     private FoodMomentRepository foodMomentRepository;
-    
+
     private UserRepository userRepository;
-    
+
     private SystemRepository systemRepository;
-    
+
     private DefaultRepository defaultRepository;
-    
+
     private final String persistenceUnitName = "PU";
-    
-    
-    
+
+
+
     public SessionController() {
-        
+
         if (cryptor == null) {
             try {
                 cryptor = new AESEncryptor();
@@ -56,87 +56,87 @@ public class SessionController implements Serializable {
                 Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
     }
-    
-    
-    
+
+
+
     @PostConstruct
     public void init() {
         currentUser = new User();
         currentUser.setLanguage("EN");
     }
-    
-    
-    
+
+
+
     public SystemRepository getSystemRepository() {
         if (systemRepository == null) {
             systemRepository = new SystemRepository(persistenceUnitName);
         }
         return systemRepository;
     }
-    
-    
-    
+
+
+
     public FoodMomentRepository getFoodMomentRepository() {
         if (foodMomentRepository == null) {
             foodMomentRepository = new FoodMomentRepository(persistenceUnitName);
         }
         return foodMomentRepository;
     }
-    
-    
-    
+
+
+
     public PlacesRepository getPlacesRepository() {
         if (placesRepository == null) {
             placesRepository = new PlacesRepository(persistenceUnitName);
         }
         return placesRepository;
     }
-    
-    
-    
+
+
+
     public UserRepository getUserRepository() {
         if (userRepository == null) {
             userRepository = new UserRepository(persistenceUnitName);
         }
         return userRepository;
     }
-    
-    
-    
+
+
+
     public DefaultRepository getDefaultRepository() {
         if (defaultRepository == null) {
             defaultRepository = new DefaultRepository(persistenceUnitName);
         }
         return defaultRepository;
     }
-    
-    
-    
+
+
+
     public FacesContext getFacesContext() {
-        
+
         return FacesContext.getCurrentInstance();
     }
-    
-    
-    
+
+
+
     public boolean isDevelopmentStage() {
         return getFacesContext().getApplication()
                 .getProjectStage()
                 .toString()
                 .equalsIgnoreCase("development");
     }
-    
-    
-    
+
+
+
     public String getLabelFile() {
         return getFacesContext().getExternalContext()
                 .getInitParameter("labelFile") + currentUser.getLanguage();
     }
-    
-    
-    
+
+
+
     public Properties getLabels() {
         Properties p = new Properties();
         try {
@@ -158,7 +158,7 @@ public class SessionController implements Serializable {
      * Get password from hash
      */
     public User getCurrentUser() {
-        
+
         if (this.currentUser != null
                 && this.currentUser.getPwdhash() != null
                 && this.currentUser.getPwdhash() != ""
@@ -180,13 +180,13 @@ public class SessionController implements Serializable {
      * Set password to hash
      */
     public void setCurrentUser(User currentUser) {
-        
+
         if (currentUser.getPwdhash() != null
                 && currentUser.getPwdhash() != "") {
             try {
-                
+
                 currentUser.setPwdhash(cryptor.encrypt(currentUser.getPwdhash()));
-                
+
             } catch (IOException ex) {
                 Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IllegalBlockSizeException ex) {
@@ -195,43 +195,43 @@ public class SessionController implements Serializable {
                 Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         this.currentUser = currentUser;
-        
+
     }
-    
-    
-    
-    public String getRedirectToLogin() {
-        
-        if (currentUser.getFirstname() == null) {
-            FacesContext.getCurrentInstance()
-                    .getApplication()
-                    .getNavigationHandler()
-                    .handleNavigation(FacesContext.getCurrentInstance(), null, "login.htm");
+
+
+
+    public String getRedirectToLogin() throws IOException {
+
+        if (currentUser.getFirstname() == null
+                || currentUser.getFirstname().isEmpty()) {
+
+            FacesContext.getCurrentInstance().getExternalContext().redirect("login.html");
+
         }
-        
+
         return null;
     }
-    
-    
-    
+
+
+
     public AESEncryptor getCryptor() {
         return cryptor;
     }
-    
-    
-    
+
+
+
     public void setCryptor(AESEncryptor cryptor) {
         this.cryptor = cryptor;
     }
-    
-    
-    
+
+
+
     public void saveCurrentUser() {
-        
+
         if (currentUser.getPwdhash() == "") {
-            
+
             FMessage.error("Current user could not be saved. Filled out all required fields?");
             return;
         }
@@ -248,7 +248,7 @@ public class SessionController implements Serializable {
                 Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         if (systemRepository.merged(currentUser)) {
             FMessage.info(currentUser.getFirstname()
                     + " "
@@ -256,8 +256,8 @@ public class SessionController implements Serializable {
                     + " saved.");
         } else {
             FMessage.error("User could not be saved!");
-            
+
         }
     }
-    
+
 }
