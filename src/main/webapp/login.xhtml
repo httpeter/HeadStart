@@ -49,30 +49,33 @@
                     </f:facet>
 
 
-                    <h:panelGrid columns="2">
 
-                        <h:outputText value="Email address"/>
-                        <p:inputText value="#{loginController.mail}"
-                                     required="true"
-                                     requiredMessage="Email address Required"
-                                     style="width: 150px"/>
 
-                        <h:outputText value="Password"/>
-                        <p:password value="#{loginController.pwd}" 
-                                    required="true" 
-                                    requiredMessage="Password Required"
-                                    style="width: 150px"/>
 
-                        <p:spacer/>                        
-                        <p:spacer/>                        
+                    <p:inputText placeholder="Email address"
+                                 value="#{loginController.mail}"
+                                 required="true"
+                                 requiredMessage="Email address Required"
+                                 style="width: 250px"/>
 
-                        <h:outputText/>
-                        <p:commandButton value="login" 
-                                         action="#{loginController.login()}"                              
-                                         icon="pi pi-unlock" 
-                                         ajax="false"
-                                         title="Clik to login"/>      
-                    </h:panelGrid>
+                    <br/>
+                    <br/>
+
+                    <p:password placeholder="Password"
+                                value="#{loginController.pwd}" 
+                                required="true" 
+                                requiredMessage="Password Required"
+                                style="width: 250px"/>
+
+                    <br/>
+                    <br/>
+
+                    <p:commandButton value="login" 
+                                     action="#{loginController.login()}"                              
+                                     icon="pi pi-unlock" 
+                                     ajax="false"
+                                     title="Clik to login"/>      
+
 
 
 
