@@ -178,7 +178,7 @@ public class LoginController implements Serializable {
                     .log(Level.SEVERE, null, ex);
         }
 
-        if (user != null
+        if (user != null                
                 && Validator.isEmailAddress(mail)) {
 
             FMessage.info("User "
@@ -206,6 +206,7 @@ public class LoginController implements Serializable {
     public String logout() {
         try {
             session.setCurrentUser(null);
+            session = new SessionController();
 
         } catch (Exception ex) {
             Logger.getLogger(SessionController.class.getName())
