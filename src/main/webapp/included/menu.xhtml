@@ -18,31 +18,31 @@
 
                     <p:menuitem value="#{labels.menuItemFoodMoment}" 
                                 icon="pi pi-apple"
-                                url="foodMoment.html"/>
+                                url="foodMoment"/>
 
-<!--                    <p:menuitem value="#{labels.menuItemNotes}" 
+<!--                    <p:menuitem value="{labels.menuItemNotes}" 
                                 icon="pi pi-file-o"
                                 url="notes.html"/>-->
 
                     <p:menuitem value="#{labels.menuItemComponents}" 
                                 icon="fa fa-th"
-                                url="components.html"/>   
+                                url="components"/>   
 
                     <p:menuitem value="#{labels.menuItemPlaces}" 
                                 icon="fa fa-globe"
-                                url="places.html"/>
+                                url="places"/>
 
                     <p:menuitem value="#{labels.menuItemImpactMap}" 
                                 icon="pi pi-sitemap"
-                                url="impactMap.html"/>
+                                url="impactMap"/>
 
                     <p:menuitem value="#{labels.menuItemRemarkable}" 
                                 icon="pi pi-table"
-                                url="remarkable.html"/>
+                                url="remarkable"/>
 
                     <p:menuitem value="#{labels.menuItemCRM}" 
                                 icon="pi pi-users"
-                                url="index.html"/>
+                                url="index"/>
 
                 </p:submenu>
 
@@ -67,12 +67,12 @@
                     <p:menuitem value="#{labels.menuItemAdmin}" 
                                 disabled="#{sessionController.currentUser.role!= 'admin'}"
                                 icon="fa fa-gear"
-                                url="admin.html"/> 
+                                url="admin"/> 
 
                     <p:menuitem  value="Logout"                      
                                  disabled="#{sessionController.currentUser==null}"                    
                                  icon="pi pi-lock"
-                                 url="login.html"/>
+                                 url="login"/>
 
 
                 </p:submenu>

@@ -10,35 +10,11 @@
     </context-param>
   
        
-    
-    <!--    <filter>
-        <filter-name>ExpiresFilter</filter-name>
-        <filter-class>org.apache.catalina.filters.ExpiresFilter</filter-class>
-        <init-param>
-            <param-name>ExpiresByType image</param-name>
-            <param-value>access plus 1 month</param-value>
-        </init-param>
-        <init-param>
-            <param-name>ExpiresByType text/css</param-name>
-            <param-value>access plus 1 month</param-value>
-        </init-param>
-        <init-param>
-            <param-name>ExpiresByType application/javascript</param-name>
-            <param-value>access plus 1 month</param-value>
-        </init-param>
-    </filter>-->
-    
-    <!--    <filter-mapping>
-        <filter-name>ExpiresFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-    </filter-mapping>    -->
-    
-    <context-param>
+<!--    <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>saga</param-value>
-    </context-param> 
-    
+    </context-param>
+         -->
     <context-param>
         <param-name>javax.faces.ENABLE_WEBSOCKET_ENDPOINT</param-name>
         <param-value>true</param-value>       
@@ -95,10 +71,31 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    <servlet-mapping>
+<!--    <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.html</url-pattern>
+    </servlet-mapping>-->
+    
+    
+    <servlet-mapping>
+        
+      <servlet-name>Faces Servlet</servlet-name>      
+      <url-pattern>*.xhtml</url-pattern>
+
+      <url-pattern>/admin</url-pattern>
+      <url-pattern>/components</url-pattern>
+      <url-pattern>/flenderreport</url-pattern>
+      <url-pattern>/foodMoment</url-pattern>
+      <url-pattern>/impactMap</url-pattern>
+      <url-pattern>/index</url-pattern>
+      <url-pattern>/login</url-pattern>
+      <url-pattern>/places</url-pattern>
+      <url-pattern>/remarkable</url-pattern>
+      
     </servlet-mapping>
+    
+    
+    
     <session-config>
         <session-timeout>
             20
@@ -108,7 +105,7 @@
         </tracking-mode>
     </session-config>
     <welcome-file-list>
-        <welcome-file>login.html</welcome-file>
+        <welcome-file>/login</welcome-file>
     </welcome-file-list>
     <error-page>
         <error-code>404</error-code>
