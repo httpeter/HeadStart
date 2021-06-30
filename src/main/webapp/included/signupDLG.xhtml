@@ -22,41 +22,44 @@
 
 
         <p:inputText placeholder="#{labels.firstName}" 
-                     style="width:100%" 
                      value="#{signupController.newUser.firstname}"/>
 
+        <br/>
+        <br/>
+
         <p:inputText placeholder="#{labels.lastName}" 
-                     style="width:100%" 
-                     value="#{labels.lastName}"/>
+                     value="#{signupController.newUser.lastname}"/>
 
-        <h:outputText value="#{labels.email} *"/>
-        <p:inputText style="width:100%"/>
+        <br/>
+        <br/>
 
-        <h:outputText value="#{labels.email} *"/>
-        <p:inputText style="width:100%"/>
 
+        <p:inputText placeholder="#{labels.email} *" 
+                     value="#{signupController.newUser.email}"/>
+
+        <br/>
+        <br/>
 
         <p:commandButton icon="fa fa-save"
                          value="Save"
                          disabled="true"
                          oncomplete="PF('signupDLG').hide();"
                          update="@form"/>                               
+        <br/>
+        <br/>
+
         <p:commandButton icon="fa fa-ban" 
                          value="Cancel"
                          onclick="PF('signupDLG').hide();"/>  
 
-        <h:outputText/>
+
+        <br/>
+        <br/>
+
         <p:commandButton icon="fa fa-ban" 
                          value="Delete"
                          onclick="PF('signupDLG').hide();"
                          disabled="true"/>  
-
-
-
-
-
-
-
 
 
 

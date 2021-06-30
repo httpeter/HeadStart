@@ -14,7 +14,9 @@
               minWidth="400"              
               width="90%"
               minHeight="200"              
-              height="600">
+              height="600" 
+              showEffect="size"
+              hideEffect="size">
 
         <p:tabView>
 
@@ -29,7 +31,7 @@
                             #{placesController.selectedPlace.lng}" 
                             zoom="13" 
                             type="map" 
-                            style="width:200px;height:200px"
+                            style="width:250px;height:250px"
                             model="#{placesController.mapModelDetail}"/>                                                    
 
                     <p:graphicImage url="#{placesController.selectedPlace.imgurls}" 
