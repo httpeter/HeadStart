@@ -10,11 +10,13 @@
     </context-param>
   
        
-<!--    <context-param>
+<!-- <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>saga</param-value>
     </context-param>
-         -->
+-->
+
+         
     <context-param>
         <param-name>javax.faces.ENABLE_WEBSOCKET_ENDPOINT</param-name>
         <param-value>true</param-value>       
@@ -90,7 +92,7 @@
       <url-pattern>/index</url-pattern>
       <url-pattern>/login</url-pattern>
       <url-pattern>/places</url-pattern>
-      <url-pattern>/remarkable</url-pattern>
+      <url-pattern>/remarkable</url-pattern>      
       
     </servlet-mapping>
     

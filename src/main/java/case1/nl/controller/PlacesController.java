@@ -54,7 +54,9 @@ public class PlacesController implements Serializable {
 
     private Trip newTrip = new Trip();
 
-    private int selectedTripDuration;
+    private int selectedTripDuration,
+            tripTabSelected = 1;
+    ;
 
     private List<Place> places;
 
@@ -85,6 +87,18 @@ public class PlacesController implements Serializable {
 
     public void setSelectedTripIcal(String selectedTripIcal) {
         this.selectedTripIcal = selectedTripIcal;
+    }
+
+
+
+    public int getTripTabSelected() {
+        return tripTabSelected;
+    }
+
+
+
+    public void setTripTabSelected(int tripTabSelected) {
+        this.tripTabSelected = tripTabSelected;
     }
 
 
@@ -266,7 +280,7 @@ public class PlacesController implements Serializable {
 
 
     public String getFormattedDate(Date date) {
-        
+
         DateFormat dFormat = DateFormat.getDateInstance();
         return dFormat.format(date);
     }

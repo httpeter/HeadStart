@@ -198,7 +198,7 @@ public class LoginController implements Serializable {
             FMessage.warn("Problem logging in user '"
                     + mail
                     + "'.");
-            return "login.html";
+            return "login";
         }
     }
 
@@ -214,7 +214,7 @@ public class LoginController implements Serializable {
                     .log(Level.SEVERE, null, ex);
         }
 
-        return "login.html";
+        return "login";
     }
 
 

@@ -41,307 +41,321 @@
 
 
             <p:card id="tripCard"
-                    style="min-width: 93%" 
-                    header="#{sessionController.currentUser.firstname}'s Trips in 
-                    #{placesController.currentYear} (#{placesController.vacationDaysLeft}/#{sessionController.currentUser.vacationdays} 
-                    vacation days left)">
+                    style="min-width: 93%">
+
+                <p:autoUpdate/>
 
 
-
-
-
+                <f:facet name="title">
+                    #{sessionController.currentUser.firstname}'s 
+                    Trips in #{placesController.currentYear} 
+                    (#{placesController.vacationDaysLeft}/#{sessionController.currentUser.vacationdays} 
+                    vacation days left)
+                </f:facet>
 
                 <!--Trip overview-->                
-                <p:panelGrid columns="2" 
-                             layout="grid">
+                <p:tabView id="tripTabView"                            
+                           activeIndex="#{placesController.tripTabSelected}">
+
+                    <p:tab title="Overview">
+                                                
+
+                        <h4>in progress..</h4>
+
+                    </p:tab>
 
 
-                    <h:panelGrid >
+                    <p:tab id="tripDetailTab" 
+                           title="Trips">
+                        
+                        
+                        <p:panelGrid columns="2" 
+                                     layout="grid">
 
-                        <p:badge severity="info" 
-                                 value="#{placesController.trips.size()}">
-                            <p:selectOneMenu value="#{placesController.selectedTripID}" 
-                                             style="width:320px">
-                                <f:selectItem itemLabel="select..."
-                                              itemValue="0"
-                                              rendered="#{placesController.selectedTripID==0}"/>
-                                <f:selectItems value="#{placesController.trips}" 
-                                               var="trip" 
-                                               itemValue="#{trip.id}" 
-                                               itemLabel="#{trip.name},                                                
-                                               #{placesController.getFormattedDate(trip.startdate)}"/>
-                                <p:ajax listener="#{placesController.loadPlaces()}"
-                                        update="mainForm:tripCard"/>                                        
-                            </p:selectOneMenu> 
-                        </p:badge>
+
+
+                            <h:panelGrid>
+
+                                <p:badge severity="info" 
+                                         value="#{placesController.trips.size()}">
+                                    <p:selectOneMenu value="#{placesController.selectedTripID}" 
+                                                     style="width:320px">
+                                        <f:selectItem itemLabel="select..."
+                                                      itemValue="0"
+                                                      rendered="#{placesController.selectedTripID==0}"/>
+                                        <f:selectItems value="#{placesController.trips}" 
+                                                       var="trip" 
+                                                       itemValue="#{trip.id}" 
+                                                       itemLabel="#{trip.name},                                                
+                                                       #{placesController.getFormattedDate(trip.startdate)}"/>
+                                        <p:ajax listener="#{placesController.loadPlaces()}"/>                                        
+                                    </p:selectOneMenu> 
+                                </p:badge>
+
+                                <br/>
+
+                                <h:panelGrid columns="3">
+
+                                    <h:outputText value="Trips since"/>                            
+
+                                    <h:outputText value=":"/>                            
+
+                                    <p:inplace editor="true" >
+                                        <p:datePicker touchUI="true" 
+                                                      value="#{placesController.tripFilterDate}" 
+                                                      pattern="dd-MM-yyyy" 
+                                                      timeZone="CET">
+                                            <p:ajax listener="#{placesController.loadTrips()}"
+                                                    event="dateSelect"/>
+                                            <f:convertDateTime pattern="dd-MM-yyyy" />
+                                        </p:datePicker>
+                                    </p:inplace>   
+
+                                </h:panelGrid>
+
+                            </h:panelGrid>
+
+
+
+                            <h:panelGrid columns="3" rendered="#{placesController.selectedTripID!=0}">
+
+                                <h:outputText value="Name" styleClass="headerText"/>
+                                <h:outputText value=":"/>
+                                <h:outputText value="#{placesController.selectedTrip.name}"/>
+
+                                <h:outputText/>
+                                <h:outputText/>
+                                <h:outputText/>
+
+                                <h:outputText value="Startdate" styleClass="headerText"/>
+                                <h:outputText value=":"/>
+                                <h:outputText value="#{placesController.selectedTrip.startdate}"
+                                              rendered="#{placesController.selectedTripID!=0}">
+                                    <f:convertDateTime pattern="dd-MM-yyyy" />
+                                </h:outputText>
+
+                                <h:outputText/>
+                                <h:outputText/>
+                                <h:outputText/>
+
+                                <h:outputText value="Description" styleClass="headerText"/>
+                                <h:outputText value=":"/>
+                                <h:outputText value="#{placesController.selectedTrip.description}" 
+                                              rendered="#{placesController.selectedTripID!=0}"/>
+
+                                <h:outputText/>
+                                <h:outputText/>
+                                <h:outputText/>
+
+                                <h:outputText value="Duration" styleClass="headerText"/>
+                                <h:outputText value=":"/>
+                                <h:outputText value="#{placesController.selectedTripDuration} days" 
+                                              rendered="#{placesController.selectedTripID!=0}"/>
+
+                                <h:outputText/>
+                                <h:outputText/>
+                                <h:outputText/>
+
+                                <h:outputText value="Total price" styleClass="headerText"/>
+                                <h:outputText value=":"/>
+                                <h:outputText value="€ #{placesController.totalPrice},-"
+                                              rendered="#{placesController.selectedTripID!=0}"/>
+
+                                <h:outputText/>
+                                <h:outputText/>
+                                <h:outputText/>
+
+                                <h:outputText value="Still to pay" styleClass="headerText"/>
+                                <h:outputText value=":"/>
+                                <h:outputText value="€ #{placesController.stillToPay},-"
+                                              rendered="#{placesController.selectedTripID!=0}"
+                                              style="color:red; font-weight: bold"/>
+
+                                <h:outputText/>
+                                <h:outputText/>
+                                <h:outputText/>
+
+                                <h:outputText value="Notes" styleClass="headerText"/>
+                                <h:outputText value=":"/>                        
+                                <p:inputTextarea disabled="true" 
+                                                 value="#{placesController.selectedTrip.notes}"/>
+                                <h:outputText/>
+                                <h:outputText/>
+                                <h:outputText/>
+
+                                <h:outputText/>
+                                <h:outputText/>
+                                <p:commandButton icon="fa fa-gear"                                                  
+                                                 onclick="PF('tripEditDLG').show();" 
+                                                 rendered="#{placesController.selectedTripID!=0}"
+                                                 value="Edit trip"/>
+
+
+                            </h:panelGrid>                         
+
+
+
+
+                            <p:panelGrid columns="2">
+
+                                <!--Trips-->                                                                         
+                                <p:menuButton value="Trip" 
+                                              icon="fa fa-car">
+                                    <p:menuitem icon="fa fa-plus"
+                                                oncomplete="PF('addTripDLG').show();"
+                                                value="Add trip"
+                                                action="#{placesController.makeNewTrip()}"/>                                                    
+
+                                    <p:menuitem icon="fa fa-gear"                                                  
+                                                onclick="PF('tripEditDLG').show();" 
+                                                rendered="#{placesController.selectedTripID!=0}"
+                                                value="Edit trip"/>    
+
+                                    <p:menuitem icon="fa fa-trash"                                                  
+                                                onclick="PF('tripDeleteDLG').show();" 
+                                                rendered="#{sessionController.currentUser.role == 'admin'}"
+                                                value="Delete trip"/>
+
+                                </p:menuButton>
+
+
+                                <!--Places-->
+                                <p:badge value="#{placesController.places.size()}"
+                                         rendered="#{placesController.places.size()!=null}"
+                                         severity="warning">
+                                    <p:commandButton value="Add place" 
+                                                     icon="pi pi-map-marker"                                         
+                                                     action="#{placesController.makeNewPlace()}"
+                                                     rendered="#{placesController.places.size()!=null}"/>                            
+                                </p:badge>
+
+                            </p:panelGrid>        
+
+
+                            <p:galleria value="#{placesController.gallery}" 
+                                        var="image"                                
+                                        effectSpeed="1000"
+                                        rendered="#{placesController.selectedTripID!=0}" 
+                                        panelWidth="300"
+                                        panelHeight="200"
+                                        showFilmstrip="true">
+                                <p:graphicImage url="#{image}"
+                                                width="300"/>
+                            </p:galleria>         
+                            <h:outputText rendered="#{placesController.selectedTripID!=0}"/>
+
+
+                        </p:panelGrid>
+
+
+
+                        <p:divider rendered="#{placesController.selectedTripID!=0}"/>
+                        <h:outputText rendered="#{placesController.selectedTripID!=0}"/>
+
+
+
+
+
+
+
+
+
+
+
+                        <br/>   
+
+
+
+
+                        <!--Timeline-->
+                        <p:timeline id="timeline" 
+                                    value="#{placesController.timelineModel}"
+                                    var="timelinePlace"
+                                    zoomable="false">
+
+                            <h:outputText value="#{timelinePlace.name} (#{timelinePlace.country})" 
+                                          style="font-weight: bold"/>
+                            <h:outputText value=" (optional)" 
+                                          style="font-weight: bold; color: red"
+                                          rendered="#{timelinePlace.optional}"/>                                       
+                            <br/>
+                            <h:outputText value="#{placesController.getSelectedPlaceTotalDays(timelinePlace.arrivaldate, 
+                                                   timelinePlace.departuredate)} days"/>
+                            <br/>                   
+
+                            <h:outputText value="Booked: "/>
+                            <h:outputText value="☑" rendered="#{timelinePlace.booked}"/>
+                            <h:outputText value="☐" rendered="#{timelinePlace.booked==false}"/>
+                            <br/>
+                            <h:outputText value="Payed: "/>                        
+                            <h:outputText value="☑" rendered="#{timelinePlace.payed}"/>
+                            <h:outputText value="☐" rendered="#{timelinePlace.payed==false}"/>
+
+                            <p:ajax event="select" 
+                                    listener="#{placesController.timelineSelect}"
+                                    update="@form"/>
+
+                        </p:timeline>
+
+
+
+
+
+
+
+
+
+
+
+
 
                         <br/>
 
-                        <h:panelGrid columns="3">
 
-                            <h:outputText value="Trips since"/>                            
 
-                            <h:outputText value=":"/>                            
 
-                            <p:inplace editor="true" >
-                                <p:datePicker touchUI="true" 
-                                              value="#{placesController.tripFilterDate}" 
-                                              pattern="dd-MM-yyyy" 
-                                              timeZone="CET">
-                                    <p:ajax listener="#{placesController.loadTrips()}"
-                                            event="dateSelect"
-                                            update="@form"/>
-                                    <f:convertDateTime pattern="dd-MM-yyyy" />
-                                </p:datePicker>
-                            </p:inplace>   
 
-                        </h:panelGrid>
 
-                    </h:panelGrid>
 
 
 
-                    <h:panelGrid columns="3" rendered="#{placesController.selectedTripID!=0}">
 
-                        <h:outputText value="Name" styleClass="headerText"/>
-                        <h:outputText value=":"/>
-                        <h:outputText value="#{placesController.selectedTrip.name}"/>
 
-                        <h:outputText/>
-                        <h:outputText/>
-                        <h:outputText/>
 
-                        <h:outputText value="Startdate" styleClass="headerText"/>
-                        <h:outputText value=":"/>
-                        <h:outputText value="#{placesController.selectedTrip.startdate}"
-                                      rendered="#{placesController.selectedTripID!=0}">
-                            <f:convertDateTime pattern="dd-MM-yyyy" />
-                        </h:outputText>
+                        <!--Map-->
+                        <p:panelGrid id="map"
+                                     layout="grid" 
+                                     columns="1"
+                                     rendered="#{placesController.selectedTripID!=0}"> 
 
-                        <h:outputText/>
-                        <h:outputText/>
-                        <h:outputText/>
+                            <p:gmap id="gmap" 
+                                    widgetVar="gmap" 
+                                    center="#{sessionController.currentUser.homeaddresslattitude}, 
+                                    #{sessionController.currentUser.homeaddresslongitude}" 
+                                    zoom="5" 
+                                    type="map" 
+                                    style="width: auto;height:400px"
+                                    model="#{placesController.mapModel}"
+                                    onPointClick="pointSelect">
 
-                        <h:outputText value="Description" styleClass="headerText"/>
-                        <h:outputText value=":"/>
-                        <h:outputText value="#{placesController.selectedTrip.description}" 
-                                      rendered="#{placesController.selectedTripID!=0}"/>
-
-                        <h:outputText/>
-                        <h:outputText/>
-                        <h:outputText/>
+                                <p:ajax event="pointSelect" 
+                                        listener="#{placesController.mapSelect}" 
+                                        update="@form" />
+                            </p:gmap>
 
-                        <h:outputText value="Duration" styleClass="headerText"/>
-                        <h:outputText value=":"/>
-                        <h:outputText value="#{placesController.selectedTripDuration} days" 
-                                      rendered="#{placesController.selectedTripID!=0}"/>
+                        </p:panelGrid>
 
-                        <h:outputText/>
-                        <h:outputText/>
-                        <h:outputText/>
 
-                        <h:outputText value="Total price" styleClass="headerText"/>
-                        <h:outputText value=":"/>
-                        <h:outputText value="€ #{placesController.totalPrice},-"
-                                      rendered="#{placesController.selectedTripID!=0}"/>
 
-                        <h:outputText/>
-                        <h:outputText/>
-                        <h:outputText/>
 
-                        <h:outputText value="Still to pay" styleClass="headerText"/>
-                        <h:outputText value=":"/>
-                        <h:outputText value="€ #{placesController.stillToPay},-"
-                                      rendered="#{placesController.selectedTripID!=0}"
-                                      style="color:red; font-weight: bold"/>
 
-                        <h:outputText/>
-                        <h:outputText/>
-                        <h:outputText/>
 
-                        <h:outputText value="Notes" styleClass="headerText"/>
-                        <h:outputText value=":"/>                        
-                        <p:inputTextarea disabled="true" 
-                                         value="#{placesController.selectedTrip.notes}"/>
-                        <h:outputText/>
-                        <h:outputText/>
-                        <h:outputText/>
 
-                        <h:outputText/>
-                        <h:outputText/>
-                        <p:commandButton icon="fa fa-gear"                                                  
-                                         onclick="PF('tripEditDLG').show();" 
-                                         rendered="#{placesController.selectedTripID!=0}"
-                                         value="Edit trip"/>
+                    </p:tab>
 
 
-                    </h:panelGrid>                         
 
-
-
-
-                    <p:panelGrid columns="2">
-
-                        <!--Trips-->                                                                         
-                        <p:menuButton value="Trip" 
-                                      icon="fa fa-car">
-                            <p:menuitem icon="fa fa-plus"
-                                        oncomplete="PF('addTripDLG').show();"
-                                        value="Add trip"
-                                        action="#{placesController.makeNewTrip()}"/>                                                    
-
-                            <p:menuitem icon="fa fa-gear"                                                  
-                                        onclick="PF('tripEditDLG').show();" 
-                                        rendered="#{placesController.selectedTripID!=0}"
-                                        value="Edit trip"/>    
-
-                            <p:menuitem icon="fa fa-trash"                                                  
-                                        onclick="PF('tripDeleteDLG').show();" 
-                                        rendered="#{sessionController.currentUser.role == 'admin'}"
-                                        value="Delete trip"/>
-
-                        </p:menuButton>
-
-
-                        <!--Places-->
-                        <p:badge value="#{placesController.places.size()}"
-                                 rendered="#{placesController.places.size()!=null}"
-                                 severity="warning">
-                            <p:commandButton value="Add place" 
-                                             icon="pi pi-map-marker"                                         
-                                             action="#{placesController.makeNewPlace()}"
-                                             rendered="#{placesController.places.size()!=null}"/>                            
-                        </p:badge>
-
-                    </p:panelGrid>        
-
-
-                    <p:galleria value="#{placesController.gallery}" 
-                                var="image"                                
-                                effectSpeed="1000"
-                                rendered="#{placesController.selectedTripID!=0}" 
-                                panelWidth="300"
-                                panelHeight="200"
-                                showFilmstrip="true">
-                        <p:graphicImage url="#{image}"
-                                        width="300"/>
-                    </p:galleria>         
-                    <h:outputText rendered="#{placesController.selectedTripID!=0}"/>
-
-
-                </p:panelGrid>
-
-
-                <p:divider rendered="#{placesController.selectedTripID!=0}"/>
-                <h:outputText rendered="#{placesController.selectedTripID!=0}"/>
-
-
-
-
-
-
-
-
-
-
-
-                <br/>   
-
-
-
-
-
-
-
-
-
-
-
-                <!--Timeline-->
-                <p:timeline id="timeline" 
-                            value="#{placesController.timelineModel}"
-                            var="timelinePlace"
-                            zoomable="false">
-
-                    <h:outputText value="#{timelinePlace.name} (#{timelinePlace.country})" 
-                                  style="font-weight: bold"/>
-                    <h:outputText value=" (optional)" 
-                                  style="font-weight: bold; color: red"
-                                  rendered="#{timelinePlace.optional}"/>                                       
-                    <br/>
-                    <h:outputText value="#{placesController.getSelectedPlaceTotalDays(timelinePlace.arrivaldate, 
-                                           timelinePlace.departuredate)} days"/>
-                    <br/>                   
-
-                    <h:outputText value="Booked: "/>
-                    <h:outputText value="☑" rendered="#{timelinePlace.booked}"/>
-                    <h:outputText value="☐" rendered="#{timelinePlace.booked==false}"/>
-                    <br/>
-                    <h:outputText value="Payed: "/>                        
-                    <h:outputText value="☑" rendered="#{timelinePlace.payed}"/>
-                    <h:outputText value="☐" rendered="#{timelinePlace.payed==false}"/>
-
-                    <p:ajax event="select" 
-                            listener="#{placesController.timelineSelect}"
-                            update="@form"/>
-
-                </p:timeline>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <br/>
-
-
-
-
-
-
-
-
-
-
-
-
-                <!--Map-->
-                <p:panelGrid id="map"
-                             layout="grid" 
-                             columns="1"
-                             rendered="#{placesController.selectedTripID!=0}"> 
-
-                    <p:gmap id="gmap" 
-                            widgetVar="gmap" 
-                            center="#{sessionController.currentUser.homeaddresslattitude}, 
-                            #{sessionController.currentUser.homeaddresslongitude}" 
-                            zoom="5" 
-                            type="map" 
-                            style="width: auto;height:400px"
-                            model="#{placesController.mapModel}"
-                            onPointClick="pointSelect">
-
-                        <p:ajax event="pointSelect" 
-                                listener="#{placesController.mapSelect}" 
-                                update="@form" />
-                    </p:gmap>
-
-                </p:panelGrid>
-
-
-
-
-
-
-
-
+                </p:tabView>
 
 
 
