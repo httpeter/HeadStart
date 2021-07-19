@@ -58,17 +58,22 @@
                            activeIndex="#{placesController.tripTabSelected}">
 
                     <p:tab title="Overview">
-                                                
 
-                        <h4>in progress..</h4>
+
+                        <h4>Trips coming up:</h4>
+
+                        <ui:repeat value="#{placesController.trips}" var="trip">                            
+                            <h:outputText value="#{trip.name} - #{trip.description}"/>
+                            <br/>                                                                                                           
+                        </ui:repeat>
 
                     </p:tab>
 
 
                     <p:tab id="tripDetailTab" 
                            title="Trips">
-                        
-                        
+
+
                         <p:panelGrid columns="2" 
                                      layout="grid">
 

@@ -55,8 +55,8 @@ public class PlacesController implements Serializable {
     private Trip newTrip = new Trip();
 
     private int selectedTripDuration,
-            tripTabSelected = 1;
-    ;
+            tripTabSelected = 0;
+    
 
     private List<Place> places;
 
