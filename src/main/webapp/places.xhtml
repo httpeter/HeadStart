@@ -41,9 +41,7 @@
 
 
             <p:card id="tripCard"
-                    style="min-width: 93%">
-
-                <p:autoUpdate/>
+                    style="min-width: 93%">                
 
 
                 <f:facet name="title">
@@ -53,11 +51,14 @@
                     vacation days left)
                 </f:facet>
 
+
                 <!--Trip overview-->                
                 <p:tabView id="tripTabView"                            
-                           activeIndex="#{placesController.tripTabSelected}">
+                           activeIndex="#{placesController.tripTabSelected}"
+                           dynamic="true">
 
-                    <p:tab title="Overview">
+
+                    <p:tab title="Overview">                        
 
 
                         <h4>Trips coming up:</h4>
@@ -70,8 +71,11 @@
                     </p:tab>
 
 
+
+
                     <p:tab id="tripDetailTab" 
                            title="Trips">
+
 
 
                         <p:panelGrid columns="2" 
@@ -93,7 +97,7 @@
                                                        itemValue="#{trip.id}" 
                                                        itemLabel="#{trip.name},                                                
                                                        #{placesController.getFormattedDate(trip.startdate)}"/>
-                                        <p:ajax listener="#{placesController.loadPlaces()}"/>                                        
+                                        <p:ajax listener="#{placesController.loadPlaces()}" update="@form"/>                                        
                                     </p:selectOneMenu> 
                                 </p:badge>
 
@@ -111,7 +115,8 @@
                                                       pattern="dd-MM-yyyy" 
                                                       timeZone="CET">
                                             <p:ajax listener="#{placesController.loadTrips()}"
-                                                    event="dateSelect"/>
+                                                    event="dateSelect"
+                                                    update="@form"/>
                                             <f:convertDateTime pattern="dd-MM-yyyy" />
                                         </p:datePicker>
                                     </p:inplace>   

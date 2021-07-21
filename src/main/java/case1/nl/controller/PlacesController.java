@@ -56,7 +56,6 @@ public class PlacesController implements Serializable {
 
     private int selectedTripDuration,
             tripTabSelected = 0;
-    
 
     private List<Place> places;
 
@@ -260,7 +259,11 @@ public class PlacesController implements Serializable {
 
 
     public int getSelectedTripID() {
-        return selectedTrip.getId();
+        int id = 0;
+        if (selectedTrip.getId() != null) {
+            id = selectedTrip.getId();
+        }
+        return id;
     }
 
 
@@ -400,7 +403,7 @@ public class PlacesController implements Serializable {
         newPlace = new Place();
         totalPrice = 0;
         stillToPay = 0;
-        selectedTripDuration = 0;
+        selectedTripDuration = 0;        
 
         if (selectedTrip.getId() != 0) {
             places = session.getPlacesRepository()
