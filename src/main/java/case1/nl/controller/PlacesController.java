@@ -71,7 +71,7 @@ public class PlacesController implements Serializable {
             currentYear = Calendar.getInstance().get(Calendar.YEAR),
             vacationDaysLeft;
 
-    private Date tripFilterDate = new Date();
+    private Date tripFilterDate;
 
     private String selectedTripIcal;
 
@@ -324,6 +324,17 @@ public class PlacesController implements Serializable {
     @PostConstruct
     public void init() {
 
+        //Set trip filter date
+        Date monthAgo = new Date();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(monthAgo);
+        calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) - 1);
+
+        monthAgo = calendar.getTime();
+
+        tripFilterDate = monthAgo;
+
         try {
             //Load Trips
             loadTrips();
@@ -382,16 +393,12 @@ public class PlacesController implements Serializable {
 
             });
             session.getCurrentUser().setVacationdaysleft(vacationDaysLeft);
-            if(session.getUserRepository().persisted(session.getCurrentUser()))
-            {
+            if (session.getUserRepository().persisted(session.getCurrentUser())) {
                 FMessage.info("Vacation days saved");
-            }
-            else
-            {
+            } else {
                 FMessage.error("Could not save vacation days");
             }
-            
-            
+
         }
     }
 
