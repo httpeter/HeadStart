@@ -114,18 +114,6 @@ public class PlacesController implements Serializable {
 
 
 
-    public int getVacationDaysLeft() {
-        return vacationDaysLeft;
-    }
-
-
-
-    public void setVacationDaysLeft(int vacationDaysLeft) {
-        this.vacationDaysLeft = vacationDaysLeft;
-    }
-
-
-
     public int getCurrentYear() {
         return currentYear;
     }
@@ -367,13 +355,13 @@ public class PlacesController implements Serializable {
         selectedTrip = new Trip();
         selectedTrip.setId(0);
 
-        calculateVacationdaysLeft();
+        calculateAndSaveVacationdaysLeft();
 
     }
 
 
 
-    private void calculateVacationdaysLeft() {
+    private void calculateAndSaveVacationdaysLeft() {
 
         vacationDaysLeft = session.getCurrentUser().getVacationdays();
 
@@ -393,6 +381,17 @@ public class PlacesController implements Serializable {
                 });
 
             });
+            session.getCurrentUser().setVacationdaysleft(vacationDaysLeft);
+            if(session.getUserRepository().persisted(session.getCurrentUser()))
+            {
+                FMessage.info("Vacation days saved");
+            }
+            else
+            {
+                FMessage.error("Could not save vacation days");
+            }
+            
+            
         }
     }
 
@@ -403,7 +402,7 @@ public class PlacesController implements Serializable {
         newPlace = new Place();
         totalPrice = 0;
         stillToPay = 0;
-        selectedTripDuration = 0;        
+        selectedTripDuration = 0;
 
         if (selectedTrip.getId() != 0) {
             places = session.getPlacesRepository()

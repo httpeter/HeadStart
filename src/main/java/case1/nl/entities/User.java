@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "User.findByHomeaddresslongitude", query = "SELECT u FROM User u WHERE u.homeaddresslongitude = :homeaddresslongitude"),
     @NamedQuery(name = "User.findByCountry", query = "SELECT u FROM User u WHERE u.country = :country"),
     @NamedQuery(name = "User.findByVacationdays", query = "SELECT u FROM User u WHERE u.vacationdays = :vacationdays"),
+    @NamedQuery(name = "User.findByVacationdaysleft", query = "SELECT u FROM User u WHERE u.vacationdaysleft = :vacationdaysleft"),
     @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role"),
     @NamedQuery(name = "User.findByLanguage", query = "SELECT u FROM User u WHERE u.language = :language"),
     @NamedQuery(name = "User.findByFirstname", query = "SELECT u FROM User u WHERE u.firstname = :firstname"),
@@ -71,6 +72,8 @@ public class User implements Serializable {
     private String country;
     @Column(name = "VACATIONDAYS")
     private Integer vacationdays;
+    @Column(name = "VACATIONDAYSLEFT")
+    private Integer vacationdaysleft;
     @Size(max = 45)
     @Column(name = "ROLE")
     private String role;
@@ -205,6 +208,18 @@ public class User implements Serializable {
 
     public void setVacationdays(Integer vacationdays) {
         this.vacationdays = vacationdays;
+    }
+
+
+
+    public Integer getVacationdaysleft() {
+        return vacationdaysleft;
+    }
+
+
+
+    public void setVacationdaysleft(Integer vacationdaysleft) {
+        this.vacationdaysleft = vacationdaysleft;
     }
 
 
